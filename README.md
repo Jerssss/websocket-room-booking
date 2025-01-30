@@ -8,9 +8,9 @@ This system allows students to reserve computer terminals and equipment for stud
 
 
 ## Collaborators
-• ANG-ANGCO, Jeremiah
-• ESPERANZATE, Anjelo
-• FLORES, Alyson Gabriel 
-• GRABANZOR, Giana Kristy
-• MOLINA, Bernard Sebasthian
-• TENORIO, Kristelle Maye
+- ANG-ANGCO, Jeremiah
+- ESPERANZATE, Anjelo
+- FLORES, Alyson Gabriel 
+- GRABANZOR, Giana Kristy
+- MOLINA, Bernard Sebasthian
+- TENORIO, Kristelle Maye
