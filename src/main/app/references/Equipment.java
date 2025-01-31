@@ -2,7 +2,7 @@ package references;
 
 import java.io.Serializable;
 
-public abstract class Equipment implements Serializable {
+public class Equipment implements Serializable {
 
     private String name;
     private String description;

@@ -5,7 +5,15 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import client.controller.ClientController;
 import client.view.ClientView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import references.Equipment;
+import server.ServerSide;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -134,6 +142,12 @@ public class ClientSide extends Application {
         scanner.nextLine();  // Consume newline
 
         switch (option) {
+            case 1:
+                addNewEquipment(scanner);
+                break;
+            case 2:
+                viewEquipment();
+                break;
             case 8:
                 out.println("<logout/>");
                 System.out.println("Logged out successfully.");
@@ -173,4 +187,67 @@ public class ClientSide extends Application {
         new ClientController(view);
     }
 
+    private static void addNewEquipment(Scanner scanner) {
+        System.out.print("Enter Equipment Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter Description: ");
+        String description = scanner.nextLine();
+
+        System.out.print("Enter Equipment Type (H for Hardware, T for Terminal): ");
+        char type = scanner.nextLine().toUpperCase().charAt(0);
+
+        System.out.print("Enter Amount Borrowed: ");
+        int amountBorrowed = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        Equipment equipment = new Equipment(name, description, type, amountBorrowed);
+
+        String equipmentXML = "<equipment>\n" +
+                "    <name>" + equipment.getName() + "</name>\n" +
+                "    <description>" + equipment.getDescription() + "</description>\n" +
+                "    <type>" + equipment.getType() + "</type>\n" +
+                "    <amountBorrowed>" + equipment.getAmountBorrowed() + "</amountBorrowed>\n" +
+                "</equipment>\n";
+
+        ServerSide.createAdminResource(equipmentXML);
+        System.out.println("Equipment added successfully!");
+    }
+
+    private static void viewEquipment() {
+        String equipmentData = ServerSide.readAdminResources("all");
+
+        if (equipmentData == null || equipmentData.trim().isEmpty() || equipmentData.equals("<data></data>")) {
+            System.out.println("No terminals or equipment available at this time.");
+        } else {
+            try {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document document = builder.parse(new org.xml.sax.InputSource(new StringReader("<root>" + equipmentData + "</root>")));
+
+                NodeList equipmentList = document.getElementsByTagName("equipment");
+                System.out.println("Available Terminals/Equipment:");
+
+                for (int i = 0; i < equipmentList.getLength(); i++) {
+                    Node node = equipmentList.item(i);
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element equipment = (Element) node;
+                        String name = equipment.getElementsByTagName("name").item(0).getTextContent();
+                        String description = equipment.getElementsByTagName("description").item(0).getTextContent();
+                        String type = equipment.getElementsByTagName("type").item(0).getTextContent();
+                        String amountBorrowed = equipment.getElementsByTagName("amountBorrowed").item(0).getTextContent();
+
+                        System.out.println("---------------------------------");
+                        System.out.println("Name: " + name);
+                        System.out.println("Description: " + description);
+                        System.out.println("Type: " + (type.equals("H") ? "Hardware" : "Terminal"));
+                        System.out.println("Amount Borrowed: " + amountBorrowed);
+                    }
+                }
+                System.out.println("---------------------------------");
+            } catch (Exception e) {
+                System.out.println("Error parsing equipment data: " + e.getMessage());
+            }
+        }
+    }
 }

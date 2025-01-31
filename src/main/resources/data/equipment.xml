@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><EquipmentList><equipment>
+    <name>Laptop ni yana</name>
+    <description>pang macro</description>
+    <type>H</type>
+    <amountBorrowed>1500</amountBorrowed>
+</equipment><equipment>
+    <name>Camera</name>
+    <description>For Photography</description>
+    <type>H</type>
+    <amountBorrowed>500</amountBorrowed>
+</equipment><equipment>
+    <name>Dell Server</name>
+    <description>Networking Equipment</description>
+    <type>H</type>
+    <amountBorrowed>2000</amountBorrowed>
+</equipment><equipment>
+    <name>D524 PC 9</name>
+    <description>PC 9 in D524 Lab</description>
+    <type>T</type>
+    <amountBorrowed>1</amountBorrowed>
+</equipment><equipment>
+    <name>Drone</name>
+    <description>Drone for GRVA</description>
+    <type>H</type>
+    <amountBorrowed>2</amountBorrowed>
+</equipment></EquipmentList>
