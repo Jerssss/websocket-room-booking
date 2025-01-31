@@ -90,6 +90,19 @@ public class ServerSide {
                     }
                 }
 
+                if (action.equals("signup")) {
+                    String userType = requestDoc.getElementsByTagName("userType").item(0).getTextContent();
+                    String userID = requestDoc.getElementsByTagName("userID").item(0).getTextContent();
+                    String password = requestDoc.getElementsByTagName("password").item(0).getTextContent();
+
+                    // Handle user signup
+                    if (signup(userType, userID, password)) {
+                        return "<response><status>Success</status><message>Signup successful! You can now log in.</message></response>";
+                    } else {
+                        return "<response><status>Failure</status><message>User ID already exists</message></response>";
+                    }
+                }
+
                 // Ensure the user is logged in before processing further requests
                 if (this.userType == null || this.userID == null) {
                     return "<response><status>Failure</status><message>Please log in first</message></response>";
@@ -158,7 +171,7 @@ public class ServerSide {
     public static boolean login(String userType, String userID, String password) {
         try {
             // Load the users.xml file
-            Document document = loadXML("C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\users.xml");
+            Document document = loadXML("C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\main\\resources\\data\\users.xml");
 
             // Parse the students or admins based on userType
             NodeList users = document.getElementsByTagName(userType);
@@ -179,6 +192,40 @@ public class ServerSide {
             e.printStackTrace();
         }
         return false;  // Invalid credentials
+    }
+
+    public static boolean signup(String userType, String userID, String password) {
+        try {
+            // Load the users.xml file
+            Document document = loadXML("C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\main\\resources\\data\\users.xml");
+
+            // Check if user ID already exists
+            NodeList users = document.getElementsByTagName(userType);
+            for (int i = 0; i < users.getLength(); i++) {
+                Element user = (Element) users.item(i);
+                String id = user.getElementsByTagName("ID").item(0).getTextContent();
+                if (id.equals(userID)) {
+                    return false; // User ID already exists
+                }
+            }
+
+            // Create new user element
+            Element newUser = document.createElement(userType);
+            Element idElement = document.createElement("ID");
+            idElement.setTextContent(userID);
+            Element passwordElement = document.createElement("Password");
+            passwordElement.setTextContent(password);
+            newUser.appendChild(idElement);
+            newUser.appendChild(passwordElement);
+            document.getDocumentElement().appendChild(newUser);
+
+            // Save the updated XML
+            saveXML(document, "C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\main\\resources\\data\\users.xml");
+            return true; // Signup successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false; // Signup failed
     }
 
     // Utility method to load and parse XML data

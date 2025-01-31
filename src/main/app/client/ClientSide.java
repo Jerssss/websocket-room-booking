@@ -32,25 +32,42 @@ public class ClientSide extends Application {
 
                 // Login loop
                 while (!loggedIn) {
-                    System.out.print("Enter user type (Student/Admin): ");
-                    userType = scanner.nextLine();
-                    System.out.print("Enter user ID: ");
-                    String userID = scanner.nextLine();
-                    System.out.print("Enter password: ");
-                    String password = scanner.nextLine();
+                    System.out.println("1. Login");
+                    System.out.println("2. Sign Up");
+                    System.out.println("3. Exit");
+                    System.out.print("Choose an option: ");
+                    int choice = scanner.nextInt();
+                    scanner.nextLine();  // Consume newline
 
-                    // Send login request
-                    String loginRequest = "<login><userType>" + userType + "</userType><userID>" + userID + "</userID><password>" + password + "</password></login>";
-                    out.println(loginRequest);
+                    if (choice == 1) {
+                        System.out.print("Enter user type (Student/Admin): ");
+                        userType = scanner.nextLine();
+                        System.out.print("Enter user ID: ");
+                        String userID = scanner.nextLine();
+                        System.out.print("Enter password: ");
+                        String password = scanner.nextLine();
 
-                    String response = in.readLine();
-                    System.out.println("Server response: " + response);
+                        // Send login request
+                        String loginRequest = "<login><userType>" + userType + "</userType><userID>" + userID + "</userID><password>" + password + "</password></login>";
+                        out.println(loginRequest);
 
-                    if (response.contains("<status>Success</status>")) {
-                        loggedIn = true;
-                        System.out.println("Login successful!");
-                    } else {
-                        System.out.println("Invalid credentials. Please try again.");
+                        String response = in.readLine();
+                        System.out.println("Server response: " + response);
+
+                        if (response.contains("<status>Success</status>")) {
+                            loggedIn = true;
+                            System.out.println("Login successful!");
+                        } else {
+                            System.out.println("Invalid credentials. Please try again.");
+                        }
+                    } else if (choice == 2) {
+                        if (!signUp(scanner, out, in)) {
+                            continue;  // Signup failed, go back to login
+                        }
+                    } else if (choice == 3) {
+                        out.println("<exit/>");
+                        System.out.println("Disconnecting from server...");
+                        return;
                     }
                 }
 
@@ -128,6 +145,24 @@ public class ClientSide extends Application {
             // Handle other options...
         }
         return true;
+    }
+
+    private static boolean signUp(Scanner scanner, PrintWriter out, BufferedReader in) throws IOException {
+        System.out.print("Enter user type (Student/Admin): ");
+        String userType = scanner.nextLine();
+        System.out.print("Enter user ID: ");
+        String userID = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        // Send signup request
+        String signupRequest = "<signup><userType>" + userType + "</userType><userID>" + userID + "</userID><password>" + password + "</password></signup>";
+        out.println(signupRequest);
+
+        String response = in.readLine();
+        System.out.println("Server response: " + response);
+
+        return response.contains("<status>Success</status>");
     }
 
     @Override
