@@ -1,16 +1,24 @@
 package main.client;
 
+import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import main.client.controller.ClientController;
+import main.client.model.ClientModel;
+import main.client.view.clientview.ClientView;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class ClientSide {
+public class ClientSide extends Application {
 
     private static final String SERVER_ADDRESS = "127.0.0.1";
     private static final int SERVER_PORT = 4321;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
 
         while (true) {
             try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
@@ -120,5 +128,14 @@ public class ClientSide {
             // Handle other options...
         }
         return true;
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.getIcons().add(new Image(getClass().getResource("resources/images/client/settings-icon-1024x1022-x2c1qvd9.png").toExternalForm()));
+        ClientModel model = new ClientModel();
+        ClientView view = new ClientView(stage);
+        view.runGUI();
+        new ClientController(view);
     }
 }
