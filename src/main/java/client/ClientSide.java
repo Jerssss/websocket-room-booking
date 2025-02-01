@@ -113,6 +113,9 @@ public class ClientSide extends Application {
         scanner.nextLine();  // Consume newline
 
         switch (option) {
+            case 1:
+                handleStudentReservation(scanner);
+                break;
             case 6:
                 out.println("<logout/>");
                 System.out.println("Logged out successfully.");
@@ -189,6 +192,57 @@ public class ClientSide extends Application {
         new ClientController(view);
     }
 
+    private static void handleStudentReservation(Scanner scanner) {
+        // Gather student information
+        System.out.print("Enter Student ID: ");
+        String studentID = scanner.nextLine();
+
+        // Start the XML data structure
+        StringBuilder xmlData = new StringBuilder();
+        xmlData.append("<reservation>\n");
+        xmlData.append("    <studID>").append(studentID).append("</studID>\n");
+
+        // Ask the user whether they're borrowing a Terminal or Hardware
+        System.out.print("Are you borrowing a Terminal or Hardware? (T/H): ");
+        String borrowType = scanner.nextLine().trim().toUpperCase();
+
+        if (!borrowType.equals("T") && !borrowType.equals("H")) {
+            System.out.println("Invalid input. Please enter 'T' for Terminal or 'H' for Hardware.");
+            return;  // Exit if input is invalid
+        }
+
+        // Append borrow type to XML data
+        xmlData.append("    <borrowType>").append(borrowType).append("</borrowType>\n");
+
+        // Ask for equipment details
+        System.out.print("Enter number of " + (borrowType.equals("T") ? "Terminals" : "Hardware") + ": ");
+        int numItems = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        xmlData.append("    <equipment>\n");
+
+        for (int i = 0; i < numItems; i++) {
+            System.out.print("Enter Equipment ID for item " + (i + 1) + ": ");
+            String equipmentID = scanner.nextLine();
+
+            System.out.print("Enter Amount Borrowed for Equipment ID " + equipmentID + ": ");
+            int amountBorrowed = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            // Append equipment details to XML data
+            xmlData.append("        <item>\n");
+            xmlData.append("            <equipmentId>").append(equipmentID).append("</equipmentId>\n");
+            xmlData.append("            <amountBorrowed>").append(amountBorrowed).append("</amountBorrowed>\n");
+            xmlData.append("        </item>\n");
+        }
+
+        xmlData.append("    </equipment>\n");
+        xmlData.append("</reservation>\n");
+
+        // Call the method from ServerSide with the constructed XML data
+        ServerSide.createStudentReservation(xmlData.toString());
+        System.out.println("Reservation submitted for admin approval.");
+    }
    /* private static void addNewEquipment(Scanner scanner) {
         System.out.print("Enter Equipment ID: ");
         int id = Integer.parseInt(scanner.nextLine());

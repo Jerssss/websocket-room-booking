@@ -7,10 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Lendify" />
+        <module name="AppName" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AppName" target="21" />
       <module name="LeonardoDiCafe" target="21" />
       <module name="something" target="21" />
     </bytecodeTargetLevel>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Student>
+    <student>
+        <studID>2240841</studID>
+        <name>John Doe</name>
+        <username>john_doe</username>
+        <password>2240841</password>
+    </student>
+    <student>
+        <studID>2240853</studID>
+        <name>Jane Smith</name>
+        <username>jane_smith</username>
+        <password>2240853</password>
+    </student>
+</Student>

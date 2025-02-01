@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><PendingReservations>
+    <pendingRecord>
+        <reservationID>1</reservationID>
+        <studentID>2240841</studentID>
+        <equipmentID>1</equipmentID>
+        <quantity>1</quantity>
+        <requestDate>2025-02-01</requestDate>
+    </pendingRecord>
+    <pendingRecord>
+        <reservationID>2</reservationID>
+        <studentID>2240853</studentID>
+        <equipmentID>2</equipmentID>
+        <quantity>2</quantity>
+        <requestDate>2025-02-02</requestDate>
+    </pendingRecord>
+<pendingRecord><reservationID>1738428419052</reservationID><studentID>2240841</studentID><equipmentID>1</equipmentID><quantity>3</quantity><requestDate>2025-02-02</requestDate></pendingRecord></PendingReservations>
