@@ -42,7 +42,7 @@
             </Label>
             <StackPane id="idStackPane" prefHeight="30.0" prefWidth="359.0">
                <children>
-                  <TextField id="idField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Institutional ID" style="-fx-pref-width: 250px;" stylesheets="@../../css/style.css" />
+                  <TextField id="idField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Institutional ID" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/style.css" />
                   <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
                      <image>
                         <Image url="@../../images/client/id_icon.png" />
@@ -52,7 +52,7 @@
             </StackPane>
             <StackPane id="passStackPane" prefHeight="31.0" prefWidth="359.0">
                <children>
-                  <PasswordField id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="293.0" promptText="Password" style="-fx-pref-width: 250;" styleClass="text-field" stylesheets="@../../css/style.css" />
+                  <PasswordField id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="293.0" promptText="Password" style="-fx-pref-width: 250;" styleClass="background-pane" stylesheets="@../../css/style.css" />
                   <ImageView id="passIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
                      <image>
                         <Image url="@../../images/client/lock_icon.png" />
@@ -67,6 +67,10 @@
                      <String fx:value="Admin" />
                   </FXCollections>
                </items>
+               <styleClass>
+                  <String fx:value="userTypePicker" />
+                  <String fx:value="background-pane" />
+               </styleClass>
             </ComboBox>
             <Button fx:id="landingPageSignUpButton" mnemonicParsing="false" onMouseEntered="#landingPageSignUpButtonHovered" onMouseExited="#landingPageSignUpButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
 

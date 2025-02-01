@@ -60,13 +60,17 @@
                   </ImageView>
                </children>
             </StackPane>
-            <ComboBox id="userTypePicker" prefWidth="150.0" promptText="User Type" style="-fx-background-color: #BDD1E8;" styleClass="userTypePicker" stylesheets="@../../css/style.css">
+            <ComboBox id="userTypePicker" prefWidth="150.0" promptText="User Type" style="-fx-background-color: #BDD1E8;" stylesheets="@../../css/style.css">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Student" />
                      <String fx:value="Admin" />
                   </FXCollections>
                </items>
+               <styleClass>
+                  <String fx:value="userTypePicker" />
+                  <String fx:value="background-pane" />
+               </styleClass>
             </ComboBox>
             <Button fx:id="landingPageSignUpButton" mnemonicParsing="false" onMouseEntered="#landingPageSignUpButtonHovered" onMouseExited="#landingPageSignUpButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
 

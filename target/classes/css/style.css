@@ -30,23 +30,8 @@
     -fx-background-size: auto;
 }
 
-.userTypePicker {
-    -fx-background-color: black; /* Background color */
-    -fx-border-color: black; /* Border color */
-    -fx-border-radius: 20; /* Rounded corners */
-}
-
-.userTypePicker .combo-box-popup {
-    -fx-background-color: black; /* Background color for dropdown */
-    -fx-border-color: black; /* Border color for dropdown */
-}
-
-.userTypePicker:hover {
-    -fx-background-color: black; /* Change background on hover */
-}
-
-.userTypePicker:pressed {
-    -fx-background-color: black; /* Change background on press */
+.userTypePicker{
+       -fx-prompt-text-fill: #8988b1;
 }
 
 

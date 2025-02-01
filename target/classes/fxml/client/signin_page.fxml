@@ -39,7 +39,7 @@
             </Label>
             <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
                <children>
-                  <TextField id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Student ID" style="-fx-pref-width: 250px;" stylesheets="@../../css/style.css" />
+                  <TextField id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Institutional ID" style="-fx-pref-width: 250px;" stylesheets="@../../css/style.css" />
                   <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
                      <image>
                         <Image url="@../../images/client/id_icon.png" />

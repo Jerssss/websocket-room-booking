@@ -30,6 +30,9 @@
     -fx-background-size: auto;
 }
 
+.userTypePicker{
+       -fx-prompt-text-fill: #8988b1;
+}
 
 
 
