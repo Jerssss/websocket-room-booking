@@ -4,51 +4,35 @@ import java.io.Serializable;
 
 public class Equipment implements Serializable {
 
-    private String name;
-    private String description;
-    private char type; //whether equipment leased is a terminal or hardware
-    private int amountBorrowed;
+    private int equipmentId;
+    private String equipmentName;
+    private String equipmentDescription;
+    private int totalQuantity;
+    private int availableQuantity;
 
-    //constructor to initialize direct descendants of the Equipment class
-    public Equipment (String name, String description, char type, int amtBorrowed) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.amountBorrowed = amtBorrowed;
+    public Equipment(int id, String name, String description, int totalQuantity) {
+        this.equipmentId = id;
+        this.equipmentName = name;
+        this.equipmentDescription = description;
+        this.totalQuantity = totalQuantity;
+        this.availableQuantity = totalQuantity; // Initially all are available
     }
 
-    //getters
-    public String getName() {
-        return name;
-    }
+    // Getters and Setters
+    public int getEquipmentId() { return equipmentId; }
+    public String getEquipmentName() { return equipmentName; }
+    public String getEquipmentDescription() { return equipmentDescription; }
+    public int getTotalQuantity() { return totalQuantity; }
+    public int getAvailableQuantity() { return availableQuantity; }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public char getType() {
-        return type;
-    }
-
-    public int getAmountBorrowed() {
-        return amountBorrowed;
-    }
-
-    //setters
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setType(char type) {
-        this.type = type;
-    }
-
-    public void setAmountBorrowed(int amountBorrowed) {
-        this.amountBorrowed = amountBorrowed;
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "id=" + equipmentId +
+                ", name='" + equipmentName + '\'' +
+                ", description='" + equipmentDescription + '\'' +
+                ", totalQuantity=" + totalQuantity +
+                ", availableQuantity=" + availableQuantity +
+                '}';
     }
 }
