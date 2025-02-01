@@ -170,6 +170,9 @@ public class ServerSide {
 
     public static boolean login(String userType, String userID, String password) {
         try {
+            // Convert userType to lowercase for case-insensitive comparison
+            userType = userType.toLowerCase();
+
             // Load the users.xml file
             Document document = loadXML("src/main/resources/data/users.xml");
 
@@ -196,6 +199,9 @@ public class ServerSide {
 
     public static boolean signup(String userType, String userID, String password) {
         try {
+            // Convert userType to lowercase for case-insensitive comparison
+            userType = userType.toLowerCase();
+
             // Load the users.xml file
             Document document = loadXML("src/main/resources/data/users.xml");
 
