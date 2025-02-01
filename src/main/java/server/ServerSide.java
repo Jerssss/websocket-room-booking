@@ -170,8 +170,11 @@ public class ServerSide {
 
     public static boolean login(String userType, String userID, String password) {
         try {
+            // Convert userType to lowercase for case-insensitive comparison
+            userType = userType.toLowerCase();
+
             // Load the users.xml file
-            Document document = loadXML("C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\main\\resources\\data\\users.xml");
+            Document document = loadXML("src/main/resources/data/users.xml");
 
             // Parse the students or admins based on userType
             NodeList users = document.getElementsByTagName(userType);
@@ -196,8 +199,11 @@ public class ServerSide {
 
     public static boolean signup(String userType, String userID, String password) {
         try {
+            // Convert userType to lowercase for case-insensitive comparison
+            userType = userType.toLowerCase();
+
             // Load the users.xml file
-            Document document = loadXML("C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\main\\resources\\data\\users.xml");
+            Document document = loadXML("src/main/resources/data/users.xml");
 
             // Check if user ID already exists
             NodeList users = document.getElementsByTagName(userType);
@@ -220,7 +226,7 @@ public class ServerSide {
             document.getDocumentElement().appendChild(newUser);
 
             // Save the updated XML
-            saveXML(document, "C:\\Users\\krist\\IdeaProjects\\9444-team1_preproject\\src\\main\\resources\\data\\users.xml");
+            saveXML(document, "src/main/resources/data/users.xml");
             return true; // Signup successful
         } catch (Exception e) {
             e.printStackTrace();
@@ -274,12 +280,83 @@ public class ServerSide {
     // SEB AND YANA
     // Placeholder methods for Admin CRUD operations
     public static void createAdminResource(String xmlData) {
-        // Parse XML data and add a new terminal/equipment
+        try {
+            // Load or create the equipment XML file
+            String filePath = "src/main/resources/data/equipment.xml";
+            Document document = loadOrCreateXML(filePath, "EquipmentList");
+
+            // Parse incoming XML data
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document inputDoc = builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
+
+            Element newEquipment = inputDoc.getDocumentElement();
+            Node importedNode = document.importNode(newEquipment, true);
+
+            document.getDocumentElement().appendChild(importedNode);
+            saveXML(document, filePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Load or create an XML file if it does not exist
+    public static Document loadOrCreateXML(String filePath, String rootElement) throws ParserConfigurationException, IOException, SAXException {
+        File file = new File(filePath);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        if (file.exists()) {
+            return builder.parse(file);
+        } else {
+            Document doc = builder.newDocument();
+            Element root = doc.createElement(rootElement);
+            doc.appendChild(root);
+            try {
+                saveXML(doc, filePath);
+            } catch (TransformerException e) {
+                throw new RuntimeException(e);
+            }
+            return doc;
+        }
     }
 
     public static String readAdminResources(String criteria) {
-        // Retrieve terminal/equipment details as XML
-        return "<data></data>";
+        try {
+            // Load the XML file containing equipment data
+            Document document = loadXML("src/main/resources/data/equipment.xml");
+
+            NodeList equipmentList = document.getElementsByTagName("equipment");
+
+            if (equipmentList.getLength() == 0) {
+                return "<data>No terminals or equipment available at this time.</data>";
+            }
+
+            StringBuilder result = new StringBuilder("<data>\n");
+
+            for (int i = 0; i < equipmentList.getLength(); i++) {
+                Element equipment = (Element) equipmentList.item(i);
+
+                String name = equipment.getElementsByTagName("name").item(0).getTextContent();
+                String description = equipment.getElementsByTagName("description").item(0).getTextContent();
+                String type = equipment.getElementsByTagName("type").item(0).getTextContent();
+                String amountBorrowed = equipment.getElementsByTagName("amountBorrowed").item(0).getTextContent();
+
+                result.append("    <equipment>\n")
+                        .append("        <name>").append(name).append("</name>\n")
+                        .append("        <description>").append(description).append("</description>\n")
+                        .append("        <type>").append(type).append("</type>\n")
+                        .append("        <amountBorrowed>").append(amountBorrowed).append("</amountBorrowed>\n")
+                        .append("    </equipment>\n");
+            }
+
+            result.append("</data>");
+            return result.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<data>Error retrieving equipment data.</data>";
+        }
     }
 
     public static void updateAdminResource(String xmlData) {

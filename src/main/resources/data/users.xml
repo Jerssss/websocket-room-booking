@@ -1,38 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><users>
-    <Student>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<users>
+    <student>
         <ID>1</ID>
         <Password>1</Password>
-    </Student>
-    <Student>
+    </student>
+    <student>
         <ID>2240841</ID>
         <Password>2240841</Password>
-    </Student>
-    <Student>
+    </student>
+    <student>
         <ID>2240853</ID>
         <Password>2240853</Password>
-    </Student>
-    <Student>
+    </student>
+    <student>
         <ID>2240084</ID>
         <Password>2240084</Password>
-    </Student>
-    <Student>
+    </student>
+    <student>
         <ID>2242541</ID>
         <Password>2242541</Password>
-    </Student>
-    <Student>
+    </student>
+    <student>
         <ID>2241883</ID>
         <Password>22418831</Password>
-    </Student>
-    <Student>
+    </student>
+    <student>
         <ID>2240521</ID>
         <Password>2240521</Password>
-    </Student>
-    <Admin>
+    </student>
+    <admin>
         <ID>admin</ID>
         <Password>admin</Password>
-    </Admin>
-    <Student>
+    </admin>
+    <student>
         <ID>2</ID>
         <Password>2</Password>
-    </Student>
+    </student>
+    <admin>
+        <ID>2541</ID>
+        <Password>seb</Password>
+    </admin>
 </users>
