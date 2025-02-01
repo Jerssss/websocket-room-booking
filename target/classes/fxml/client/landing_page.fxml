@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="borderPane" scaleShape="false" style="-fx-max-height: 400; -fx-max-width: 622;" styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="borderPane" scaleShape="false" style="-fx-max-height: 400; -fx-max-width: 622;" styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.view.clientview.LandingPageView">
    <left>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="241.0" spacing="10.0" style="-fx-background-color: #0d3073;" BorderPane.alignment="CENTER">
          <children>
@@ -22,10 +23,10 @@
             </Label>
             <Label alignment="CENTER" prefHeight="34.0" prefWidth="170.0" text="To stay connected, please log in with your personal info." textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
-                  <Font size="9.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN IN" textFill="WHITE" />
+            <Button fx:id="signinButtonLandingPage" mnemonicParsing="false" onMouseEntered="#lpSignInButtonEntered" onMouseExited="#lpSignInButtonExit" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN IN" textFill="WHITE" />
          </children>
       </VBox>
    </left>
@@ -66,7 +67,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <Button mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
+            <Button fx:id="signupButtonLandingPage" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
 
          </children>
       </VBox>
