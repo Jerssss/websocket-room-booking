@@ -11,10 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.view.clientview.SignInPageView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.clientview.SignInPageView">
    <right>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="251.0" spacing="7.0" style="-fx-background-color: #0d3073;" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +25,7 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <Button fx:id="signupButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
+            <Button fx:id="signInPageSignUpButton" mnemonicParsing="false" onMouseEntered="#signInPageSignUpButtonHovered" onMouseExited="#signInPageSignUpButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
          </children>
       </VBox>
    </right>
@@ -42,7 +39,7 @@
             </Label>
             <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
                <children>
-                  <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Student ID" style="-fx-pref-width: 250px;" stylesheets="@../../css/style.css" />
+                  <TextField id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Student ID" style="-fx-pref-width: 250px;" stylesheets="@../../css/style.css" />
                   <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
                      <image>
                         <Image url="@../../images/client/id_icon.png" />
@@ -52,7 +49,7 @@
             </StackPane>
             <StackPane id="passStackPane" prefHeight="31.0" prefWidth="359.0">
                <children>
-                  <PasswordField fx:id="passField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="293.0" promptText="Password" style="-fx-pref-width: 250;" styleClass="text-field" stylesheets="@../../css/style.css" />
+                  <PasswordField id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="293.0" promptText="Password" style="-fx-pref-width: 250;" styleClass="text-field" stylesheets="@../../css/style.css" />
                   <ImageView id="passIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
                      <image>
                         <Image url="@../../images/client/lock_icon.png" />
@@ -60,7 +57,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <Button fx:id="signinButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN IN" textFill="WHITE" />
+            <Button fx:id="signInPageSignInButton" mnemonicParsing="false" onMouseEntered="#signInPageSignInButtonHovered" onMouseExited="#signInPageSignInButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN IN" textFill="WHITE" />
          </children>
       </VBox>
    </center>

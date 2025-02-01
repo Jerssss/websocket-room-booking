@@ -17,19 +17,19 @@
 .text-field {
     -fx-border-color: transparent;
     -fx-background-color: #BDD1E8;
-    -fx-text-fill: #333;
     -fx-padding: 5 0 5 28;
 }
 
-.text-field .prompt-text {
-    -fx-fill:  #0d3073; /* Color of the prompt text */
+.text-field {
+    -fx-prompt-text-fill: #8988b1;
 }
 
 .background-pane {
     -fx-background-image: url("../images/client/paper.png");
     -fx-background-repeat: repeat;
     -fx-background-size: auto;
-
 }
+
+
 
 

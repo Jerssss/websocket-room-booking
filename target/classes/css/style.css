@@ -17,19 +17,37 @@
 .text-field {
     -fx-border-color: transparent;
     -fx-background-color: #BDD1E8;
-    -fx-text-fill: #333;
     -fx-padding: 5 0 5 28;
 }
 
-.text-field .prompt-text {
-    -fx-fill:  #0d3073; /* Color of the prompt text */
+.text-field {
+    -fx-prompt-text-fill: #8988b1;
 }
 
 .background-pane {
     -fx-background-image: url("../images/client/paper.png");
     -fx-background-repeat: repeat;
     -fx-background-size: auto;
-
 }
+
+.userTypePicker {
+    -fx-background-color: black; /* Background color */
+    -fx-border-color: black; /* Border color */
+    -fx-border-radius: 20; /* Rounded corners */
+}
+
+.userTypePicker .combo-box-popup {
+    -fx-background-color: black; /* Background color for dropdown */
+    -fx-border-color: black; /* Border color for dropdown */
+}
+
+.userTypePicker:hover {
+    -fx-background-color: black; /* Change background on hover */
+}
+
+.userTypePicker:pressed {
+    -fx-background-color: black; /* Change background on press */
+}
+
 
 

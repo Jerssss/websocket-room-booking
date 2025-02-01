@@ -32,7 +32,7 @@ public class ClientModel {
     }
 
     //TODO
-//    public Borrow placeRequestToBorrow() {
+//    public Borrow requestsToBorrow() {
 //
 //    }
 

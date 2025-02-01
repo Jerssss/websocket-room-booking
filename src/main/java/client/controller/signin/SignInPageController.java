@@ -20,6 +20,7 @@ public class SignInPageController {
     private Parent root;
 
 
+
     public SignInPageController(SignInPageView signInView, SignInPageModel signInModel){
         this.signInPageView = signInView;
         this.signInPageModel = signInModel;
@@ -41,6 +42,9 @@ public class SignInPageController {
             }
         });
     }
+
+    //TODO: Sign in button listener that asks for validation and authentication
+    //TODO: authenticator method that connects to the server??
 
 
 }
