@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Equipment>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Equipment>
     <item>
         <equipmentId>1</equipmentId>
         <equipmentName>Laptop</equipmentName>
@@ -14,4 +13,10 @@
         <totalQuantity>5</totalQuantity>
         <availableQuantity>5</availableQuantity>
     </item>
-</Equipment>
+<item>
+        <equipmentID>6</equipmentID>
+        <equipmentName>Mouse</equipmentName>
+        <description>Pointing Device</description>
+        <totalQuantity>5</totalQuantity>
+        <availableQuantity>5</availableQuantity>
+    </item></Equipment>

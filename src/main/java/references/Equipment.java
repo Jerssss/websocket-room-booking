@@ -10,7 +10,7 @@ public class Equipment implements Serializable {
     private int totalQuantity;
     private int availableQuantity;
 
-    public Equipment(int id, String name, String description, int totalQuantity) {
+    public Equipment(int id, String name, String description, int totalQuantity, int available) {
         this.equipmentId = id;
         this.equipmentName = name;
         this.equipmentDescription = description;

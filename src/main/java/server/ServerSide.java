@@ -324,8 +324,8 @@ public class ServerSide {
     public static void createAdminResource(String xmlData) {
         try {
             // Load or create the equipment XML file
-            String filePath = "src/main/resources/data/equipment.xml";
-            Document document = loadOrCreateXML(filePath, "EquipmentList");
+            String filePath = "src/main/resources/data/Equipment.xml";
+            Document document = loadOrCreateXML(filePath, "Equipment");
 
             // Parse incoming XML data
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -364,41 +364,8 @@ public class ServerSide {
     }
 
     public static String readAdminResources(String criteria) {
-        try {
-            // Load the XML file containing equipment data
-            Document document = loadXML("src/main/resources/data/equipment.xml");
 
-            NodeList equipmentList = document.getElementsByTagName("equipment");
-
-            if (equipmentList.getLength() == 0) {
-                return "<data>No terminals or equipment available at this time.</data>";
-            }
-
-            StringBuilder result = new StringBuilder("<data>\n");
-
-            for (int i = 0; i < equipmentList.getLength(); i++) {
-                Element equipment = (Element) equipmentList.item(i);
-
-                String name = equipment.getElementsByTagName("name").item(0).getTextContent();
-                String description = equipment.getElementsByTagName("description").item(0).getTextContent();
-                String type = equipment.getElementsByTagName("type").item(0).getTextContent();
-                String amountBorrowed = equipment.getElementsByTagName("amountBorrowed").item(0).getTextContent();
-
-                result.append("    <equipment>\n")
-                        .append("        <name>").append(name).append("</name>\n")
-                        .append("        <description>").append(description).append("</description>\n")
-                        .append("        <type>").append(type).append("</type>\n")
-                        .append("        <amountBorrowed>").append(amountBorrowed).append("</amountBorrowed>\n")
-                        .append("    </equipment>\n");
-            }
-
-            result.append("</data>");
-            return result.toString();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "<data>Error retrieving equipment data.</data>";
-        }
+        return criteria;
     }
 
     public static void updateAdminResource(String xmlData) {
