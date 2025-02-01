@@ -182,7 +182,7 @@ public class ClientSide extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.getIcons().add(new Image(getClass().getResource("/images/client/settings-icon-1024x1022-x2c1qvd9.png").toExternalForm()));
+        stage.getIcons().add(new Image(getClass().getResource("/images/client/app_icon.png").toExternalForm()));
         ClientView view = new ClientView(stage);
         view.runGUI();
         new ClientController(view);
