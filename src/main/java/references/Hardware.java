@@ -7,8 +7,8 @@ public class Hardware extends Equipment{
 
 
     //constructors
-    public Hardware (String name, String description, char type, int amtBorrowed, int qty) {
-        super(name, description, type, amtBorrowed);
+    public Hardware (int id, String name, String description, int totalQuantity, int available ) {
+        super(id, name, description, totalQuantity, available);
         this.qty = qty;
     }
 

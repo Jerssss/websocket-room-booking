@@ -2,6 +2,8 @@ package server;
 
 import java.io.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
@@ -256,6 +258,46 @@ public class ServerSide {
     // Placeholder methods for Student CRUD operations
     public static void createStudentReservation(String xmlData) {
         // Parse XML data and add a new student reservation
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document inputDocument = builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
+
+            Element root = inputDocument.getDocumentElement();
+            String studID = root.getElementsByTagName("studID").item(0).getTextContent();
+            NodeList equipmentNodes = root.getElementsByTagName("equipment");
+
+            // Load or create the pending reservations file
+            Document pendingDoc = loadOrCreateXML("src/main/resources/data/PendingReservations.xml", "PendingReservations");
+
+            for (int i = 0; i < equipmentNodes.getLength(); i++) {
+                Element equipElement = (Element) equipmentNodes.item(i);
+                String equipmentId = equipElement.getElementsByTagName("equipmentId").item(0).getTextContent();
+                int amountBorrowed = Integer.parseInt(equipElement.getElementsByTagName("amountBorrowed").item(0).getTextContent());
+
+                // Create a new pending record
+                Element pendingRecord = pendingDoc.createElement("pendingRecord");
+                pendingRecord.appendChild(createElement(pendingDoc, "reservationID", String.valueOf(System.currentTimeMillis())));
+                pendingRecord.appendChild(createElement(pendingDoc, "studentID", studID));
+                pendingRecord.appendChild(createElement(pendingDoc, "equipmentID", equipmentId));
+                pendingRecord.appendChild(createElement(pendingDoc, "quantity", String.valueOf(amountBorrowed)));
+                pendingRecord.appendChild(createElement(pendingDoc, "requestDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+
+                pendingDoc.getDocumentElement().appendChild(pendingRecord);
+            }
+            saveXML(pendingDoc, "src/main/resources/data/PendingReservations.xml");
+
+            System.out.println("Reservation submitted for admin approval.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Helper method to create an element in the PendingReservations.xml file
+    private static Element createElement(Document doc, String tagName, String textContent) {
+        Element element = doc.createElement(tagName);
+        element.appendChild(doc.createTextNode(textContent));
+        return element;
     }
 
     public static String readStudentReservations(String studentID) {
@@ -282,8 +324,8 @@ public class ServerSide {
     public static void createAdminResource(String xmlData) {
         try {
             // Load or create the equipment XML file
-            String filePath = "src/main/resources/data/equipment.xml";
-            Document document = loadOrCreateXML(filePath, "EquipmentList");
+            String filePath = "src/main/resources/data/Equipment.xml";
+            Document document = loadOrCreateXML(filePath, "Equipment");
 
             // Parse incoming XML data
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -322,41 +364,8 @@ public class ServerSide {
     }
 
     public static String readAdminResources(String criteria) {
-        try {
-            // Load the XML file containing equipment data
-            Document document = loadXML("src/main/resources/data/equipment.xml");
 
-            NodeList equipmentList = document.getElementsByTagName("equipment");
-
-            if (equipmentList.getLength() == 0) {
-                return "<data>No terminals or equipment available at this time.</data>";
-            }
-
-            StringBuilder result = new StringBuilder("<data>\n");
-
-            for (int i = 0; i < equipmentList.getLength(); i++) {
-                Element equipment = (Element) equipmentList.item(i);
-
-                String name = equipment.getElementsByTagName("name").item(0).getTextContent();
-                String description = equipment.getElementsByTagName("description").item(0).getTextContent();
-                String type = equipment.getElementsByTagName("type").item(0).getTextContent();
-                String amountBorrowed = equipment.getElementsByTagName("amountBorrowed").item(0).getTextContent();
-
-                result.append("    <equipment>\n")
-                        .append("        <name>").append(name).append("</name>\n")
-                        .append("        <description>").append(description).append("</description>\n")
-                        .append("        <type>").append(type).append("</type>\n")
-                        .append("        <amountBorrowed>").append(amountBorrowed).append("</amountBorrowed>\n")
-                        .append("    </equipment>\n");
-            }
-
-            result.append("</data>");
-            return result.toString();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "<data>Error retrieving equipment data.</data>";
-        }
+        return criteria;
     }
 
     public static void updateAdminResource(String xmlData) {
