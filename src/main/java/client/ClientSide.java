@@ -50,7 +50,7 @@ public class ClientSide extends Application {
 
                     if (choice == 1) {
                         System.out.print("Enter user type (Student/Admin): ");
-                        userType = scanner.nextLine();
+                        userType = scanner.nextLine().toLowerCase(); // Convert to lowercase
                         System.out.print("Enter user ID: ");
                         String userID = scanner.nextLine();
                         System.out.print("Enter password: ");
@@ -164,7 +164,7 @@ public class ClientSide extends Application {
 
     private static boolean signUp(Scanner scanner, PrintWriter out, BufferedReader in) throws IOException {
         System.out.print("Enter user type (Student/Admin): ");
-        String userType = scanner.nextLine();
+        String userType = scanner.nextLine().toLowerCase(); // Convert to lowercase
         System.out.print("Enter user ID: ");
         String userID = scanner.nextLine();
         System.out.print("Enter password: ");
