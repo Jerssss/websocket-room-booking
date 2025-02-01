@@ -273,8 +273,8 @@ public class ServerSide {
     //JERS AND GAB
     // Placeholder methods for Student CRUD operations
     public static void createStudentReservation(String xmlData) {
-        // Parse XML data and add a new student reservation
         try {
+            // Parse input XML data
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document inputDocument = builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
@@ -286,33 +286,62 @@ public class ServerSide {
             // Load or create the pending reservations file
             Document pendingDoc = loadOrCreateXML("src/main/resources/data/PendingReservations.xml", "PendingReservations");
 
+            // Ensure root element exists
+            Element rootElement = pendingDoc.getDocumentElement();
+            if (rootElement == null) {
+                rootElement = pendingDoc.createElement("PendingReservations");
+                pendingDoc.appendChild(rootElement);
+            }
+
+            // Get the last reservationID used
+            int lastReservationID = getLastReservationID(pendingDoc);
+
             for (int i = 0; i < equipmentNodes.getLength(); i++) {
                 Element equipElement = (Element) equipmentNodes.item(i);
                 String equipmentId = equipElement.getElementsByTagName("equipmentId").item(0).getTextContent();
                 int amountBorrowed = Integer.parseInt(equipElement.getElementsByTagName("amountBorrowed").item(0).getTextContent());
 
+                // Increment reservation ID for each new reservation
+                lastReservationID++;
+
                 // Create a new pending record
                 Element pendingRecord = pendingDoc.createElement("pendingRecord");
-                pendingRecord.appendChild(pendingDoc.createTextNode("\n    ")); // Indentation
-                pendingRecord.appendChild(createElement(pendingDoc, "reservationID", String.valueOf(System.currentTimeMillis())));
-                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n\t    "));
+                pendingRecord.appendChild(createElement(pendingDoc, "reservationID", String.valueOf(lastReservationID)));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n\t    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "studentID", studID));
-                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n\t    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "equipmentID", equipmentId));
-                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n\t    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "quantity", String.valueOf(amountBorrowed)));
-                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n\t    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "requestDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
                 pendingRecord.appendChild(pendingDoc.createTextNode("\n"));
 
-                pendingDoc.getDocumentElement().appendChild(pendingRecord);
+                // Append the new pending record to the root element
+                rootElement.appendChild(pendingRecord);
+                rootElement.appendChild(pendingDoc.createTextNode("\n")); // Spacing between records
             }
+
+            // Save the XML file
             saveXML(pendingDoc, "src/main/resources/data/PendingReservations.xml");
 
             System.out.println("Reservation submitted for admin approval.");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static int getLastReservationID(Document pendingDoc) {
+        NodeList pendingRecords = pendingDoc.getElementsByTagName("pendingRecord");
+        if (pendingRecords.getLength() == 0) {
+            return 0; // If no reservations exist, start from 0
+        }
+
+        // Get the last reservationID
+        Element lastRecord = (Element) pendingRecords.item(pendingRecords.getLength() - 1);
+        String lastReservationID = lastRecord.getElementsByTagName("reservationID").item(0).getTextContent();
+        return Integer.parseInt(lastReservationID);
     }
 
     // Helper method to create an element in the PendingReservations.xml file
