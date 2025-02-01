@@ -154,6 +154,12 @@ public class ClientSide extends Application {
             case 2:
                 addNewTerminal(scanner);
                 break;
+            case 3:
+                System.out.print("Enter the criteria you want to view (equipment/terminal): ");
+                String criteria = scanner.nextLine();
+                String result = ServerSide.readAdminResources(criteria);
+                System.out.println(result);
+                break;
             case 8:
                 break;
             case 9:
@@ -264,14 +270,14 @@ public class ClientSide extends Application {
         System.out.print("Enter Available Quantity: ");
         int available = scanner.nextInt();
 
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Equipment equipment = new Equipment(id, name, description, quantity, available);
 
         String equipmentXML = "\n<item>\n" +
-                "        <equipmentID>" + equipment.getEquipmentId() + "</equipmentID>\n" +
+                "        <equipmentId>" + equipment.getEquipmentId() + "</equipmentId>\n" +
                 "        <equipmentName>" + equipment.getEquipmentName() + "</equipmentName>\n" +
-                "        <description>" + equipment.getEquipmentDescription() + "</description>\n" +
+                "        <equipmentDescription>" + equipment.getEquipmentDescription() + "</equipmentDescription>\n" +
                 "        <totalQuantity>" + equipment.getTotalQuantity() + "</totalQuantity>\n" +
                 "        <availableQuantity>" + equipment.getAvailableQuantity() + "</availableQuantity>\n" +
                 "    </item>\n";
@@ -288,8 +294,7 @@ public class ClientSide extends Application {
         String type = scanner.nextLine();
 
         System.out.print("Enter Terminal Room Number: ");
-        int room = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        String room = scanner.nextLine();
 
         System.out.print("Enter Terminal Room Type (Classroom/Open Lab): ");
         String roomType = scanner.nextLine();
@@ -299,7 +304,6 @@ public class ClientSide extends Application {
 
         Terminal terminal = new Terminal(id, type, room, roomType, status);
 
-        // Generate XML representation for the Terminal object
         String terminalXML = "    <terminal>\n" +
                 "        <terminalId>" + terminal.getTerminalId() + "</terminalId>\n" +
                 "        <terminalType>" + terminal.getTerminalType() + "</terminalType>\n" +
@@ -307,8 +311,6 @@ public class ClientSide extends Application {
                 "        <terminalRoomType>" + terminal.getTerminalRoomType() + "</terminalRoomType>\n" +
                 "        <terminalStatus>" + terminal.getTerminalStatus() + "</terminalStatus>\n" +
                 "    </terminal>\n";
-
-        // Here you would call the method to save the terminal to the server or wherever necessary
         ServerSide.createAdminTerminalResource(terminalXML);
         System.out.println("Terminal added successfully!");
     }
