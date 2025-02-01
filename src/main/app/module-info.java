@@ -3,6 +3,7 @@ module EquipmentBorrowingApp {
     requires javafx.fxml;
     requires java.logging;
     requires java.xml;
+    requires javafx.base;
 
     opens client to javafx.fxml;
     opens client.view to javafx.fxml;

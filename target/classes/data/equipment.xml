@@ -13,4 +13,14 @@
     <description>Networking Equipment</description>
     <type>H</type>
     <amountBorrowed>2000</amountBorrowed>
+</equipment><equipment>
+    <name>D524 PC 9</name>
+    <description>PC 9 in D524 Lab</description>
+    <type>T</type>
+    <amountBorrowed>1</amountBorrowed>
+</equipment><equipment>
+    <name>Drone</name>
+    <description>Drone for GRVA</description>
+    <type>H</type>
+    <amountBorrowed>2</amountBorrowed>
 </equipment></EquipmentList>

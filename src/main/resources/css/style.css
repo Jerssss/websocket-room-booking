@@ -1,0 +1,35 @@
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:pressed {
+    -fx-background-color: #1e8449;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: #BDD1E8;
+    -fx-text-fill: #333;
+    -fx-padding: 5 0 5 28;
+}
+
+.text-field .prompt-text {
+    -fx-fill:  #0d3073; /* Color of the prompt text */
+}
+
+.background-pane {
+    -fx-background-image: url("../images/client/paper.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: auto;
+
+}
+
+
