@@ -2,6 +2,8 @@ package server;
 
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.xml.parsers.*;
@@ -353,6 +355,42 @@ public class ServerSide {
             saveXML(document, filePath);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static final String TERMINAL_FILE_PATH = "src/main/resources/data/Terminal.xml";  // Set the path to where you want to store the terminals
+
+    public static void createAdminTerminalResource(String terminalXML) {
+        try {
+            // Read the existing terminal file, if it exists
+            File terminalFile = new File(TERMINAL_FILE_PATH);
+            StringBuilder currentXML = new StringBuilder();
+
+            // Check if the file exists
+            if (terminalFile.exists()) {
+                // Read the existing XML content into the StringBuilder
+                currentXML.append(new String(Files.readAllBytes(Paths.get(TERMINAL_FILE_PATH))));
+
+                // Remove the closing </Terminal> tag if it already exists in the file (to add it correctly later)
+                int lastTerminalTagIndex = currentXML.lastIndexOf("</Terminal>");
+                if (lastTerminalTagIndex != -1) {
+                    currentXML.delete(lastTerminalTagIndex, currentXML.length());
+                }
+            } else {
+                // Initialize the file with the root <Terminal> if it doesn't exist
+                currentXML.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<Terminal>\n");
+            }
+
+            // Append the new terminal XML to the existing XML content
+            currentXML.append(terminalXML);
+
+            // Close the root <Terminal> tag at the end
+            currentXML.append("</Terminal>");
+
+            // Write the updated content back to the file
+            Files.write(Paths.get(TERMINAL_FILE_PATH), currentXML.toString().getBytes());
+        } catch (IOException e) {
+            System.err.println("Error while saving terminal resource: " + e.getMessage());
         }
     }
 

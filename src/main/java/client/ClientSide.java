@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import references.Equipment;
+import references.Terminal;
 import server.ServerSide;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -131,15 +132,16 @@ public class ClientSide extends Application {
 
     private static boolean showAdminOptions(Scanner scanner, PrintWriter out, BufferedReader in) throws IOException {
         System.out.println("\nAdmin Options:");
-        System.out.println("1. Create Resource");
-        System.out.println("2. Read Resources");
-        System.out.println("3. Update Resource");
-        System.out.println("4. Delete Resource");
-        System.out.println("5. Search Resources");
-        System.out.println("6. Generate Report");
-        System.out.println("7. Approve Reservation");
-        System.out.println("8. Logout");
-        System.out.println("9. Exit");
+        System.out.println("1. Create Equipment");
+        System.out.println("2. Create Terminal");
+        System.out.println("3. Read Resources");
+        System.out.println("4. Update Resource");
+        System.out.println("5. Delete Resource");
+        System.out.println("6. Search Resource");
+        System.out.println("7. Generate Report");
+        System.out.println("8. Approve Reservation");
+        System.out.println("9. Logout");
+        System.out.println("10. Exit");
         System.out.print("Choose an option: ");
 
         int option = scanner.nextInt();
@@ -147,19 +149,21 @@ public class ClientSide extends Application {
 
         switch (option) {
             case 1:
-                //addNewEquipment(scanner);
+                addNewEquipment(scanner);
                 break;
             case 2:
+                addNewTerminal(scanner);
                 break;
             case 8:
+                break;
+            case 9:
                 out.println("<logout/>");
                 System.out.println("Logged out successfully.");
                 return false;
-            case 9:
+            case 10:
                 out.println("<exit/>");
                 System.out.println("Disconnecting from server...");
                 return false;
-            // Handle other options...
         }
         return true;
     }
@@ -243,7 +247,8 @@ public class ClientSide extends Application {
         ServerSide.createStudentReservation(xmlData.toString());
         System.out.println("Reservation submitted for admin approval.");
     }
-   /* private static void addNewEquipment(Scanner scanner) {
+
+    private static void addNewEquipment(Scanner scanner) {
         System.out.print("Enter Equipment ID: ");
         int id = Integer.parseInt(scanner.nextLine());
 
@@ -263,7 +268,7 @@ public class ClientSide extends Application {
 
         Equipment equipment = new Equipment(id, name, description, quantity, available);
 
-        String equipmentXML = "    <item>\n" +
+        String equipmentXML = "\n<item>\n" +
                 "        <equipmentID>" + equipment.getEquipmentId() + "</equipmentID>\n" +
                 "        <equipmentName>" + equipment.getEquipmentName() + "</equipmentName>\n" +
                 "        <description>" + equipment.getEquipmentDescription() + "</description>\n" +
@@ -273,5 +278,38 @@ public class ClientSide extends Application {
 
         ServerSide.createAdminResource(equipmentXML);
         System.out.println("Equipment added successfully!");
-    }*/
+    }
+
+    private static void addNewTerminal(Scanner scanner) {
+        System.out.print("Enter Terminal ID: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Enter Terminal Type (Windows/Linux/mac): ");
+        String type = scanner.nextLine();
+
+        System.out.print("Enter Terminal Room Number: ");
+        int room = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+
+        System.out.print("Enter Terminal Room Type (Classroom/Open Lab): ");
+        String roomType = scanner.nextLine();
+
+        System.out.print("Enter Terminal Status (Available/Reserved/Maintenance/Down): ");
+        String status = scanner.nextLine();
+
+        Terminal terminal = new Terminal(id, type, room, roomType, status);
+
+        // Generate XML representation for the Terminal object
+        String terminalXML = "    <terminal>\n" +
+                "        <terminalId>" + terminal.getTerminalId() + "</terminalId>\n" +
+                "        <terminalType>" + terminal.getTerminalType() + "</terminalType>\n" +
+                "        <terminalRoom>" + terminal.getTerminalRoom() + "</terminalRoom>\n" +
+                "        <terminalRoomType>" + terminal.getTerminalRoomType() + "</terminalRoomType>\n" +
+                "        <terminalStatus>" + terminal.getTerminalStatus() + "</terminalStatus>\n" +
+                "    </terminal>\n";
+
+        // Here you would call the method to save the terminal to the server or wherever necessary
+        ServerSide.createAdminTerminalResource(terminalXML);
+        System.out.println("Terminal added successfully!");
+    }
 }
