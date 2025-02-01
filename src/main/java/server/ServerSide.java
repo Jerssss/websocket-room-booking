@@ -293,11 +293,17 @@ public class ServerSide {
 
                 // Create a new pending record
                 Element pendingRecord = pendingDoc.createElement("pendingRecord");
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n    ")); // Indentation
                 pendingRecord.appendChild(createElement(pendingDoc, "reservationID", String.valueOf(System.currentTimeMillis())));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "studentID", studID));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "equipmentID", equipmentId));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "quantity", String.valueOf(amountBorrowed)));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n    "));
                 pendingRecord.appendChild(createElement(pendingDoc, "requestDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+                pendingRecord.appendChild(pendingDoc.createTextNode("\n"));
 
                 pendingDoc.getDocumentElement().appendChild(pendingRecord);
             }
