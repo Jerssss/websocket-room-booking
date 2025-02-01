@@ -23,8 +23,9 @@ public class LandingPageController {
     public LandingPageController(LandingPageView view){
         view.setActionSignInButton((ActionEvent event) -> {
             try{
-                fxmlLoader = new FXMLLoader(getClass().getResource("fxml/client/signin_page.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/signin_page.fxml"));
                 root = fxmlLoader.load();
+
                 signInPageController = new SignInPageController(fxmlLoader.getController(), new SignInPageModel());
 
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
