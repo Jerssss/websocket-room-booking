@@ -144,7 +144,7 @@ public class ClientSide extends Application {
 
         switch (option) {
             case 1:
-                addNewEquipment(scanner);
+                //addNewEquipment(scanner);
                 break;
             case 2:
                 break;
@@ -164,13 +164,15 @@ public class ClientSide extends Application {
     private static boolean signUp(Scanner scanner, PrintWriter out, BufferedReader in) throws IOException {
         System.out.print("Enter user type (Student/Admin): ");
         String userType = scanner.nextLine().toLowerCase(); // Convert to lowercase
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
         System.out.print("Enter user ID: ");
         String userID = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
         // Send signup request
-        String signupRequest = "<signup><userType>" + userType + "</userType><userID>" + userID + "</userID><password>" + password + "</password></signup>";
+        String signupRequest = "<signup><userType>" + userType + "</userType><name>" + name + "</name><userID>" + userID + "</userID><password>" + password + "</password></signup>";
         out.println(signupRequest);
 
         String response = in.readLine();
@@ -187,7 +189,7 @@ public class ClientSide extends Application {
         new ClientController(view);
     }
 
-    private static void addNewEquipment(Scanner scanner) {
+   /* private static void addNewEquipment(Scanner scanner) {
         System.out.print("Enter Equipment ID: ");
         int id = Integer.parseInt(scanner.nextLine());
 
@@ -217,5 +219,5 @@ public class ClientSide extends Application {
 
         ServerSide.createAdminResource(equipmentXML);
         System.out.println("Equipment added successfully!");
-    }
+    }*/
 }
