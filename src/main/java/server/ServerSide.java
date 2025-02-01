@@ -93,12 +93,13 @@ public class ServerSide {
                 }
 
                 if (action.equals("signup")) {
+                    String name = requestDoc.getElementsByTagName("name").item(0).getTextContent();
                     String userType = requestDoc.getElementsByTagName("userType").item(0).getTextContent();
                     String userID = requestDoc.getElementsByTagName("userID").item(0).getTextContent();
                     String password = requestDoc.getElementsByTagName("password").item(0).getTextContent();
 
                     // Handle user signup
-                    if (signup(userType, userID, password)) {
+                    if (signup(userType, name, userID, password)) {
                         return "<response><status>Success</status><message>Signup successful! You can now log in.</message></response>";
                     } else {
                         return "<response><status>Failure</status><message>User ID already exists</message></response>";
@@ -199,7 +200,7 @@ public class ServerSide {
         return false;  // Invalid credentials
     }
 
-    public static boolean signup(String userType, String userID, String password) {
+    public static boolean signup(String userType, String name, String userID, String password) {
         try {
             // Convert userType to lowercase for case-insensitive comparison
             userType = userType.toLowerCase();
@@ -219,13 +220,26 @@ public class ServerSide {
 
             // Create new user element
             Element newUser = document.createElement(userType);
+            Element nameElement = document.createElement("Name");
+            nameElement.setTextContent(name);
             Element idElement = document.createElement("ID");
             idElement.setTextContent(userID);
             Element passwordElement = document.createElement("Password");
             passwordElement.setTextContent(password);
+
+            newUser.appendChild(nameElement);
             newUser.appendChild(idElement);
             newUser.appendChild(passwordElement);
+
+            // Append the new user to the root element
             document.getDocumentElement().appendChild(newUser);
+
+            // Debugging: Print the XML before saving
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult consoleResult = new StreamResult(System.out);
+            transformer.transform(source, consoleResult); // Print to console
 
             // Save the updated XML
             saveXML(document, "src/main/resources/data/users.xml");
