@@ -397,32 +397,24 @@ public class ServerSide {
 
     public static void createAdminTerminalResource(String terminalXML) {
         try {
-            // Read the existing terminal file, if it exists
             File terminalFile = new File(TERMINAL_FILE_PATH);
             StringBuilder currentXML = new StringBuilder();
 
-            // Check if the file exists
             if (terminalFile.exists()) {
-                // Read the existing XML content into the StringBuilder
                 currentXML.append(new String(Files.readAllBytes(Paths.get(TERMINAL_FILE_PATH))));
 
-                // Remove the closing </Terminal> tag if it already exists in the file (to add it correctly later)
                 int lastTerminalTagIndex = currentXML.lastIndexOf("</Terminal>");
                 if (lastTerminalTagIndex != -1) {
                     currentXML.delete(lastTerminalTagIndex, currentXML.length());
                 }
             } else {
-                // Initialize the file with the root <Terminal> if it doesn't exist
                 currentXML.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<Terminal>\n");
             }
 
-            // Append the new terminal XML to the existing XML content
             currentXML.append(terminalXML);
 
-            // Close the root <Terminal> tag at the end
             currentXML.append("</Terminal>");
 
-            // Write the updated content back to the file
             Files.write(Paths.get(TERMINAL_FILE_PATH), currentXML.toString().getBytes());
         } catch (IOException e) {
             System.err.println("Error while saving terminal resource: " + e.getMessage());
@@ -451,8 +443,67 @@ public class ServerSide {
     }
 
     public static String readAdminResources(String criteria) {
+        StringBuilder response = new StringBuilder();
 
-        return criteria;
+        try {
+            if (criteria.equals("equipment")) {
+                File equipmentFile = new File("src/main/resources/data/Equipment.xml");
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(equipmentFile);
+                doc.getDocumentElement().normalize();
+
+                NodeList equipmentList = doc.getElementsByTagName("item");
+                for (int i = 0; i < equipmentList.getLength(); i++) {
+                    Node equipmentNode = equipmentList.item(i);
+                    if (equipmentNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element equipmentElement = (Element) equipmentNode;
+                        String equipmentId = equipmentElement.getElementsByTagName("equipmentId").item(0).getTextContent();
+                        String equipmentName = equipmentElement.getElementsByTagName("equipmentName").item(0).getTextContent();
+                        String equipmentDescription = equipmentElement.getElementsByTagName("equipmentDescription").item(0).getTextContent();
+                        String totalQuantity = equipmentElement.getElementsByTagName("totalQuantity").item(0).getTextContent();
+                        String availableQuantity = equipmentElement.getElementsByTagName("availableQuantity").item(0).getTextContent();
+
+                        response.append("\nEquipment ID: ").append(equipmentId).append("\n");
+                        response.append("Equipment Name: ").append(equipmentName).append("\n");
+                        response.append("Equipment Description: ").append(equipmentDescription).append("\n");
+                        response.append("Total Quantity: ").append(totalQuantity).append("\n");
+                        response.append("Available Quantity: ").append(availableQuantity).append("\n");
+                    }
+                }
+            } else if (criteria.equals("terminal")) {
+                File terminalFile = new File("src/main/resources/data/Terminal.xml");
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(terminalFile);
+                doc.getDocumentElement().normalize();
+
+                NodeList terminalList = doc.getElementsByTagName("terminal");
+                for (int i = 0; i < terminalList.getLength(); i++) {
+                    Node terminalNode = terminalList.item(i);
+                    if (terminalNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element terminalElement = (Element) terminalNode;
+                        String terminalId = terminalElement.getElementsByTagName("terminalId").item(0).getTextContent();
+                        String terminalType = terminalElement.getElementsByTagName("terminalType").item(0).getTextContent();
+                        String terminalRoom = terminalElement.getElementsByTagName("terminalRoom").item(0).getTextContent();
+                        String terminalRoomType = terminalElement.getElementsByTagName("terminalRoomType").item(0).getTextContent();
+                        String terminalStatus = terminalElement.getElementsByTagName("terminalStatus").item(0).getTextContent();
+
+                        response.append("\nTerminal ID: ").append(terminalId).append("\n");
+                        response.append("Terminal Type: ").append(terminalType).append("\n");
+                        response.append("Terminal Room: ").append(terminalRoom).append("\n");
+                        response.append("Terminal RoomType: ").append(terminalRoomType).append("\n");
+                        response.append("Terminal Status: ").append(terminalStatus).append("\n");
+                    }
+                }
+            } else {
+                response.append("No resources found matching the criteria.\n");
+            }
+        } catch (Exception e) {
+            response.append("Error parsing XML: ").append(e.getMessage()).append("\n");
+        }
+
+        return response.toString();
     }
 
     public static void updateAdminResource(String xmlData) {
