@@ -152,7 +152,7 @@ public class ClientSide extends Application {
                 addNewEquipment(scanner);
                 break;
             case 2:
-                addNewTerminal(scanner);
+//                addNewTerminal(scanner);
                 break;
             case 3:
                 System.out.print("Enter the criteria you want to view (equipment/terminal): ");
@@ -286,32 +286,32 @@ public class ClientSide extends Application {
         System.out.println("Equipment added successfully!");
     }
 
-    private static void addNewTerminal(Scanner scanner) {
-        System.out.print("Enter Terminal ID: ");
-        int id = Integer.parseInt(scanner.nextLine());
-
-        System.out.print("Enter Terminal Type (Windows/Linux/mac): ");
-        String type = scanner.nextLine();
-
-        System.out.print("Enter Terminal Room Number: ");
-        String room = scanner.nextLine();
-
-        System.out.print("Enter Terminal Room Type (Classroom/Open Lab): ");
-        String roomType = scanner.nextLine();
-
-        System.out.print("Enter Terminal Status (Available/Reserved/Maintenance/Down): ");
-        String status = scanner.nextLine();
-
-        Terminal terminal = new Terminal(id, type, room, roomType, status);
-
-        String terminalXML = "    <terminal>\n" +
-                "        <terminalId>" + terminal.getTerminalId() + "</terminalId>\n" +
-                "        <terminalType>" + terminal.getTerminalType() + "</terminalType>\n" +
-                "        <terminalRoom>" + terminal.getTerminalRoom() + "</terminalRoom>\n" +
-                "        <terminalRoomType>" + terminal.getTerminalRoomType() + "</terminalRoomType>\n" +
-                "        <terminalStatus>" + terminal.getTerminalStatus() + "</terminalStatus>\n" +
-                "    </terminal>\n";
-        ServerSide.createAdminTerminalResource(terminalXML);
-        System.out.println("Terminal added successfully!");
-    }
+//    private static void addNewTerminal(Scanner scanner) {
+//        System.out.print("Enter Terminal ID: ");
+//        int id = Integer.parseInt(scanner.nextLine());
+//
+//        System.out.print("Enter Terminal Type (Windows/Linux/mac): ");
+//        String type = scanner.nextLine();
+//
+//        System.out.print("Enter Terminal Room Number: ");
+//        String room = scanner.nextLine();
+//
+//        System.out.print("Enter Terminal Room Type (Classroom/Open Lab): ");
+//        String roomType = scanner.nextLine();
+//
+//        System.out.print("Enter Terminal Status (Available/Reserved/Maintenance/Down): ");
+//        String status = scanner.nextLine();
+//
+//        Terminal terminal = new Terminal(id, type, room, roomType, status);
+//
+//        String terminalXML = "    <terminal>\n" +
+//                "        <terminalId>" + terminal.getTerminalId() + "</terminalId>\n" +
+//                "        <terminalType>" + terminal.getTerminalType() + "</terminalType>\n" +
+//                "        <terminalRoom>" + terminal.getTerminalRoom() + "</terminalRoom>\n" +
+//                "        <terminalRoomType>" + terminal.getTerminalRoomType() + "</terminalRoomType>\n" +
+//                "        <terminalStatus>" + terminal.getTerminalStatus() + "</terminalStatus>\n" +
+//                "    </terminal>\n";
+//        ServerSide.createAdminTerminalResource(terminalXML);
+//        System.out.println("Terminal added successfully!");
+//    }
 }

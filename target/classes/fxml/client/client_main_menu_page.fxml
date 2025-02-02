@@ -15,20 +15,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="798.0" styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="798.0" styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.clientview.MenuPageView">
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="397.0" prefWidth="141.0" spacing="10.0" style="-fx-background-color: #0d3073;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="397.0" prefWidth="141.0" spacing="20.0" style="-fx-background-color: #0d3073;" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: BOLD;" stylesheets="@../../css/style.css" text="EQUIPMENT">
+            <Button fx:id="menuEquipmentButton" mnemonicParsing="false" onMouseEntered="#EquipmentButtonHovered" onMouseExited="#EquipmentButtonExited" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: BOLD;" stylesheets="@../../css/style.css" text="EQUIPMENT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-weight: bold; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" stylesheets="@../../css/style.css" text="TERMINALS">
+            <Button fx:id="menuTerminalsButton" mnemonicParsing="false" onMouseEntered="#TerminalsButtonHovered" onMouseExited="#TerminalsButtonExited" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-weight: bold; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="TERMINALS" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-weight: bold; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" stylesheets="@../../css/style.css" text="YOUR HISTORY">
+            <Button fx:id="menuHistoryButton" mnemonicParsing="false" onMouseEntered="#HistoryButtonHovered" onMouseExited="#HistoryButtonExited" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-weight: bold; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="YOUR HISTORY" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -67,17 +67,17 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #B0C4DE; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: BOLD;" stylesheets="@../../css/style.css" text="CHECK OUT">
+                        <Button fx:id="menuCheckoutButton" mnemonicParsing="false" onMouseEntered="#CheckoutButtonHovered" onMouseExited="#CheckoutButtonExited" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #B0C4DE; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: BOLD;" text="CHECK OUT" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: BOLD;" stylesheets="@../../css/style.css" text="CLEAR CART">
+                        <Button fx:id="menuClearCartButton" mnemonicParsing="false" onMouseEntered="#ClearCartButtonHovered" onMouseExited="#ClearCartButtonExited" prefHeight="47.0" prefWidth="141.0" style="-fx-background-color: #0d3073; -fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: BOLD;" text="CLEAR CART" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -119,13 +119,13 @@
                   </HBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="192.0">
                      <children>
-                        <Label style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Name" textFill="WHITE">
+                        <Label fx:id="nameLabel" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Name" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label text="Date" textFill="WHITE" />
-                        <Label text="Time" textFill="WHITE" />
+                        <Label fx:id="dateLabel" text="Date" textFill="WHITE" />
+                        <Label fx:id="timeLabel" text="Time" textFill="WHITE" />
                      </children>
                   </VBox>
                </children>

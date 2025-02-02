@@ -36,6 +36,35 @@ public class LandingPageController {
                 e.printStackTrace();
             }
         });
+
+        view.setActionSignUpButton((ActionEvent event) -> {
+            //store field and dropdown contents
+            String userID = view.getIDField().getText();
+            String pass = view.getPassField().getText();
+            String userType = view.getUserTypeBox().getValue();
+
+            if(userID.isEmpty() || pass.isEmpty() || userType == null) {
+                view.getPromptLabel().setText("Please accomplish all fields.");
+                view.getPromptLabel().setVisible(true);
+            }else{
+                view.getPromptLabel().setVisible(false);//hide error prompt if all is good
+
+                try{
+                    fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/landing_page.fxml"));
+                    root = fxmlLoader.load();
+
+                    new LandingPageController(fxmlLoader.getController());
+
+                    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
 

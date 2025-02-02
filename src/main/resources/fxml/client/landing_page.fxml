@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -27,6 +28,9 @@
                <font>
                   <Font size="10.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="9.0" top="-10.0" />
+               </VBox.margin>
             </Label>
             <Button fx:id="landingPageSignInButton" mnemonicParsing="false" onMouseEntered="#landingPageSignInButtonHovered" onMouseExited="#landingPageSignInButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN IN" textFill="WHITE" />
          </children>
@@ -40,27 +44,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <StackPane id="idStackPane" prefHeight="30.0" prefWidth="359.0">
-               <children>
-                  <TextField id="idField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Institutional ID" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/style.css" />
-                  <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
-                     <image>
-                        <Image url="@../../images/client/id_icon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </StackPane>
-            <StackPane id="passStackPane" prefHeight="31.0" prefWidth="359.0">
-               <children>
-                  <PasswordField id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="293.0" promptText="Password" style="-fx-pref-width: 250;" styleClass="background-pane" stylesheets="@../../css/style.css" />
-                  <ImageView id="passIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
-                     <image>
-                        <Image url="@../../images/client/lock_icon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </StackPane>
-            <ComboBox id="userTypePicker" prefWidth="150.0" promptText="User Type" style="-fx-background-color: #BDD1E8;" stylesheets="@../../css/style.css">
+            <ComboBox id="userTypePicker" fx:id="signUpUserTypePicker" prefHeight="25.0" prefWidth="250.0" promptText="User Type" style="-fx-background-color: #BDD1E8;" stylesheets="@../../css/style.css">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Student" />
@@ -72,6 +56,27 @@
                   <String fx:value="background-pane" />
                </styleClass>
             </ComboBox>
+            <StackPane id="idStackPane" prefHeight="30.0" prefWidth="359.0">
+               <children>
+                  <TextField id="idField" fx:id="signUpUserID" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Institutional ID" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/style.css" />
+                  <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/id_icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane id="passStackPane" prefHeight="31.0" prefWidth="359.0">
+               <children>
+                  <PasswordField id="passwordField" fx:id="signUpUserPass" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="293.0" promptText="Password" style="-fx-pref-width: 250;" styleClass="background-pane" stylesheets="@../../css/style.css" />
+                  <ImageView id="passIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/lock_icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Label fx:id="signUpPromptLabel" textFill="#dd2c2c" />
             <Button fx:id="landingPageSignUpButton" mnemonicParsing="false" onMouseEntered="#landingPageSignUpButtonHovered" onMouseExited="#landingPageSignUpButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/style.css" text="SIGN UP" textFill="WHITE" />
 
          </children>

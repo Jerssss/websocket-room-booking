@@ -6,7 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.util.Duration;
 
 public class LandingPageView {
@@ -15,6 +15,14 @@ public class LandingPageView {
     private Button landingPageSignInButton; //matching the fx:id in the .fxml file for direct interaction
     @FXML
     private Button landingPageSignUpButton;
+    @FXML
+    private ComboBox<String> signUpUserTypePicker;
+    @FXML
+    private TextField signUpUserID;
+    @FXML
+    private PasswordField signUpUserPass;
+    @FXML
+    private Label signUpPromptLabel;
 
     private Parent root;
     private FXMLLoader fxmlLoader;
@@ -36,6 +44,19 @@ public class LandingPageView {
     public Parent getRoot() {
         return root;
     }
+    public TextField getIDField() {
+        return signUpUserID;
+    }
+    public PasswordField getPassField() {
+        return signUpUserPass;
+    }
+    public ComboBox<String> getUserTypeBox() {
+        return signUpUserTypePicker;
+    }
+
+    public Label getPromptLabel() {
+        return signUpPromptLabel;
+    }
 
     //setters
     public void setFXMLLoader(FXMLLoader fxmlLoader) {
@@ -45,6 +66,9 @@ public class LandingPageView {
         this.root = root;
     }
 
+    public void setPromptLabel(Label signUpPromptLabel) {
+        this.signUpPromptLabel = signUpPromptLabel;
+    }
 
     //effects for sign in button
     public void landingPageSignInButtonHovered() {
