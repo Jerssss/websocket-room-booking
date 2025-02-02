@@ -20,4 +20,11 @@
 	    <quantity>1</quantity>
 	    <requestDate>2025-02-02</requestDate>
 </pendingRecord>
+<pendingRecord>
+	    <reservationID>4</reservationID>
+	    <studentID>1</studentID>
+	    <equipmentID>1</equipmentID>
+	    <quantity>1</quantity>
+	    <requestDate>2025-02-02</requestDate>
+</pendingRecord>
 </PendingReservations>

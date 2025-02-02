@@ -1,6 +1,8 @@
 client\view\ClientView.class
 references\Borrow.class
+references\PendingReservation.class
 references\Hardware.class
+references\Terminal.class
 client\model\ClientModel.class
 client\view\clientview\MenuCardView.class
 client\view\clientview\BorrowHistoryView.class

@@ -1,4 +1,5 @@
-module EquipmentBorrowingApp {
+module Lendify {
+
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
