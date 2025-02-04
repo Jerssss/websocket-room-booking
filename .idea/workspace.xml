@@ -5,30 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/controller/mainmenu/MenuPageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client/model/scenemodels/MenuPageModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lendify.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientSide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientSide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ClientMenuPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/MenuPageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/LandingPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/LandingPageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/SignInPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/SignInPageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data/Equipment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/Equipment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/client_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/client_main_menu_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/landing_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/landing_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/signin_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/signin_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/ClientSide.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controller/signin/SignInPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controller/signin/SignInPageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/view/clientview/ClientMenuPageView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/view/clientview/SignInPageView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/view/clientview/SignInPageView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data/Equipment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/Equipment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/landing_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/landing_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/signin_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/signin_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/ServerSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/ServerSide.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/client_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/client_main_menu_page.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,18 +42,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;22&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.4586207&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "22",
+    "last_opened_file_path": "C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.4586207"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Run ClientSide" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
