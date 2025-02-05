@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/controller/studentController/CreateReservationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/controller/studentController/ModifyReservationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/controller/studentController/StudentMainMenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/controller/studentController/ViewReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/landingpage/LandingPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/landingpage/LandingPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data/Equipment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/Equipment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/client_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/client_main_menu_page.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data/Equipment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/Equipment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/client_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/client_main_menu_page.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -35,7 +45,7 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2sRyQLuSO1F6WYxS3b4aYkQEI7o" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -47,7 +57,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "revised-main",
     "jdk.selected.JAVA_MODULE": "22",
     "last_opened_file_path": "C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject",
     "project.structure.last.edited": "Modules",

@@ -1,12 +1,10 @@
-package client.controller.landingpage;
+package client.controller.landingpageController;
 
 
-import client.controller.signin.SignInPageController;
-import client.model.scenemodels.SignInPageModel;
+import client.model.mainmenuModel.SignInPageModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import client.view.clientview.LandingPageView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;

@@ -1,6 +1,6 @@
 package client.controller;
 
-import client.controller.landingpage.LandingPageController;
+import client.controller.landingpageController.LandingPageController;
 import client.view.ClientView;
 
 public class ClientController {
