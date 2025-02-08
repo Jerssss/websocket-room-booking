@@ -2,8 +2,13 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
-public class ClientMain {
+import
+public class ClientMain extends Application{
     private static final String SERVER_HOST = "localhost";
     private static final int SERVER_PORT = 4321;
 
@@ -34,4 +39,10 @@ public class ClientMain {
             System.out.println("Error connecting to the server: " + e.getMessage());
         }
     }
+
+
+//    @Override
+//    public void start(Stage stage) throws Exception {
+//        stage.getIcons().add(new Image(getClass().getResource()))
+//    }
 }

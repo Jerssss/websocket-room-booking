@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<EquipmentHistory>
+    <record>
+        <studentID>2240841</studentID>
+        <equipmentID>1</equipmentID>
+        <quantity>1</quantity>
+        <borrowDate>2025-02-01</borrowDate>
+        <returnDate>2025-02-10</returnDate>
+    </record>
+    <record>
+        <studentID>2240853</studentID>
+        <equipmentID>2</equipmentID>
+        <quantity>1</quantity>
+        <borrowDate>2025-02-02</borrowDate>
+        <returnDate>2025-02-12</returnDate>
+    </record>
+</EquipmentHistory>

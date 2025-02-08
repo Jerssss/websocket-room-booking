@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Terminal>
+    <terminal>
+        <terminalId>1</terminalId>
+        <terminalType>Windows</terminalType>
+        <terminalRoom>101</terminalRoom>
+        <terminalRoomType>Classroom</terminalRoomType>
+        <terminalStatus>Available</terminalStatus>
+    </terminal>
+    <terminal>
+        <terminalId>2</terminalId>
+        <terminalType>Linux</terminalType>
+        <terminalRoom>102</terminalRoom>
+        <terminalRoomType>Open Lab</terminalRoomType>
+        <terminalStatus>Reserved</terminalStatus>
+    </terminal>
+</Terminal>
