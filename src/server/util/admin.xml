@@ -1,8 +1,0 @@
-<Admins>
-    <Admin>
-        <Admin_ID>admin1</Admin_ID>
-        <Name>Dina Matuto</Name>
-        <Type>Super Admin</Type>
-        <Password>admin123</Password>
-    </Admin>
-</Admins>

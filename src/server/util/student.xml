@@ -1,9 +1,0 @@
-<Students>
-    <Student>
-        <Student_ID>2240000</Student_ID>
-        <Name>John Doe</Name>
-        <Course>Computer Science</Course>
-        <Year>2</Year>
-        <Password>224000</Password>
-    </Student>
-</Students>
