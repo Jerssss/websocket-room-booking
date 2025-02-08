@@ -20,7 +20,6 @@ public class SignUpController {
     private final SignUpView signUpView;
 
 
-
     public SignUpController(SignUpView signUpView, SignUpModel signUpModel) {
         this.signUpView = signUpView;
 
@@ -30,7 +29,7 @@ public class SignUpController {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/signin_page.fxml"));
                 root = fxmlLoader.load(); //saves loaded fxml file's root node into the object root
 
-                new LoginController(fxmlLoader.getController(), new LoginModel());
+                new LoginController(fxmlLoader.getController(), new LoginModel()); //allows mutation and display
 
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow(); //sets the stage or window to display the scene
                 Scene scene = new Scene(root); //a new scene or window is created with the root node (which contains all the elements in the fxml file)
@@ -55,7 +54,7 @@ public class SignUpController {
                 signUpView.getPromptLabel().setVisible(false);//hide error prompt if all is good
 
 //                try{
-//                    TODO: include authentication logic or method call for authentication and server response
+//          TODO: include authentication logic or method call for authentication and server response
 //                }
             }
         });

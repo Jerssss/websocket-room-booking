@@ -17,7 +17,6 @@ public class ClientView {
 
     public void runInterface() {
         try{
-            System.out.println("Loading initial scene...");
             fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/landing_page.fxml")); //calls the javafx scene
             Scene scene = new Scene (fxmlLoader.load()); //reads from the file, takes in the nodes, stores it in Scene scene
             stage.setTitle("Lendify");

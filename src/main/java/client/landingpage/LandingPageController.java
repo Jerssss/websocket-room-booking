@@ -4,6 +4,7 @@ import client.login.LoginController;
 import client.login.LoginModel;
 import client.signup.SignUpController;
 import client.signup.SignUpModel;
+import client.landingpage.LandingPageView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,7 +24,6 @@ public class LandingPageController {
     public LandingPageController (LandingPageView view) {
 
         view.setActionSignInButton((ActionEvent event) -> {
-
             try{
                 fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/signin_page.fxml"));
                 root = fxmlLoader.load();
@@ -40,7 +40,6 @@ public class LandingPageController {
         });
 
         view.setActionSignUpButton((ActionEvent event) -> {
-
             try{
                 fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/sign_up_page.fxml"));
                 root = fxmlLoader.load();

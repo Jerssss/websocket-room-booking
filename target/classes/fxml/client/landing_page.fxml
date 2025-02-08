@@ -8,17 +8,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="843.0" styleClass="landing-page-background" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="905.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.landingpage.LandingPageView">
    <center>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="391.0" prefWidth="843.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Your Time," textFill="WHITE">
+            <Label text="Your Time," textFill="#0d3073">
                <font>
                   <Font name="System Bold" size="46.0" />
                </font>
@@ -26,18 +23,7 @@
                   <Insets left="25.0" />
                </padding>
             </Label>
-            <Label text="Your Space," textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="46.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="-15.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets left="25.0" />
-               </padding>
-            </Label>
-            <Label text="Your Future." textFill="WHITE">
+            <Label text="Your Space," textFill="#0d3073">
                <font>
                   <Font name="System Bold" size="46.0" />
                </font>
@@ -48,7 +34,18 @@
                   <Insets left="25.0" />
                </padding>
             </Label>
-            <Label prefHeight="86.0" prefWidth="563.0" text="Welcome to Lendify, the ultimate terminal reservation system for Maryheights Campus students! Easily book a workstation for research, coding, or assignments—quick, hassle-free, and efficient." textFill="WHITE" wrapText="true">
+            <Label text="Your Future." textFill="#0d3073">
+               <font>
+                  <Font name="System Bold" size="46.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </Label>
+            <Label prefHeight="86.0" prefWidth="563.0" text="Welcome to Lendify, the ultimate terminal reservation system for Maryheights Campus students! Easily book a workstation for research, coding, or assignments—quick, hassle-free, and efficient." textFill="#0d3073" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
@@ -61,12 +58,12 @@
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="843.0" spacing="20.0">
                <children>
-                  <Button id="signUpButtonLandingPage" fx:id="signUpButtonLandingPage" mnemonicParsing="false" prefHeight="41.0" prefWidth="192.0" style="-fx-background-color: transparent; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign Up" textFill="WHITE">
+                  <Button id="signUpButtonLandingPage" fx:id="signUpButtonLandingPage" mnemonicParsing="false" prefHeight="41.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign Up" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button id="signInButtonLandingPage" fx:id="signInButtonLandingPage" mnemonicParsing="false" prefHeight="41.0" prefWidth="192.0" style="-fx-background-color: transparent; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign In" textFill="WHITE">
+                  <Button id="signInButtonLandingPage" fx:id="signInButtonLandingPage" mnemonicParsing="false" prefHeight="41.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign In" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -83,36 +80,40 @@
       </VBox>
    </center>
    <top>
-      <VBox alignment="CENTER" prefHeight="48.0" prefWidth="843.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="74.0" prefWidth="843.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
+            <HBox prefHeight="74.0" prefWidth="798.0" style="-fx-background-color: #0d3073;">
                <children>
-                  <ImageView fitHeight="65.0" fitWidth="843.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../../images/client/landing-page-bg-1.jpg" />
-                     </image>
-                     <effect>
-                        <DropShadow height="152.11" radius="37.5275" spread="0.53" width="0.0">
-                           <color>
-                              <Color opacity="0.5343511700630188" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </ImageView>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="65.0" prefWidth="846.0">
+                  <HBox prefHeight="58.0" prefWidth="86.0">
                      <children>
-                        <Label style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif; -fx-font-weight: bold;" text="Lendify" textFill="WHITE">
+                        <VBox alignment="CENTER_RIGHT" prefHeight="73.0" prefWidth="104.0">
+                           <children>
+                              <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/client/app_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="528.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="105.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Lendify" textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font name="System Bold" size="28.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets left="5.0" />
                            </HBox.margin>
                         </Label>
                      </children>
                   </HBox>
                </children>
-            </StackPane>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
          </children>
       </VBox>
    </top>

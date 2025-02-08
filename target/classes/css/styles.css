@@ -19,11 +19,6 @@
     -fx-background-size: auto;
 }
 
-.landing-page-background {
-    -fx-background-image: url("../images/client/landing-page-bg-1.jpg");
-    -fx-background-size: 1000;
-}
-
 .userTypePicker{
        -fx-prompt-text-fill: #8988b1;
 }

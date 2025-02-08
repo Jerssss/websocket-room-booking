@@ -94,7 +94,7 @@
                         <Image url="@../../images/client/create.png" />
                      </image>
                      <StackPane.margin>
-                        <Insets left="30.0" />
+                        <Insets left="25.0" />
                      </StackPane.margin>
                   </ImageView>
                </children>
