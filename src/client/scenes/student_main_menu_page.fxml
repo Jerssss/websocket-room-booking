@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="762.0" styleClass="background-pane" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="77.0" prefWidth="762.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="74.0" prefWidth="798.0" style="-fx-background-color: #0d3073;">
+               <children>
+                  <HBox prefHeight="58.0" prefWidth="86.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="73.0" prefWidth="104.0">
+                           <children>
+                              <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/client/app_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="528.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="105.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Lendify" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="192.0">
+                     <children>
+                        <Label id="headerNameLabel" fx:id="headerNameLabel" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Name" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label id="headerDateLabel" fx:id="headerDateLabel" text="Date" textFill="WHITE" />
+                        <Label id="headerTimeLabel" fx:id="headerTimeLabel" text="Time" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="198.0" prefWidth="762.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label id="greetingLabel" fx:id="greetingLabel" text="What would you like to do, ">
+                     <font>
+                        <Font name="System Bold" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label id="nameGreetingLabel" fx:id="nameGreetingLabel" text="name?">
+                     <font>
+                        <Font name="System Bold" size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <VBox prefHeight="262.0" prefWidth="762.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
+               <children>
+                  <Button id="createReservationButton" fx:id="createReservationButton" mnemonicParsing="false" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="Create Reservation" textFill="#0d3073" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <ImageView id="idIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/create.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
+               <children>
+                  <Button id="viewReservationButton" fx:id="viewReservationButton" mnemonicParsing="false" style="-fx-background-color: transparent;" text="View Reservation/s" textFill="#0d3073" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <ImageView id="idIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/view.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
+               <children>
+                  <ImageView id="idIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/edit.png" />
+                     </image>
+                  </ImageView>
+                  <Button id="modifyReservationButton" fx:id="modifyReservationButton" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Modify Reservation" textFill="#0d3073" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </StackPane>
+            <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
+               <children>
+                  <Button id="logoutButton" fx:id="logoutButton" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Log Out" textFill="#0d3073" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <ImageView id="idIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/logout.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
