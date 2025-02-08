@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="Edited the files structure">
-      <change afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/landingpage/LandingPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/landingpage/LandingPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/mainmenu/MainMenuPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/mainmenu/MainMenuPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/model/ClientModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/model/ClientModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/BorrowHistoryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/BorrowHistoryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ClientMenuPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/ClientMenuPageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/MenuCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/MenuCardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerDownView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerDownView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerErrorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerErrorView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/SignInPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/SignInPageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/controller/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/controller/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/ServerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/ServerModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +76,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\client\scenes" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src" />
     </key>
   </component>
   <component name="RunManager" selected="Application.ClientMain">
