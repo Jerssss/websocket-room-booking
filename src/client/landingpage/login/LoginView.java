@@ -1,4 +1,0 @@
-package client.landingpage.login;
-
-public class LoginView {
-}

@@ -1,0 +1,34 @@
+.button:hover {
+
+    fx-underline: true;
+}
+
+.text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: #BDD1E8;
+    -fx-padding: 5 0 5 28;
+}
+
+.text-field {
+    -fx-prompt-text-fill: #8988b1;
+}
+
+.background-pane {
+    -fx-background-image: url("../images/client/paper.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: auto;
+}
+
+.landing-page-background {
+    -fx-background-image: url("../images/client/landing-page-bg-1.jpg");
+    -fx-background-size: 1000;
+}
+
+.userTypePicker{
+       -fx-prompt-text-fill: #8988b1;
+}
+
+
+
+
+
