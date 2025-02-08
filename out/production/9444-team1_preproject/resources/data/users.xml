@@ -28,7 +28,7 @@
         <Password>2240521</Password>
     </Student>
     <Admin>
-        <ID>admin</ID>
-        <Password>admin</Password>
+        <ID>client.admin</ID>
+        <Password>client.admin</Password>
     </Admin>
 </users>
