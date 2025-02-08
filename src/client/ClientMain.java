@@ -39,10 +39,4 @@ public class ClientMain extends Application{
             System.out.println("Error connecting to the server: " + e.getMessage());
         }
     }
-
-
-//    @Override
-//    public void start(Stage stage) throws Exception {
-//        stage.getIcons().add(new Image(getClass().getResource()))
-//    }
 }

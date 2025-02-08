@@ -5,42 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="Edited the files structure">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/admin/cotroller/AddNewTerminalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/admin/controller/AddNewTerminalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/admin/cotroller/AdminMainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/admin/controller/AdminMainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/admin/cotroller/ModifyTerminalStatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/admin/controller/ModifyTerminalStatusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/admin/cotroller/ReportGeneratorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/admin/controller/ReportGeneratorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/admin/cotroller/ReservationApprovalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/admin/controller/ReservationApprovalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/admin/cotroller/ViewStudentReservationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/admin/controller/ViewStudentReservationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/checkout_page.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/equipment_item_card.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/select_equipment.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/server_error_window.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/sign_up_page.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/signin_page.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/scenes/student_main_menu_page.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientSide.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/ClientSide.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controller/landingpage/LandingPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controller/landingpage/LandingPageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controller/mainmenu/MenuPageController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controller/signin/SignInPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controller/signin/SignInPageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/model/ClientModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/model/ClientModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/model/scenemodels/MenuPageModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/model/scenemodels/SignInPageModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/model/scenemodels/SignInPageModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/view/ClientView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/view/ClientView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/view/clientview/LandingPageView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/view/clientview/LandingPageView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/view/clientview/MenuPageView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/view/clientview/SignInPageView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/view/clientview/SignInPageView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/Student.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/Student.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/users.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/users.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/client_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/client_main_menu_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/landing_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/landing_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/signin_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/signin_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/references/Borrow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/references/Borrow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/references/PendingReservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/references/PendingReservation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/references/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/landingpage/LandingPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/landingpage/LandingPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/mainmenu/MainMenuPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/mainmenu/MainMenuPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controller/signin/SignInPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/model/ClientModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/model/ClientModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/BorrowHistoryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/BorrowHistoryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ClientMenuPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/ClientMenuPageView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/MenuCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/MenuCardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerDownView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerDownView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerErrorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/ServerErrorView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/view/clientview/SignInPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/view/clientview/SignInPageView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/controller/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/controller/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/ServerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/ServerModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +41,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitLabMergeRequestFiltersHistory">{
   &quot;lastFilter&quot;: {
