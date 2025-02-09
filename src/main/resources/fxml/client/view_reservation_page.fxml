@@ -157,7 +157,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="165.0">
                            <children>
-                              <Label text="Rooms">
+                              <Label text="History">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
