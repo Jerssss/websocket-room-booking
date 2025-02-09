@@ -64,6 +64,16 @@
                   </ImageView>
                </children>
             </StackPane>
+            <StackPane id="nameStackPane" fx:id="nameStackPane" prefHeight="30.0" prefWidth="359.0">
+               <children>
+                  <TextField id="nameField" fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Name" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                  <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/id_icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
             <StackPane id="courseYearStackPane" fx:id="courseYearStackPane" prefHeight="30.0" prefWidth="359.0">
                <children>
                   <TextField id="courseYearField" fx:id="courseYearField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Course Year" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/styles.css" />

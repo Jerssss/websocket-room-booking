@@ -44,14 +44,17 @@ public class SignUpController {
 
         this.signUpView.setActionSignUpButton((ActionEvent event) -> {
             //store field and dropdown contents
-            String userID = signUpView.getIDField().getText();
-            String pass = signUpView.getPassField().getText();
             String userType = signUpView.getUserTypeBox().getValue();
+            String userID = signUpView.getIDField().getText();
+            String name = signUpView.getNameField().getText();
             String courseYear = signUpView.getCourseYearField().getText();
             String type = signUpView.getFacultyTypeField().getText();
+            String pass = signUpView.getPassField().getText();
+
 
             //prompter when fields are unaccomplished
-            if(userID.isEmpty() || pass.isEmpty() || userType == null) {
+            if(userID.isEmpty() || pass.isEmpty() || userType == null
+                    || name.isEmpty() || courseYear.isEmpty() || type.isEmpty()) {
                 signUpView.getPromptLabel().setText("Please accomplish all fields.");
                 signUpView.getPromptLabel().setVisible(true);
             }else{

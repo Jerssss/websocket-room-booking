@@ -28,6 +28,8 @@ public class SignUpView {
     @FXML
     private TextField courseYearField;
     @FXML
+    private TextField nameField;
+    @FXML
     private PasswordField signUpUserPass;
     @FXML
     private Label signUpPromptLabel;
@@ -35,6 +37,8 @@ public class SignUpView {
     private StackPane facultyTypeStackPane;
     @FXML
     private StackPane courseYearStackPane;
+    @FXML
+    private StackPane nameStackPane;
 
     private Parent root;
     private FXMLLoader fxmlLoader;
@@ -92,12 +96,22 @@ public class SignUpView {
     public TextField getIDField() {
         return signUpUserID;
     }
+    public TextField getNameField() {
+        return nameField;
+    }
+    public TextField getCourseYearField() {
+        return courseYearField;
+    }
+    public TextField getFacultyTypeField() {
+        return facultyTypeField;
+    }
     public PasswordField getPassField() {
         return signUpUserPass;
     }
     public ComboBox<String> getUserTypeBox() {
         return signUpUserTypePicker;
     }
+
 
     public Label getPromptLabel() {
         return signUpPromptLabel;
@@ -115,11 +129,4 @@ public class SignUpView {
         this.signUpPromptLabel = signUpPromptLabel;
     }
 
-    public TextField getCourseYearField() {
-        return courseYearField;
-    }
-
-    public TextField getFacultyTypeField() {
-        return facultyTypeField;
-    }
 }
