@@ -1,16 +1,16 @@
 package client.login;
-import javafx.animation.ScaleTransition;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.util.Duration;
 
 public class LoginView {
 
+<<<<<<< HEAD
     //login_page.fxml objects for direct interaction/config
+=======
+>>>>>>> 3881fe55356ffb91e0659b7e68ecf6caf01095c4
     @FXML
     private Button signInPageSignInButton;
     @FXML
@@ -24,52 +24,38 @@ public class LoginView {
     @FXML
     private Label promptLabel;
 
-    private FXMLLoader fxmlLoader;
-    private Parent root;
-
-    //action receiver
-    public void setActionSignUpButton(EventHandler<ActionEvent> event) {
-        signInPageSignUpButton.setOnAction(event);
-    }
-
-    //action receiver
-    public void setActionSignInButton(EventHandler<ActionEvent> event) {
-        signInPageSignInButton.setOnAction(event);
-    }
-
-    //getters
-    public TextField getIDField(){
+    // Getters for UI components
+    public TextField getIDField() {
         return idField;
     }
 
-    public PasswordField getPassField(){
+    public PasswordField getPassField() {
         return passField;
-    }
-
-    public Label getPromptLabel() {
-        return promptLabel;
     }
 
     public ComboBox<String> getUserTypeBox() {
         return userTypeBox;
     }
 
-    public FXMLLoader getFxmlLoader() {
-        return fxmlLoader;
+    public Label getPromptLabel() {
+        return promptLabel;
     }
 
-    public Parent getRoot() {
-        return root;
+    // New methods for setting promptLabel text and visibility
+    public void setPromptLabel(String text) {
+        promptLabel.setText(text);
     }
 
-    //setters
-    public void setFxmlLoader(FXMLLoader fxmlLoader) {
-        this.fxmlLoader = fxmlLoader;
+    public void setPromptLabelVisible(boolean visible) {
+        promptLabel.setVisible(visible);
     }
 
-    public void setRoot(Parent root) {
-        this.root = root;
+    // Event handlers for button actions
+    public void setActionSignInButton(EventHandler<ActionEvent> event) {
+        signInPageSignInButton.setOnAction(event);
     }
 
+    public void setActionSignUpButton(EventHandler<ActionEvent> event) {
+        signInPageSignUpButton.setOnAction(event);
+    }
 }
-
