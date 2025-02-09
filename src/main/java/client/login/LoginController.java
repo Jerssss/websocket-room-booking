@@ -1,68 +1,51 @@
 package client.login;
 
-import client.signup.SignUpController;
-import client.signup.SignUpModel;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class LoginController {
 
-    private FXMLLoader fxmlLoader;
-    private Parent root;
     private final LoginView loginView;
     private final LoginModel loginModel;
-
 
     public LoginController(LoginView loginView, LoginModel loginModel) {
         this.loginView = loginView;
         this.loginModel = loginModel;
 
-        this.loginView.setActionSignInButton((ActionEvent event) -> {
-            //store field and dropdown contents
-            String userID = loginView.getIDField().getText();
-            String pass = loginView.getPassField().getText();
-            String userType = loginView.getUserTypeBox().getValue();
+        // Handle Sign In button click
+        this.loginView.setActionSignInButton(this::handleSignIn);
 
-            //just to make sure all fields are accomplished
-            if(userID.isEmpty() || pass.isEmpty() || userType == null) {
-                loginView.getPromptLabel().setText("Please accomplish all fields.");
-                loginView.getPromptLabel().setVisible(true);
-            }else{
-
-                loginView.getPromptLabel().setVisible(false);//hide error prompt if all is good
-
-                //TODO: Include here the authentication logic or any of the likes
-            }
+        // Handle Sign Up button click
+        this.loginView.setActionSignUpButton(event -> {
+            loginView.setPromptLabel("Redirecting to sign-up...");
+            loginView.setPromptLabelVisible(true);
+            // Add navigation logic to the sign-up view here
         });
-
-        //this button just returns to the sign_up_page
-        this.loginView.setActionSignUpButton((ActionEvent event) -> {
-            try{
-                fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/sign_up_page.fxml"));
-                root = fxmlLoader.load();
-
-                //this is very important because it wouldnt be able to do anything, especially update the model
-                //that will communicate with the server base
-                new SignUpController(fxmlLoader.getController(), new SignUpModel());
-
-                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-
-        });
-
-
     }
 
+    private void handleSignIn(ActionEvent event) {
+        // Get user inputs
+        String userID = loginView.getIDField().getText();
+        String password = loginView.getPassField().getText();
+        String userType = loginView.getUserTypeBox().getValue(); // "Student" or "Admin"
 
+        // Validate input fields
+        if (userID.isEmpty() || password.isEmpty() || userType == null) {
+            loginView.setPromptLabel("Please complete all fields.");
+            loginView.setPromptLabelVisible(true);
+            return;
+        }
+
+        // Send login data to the server via LoginModel
+        boolean isAuthenticated = loginModel.authenticate(userID, password, userType);
+
+        // Show result in the UI
+        if (isAuthenticated) {
+            loginView.setPromptLabel("Login successful!");
+            loginView.setPromptLabelVisible(true);
+            // Navigate to the appropriate dashboard (Student/Admin)
+        } else {
+            loginView.setPromptLabel("Invalid credentials. Please try again.");
+            loginView.setPromptLabelVisible(true);
+        }
+    }
 }

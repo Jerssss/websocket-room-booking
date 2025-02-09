@@ -1,0 +1,16 @@
+<Students>
+    <Student>
+        <Student_ID>2240000</Student_ID>
+        <Name>Natuto NA</Name>
+        <Course>Computer Science</Course>
+        <Year>2</Year>
+        <Password>2240000</Password>
+    </Student>
+    <Student>
+        <Student_ID>1</Student_ID>
+        <Name>test</Name>
+        <Course>Information Technology</Course>
+        <Year>2</Year>
+        <Password>1</Password>
+    </Student>
+</Students>
