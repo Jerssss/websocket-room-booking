@@ -10,63 +10,49 @@ import java.io.File;
 
 public class SignUpProcessor {
 
-    public static boolean registerUser(String userID, String name, String password, String userType) {
-        String xmlFilePath = userType.equalsIgnoreCase("Admin") ? "server/util/admin.xml" : "server/util/student.xml";
+    public static boolean registerUser(String userID, String password, String userType, String courseYear, String facultyType) {
+        String baseDir = System.getProperty("user.dir");
+        String xmlFilePath = userType.equalsIgnoreCase("Admin")
+                ? baseDir + "/src/main/java/server/util/admin.xml"
+                : baseDir + "/src/main/java/server/util/student.xml";
 
         try {
-            // Parse the XML file
             File file = new File(xmlFilePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(file);
 
-            // Find the root element
-            String rootTag = userType.equalsIgnoreCase("Admin") ? "Admins" : "Students";
-            String userTag = userType.equalsIgnoreCase("Admin") ? "Admin" : "Student";
-            Element root = (Element) document.getElementsByTagName(rootTag).item(0);
-
-            // Create a new user element
-            Element newUser = document.createElement(userTag);
+            Element rootElement = document.getDocumentElement();
+            Element newUser = document.createElement(userType);
 
             Element idElement = document.createElement(userType + "_ID");
-            idElement.setTextContent(userID);
+            idElement.appendChild(document.createTextNode(userID));
             newUser.appendChild(idElement);
 
-            Element nameElement = document.createElement("Name");
-            nameElement.setTextContent(name);
-            newUser.appendChild(nameElement);
-
             Element passwordElement = document.createElement("Password");
-            passwordElement.setTextContent(password);
+            passwordElement.appendChild(document.createTextNode(password));
             newUser.appendChild(passwordElement);
 
             if (userType.equalsIgnoreCase("Student")) {
-                Element courseElement = document.createElement("Course");
-                courseElement.setTextContent("Undeclared"); // Default value
-                newUser.appendChild(courseElement);
-
-                Element yearElement = document.createElement("Year");
-                yearElement.setTextContent("1"); // Default value
-                newUser.appendChild(yearElement);
-            } else {
-                Element typeElement = document.createElement("Type");
-                typeElement.setTextContent("Regular Admin"); // Default value
-                newUser.appendChild(typeElement);
+                Element courseYearElement = document.createElement("CourseYear");
+                courseYearElement.appendChild(document.createTextNode(courseYear));
+                newUser.appendChild(courseYearElement);
+            } else if (userType.equalsIgnoreCase("Admin")) {
+                Element facultyTypeElement = document.createElement("FacultyType");
+                facultyTypeElement.appendChild(document.createTextNode(facultyType));
+                newUser.appendChild(facultyTypeElement);
             }
 
-            // Append the new user to the root
-            root.appendChild(newUser);
+            rootElement.appendChild(newUser);
 
-            // Write changes back to the file
+            // Save the updated document back to the XML file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
 
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;

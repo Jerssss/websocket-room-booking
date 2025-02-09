@@ -1,16 +1,14 @@
-<Students>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Students>
     <Student>
         <Student_ID>2240000</Student_ID>
-        <Name>Natuto NA</Name>
-        <Course>Computer Science</Course>
-        <Year>2</Year>
+        <Name>Natuto Na</Name>
         <Password>2240000</Password>
+        <CourseYear>BSCS 2</CourseYear>
     </Student>
     <Student>
         <Student_ID>1</Student_ID>
-        <Name>test</Name>
-        <Course>Information Technology</Course>
-        <Year>2</Year>
+        <Name>Test Student</Name>
         <Password>1</Password>
+        <CourseYear>BSIT 1</CourseYear>
     </Student>
-</Students>
+<Student><Student_ID>2240841</Student_ID><Password>2240841</Password><CourseYear>BSIT 2</CourseYear></Student></Students>

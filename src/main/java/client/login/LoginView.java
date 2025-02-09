@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 
 public class LoginView {
 
-    //login_page.fxml objects for direct interaction/config
+
     @FXML
     private Button signInPageSignInButton;
     @FXML

@@ -1,6 +1,7 @@
 package server;
 
 import server.landingpage.LoginProcessor;
+import server.landingpage.SignUpProcessor;
 
 import java.io.*;
 import java.net.Socket;
@@ -44,6 +45,22 @@ public class ClientHandler implements Runnable {
                     } else {
                         writer.println("FAILURE");
                         System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
+                    }
+                } else if (clientMessage.contains("<SignUp>")) {
+                    // Handle sign-up request
+                    String userID = clientMessage.split("<UserID>")[1].split("</UserID>")[0];
+                    String password = clientMessage.split("<Password>")[1].split("</Password>")[0];
+                    String userType = clientMessage.split("<UserType>")[1].split("</UserType>")[0];
+                    String courseYear = clientMessage.split("<CourseYear>")[1].split("</CourseYear>")[0];
+                    String facultyType = clientMessage.split("<FacultyType>")[1].split("</FacultyType>")[0];
+
+                    boolean isRegistered = SignUpProcessor.registerUser(userID, password, userType, courseYear, facultyType);
+                    if (isRegistered) {
+                        writer.println("SUCCESS");
+                        System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
+                    } else {
+                        writer.println("FAILURE");
+                        System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
                     }
                 } else if (isLoggedIn) {
                     // Handle other client requests (e.g., CRUD operations)
