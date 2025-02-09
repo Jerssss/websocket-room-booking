@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="716.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="75.0" prefWidth="779.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="74.0" prefWidth="798.0" style="-fx-background-color: #0d3073;">
+               <children>
+                  <HBox prefHeight="58.0" prefWidth="86.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="73.0" prefWidth="104.0">
+                           <children>
+                              <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/client/app_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="528.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="105.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Lendify" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="192.0">
+                     <children>
+                        <Label id="headerNameLabel" fx:id="headerNameLabel" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Name" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label id="headerDateLabel" fx:id="headerDateLabel" text="Date" textFill="WHITE" />
+                        <Label id="headerTimeLabel" fx:id="headerTimeLabel" text="Time" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="289.0" prefWidth="582.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="938.0" />
+        </content>
+      </ScrollPane>
+   </bottom>
+   <center>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" translateX="38.0">
+               <children>
+                  <ComboBox prefWidth="150.0" promptText="Time" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" translateX="50.0">
+               <children>
+                  <ComboBox prefWidth="150.0" promptText="Date" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" />
+            <StackPane id="nameStackPane" fx:id="nameStackPane" prefHeight="30.0" prefWidth="359.0" translateX="15.0">
+               <children>
+                  <TextField id="nameField" fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="276.0" promptText="Search for rooms..." style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                  <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/Group%2033825.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

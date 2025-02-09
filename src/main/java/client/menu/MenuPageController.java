@@ -41,7 +41,7 @@ public class MenuPageController {
         setupTime();
         setupDate();
 
-
+        //TODO: RESOLVE REDLINES
         //can move this later onto different methods or another method for modularity????/?
         this.menuPageView.setActionCreateReservationButton((ActionEvent event) -> {
             try {
