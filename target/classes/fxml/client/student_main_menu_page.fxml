@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="762.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="762.0" styleClass="background-pane" stylesheets="@../../css/styles.css" fx:controller="client.menu.MenuPageView" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox prefHeight="77.0" prefWidth="762.0" BorderPane.alignment="CENTER">
          <children>
@@ -135,7 +135,7 @@
             </StackPane>
             <StackPane id="nameStackPane" prefHeight="29.0" prefWidth="359.0">
                <children>
-                  <Button id="logoutButton" fx:id="logoutButton" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Log Out" textFill="#0d3073" wrapText="true">
+                  <Button id="logoutButton" fx:id="logOutButton" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Log Out" textFill="#0d3073" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
