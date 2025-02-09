@@ -47,8 +47,6 @@
             <ComboBox id="userTypePicker" fx:id="signUpUserTypePicker" prefHeight="25.0" prefWidth="250.0" promptText="User Type" style="-fx-background-color: #BDD1E8;" stylesheets="@../../css/styles.css">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Student" />
-                     <String fx:value="Admin" />
                   </FXCollections>
                </items>
                <styleClass>
@@ -62,6 +60,26 @@
                   <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
                      <image>
                         <Image url="@../../images/client/id_icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane id="courseYearStackPane" fx:id="courseYearStackPane" prefHeight="30.0" prefWidth="359.0">
+               <children>
+                  <TextField id="courseYearField" fx:id="courseYearField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Course Year" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                  <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/hashtag.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane id="facultyTypeStackPane" fx:id="facultyTypeStackPane" prefHeight="30.0" prefWidth="359.0">
+               <children>
+                  <TextField id="facultyTypeField" fx:id="facultyTypeField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="152.0" promptText="Faculty Type" style="-fx-pref-width: 250px;" styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                  <ImageView id="idIcon" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -110;">
+                     <image>
+                        <Image url="@../../images/client/security-user.png" />
                      </image>
                   </ImageView>
                </children>

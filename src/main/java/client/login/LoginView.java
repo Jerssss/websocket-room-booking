@@ -10,7 +10,7 @@ import javafx.util.Duration;
 
 public class LoginView {
 
-    //signin_page.fxml objects for direct interaction/config
+    //login_page.fxml objects for direct interaction/config
     @FXML
     private Button signInPageSignInButton;
     @FXML

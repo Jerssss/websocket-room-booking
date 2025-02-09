@@ -1,6 +1,5 @@
 package client.signup;
 
-import client.landingpage.LandingPageController;
 import client.login.LoginController;
 import client.login.LoginModel;
 import javafx.fxml.FXMLLoader;
@@ -18,15 +17,18 @@ public class SignUpController {
     private FXMLLoader fxmlLoader;
     private Parent root; //takes in the root node of the fxml file (like in xml files)
     private final SignUpView signUpView;
+    private final SignUpModel signUpModel;
 
 
     public SignUpController(SignUpView signUpView, SignUpModel signUpModel) {
         this.signUpView = signUpView;
+        this.signUpModel = signUpModel;
+
 
 
         this.signUpView.setActionSignInButton((ActionEvent event) -> {
             try{
-                fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/signin_page.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
                 root = fxmlLoader.load(); //saves loaded fxml file's root node into the object root
 
                 new LoginController(fxmlLoader.getController(), new LoginModel()); //allows mutation and display
@@ -45,6 +47,8 @@ public class SignUpController {
             String userID = signUpView.getIDField().getText();
             String pass = signUpView.getPassField().getText();
             String userType = signUpView.getUserTypeBox().getValue();
+            String courseYear = signUpView.getCourseYearField().getText();
+            String type = signUpView.getFacultyTypeField().getText();
 
             //prompter when fields are unaccomplished
             if(userID.isEmpty() || pass.isEmpty() || userType == null) {

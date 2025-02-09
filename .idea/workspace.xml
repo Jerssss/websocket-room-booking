@@ -6,23 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="Edited the files structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/landingpage/LandingPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/landingpage/LandingPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/login/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/login/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/login/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/login/LoginView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/signup/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/signup/SignUpController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/signup/SignUpView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/signup/SignUpView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/landing_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/landing_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/student_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/student_main_menu_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/ClientMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/ClientView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/landingpage/LandingPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/landingpage/LandingPageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/login/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/login/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/landing_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/landing_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/student_main_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/student_main_menu_page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/sign_up_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/sign_up_page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/signin_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/login_page.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
