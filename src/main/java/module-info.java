@@ -16,4 +16,6 @@ module Lendify {
     opens client to javafx.fxml;
 
     opens client.student.view to javafx.fxml;
+
+    opens client.admin.view to javafx.fxml;
 }
