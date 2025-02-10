@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Students>
+<Students>
     <Student>
         <Student_ID>2240000</Student_ID>
         <Name>Natuto Na</Name>
@@ -11,4 +11,9 @@
         <Password>1</Password>
         <CourseYear>BSIT 1</CourseYear>
     </Student>
-<Student><Student_ID>2240841</Student_ID><Password>2240841</Password><CourseYear>BSIT 2</CourseYear></Student></Students>
+    <Student>
+        <Student_ID>2240841</Student_ID>
+        <Password>2240841</Password>
+        <CourseYear>BSIT 2</CourseYear>
+    </Student>
+</Students>

@@ -24,12 +24,12 @@ public class SignUpModel {
         }
     }
 
-    public boolean register(String userID, String password, String userType, String courseYear, String facultyType) {
+    public boolean register(String userID, String name, String password, String userType, String courseYear, String facultyType) {
         try {
             // Send sign-up request
             String signUpRequest = String.format(
-                    "<SignUp><UserID>%s</UserID><Password>%s</Password><UserType>%s</UserType><CourseYear>%s</CourseYear><FacultyType>%s</FacultyType></SignUp>",
-                    userID, password, userType, courseYear, facultyType);
+                    "<SignUp><UserID>%s</UserID><Name>%s</Name><Password>%s</Password><UserType>%s</UserType><CourseYear>%s</CourseYear><FacultyType>%s</FacultyType></SignUp>",
+                    userID, name, password, userType, courseYear, facultyType);
             writer.println(signUpRequest);
 
             // Read server response

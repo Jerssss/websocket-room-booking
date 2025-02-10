@@ -5,4 +5,10 @@
         <Type>Super Admin</Type>
         <Password>admin123</Password>
     </Admin>
+    <Admin>
+        <Admin_ID>4321</Admin_ID>
+        <Name>4321</Name>
+        <Password>4321</Password>
+        <FacultyType>4321</FacultyType>
+    </Admin>
 </Admins>

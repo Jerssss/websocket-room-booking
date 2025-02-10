@@ -39,22 +39,23 @@ public class SignUpController {
         });
 
         this.signUpView.setActionSignUpButton((ActionEvent event) -> {
-            // store field and dropdown contents
+            // Store field and dropdown contents
             String userID = signUpView.getIDField().getText();
+            String name = signUpView.getNameField().getText();
             String pass = signUpView.getPassField().getText();
             String userType = signUpView.getUserTypeBox().getValue();
             String courseYear = signUpView.getCourseYearField().getText();
             String facultyType = signUpView.getFacultyTypeField().getText();
 
-            // prompter when fields are unaccomplished
-            if (userID.isEmpty() || pass.isEmpty() || userType == null) {
+            // Prompt when fields are unaccomplished
+            if (userID.isEmpty() || name.isEmpty() || pass.isEmpty() || userType == null) {
                 signUpView.getPromptLabel().setText("Please accomplish all fields.");
                 signUpView.getPromptLabel().setVisible(true);
             } else {
-                signUpView.getPromptLabel().setVisible(false); // hide error prompt if all is good
+                signUpView.getPromptLabel().setVisible(false); // Hide error prompt if all is good
 
                 // Call the register method in SignUpModel
-                boolean isRegistered = signUpModel.register(userID, pass, userType, courseYear, facultyType);
+                boolean isRegistered = signUpModel.register(userID, name, pass, userType, courseYear, facultyType);
 
                 if (isRegistered) {
                     signUpView.getPromptLabel().setText("Registration successful!");
