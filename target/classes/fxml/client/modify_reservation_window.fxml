@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="855.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="44.0" prefWidth="870.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="74.0" prefWidth="870.0" style="-fx-background-color: #0d3073;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="725.0">
+                     <children>
+                        <Label fx:id="descLabel" prefHeight="41.0" prefWidth="218.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Reservation ID:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="roomLabel" prefHeight="41.0" prefWidth="331.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="2240521" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <effect>
+                  <DropShadow radius="4.75" width="0.0" />
+               </effect>
+            </HBox>
+         </children>
+         <effect>
+            <DropShadow height="5.86" radius="0.9650000000000001" width="0.0" />
+         </effect>
+      </VBox>
+   </top>
+   <left>
+      <VBox alignment="CENTER_LEFT" prefHeight="445.0" prefWidth="282.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="394.0" prefWidth="226.0">
+               <children>
+                  <Label text="Date of reservation: " textFill="#0d3073">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Time reserved:" textFill="#0d3073">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Room No.:" textFill="#0d3073">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Terminal No.:" textFill="#0d3073">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
