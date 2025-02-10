@@ -3,6 +3,8 @@ package client.signup;
 import client.login.LoginController;
 import client.login.LoginModel;
 import client.login.LoginView;
+import client.student.controller.StudentMainMenuController;
+import client.student.model.StudentMainMenuModel;
 import client.student.view.StudentMainMenuView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -54,6 +56,28 @@ public class SignUpController {
         }
     }
 
+    private void redirectToStudentMainMenu(ActionEvent event) {
+        try {
+            // Ensure the path to student_main_menu.fxml is correct
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/student_main_menu.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Initialize StudentMainMenuController (if required)
+            StudentMainMenuView studentMainMenuView = fxmlLoader.getController();
+            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel());
+            // studentMainMenuView.setUser(userID);
+
+            // Navigate to the Student Main Menu GUI
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Student Main Menu GUI: " + e.getMessage());
+        }
+    }
+
 
     private void handleSignUp(ActionEvent event) {
         // Store field and dropdown contents
@@ -77,7 +101,8 @@ public class SignUpController {
             if (isRegistered) {
                 signUpView.getPromptLabel().setText("Registration successful!");
                 signUpView.getPromptLabel().setVisible(true);
-                redirectToLogin(event); // Navigate to the login page after successful sign-up
+                redirectToLogin(event);
+                // Navigate to the login page after successful sign-up
             } else {
                 signUpView.getPromptLabel().setText("Registration failed. Please try again.");
                 signUpView.getPromptLabel().setVisible(true);

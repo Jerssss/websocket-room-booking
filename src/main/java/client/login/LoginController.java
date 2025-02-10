@@ -3,6 +3,8 @@ package client.login;
 import client.signup.SignUpController;
 import client.signup.SignUpModel;
 import client.signup.SignUpView;
+import client.student.controller.StudentMainMenuController;
+import client.student.model.StudentMainMenuModel;
 import client.student.view.StudentMainMenuView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -51,12 +53,40 @@ public class LoginController {
         if (isAuthenticated) {
             loginView.setPromptLabel("Login successful!");
             loginView.setPromptLabelVisible(true);
-            // Navigate to the appropriate dashboard (Student/Admin)
+
+            // Navigate to Student Main Menu if user type is "Student"
+            if ("Student".equalsIgnoreCase(userType)) {
+                redirectToStudentMainMenu(event);
+            }
+            // Optionally, add logic to navigate to the Admin dashboard for admin users.
         } else {
             loginView.setPromptLabel("Invalid credentials. Please try again.");
             loginView.setPromptLabelVisible(true);
         }
     }
+
+    private void redirectToStudentMainMenu(ActionEvent event) {
+        try {
+            // Ensure the path to student_main_menu.fxml is correct
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/student_main_menu.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Initialize StudentMainMenuController (if required)
+            StudentMainMenuView studentMainMenuView = fxmlLoader.getController();
+            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel());
+            // studentMainMenuView.setUser(userID);
+
+            // Navigate to the Student Main Menu GUI
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Student Main Menu GUI: " + e.getMessage());
+        }
+    }
+
 
     private void redirectToSignUp(ActionEvent event) {
         try {
