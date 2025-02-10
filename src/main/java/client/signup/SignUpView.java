@@ -40,13 +40,20 @@ public class SignUpView {
 
     @FXML
     public void initialize() {
+        // Limit the ID field to 7 digits
+        signUpUserID.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d{0,7}")) {
+                return change; // Allow change
+            }
+            return null; // Reject change
+        }));
+
         signUpUserTypePicker.getItems().addAll("Student", "Admin");
         signUpUserTypePicker.setValue("Student");
-
         updateFormFields();
-
         signUpUserTypePicker.setOnAction((event -> updateFormFields()));
     }
+
 
     private void updateFormFields() {
         String selectedType = signUpUserTypePicker.getValue();

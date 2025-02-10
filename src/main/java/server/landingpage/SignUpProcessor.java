@@ -43,12 +43,13 @@ public class SignUpProcessor {
             Element rootElement = document.getDocumentElement();
             Element newUser = document.createElement(userType);
 
-            // Add ID and Name
+            // Add ID
             Element idElement = document.createElement(userType + "_ID");
             idElement.appendChild(document.createTextNode(userID.trim()));
             newUser.appendChild(idElement);
 
-            if (userType.equalsIgnoreCase("Admin") && name != null && !name.isEmpty()) {
+            // Add Name (for both Students and Admins)
+            if (name != null && !name.isEmpty()) {
                 Element nameElement = document.createElement("Name");
                 nameElement.appendChild(document.createTextNode(name.trim()));
                 newUser.appendChild(nameElement);
@@ -81,6 +82,7 @@ public class SignUpProcessor {
             return false;
         }
     }
+
 
     private static boolean isDuplicateID(Document document, String idTagName, String userID) {
         NodeList idNodes = document.getElementsByTagName(idTagName);
