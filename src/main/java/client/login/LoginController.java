@@ -1,25 +1,34 @@
 package client.login;
 
+import client.signup.SignUpController;
+import client.signup.SignUpModel;
+import client.signup.SignUpView;
+import client.student.view.StudentMainMenuView;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
 
     private final LoginView loginView;
     private final LoginModel loginModel;
+    private final StudentMainMenuView studentMainMenuView;
 
-    public LoginController(LoginView loginView, LoginModel loginModel) {
+    public LoginController(LoginView loginView, LoginModel loginModel, StudentMainMenuView studentMainMenuView) {
         this.loginView = loginView;
         this.loginModel = loginModel;
+        this.studentMainMenuView = studentMainMenuView;
 
         // Handle Sign In button click
         this.loginView.setActionSignInButton(this::handleSignIn);
 
         // Handle Sign Up button click
-        this.loginView.setActionSignUpButton(event -> {
-            loginView.setPromptLabel("Redirecting to sign-up...");
-            loginView.setPromptLabelVisible(true);
-            // Add navigation logic to the sign-up view here
-        });
+        this.loginView.setActionSignUpButton(event -> redirectToSignUp(event));
     }
 
     private void handleSignIn(ActionEvent event) {
@@ -48,4 +57,26 @@ public class LoginController {
             loginView.setPromptLabelVisible(true);
         }
     }
+
+    private void redirectToSignUp(ActionEvent event) {
+        try {
+            // Ensure the path to signup_page.fxml is correct
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/sign_up_page.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Initialize the SignUpController with the loaded view and model
+            SignUpView signUpView = fxmlLoader.getController();
+            new SignUpController(signUpView, new SignUpModel());
+
+            // Navigate to the Sign-Up GUI
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Sign-Up GUI: " + e.getMessage());
+        }
+    }
+
 }
