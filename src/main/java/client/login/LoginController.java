@@ -6,6 +6,9 @@ import client.signup.SignUpView;
 import client.student.controller.StudentMainMenuController;
 import client.student.model.StudentMainMenuModel;
 import client.student.view.StudentMainMenuView;
+import client.admin.controller.AdminMainMenuController;
+import client.admin.view.AdminMainMenuView;
+import client.admin.model.AdminMainMenuModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,11 +23,13 @@ public class LoginController {
     private final LoginView loginView;
     private final LoginModel loginModel;
     private final StudentMainMenuView studentMainMenuView;
+    private final AdminMainMenuView adminMainMenuView;
 
-    public LoginController(LoginView loginView, LoginModel loginModel, StudentMainMenuView studentMainMenuView) {
+    public LoginController(LoginView loginView, LoginModel loginModel, StudentMainMenuView studentMainMenuView, AdminMainMenuView adminMainMenuView) {
         this.loginView = loginView;
         this.loginModel = loginModel;
         this.studentMainMenuView = studentMainMenuView;
+        this.adminMainMenuView = adminMainMenuView;
 
         // Handle Sign In button click
         this.loginView.setActionSignInButton(this::handleSignIn);
@@ -57,6 +62,8 @@ public class LoginController {
             // Navigate to Student Main Menu if user type is "Student"
             if ("Student".equalsIgnoreCase(userType)) {
                 redirectToStudentMainMenu(event);
+            } else if ("Admin".equalsIgnoreCase(userType)) {
+                redirectToAdminMainMenu(event);
             }
             // Optionally, add logic to navigate to the Admin dashboard for admin users.
         } else {
@@ -64,7 +71,6 @@ public class LoginController {
             loginView.setPromptLabelVisible(true);
         }
     }
-
     private void redirectToStudentMainMenu(ActionEvent event) {
         try {
             // Ensure the path to student_main_menu.fxml is correct
@@ -84,6 +90,26 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading Student Main Menu GUI: " + e.getMessage());
+        }
+    }
+
+    private void redirectToAdminMainMenu(ActionEvent event) {
+        try {
+            // Ensure the path to admin_menu_page.fxml is correct
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/admin/admin_menu_page.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Initialize AdminMainMenuController (if required)
+            AdminMainMenuView adminMainMenuView = fxmlLoader.getController();
+            new AdminMainMenuController(adminMainMenuView, new AdminMainMenuModel());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Admin Main Menu GUI: " + e.getMessage());
         }
     }
 

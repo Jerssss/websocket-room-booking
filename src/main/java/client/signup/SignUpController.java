@@ -1,11 +1,14 @@
 package client.signup;
 
+import client.admin.model.AdminMainMenuModel;
+import client.admin.view.AdminMainMenuView;
 import client.login.LoginController;
 import client.login.LoginModel;
 import client.login.LoginView;
 import client.student.controller.StudentMainMenuController;
 import client.student.model.StudentMainMenuModel;
 import client.student.view.StudentMainMenuView;
+import client.admin.view.AdminMainMenuView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -23,6 +26,7 @@ public class SignUpController {
     private final SignUpModel signUpModel;
 
     private final StudentMainMenuView studentMainMenuView = new StudentMainMenuView();
+    private final AdminMainMenuView adminMainMenuView = new AdminMainMenuView();
 
     public SignUpController(SignUpView signUpView, SignUpModel signUpModel) {
         this.signUpView = signUpView;
@@ -43,7 +47,7 @@ public class SignUpController {
 
             // Initialize the LoginController with the loaded view and model
             LoginView loginView = fxmlLoader.getController();
-            new LoginController(loginView, new LoginModel(), new StudentMainMenuView());
+            new LoginController(loginView, new LoginModel(), new StudentMainMenuView(), new AdminMainMenuView());
 
             // Navigate to the Login GUI
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

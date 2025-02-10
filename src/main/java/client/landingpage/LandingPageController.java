@@ -5,6 +5,7 @@ import client.login.LoginModel;
 import client.signup.SignUpController;
 import client.signup.SignUpModel;
 import client.student.view.StudentMainMenuView;
+import client.admin.view.AdminMainMenuView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,6 +23,7 @@ public class LandingPageController {
     private SignUpController signUpController;
 
     StudentMainMenuView studentMainMenuView;
+    AdminMainMenuView adminMainMenuView;
 
     public LandingPageController (LandingPageView view) {
 
@@ -31,7 +33,7 @@ public class LandingPageController {
                 root = fxmlLoader.load();
 
 
-                loginController = new LoginController(fxmlLoader.getController(), new LoginModel(), studentMainMenuView);
+                loginController = new LoginController(fxmlLoader.getController(), new LoginModel(), studentMainMenuView, adminMainMenuView);
 
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
