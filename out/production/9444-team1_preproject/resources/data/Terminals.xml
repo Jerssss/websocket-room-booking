@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Terminals>
+    <Terminal>
+        <terminal_id>1</terminal_id>
+        <terminal_room>Room 101</terminal_room>
+        <terminal_os>Windows</terminal_os>
+        <terminal_status>Active</terminal_status>
+    </Terminal>
+    <Terminal>
+        <terminal_id>2</terminal_id>
+        <terminal_room>Room 102</terminal_room>
+        <terminal_os>Mac</terminal_os>
+        <terminal_status>Maintenance</terminal_status>
+    </Terminal>
+    <Terminal>
+        <terminal_id>3</terminal_id>
+        <terminal_room>Room 103</terminal_room>
+        <terminal_os>Windows</terminal_os>
+        <terminal_status>Reserved</terminal_status>
+    </Terminal>
+</Terminals>
