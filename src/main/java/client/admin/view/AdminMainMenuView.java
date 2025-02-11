@@ -3,10 +3,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -33,7 +36,7 @@ public class AdminMainMenuView {
     @FXML
     private BorderPane rootPane;
 
-
+    // Load a new view inside the main menu
     private void loadView(String fxmlFile) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
@@ -44,20 +47,27 @@ public class AdminMainMenuView {
         }
     }
 
+
     public void setActionAddNewTerminalButton(EventHandler<ActionEvent> event) {
-        addNewTerminalButton.setOnAction(event1 -> loadView("add_terminal_pane.fxml"));
+        addNewTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/add_terminal_pane.fxml")); // Correct path
     }
+
     public void setActionShowStudentReservationButton(EventHandler<ActionEvent> event) {
-        showStudentReservationButton.setOnAction(event1 -> loadView("view_reservation_pane.fxml"));
+        showStudentReservationButton.setOnAction(event1 -> loadView("/fxml/admin/view_reservation_pane.fxml"));
     }
+
     public void setActionModifyTerminalButton(EventHandler<ActionEvent> event) {
-        modifyTerminalButton.setOnAction(event1 -> loadView("modify_reservation_pane.fxml"));
+        modifyTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/modify_reservation_pane.fxml"));
     }
+
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
-        resApprovalButton.setOnAction(event1 -> loadView("modify_reservation_pane.fxml"));
-    }public void setActionReportsButton(EventHandler<ActionEvent> event) {
-        reportsButton.setOnAction(event1 -> loadView("modify_reservation_pane.fxml"));
+        resApprovalButton.setOnAction(event1 -> loadView("/fxml/admin/modify_reservation_pane.fxml"));
     }
+
+    public void setActionReportsButton(EventHandler<ActionEvent> event) {
+        reportsButton.setOnAction(event1 -> loadView("/fxml/admin/modify_reservation_pane.fxml"));
+    }
+
     public void setActionLogoutButton(EventHandler<ActionEvent> event) {
         logoutButton.setOnAction(event);
     }
