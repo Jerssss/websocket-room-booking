@@ -6,6 +6,7 @@ import server.landingpage.SignUpProcessor;
 import java.io.*;
 import java.net.Socket;
 
+
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
 

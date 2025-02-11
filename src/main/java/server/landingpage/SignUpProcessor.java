@@ -1,5 +1,10 @@
 package server.landingpage;
 
+import client.student.view.DuplicateAccountErrorView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -7,6 +12,9 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+
 
 public class SignUpProcessor {
 
@@ -84,7 +92,7 @@ public class SignUpProcessor {
     }
 
 
-    private static boolean isDuplicateID(Document document, String idTagName, String userID) {
+    public static boolean isDuplicateID(Document document, String idTagName, String userID) {
         NodeList idNodes = document.getElementsByTagName(idTagName);
         for (int i = 0; i < idNodes.getLength(); i++) {
             Node idNode = idNodes.item(i);

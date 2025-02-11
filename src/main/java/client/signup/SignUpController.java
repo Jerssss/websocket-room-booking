@@ -15,8 +15,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import org.w3c.dom.Document;
+import server.landingpage.SignUpProcessor;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
+
+import static client.student.view.DuplicateAccountErrorView.showDupeAccErrorUI;
 
 public class SignUpController {
 
@@ -36,7 +44,7 @@ public class SignUpController {
         this.signUpView.setActionSignInButton(this::redirectToLogin);
 
         // Handle Sign Up button click
-        this.signUpView.setActionSignUpButton(this::handleSignUp);
+        this.signUpView.setActionSignUpButton(event -> handleSignUp(event));
     }
 
     private void redirectToLogin(ActionEvent event) {
@@ -61,7 +69,9 @@ public class SignUpController {
     }
 
 
-    private void handleSignUp(ActionEvent event) {
+    private void handleSignUp(ActionEvent event) throws ParserConfigurationException {
+
+
         // Store field and dropdown contents
         String userID = signUpView.getIDField().getText();
         String name = signUpView.getNameField().getText();
@@ -80,8 +90,10 @@ public class SignUpController {
         } else {
             signUpView.getPromptLabel().setVisible(false); // Hide error prompt if all is good
 
+
             // Call the register method in SignUpModel
             boolean isRegistered = signUpModel.register(userID, name, pass, userType, courseYear, facultyType);
+
 
             if (isRegistered) {
                 signUpView.getPromptLabel().setText("Registration successful!");

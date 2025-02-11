@@ -40,4 +40,10 @@
         <Password>12345678</Password>
         <CourseYear>2</CourseYear>
     </Student>
+    <Student>
+        <Student_ID>2240088</Student_ID>
+        <Name>jkjkjk</Name>
+        <Password>12345678</Password>
+        <CourseYear>2</CourseYear>
+    </Student>
 </Students>

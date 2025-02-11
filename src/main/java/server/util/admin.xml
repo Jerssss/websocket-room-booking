@@ -11,4 +11,10 @@
         <Password>4321</Password>
         <FacultyType>4321</FacultyType>
     </Admin>
+    <Admin>
+        <Admin_ID>2222222</Admin_ID>
+        <Name>jgjkg</Name>
+        <Password>12345678</Password>
+        <FacultyType>super</FacultyType>
+    </Admin>
 </Admins>
