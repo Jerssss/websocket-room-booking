@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="74.0" prefWidth="805.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="805.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="671.0">
+                     <children>
+                        <Label fx:id="terminalsLabel" prefHeight="30.0" prefWidth="95.0" text="Terminals">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="107.0">
+                     <children>
+                        <Button fx:id="addTerminalButton" mnemonicParsing="false" prefWidth="111.0" text="Add Terminal" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="521.0" prefWidth="805.0">
+         <children>
+            <ScrollPane fx:id="roomsScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="479.0" prefWidth="750.0">
+               <content>
+                  <AnchorPane fx:id="roomsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0" />
+               </content>
+               <effect>
+                  <DropShadow height="18.07" offsetY="5.0" radius="9.2675">
+                     <color>
+                        <Color opacity="0.2671755850315094" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</VBox>

@@ -60,9 +60,9 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="521.0" prefWidth="805.0">
          <children>
-            <ScrollPane fx:id="viewHistoryScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="479.0" prefWidth="750.0">
+            <ScrollPane fx:id="modifyReservationScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="479.0" prefWidth="750.0">
                <content>
-                  <AnchorPane fx:id="viewHistoryAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0" />
+                  <AnchorPane fx:id="modifyReservationAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0" />
                </content>
                <effect>
                   <DropShadow height="18.07" offsetY="5.0" radius="9.2675">

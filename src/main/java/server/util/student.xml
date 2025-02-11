@@ -16,4 +16,22 @@
         <Password>2240841</Password>
         <CourseYear>BSIT 2</CourseYear>
     </Student>
+    <Student>
+        <Student_ID>2240932</Student_ID>
+        <Name>Jios</Name>
+        <Password>helloguys</Password>
+        <CourseYear>2</CourseYear>
+    </Student>
+    <Student>
+        <Student_ID>2240084</Student_ID>
+        <Name>aswdfrtg</Name>
+        <Password>12345678</Password>
+        <CourseYear>2</CourseYear>
+    </Student>
+    <Student>
+        <Student_ID>2240087</Student_ID>
+        <Name>anjelo</Name>
+        <Password>12345678</Password>
+        <CourseYear>2</CourseYear>
+    </Student>
 </Students>

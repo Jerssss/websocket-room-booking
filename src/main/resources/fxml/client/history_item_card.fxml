@@ -55,7 +55,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button alignment="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Options" textFill="#0d3073">
+      <Button fx:id="optionButton" alignment="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="Options" textFill="#0d3073">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
