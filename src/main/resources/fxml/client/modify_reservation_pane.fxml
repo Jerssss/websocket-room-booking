@@ -12,8 +12,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-      fx:controller="client.student.view.ModifyReservationView" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.ModifyReservationView">
    <children>
       <VBox prefHeight="74.0" prefWidth="805.0">
          <children>
@@ -62,7 +61,10 @@
          <children>
             <ScrollPane fx:id="modifyReservationScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="479.0" prefWidth="750.0">
                <content>
-                  <AnchorPane fx:id="modifyReservationAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0" />
+                  <AnchorPane fx:id="modifyReservationAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0">
+                     <children>
+                        <Label fx:id="noReservationLabel" layoutX="283.0" layoutY="230.0" text="There are currently no reservations." />
+                     </children></AnchorPane>
                </content>
                <effect>
                   <DropShadow height="18.07" offsetY="5.0" radius="9.2675">
