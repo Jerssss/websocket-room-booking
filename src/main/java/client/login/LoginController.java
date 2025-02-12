@@ -51,49 +51,44 @@ public class LoginController {
             return;
         }
 
-        // Send login data to the server via LoginModel
+        // Authenticate user
         boolean isAuthenticated = loginModel.authenticate(userID, password, userType);
 
-        // Show result in the UI
         if (isAuthenticated) {
             loginView.setPromptLabel("Login successful!");
             loginView.setPromptLabelVisible(true);
 
-            // Navigate to Student Main Menu if user type is "Student"
+            //  Pass the userID as the logged-in user's name
             if ("Student".equalsIgnoreCase(userType)) {
-                redirectToStudentMainMenu(event);
+                redirectToStudentMainMenu(event, userID);
             } else if ("Admin".equalsIgnoreCase(userType)) {
-                // Fetch the logged-in user's name (you can modify this based on your data)
-                String loggedInUserName = "Admin User"; // Replace with actual logic to fetch the name
-                redirectToAdminMainMenu(event, loggedInUserName);
+                redirectToAdminMainMenu(event, userID);
             }
         } else {
             loginView.setPromptLabel("Invalid credentials. Please try again.");
             loginView.setPromptLabelVisible(true);
         }
     }
-    private void redirectToStudentMainMenu(ActionEvent event) {
+
+    private void redirectToStudentMainMenu(ActionEvent event, String loggedInUserName) {
         try {
-            // Ensure the path to student_main_menu.fxml is correct
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/student_main_menu.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Initialize StudentMainMenuController (if required)
+            //  Ensure the controller receives the logged-in user's name
             StudentMainMenuView studentMainMenuView = fxmlLoader.getController();
-            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel());
-            // studentMainMenuView.setUser(userID);
+            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel(), loggedInUserName);
 
-            // Navigate to the Student Main Menu GUI
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading Student Main Menu GUI: " + e.getMessage());
         }
     }
+
 
     private void redirectToAdminMainMenu(ActionEvent event, String loggedInUserName) {
         try {

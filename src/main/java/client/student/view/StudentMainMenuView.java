@@ -12,6 +12,13 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
+
 public class StudentMainMenuView {
 
     @FXML
@@ -45,7 +52,34 @@ public class StudentMainMenuView {
             throw new RuntimeException("Error loading FXML file: " + fxmlFile, e);
         }
     }
+    public void initializeDateTime() {
+        updateDateTime();
 
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                updateDateTime();
+            }
+        }, 0, 1000);
+    }
+
+    private void updateDateTime() {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        Platform.runLater(() -> {
+            headerDateLabel.setText(currentDate.format(dateFormatter));
+            headerTimeLabel.setText(currentTime.format(timeFormatter));
+        });
+    }
+
+    public void setLoggedInUserName(String name) {
+        headerNameLabel.setText(name);
+    }
     public void setActionCreateReservationButton(EventHandler<ActionEvent> event) {
         createReservationButton.setOnAction(event1 -> loadView("/fxml/client/create_reservation_pane.fxml"));
     }
