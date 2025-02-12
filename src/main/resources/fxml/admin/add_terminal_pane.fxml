@@ -31,7 +31,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="56.0" prefWidth="107.0">
                      <children>
-                        <Button fx:id="openAddTerminalWindowButton" mnemonicParsing="false" prefWidth="111.0" text="Add Terminal" />
+                        <Button fx:id="redirectAddTerminalWindowButton" mnemonicParsing="false" prefWidth="111.0" text="Add Terminal" />
                      </children>
                   </HBox>
                </children>
