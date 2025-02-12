@@ -1,58 +1,42 @@
 package client.student.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 
-import java.io.IOException;
+public class RoomItemCardView {
 
-public class RoomItemCardView extends HBox {
-
-    // FXML components
     @FXML
     private Label roomTypeLabel;
 
     @FXML
-    private Label terminalNumberLabel;
+    private Label availableTerminalsLabel;
 
     @FXML
     private Button seeTerminalsButton;
 
-    // Constructor
-    public RoomItemCardView() {
-        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/student/view/RoomItemCard.fxml"));
-        loader.setRoot(this);
-        loader.setController(this);
+    @FXML
+    private Label roomTypeDescriptionLabel;
 
-        try {
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load RoomItemCard.fxml", e);
-        }
+    public void setActionSeeTerminalsButton(EventHandler<ActionEvent> event) {
+        this.seeTerminalsButton.setOnAction(event);
     }
 
-    // Getters for the components
-    public Label getRoomTypeLabel() {
-        return roomTypeLabel;
+    public void setRoomType(String roomType) {
+        roomTypeLabel.setText(roomType);
     }
 
-    public Label getTerminalNumberLabel() {
-        return terminalNumberLabel;
+    public void setAvailableTerminals(int availableTerminals) {
+        availableTerminalsLabel.setText(String.valueOf(availableTerminals));
     }
 
     public Button getSeeTerminalsButton() {
         return seeTerminalsButton;
     }
 
-    // Methods to update the view
-    public void setRoomType(String roomType) {
-        roomTypeLabel.setText(roomType);
-    }
-
-    public void setTerminalNumber(int terminalNumber) {
-        terminalNumberLabel.setText(String.valueOf(terminalNumber));
+    public void setRoomName(String roomName) {
+        roomTypeDescriptionLabel.setText(roomName);
     }
 }
