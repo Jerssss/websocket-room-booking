@@ -6,49 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="Connected StudentMainMenuGUI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/landingpage/LandingPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/landingpage/LandingPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/landingpage/LandingPageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/landingpage/LandingPageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/controller/CreateReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/controller/CreateReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/controller/RoomItemCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/controller/RoomItemCardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/controller/TerminalPickerWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/controller/TerminalPickerWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/model/CreateReservationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/model/CreateReservationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/model/RoomItemCardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/model/RoomItemCardModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/model/TerminalPickerWindowModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/model/TerminalPickerWindowModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/view/CreateReservationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/view/CreateReservationView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/view/RoomItemCardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/view/RoomItemCardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/view/TerminalPickerWindowView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/view/TerminalPickerWindowView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/student.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/student.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/terminal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/terminal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/create_reservation_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/create_reservation_pane.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/room_item_card.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/room_item_card.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/terminal_picker_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/terminal_picker_window.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/signup/SignUpController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/signup/SignUpController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/CreateReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/controller/CreateReservationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/RoomItemCardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/controller/RoomItemCardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/CreateReservationModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/model/CreateReservationModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/RoomItemCardModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/model/RoomItemCardModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/CreateReservationView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/view/CreateReservationView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/RoomItemCardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/view/RoomItemCardView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_window.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/admin_menu_page.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/modify_terminal_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/reports_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/reservation_approval_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/room_card.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/student_reservations_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/create_reservation_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/create_reservation_pane.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/modify_reservation_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/modify_reservation_window.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/reservation_item_card.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/room_item_card.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/room_item_card.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/sign_up_page.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/student_main_menu.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/terminal_item_card.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/terminal_picker_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/terminal_picker_window.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/view_reservation_pane.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/images/client/Group 33825.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/SignUpProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/landingpage/SignUpProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/student_reservations_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/student_reservations_pane.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
