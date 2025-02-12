@@ -59,10 +59,6 @@ public class TerminalPickerWindowView implements Initializable {
 
         // Add new room cards (example data)
         addRoomCard("D522", "Mac", "1");
-        addRoomCard("D522", "Mac", "1");
-        addRoomCard("D522", "Mac", "1");
-        addRoomCard("D522", "Mac", "1");
-
 
     }
 

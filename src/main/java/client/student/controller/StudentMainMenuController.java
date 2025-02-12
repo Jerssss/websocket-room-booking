@@ -1,17 +1,8 @@
 package client.student.controller;
 
-import client.student.model.CreateReservationModel;
 import client.student.model.StudentMainMenuModel;
-import client.student.view.CreateReservationView;
 import client.student.view.StudentMainMenuView;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class StudentMainMenuController {
 
@@ -34,19 +25,6 @@ public class StudentMainMenuController {
     private void handleCreateReservation(ActionEvent event) {
         System.out.println("Navigating to Create Reservation Page...");
         studentMainMenuView.loadView("/fxml/client/create_reservation_pane.fxml");
-
-        try {
-            // Ensure the path to student_main_menu.fxml is correct
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/room_item_card.fxml"));
-            Parent root = fxmlLoader.load();
-
-            CreateReservationView createReservationView = fxmlLoader.getController();
-            new CreateReservationController(createReservationView, new CreateReservationModel());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading Student Main Menu GUI: " + e.getMessage());
-        }
     }
 
     private void handleViewReservation(ActionEvent event) {
@@ -61,21 +39,6 @@ public class StudentMainMenuController {
 
     private void handleLogout(ActionEvent event) {
         System.out.println("Logging out...");
-        try {
-            // Load the login page
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene to the login page
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading Login GUI: " + e.getMessage());
-        }
+        // Implement logout functionality
     }
 }
