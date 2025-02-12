@@ -7,6 +7,7 @@ module Lendify {
     requires java.desktop;
 
     exports client;
+    exports client.utility;
 
     opens client.landingpage to javafx.fxml;
     opens client.signup to javafx.fxml;

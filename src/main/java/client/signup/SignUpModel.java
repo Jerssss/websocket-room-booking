@@ -1,46 +1,35 @@
 package client.signup;
 
-import java.io.*;
-import java.net.Socket;
+import client.utility.ServerConnection;
 import javax.swing.JOptionPane;
 import javafx.application.Platform;
+import java.io.IOException;
 
 public class SignUpModel {
-    private Socket socket;
-    private PrintWriter writer;
-    private BufferedReader reader;
-
-    private static final String SERVER_HOST = "localhost";
-    private static final int SERVER_PORT = 4321;
+    private ServerConnection serverConnection;
 
     public SignUpModel() {
         try {
-            socket = new Socket(SERVER_HOST, SERVER_PORT);
-            writer = new PrintWriter(socket.getOutputStream(), true);
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            // Read the welcome message from the server
-            System.out.println(reader.readLine());
+            serverConnection = new ServerConnection();
         } catch (IOException e) {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
 
     public boolean register(String userID, String name, String password, String userType, String courseYear, String facultyType) {
-        try {
-            if (writer == null || reader == null) {
-                showErrorDialog("Server is not available. Please try again later.");
-                return false;
-            }
+        if (serverConnection == null) {
+            showErrorDialog("Server is not available. Please try again later.");
+            return false;
+        }
 
-            // Send sign-up request
+        try {
             String signUpRequest = String.format(
                     "<SignUp><UserID>%s</UserID><Name>%s</Name><Password>%s</Password><UserType>%s</UserType><CourseYear>%s</CourseYear><FacultyType>%s</FacultyType></SignUp>",
-                    userID, name, password, userType, courseYear, facultyType);
-            writer.println(signUpRequest);
+                    userID, name, password, userType, courseYear, facultyType
+            );
+            serverConnection.sendMessage(signUpRequest);
 
-            // Read server response
-            String response = reader.readLine();
+            String response = serverConnection.readMessage();
             System.out.println("Server Response: " + response);
 
             return "SUCCESS".equalsIgnoreCase(response);

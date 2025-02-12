@@ -1,46 +1,35 @@
 package client.login;
 
-import java.io.*;
-import java.net.Socket;
+import client.utility.ServerConnection;
 import javax.swing.JOptionPane;
 import javafx.application.Platform;
+import java.io.IOException;
 
 public class LoginModel {
-    private Socket socket;
-    private PrintWriter writer;
-    private BufferedReader reader;
-
-    private static final String SERVER_HOST = "localhost";
-    private static final int SERVER_PORT = 4321;
+    private ServerConnection serverConnection;
 
     public LoginModel() {
         try {
-            socket = new Socket(SERVER_HOST, SERVER_PORT);
-            writer = new PrintWriter(socket.getOutputStream(), true);
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            // Read the welcome message from the server
-            System.out.println(reader.readLine());
+            serverConnection = new ServerConnection();
         } catch (IOException e) {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
 
     public boolean authenticate(String userID, String password, String userType) {
-        try {
-            if (writer == null || reader == null) {
-                showErrorDialog("Server is not available. Please try again later.");
-                return false;
-            }
+        if (serverConnection == null) {
+            showErrorDialog("Server is not available. Please try again later.");
+            return false;
+        }
 
-            // Send login request
+        try {
             String loginRequest = String.format(
                     "<Login><UserID>%s</UserID><Password>%s</Password><UserType>%s</UserType></Login>",
-                    userID, password, userType);
-            writer.println(loginRequest);
+                    userID, password, userType
+            );
+            serverConnection.sendMessage(loginRequest);
 
-            // Read server response
-            String response = reader.readLine();
+            String response = serverConnection.readMessage();
             System.out.println("Server Response: " + response);
 
             return "SUCCESS".equalsIgnoreCase(response);

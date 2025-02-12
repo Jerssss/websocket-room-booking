@@ -1,28 +1,27 @@
 package client;
 
-import java.io.*;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import javax.swing.JOptionPane;
+import client.utility.ServerConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import javax.swing.JOptionPane;
+import java.io.IOException;
+
 public class ClientMain extends Application {
-    private static final String SERVER_HOST = "localhost";
-    private static final int SERVER_PORT = 4321;
-    private Socket socket;
-    private BufferedReader reader;
-    private PrintWriter writer;
+    private ServerConnection serverConnection;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        requestConnection();
+    public void start(Stage stage) {
+        if (!requestConnection()) {
+            showDisconnectedDialog();
+            return;
+        }
 
         stage.getIcons().add(new Image(getClass().getResource("/images/client/app_icon.png").toExternalForm()));
         ClientView view = new ClientView(stage);
@@ -31,20 +30,17 @@ public class ClientMain extends Application {
         new ClientController(view);
     }
 
-    public void requestConnection() {
+    public boolean requestConnection() {
         Thread thread = new Thread(() -> {
             while (true) { // Keep retrying until connected
                 try {
-                    socket = new Socket(SERVER_HOST, SERVER_PORT);
-                    reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    writer = new PrintWriter(socket.getOutputStream(), true);
-
+                    serverConnection = new ServerConnection();
                     System.out.println("Connected to the server.");
-                    System.out.println(reader.readLine()); // Read welcome message
+                    System.out.println(serverConnection.readMessage()); // Read welcome message
 
                     // Listen for messages from the server
                     String serverResponse;
-                    while ((serverResponse = reader.readLine()) != null) {
+                    while ((serverResponse = serverConnection.readMessage()) != null) {
                         System.out.println(serverResponse);
                         if ("Goodbye!".equalsIgnoreCase(serverResponse)) {
                             break;
@@ -55,9 +51,6 @@ public class ClientMain extends Application {
                     showDisconnectedDialog();
                     break; // Exit the loop after showing the dialog
 
-                } catch (UnknownHostException e) {
-                    showErrorDialog("Unknown host: " + SERVER_HOST);
-                    break;
                 } catch (IOException e) {
                     showDisconnectedDialog();
                     try {
@@ -68,6 +61,7 @@ public class ClientMain extends Application {
         });
         thread.setDaemon(true);
         thread.start();
+        return serverConnection != null;
     }
 
     private void showDisconnectedDialog() {
