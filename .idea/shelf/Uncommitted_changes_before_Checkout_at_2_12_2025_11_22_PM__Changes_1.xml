@@ -1,0 +1,114 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1" date="1739373775130" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2/12/2025 11:22 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/admin/controller/ModifyTerminalStatusController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/admin/controller/ModifyTerminalStatusController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/ModifyTerminalStatusController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/login/LoginModel.class" />
+    <option name="AFTER_PATH" value="target/classes/client/login/LoginModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/LoginModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/signup/SignUpModel.class" />
+    <option name="AFTER_PATH" value="target/classes/client/signup/SignUpModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/SignUpModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/module-info.class" />
+    <option name="AFTER_PATH" value="target/classes/module-info.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/module-info.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/view/RoomItemCardView.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/view/RoomItemCardView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/RoomItemCardView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/controller/StudentMainMenuController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/controller/StudentMainMenuController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/StudentMainMenuController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/admin/controller/AdminMainMenuController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/admin/controller/AdminMainMenuController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AdminMainMenuController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/view/CreateReservationView.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/view/CreateReservationView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/CreateReservationView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/admin/view/AddNewTerminalView.class" />
+    <option name="AFTER_PATH" value="target/classes/client/admin/view/AddNewTerminalView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AddNewTerminalView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/server/ServerMain.class" />
+    <option name="AFTER_PATH" value="target/classes/server/ServerMain.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/ServerMain.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/server/admin/AddNewTerminalProcessor.class" />
+    <option name="AFTER_PATH" value="target/classes/server/admin/AddNewTerminalProcessor.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AddNewTerminalProcessor.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/controller/CreateReservationController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/controller/CreateReservationController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/CreateReservationController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/login/LoginController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/login/LoginController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/LoginController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/model/CreateReservationModel.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/model/CreateReservationModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/CreateReservationModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/admin/view/AdminMainMenuView.class" />
+    <option name="AFTER_PATH" value="target/classes/client/admin/view/AdminMainMenuView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AdminMainMenuView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/model/RoomItemCardModel.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/model/RoomItemCardModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/RoomItemCardModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/student/view/StudentMainMenuView.class" />
+    <option name="AFTER_PATH" value="target/classes/client/student/view/StudentMainMenuView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/StudentMainMenuView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/signup/SignUpController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/signup/SignUpController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/SignUpController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/admin/model/AdminMainMenuModel.class" />
+    <option name="AFTER_PATH" value="target/classes/client/admin/model/AdminMainMenuModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AdminMainMenuModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/landingpage/LandingPageController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/landingpage/LandingPageController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/LandingPageController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/admin/controller/AddNewTerminalController.class" />
+    <option name="AFTER_PATH" value="target/classes/client/admin/controller/AddNewTerminalController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AddNewTerminalController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/client/ClientMain.class" />
+    <option name="AFTER_PATH" value="target/classes/client/ClientMain.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/ClientMain.class" />
+  </binary>
+</changelist>

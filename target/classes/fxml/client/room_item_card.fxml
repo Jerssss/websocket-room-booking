@@ -6,10 +6,10 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="313.0" style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.student.view.RoomItemCardView">
+<HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="313.0" style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.RoomItemCardView">
    <children>
       <VBox prefHeight="125.0" prefWidth="160.0">
          <children>
@@ -65,6 +65,9 @@
       </Button>
    </children>
    <effect>
-      <DropShadow />
+      <DropShadow>
+         <color>
+            <Color opacity="0.21755725145339966" />
+         </color></DropShadow>
    </effect>
 </HBox>

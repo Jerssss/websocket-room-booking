@@ -1,5 +1,9 @@
 package client.student.view;
 
+import client.admin.view.AdminMainMenuView;
+import client.login.LoginController;
+import client.login.LoginModel;
+import client.login.LoginView;
 import client.signup.SignUpController;
 import client.signup.SignUpModel;
 import javafx.event.ActionEvent;
@@ -18,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -109,15 +114,27 @@ public class CreateReservationView implements Initializable {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/terminal_picker_window.fxml"));
                     Parent terminalPickerView = fxmlLoader.load();
 
-                    // Find the topmost container (going up one level)
-                    Node source = (Node) event.getSource();
-                    GridPane parentContainer = (GridPane) source.getScene().lookup("#roomGridPane"); // ID of the container
+                    // Create a new stage (popup window)
+                    Stage popupStage = new Stage();
+                    popupStage.initModality(Modality.APPLICATION_MODAL); // Blocks interaction with other windows until closed
+                    popupStage.setTitle("Terminal Picker");
 
-                    if (parentContainer != null) {
-                        parentContainer.getChildren().setAll(terminalPickerView); // Swap view
-                    } else {
-                        System.out.println("ERROR: Parent container not found!");
-                    }
+                    // Set the scene
+                    Scene scene = new Scene(terminalPickerView);
+                    popupStage.setScene(scene);
+                    popupStage.centerOnScreen();
+                    popupStage.showAndWait(); // Show and wait for it to close before returning
+
+//                    // Find the topmost container (going up one level)
+//                    Node source = (Node) event.getSource();
+//                    GridPane parentContainer = (GridPane) source.getScene().lookup("#roomGridPane"); // ID of the container
+//
+//
+//                    if (parentContainer != null) {
+//                        parentContainer.getChildren().setAll(terminalPickerView); // Swap view
+//                    } else {
+//                        System.out.println("ERROR: Parent container not found!");
+//                    }
 
                 } catch (IOException ioe) {
                     ioe.printStackTrace();

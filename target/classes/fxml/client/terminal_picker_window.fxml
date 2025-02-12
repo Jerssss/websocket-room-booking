@@ -17,18 +17,19 @@
          <children>
             <HBox prefHeight="74.0" prefWidth="870.0" style="-fx-background-color: #0d3073;">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="725.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="793.0">
                      <children>
                         <Label fx:id="descLabel" alignment="CENTER" prefHeight="41.0" prefWidth="331.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Available Terminals in: " textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <Label fx:id="roomLabel" prefHeight="41.0" prefWidth="331.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="D522" textFill="WHITE">
+                        <Label fx:id="roomLabel" prefHeight="42.0" prefWidth="377.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="D522" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
+                        <Button fx:id="returnButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Return" />
                      </children>
                   </HBox>
                </children>
@@ -45,7 +46,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="521.0" prefWidth="792.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane fx:id="terminalsScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="330.0" prefWidth="750.0">
+            <ScrollPane fx:id="terminalsScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="433.0" prefWidth="792.0">
                <effect>
                   <DropShadow height="18.07" offsetY="5.0" radius="9.2675">
                      <color>
@@ -54,17 +55,13 @@
                   </DropShadow>
                </effect>
                <content>
-                  <GridPane fx:id="terminalGridPane" alignment="CENTER_LEFT" hgap="10" vgap="10" />
+                  <GridPane id="terminalGridPane" fx:id="terminalGridPane" alignment="CENTER_LEFT" hgap="10" vgap="10" />
                </content>
             </ScrollPane>
          </children>
       </VBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="792.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="returnButton" alignment="CENTER" mnemonicParsing="false" text="Return" />
-         </children>
-      </HBox>
+      <HBox alignment="CENTER" prefHeight="0.0" prefWidth="792.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
