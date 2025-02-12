@@ -49,10 +49,6 @@ public class CreateReservationController {
             return;
         }
 
-        System.out.println("Finding rooms...");
-        AnchorPane roomsAnchorPane = createReservationView.getRoomsAnchorPane();
-        roomsAnchorPane.getChildren().clear();
-        roomsAnchorPane.getChildren().add(new Label("Rooms found successfully!"));
     }
 
     // Add input validation listeners
