@@ -2,6 +2,8 @@ package client.login;
 
 import java.io.*;
 import java.net.Socket;
+import javax.swing.JOptionPane;
+import javafx.application.Platform;
 
 public class LoginModel {
     private Socket socket;
@@ -20,12 +22,17 @@ public class LoginModel {
             // Read the welcome message from the server
             System.out.println(reader.readLine());
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
 
     public boolean authenticate(String userID, String password, String userType) {
         try {
+            if (writer == null || reader == null) {
+                showErrorDialog("Server is not available. Please try again later.");
+                return false;
+            }
+
             // Send login request
             String loginRequest = String.format(
                     "<Login><UserID>%s</UserID><Password>%s</Password><UserType>%s</UserType></Login>",
@@ -38,28 +45,12 @@ public class LoginModel {
 
             return "SUCCESS".equalsIgnoreCase(response);
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorDialog("Lost connection to the server.");
             return false;
         }
     }
 
-    public void sendRequest(String message) {
-        try {
-            writer.println(message);
-            String response = reader.readLine();
-            System.out.println("Server Response: " + response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void logout() {
-        try {
-            writer.println("exit");
-            socket.close();
-            System.out.println("Logged out and socket closed.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void showErrorDialog(String message) {
+        Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
     }
 }

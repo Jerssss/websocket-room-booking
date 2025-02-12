@@ -2,21 +2,23 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
-import java.io.IOException;
-
+import java.net.UnknownHostException;
+import javax.swing.JOptionPane;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class ClientMain extends Application{
+public class ClientMain extends Application {
     private static final String SERVER_HOST = "localhost";
     private static final int SERVER_PORT = 4321;
+    private Socket socket;
+    private BufferedReader reader;
+    private PrintWriter writer;
 
     public static void main(String[] args) {
-
         launch(args);
     }
-
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -29,38 +31,60 @@ public class ClientMain extends Application{
         new ClientController(view);
     }
 
-    //I moved the previous main method contents into a new method to be able to include the logic into the start method
-    //Originally, it could not connect to the server although it could run the GUI.
-    //NOT SURE IF THE GUI DOES COMMUNICATE TO THE SERVER.
-    public void requestConnection () {
+    public void requestConnection() {
         Thread thread = new Thread(() -> {
-            try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
-                 InputStream input = socket.getInputStream();
-                 OutputStream output = socket.getOutputStream();
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                 PrintWriter writer = new PrintWriter(output, true);
-                 BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in))) {
+            while (true) { // Keep retrying until connected
+                try {
+                    socket = new Socket(SERVER_HOST, SERVER_PORT);
+                    reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    writer = new PrintWriter(socket.getOutputStream(), true);
 
-                System.out.println("Connected to the server.");
+                    System.out.println("Connected to the server.");
+                    System.out.println(reader.readLine()); // Read welcome message
 
-                // Read server welcome message
-                System.out.println(reader.readLine());
-
-                String userInput;
-                while ((userInput = consoleReader.readLine()) != null) {
-                    writer.println(userInput);
-                    String serverResponse = reader.readLine();
-                    System.out.println(serverResponse);
-
-                    if ("Goodbye!".equalsIgnoreCase(serverResponse)) {
-                        break;
+                    // Listen for messages from the server
+                    String serverResponse;
+                    while ((serverResponse = reader.readLine()) != null) {
+                        System.out.println(serverResponse);
+                        if ("Goodbye!".equalsIgnoreCase(serverResponse)) {
+                            break;
+                        }
                     }
+
+                    // If we reach here, the server has closed the connection
+                    showDisconnectedDialog();
+                    break; // Exit the loop after showing the dialog
+
+                } catch (UnknownHostException e) {
+                    showErrorDialog("Unknown host: " + SERVER_HOST);
+                    break;
+                } catch (IOException e) {
+                    showDisconnectedDialog();
+                    try {
+                        Thread.sleep(3000); // Wait before retrying
+                    } catch (InterruptedException ignored) {}
                 }
-            } catch (IOException e) {
-                System.out.println("Error connecting to the server: " + e.getMessage());
             }
         });
         thread.setDaemon(true);
         thread.start();
+    }
+
+    private void showDisconnectedDialog() {
+        Platform.runLater(() ->
+                JOptionPane.showMessageDialog(null,
+                        "Disconnected from the server.",
+                        "Connection Lost",
+                        JOptionPane.ERROR_MESSAGE)
+        );
+    }
+
+    private void showErrorDialog(String message) {
+        Platform.runLater(() ->
+                JOptionPane.showMessageDialog(null,
+                        message,
+                        "Connection Error",
+                        JOptionPane.ERROR_MESSAGE)
+        );
     }
 }
