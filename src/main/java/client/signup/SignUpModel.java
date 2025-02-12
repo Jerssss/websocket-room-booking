@@ -2,6 +2,8 @@ package client.signup;
 
 import java.io.*;
 import java.net.Socket;
+import javax.swing.JOptionPane;
+import javafx.application.Platform;
 
 public class SignUpModel {
     private Socket socket;
@@ -20,12 +22,17 @@ public class SignUpModel {
             // Read the welcome message from the server
             System.out.println(reader.readLine());
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
 
     public boolean register(String userID, String name, String password, String userType, String courseYear, String facultyType) {
         try {
+            if (writer == null || reader == null) {
+                showErrorDialog("Server is not available. Please try again later.");
+                return false;
+            }
+
             // Send sign-up request
             String signUpRequest = String.format(
                     "<SignUp><UserID>%s</UserID><Name>%s</Name><Password>%s</Password><UserType>%s</UserType><CourseYear>%s</CourseYear><FacultyType>%s</FacultyType></SignUp>",
@@ -38,8 +45,12 @@ public class SignUpModel {
 
             return "SUCCESS".equalsIgnoreCase(response);
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorDialog("Lost connection to the server.");
             return false;
         }
+    }
+
+    private void showErrorDialog(String message) {
+        Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
     }
 }
