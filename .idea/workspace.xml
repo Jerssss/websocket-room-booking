@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d9b1fbc1-bded-4d71-b354-5c1b4bfe9baa" name="Changes" comment="Connected StudentMainMenuGUI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/student_reservations_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/student_reservations_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/modify_terminal_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/modify_terminal_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/reservation_approval_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/reservation_approval_pane.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
