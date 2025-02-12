@@ -2,6 +2,10 @@ package client.admin.controller;
 
 import client.admin.model.AdminMainMenuModel;
 import client.admin.view.AdminMainMenuView;
+import client.login.LoginController;
+import client.login.LoginModel;
+import client.login.LoginView;
+import client.student.view.StudentMainMenuView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,20 +41,24 @@ public class AdminMainMenuController {
 
     private void handleLogout(ActionEvent event) {
         try {
-            // Load the login page
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Ensure that the LoginController is properly initialized
+            LoginView loginView = fxmlLoader.getController();
+            new LoginController(loginView, new LoginModel(), new StudentMainMenuView(), new AdminMainMenuView());
 
-            // Set the scene to the login page
+            // Get the current stage and switch to the login scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
+            System.out.println("Successfully logged out and redirected to the login page.");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading Login GUI: " + e.getMessage());
         }
     }
+
 }
