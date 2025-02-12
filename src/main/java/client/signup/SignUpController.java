@@ -44,7 +44,7 @@ public class SignUpController {
         this.signUpView.setActionSignInButton(this::redirectToLogin);
 
         // Handle Sign Up button click
-        this.signUpView.setActionSignUpButton(event -> handleSignUp(event));
+        this.signUpView.setActionSignUpButton(this::handleSignUp);
     }
 
     private void redirectToLogin(ActionEvent event) {
@@ -69,7 +69,7 @@ public class SignUpController {
     }
 
 
-    private void handleSignUp(ActionEvent event) throws ParserConfigurationException {
+    private void handleSignUp(ActionEvent event) {
 
 
         // Store field and dropdown contents
@@ -93,7 +93,6 @@ public class SignUpController {
 
             // Call the register method in SignUpModel
             boolean isRegistered = signUpModel.register(userID, name, pass, userType, courseYear, facultyType);
-
 
             if (isRegistered) {
                 signUpView.getPromptLabel().setText("Registration successful!");
