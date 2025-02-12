@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.admin.controller.AddNewTerminalController">
+      fx:controller="client.admin.view.AddNewTerminalView">
    <children>
       <VBox prefHeight="74.0" prefWidth="805.0">
          <children>
@@ -33,7 +33,7 @@
                      <children>
                         <StackPane alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="163.0">
                            <children>
-                              <Button fx:id="addTerminalButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Add a terminal" />
+                              <Button fx:id="redirectAddTerminalWindowButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Add a terminal" />
                            </children>
                         </StackPane>
                      </children>

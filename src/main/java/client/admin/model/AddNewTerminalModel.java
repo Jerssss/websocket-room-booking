@@ -1,41 +1,34 @@
 package client.admin.model;
 
+import java.io.*;
+import java.net.Socket;
+import javax.swing.JOptionPane;
+
+import client.admin.view.AddNewTerminalView;
+import javafx.application.Platform;
+
 public class AddNewTerminalModel {
-    private String terminalId;
-    private String room;
-    private String osType;
-    private String status;
 
-    // Getters and Setters
-    public String getTerminalId() {
-        return terminalId;
+    private AddNewTerminalView view;
+    private Socket socket;
+    private PrintWriter writer;
+    private BufferedReader reader;
+
+    private static final String SERVER_HOST = "localhost";
+    private static final int SERVER_PORT = 4321;
+
+
+    public AddNewTerminalModel() {
+        try {
+            socket = new Socket(SERVER_HOST, SERVER_PORT);
+            writer = new PrintWriter(socket.getOutputStream(), true);
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            showErrorDialog("Server is down or unreachable. Please try again later.");
+        }
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public String getOsType() {
-        return osType;
-    }
-
-    public void setOsType(String osType) {
-        this.osType = osType;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    private void showErrorDialog(String message) {
+        Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
     }
 }

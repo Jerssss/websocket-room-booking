@@ -1,47 +1,33 @@
 package client.admin.controller;
 
 import client.admin.model.AddNewTerminalModel;
+import client.admin.view.AddNewTerminalView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import server.admin.AddNewTerminalProcessor; // Server-side processor
-
-import java.io.IOException;
+import server.admin.AddNewTerminalProcessor;
 
 public class AddNewTerminalController {
+    private final AddNewTerminalView view;
+    private final AddNewTerminalProcessor processor;
+    private final AddNewTerminalProcessor terminalProcessor = new AddNewTerminalProcessor();
 
-    @FXML
-    private TextField terminalNoTextField;
 
-    @FXML
-    private TextField roomTextField;
+    public AddNewTerminalController(AddNewTerminalView view) {
+        this.view = view;
+        this.processor = new AddNewTerminalProcessor();
 
-    @FXML
-    private TextField osTypeTextField;
+        // Set up event handlers
+        this.view.setSaveChangesButtonAction(this::handleSaveChange);
+    }
 
-    @FXML
-    private TextField statusTextField;
-
-    private final AddNewTerminalProcessor terminalProcessor = new AddNewTerminalProcessor(); // Direct server-side interaction
-
-    @FXML
-    private Button redirectAddTerminalWindowButton;
-
-    @FXML
-    private void saveChanges(ActionEvent event) {
-        // Get data from input fields
-        String terminalId = terminalNoTextField.getText().trim();
-        String room = roomTextField.getText().trim();
-        String osType = osTypeTextField.getText().trim();
-        String status = statusTextField.getText().trim();
+    private void handleSaveChange(ActionEvent event) {
+        String terminalId = view.getTerminalNoTextField().getText().trim();
+        String room = view.getRoomTextField().getText().trim();
+        String osType = view.getOsTypeTextField().getText().trim();
+        String status = view.getStatusTextField().getText().trim();
 
         // Validate inputs
         if (terminalId.isEmpty() || room.isEmpty() || osType.isEmpty() || status.isEmpty()) {
@@ -54,27 +40,26 @@ public class AddNewTerminalController {
             return;
         }
 
-        // Create model and set its values
-        AddNewTerminalModel terminalModel = new AddNewTerminalModel();
-        terminalModel.setTerminalId(terminalId);
-        terminalModel.setRoom(room);
-        terminalModel.setOsType(osType);
-        terminalModel.setStatus(status);
+        // Create model object
+        AddNewTerminalView terminalView = new AddNewTerminalView();
+        terminalView.setTerminalId(terminalId);
+        terminalView.setRoom(room);
+        terminalView.setOsType(osType);
+        terminalView.setStatus(status);
 
-        // Process the terminal data using the server-side processor
-        boolean success = terminalProcessor.processTerminalData(terminalModel);
+        // Process the data
+        boolean success = terminalProcessor.processTerminalData(
+                terminalView.getTerminalId(),
+                terminalView.getRoom(),
+                terminalView.getOsType(),
+                terminalView.getStatus()
+        );
 
         if (success) {
-            showAlert("Success", "Terminal added!", Alert.AlertType.INFORMATION);
-            closeWindow(event);
+            showAlert("Success", "Terminal added successfully!", Alert.AlertType.INFORMATION);
         } else {
             showAlert("Error", "Failed to add terminal. Try again.", Alert.AlertType.ERROR);
         }
-    }
-
-    private void closeWindow(ActionEvent event) {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
     }
 
     private void showAlert(String title, String message, Alert.AlertType alertType) {
@@ -82,27 +67,5 @@ public class AddNewTerminalController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    @FXML
-    private void redirectAddTerminalWindow(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/add_terminal_window.fxml"));
-            Parent root = loader.load();
-
-            // Open in a new stage
-            Stage stage = new Stage();
-            stage.setTitle("Add New Terminal");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void initialize() {
-        if (redirectAddTerminalWindowButton != null) {
-            redirectAddTerminalWindowButton.setOnAction(event -> redirectAddTerminalWindow(event));
-        }
     }
 }

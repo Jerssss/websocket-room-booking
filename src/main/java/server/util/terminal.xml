@@ -1,21 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Terminals>
-    <Terminal>
-        <terminal_id>1</terminal_id>
-        <terminal_room>Room 101</terminal_room>
-        <terminal_os>Windows 10</terminal_os>
-        <terminal_status>Active</terminal_status>
-    </Terminal>
-    <Terminal>
-        <terminal_id>2</terminal_id>
-        <terminal_room>Room 102</terminal_room>
-        <terminal_os>Ubuntu 22.04</terminal_os>
-        <terminal_status>Maintenance</terminal_status>
-    </Terminal>
-    <Terminal>
-        <terminal_id>3</terminal_id>
-        <terminal_room>Room 103</terminal_room>
-        <terminal_os>macOS Monterey</terminal_os>
-        <terminal_status>Reserved</terminal_status>
-    </Terminal>
+  <Terminal>
+    <terminal_id>PC23</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>Mac</terminal_os>
+    <default_schedule>
+      <Monday>09:30-17:30</Monday>
+      <Tuesday>09:30-17:30</Tuesday>
+      <Wednesday>11:30-16:30</Wednesday>
+      <Thursday>11:30-16:30</Thursday>
+      <Friday>07:30-15:30</Friday>
+      <Saturday>07:30-15:30</Saturday>
+    </default_schedule>
+    <terminal_status>Active</terminal_status>
+  </Terminal>
 </Terminals>
