@@ -14,85 +14,90 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileOutputStream;
 
 public class AddNewTerminalProcessor {
 
-    private final String filePath = "src/main/java/server/util/terminal.xml"; // Replace with your actual path
+    private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
 
     public boolean processTerminalData(AddNewTerminalModel terminalModel) {
         try {
-            File xmlFile = new File(filePath);
-            if (!xmlFile.exists()) {
-                System.err.println("Error: terminal.xml file not found at " + filePath);
-                return false;
-            }
-
-            // Parse the existing XML file
+            File xmlFile = new File(FILE_PATH);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            dbFactory.setIgnoringElementContentWhitespace(true); // Ignore whitespace during parsing
+            dbFactory.setIgnoringElementContentWhitespace(true);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
-            // Get the root element
-            Element root = doc.getDocumentElement(); // This is <Terminals>
+            Element root = doc.getDocumentElement();
+            Element newTerminal = doc.createElement("Terminal");
 
-            // Create a new Terminal element
-            Element terminal = doc.createElement("Terminal");
+            Element id = doc.createElement("terminal_id");
+            id.appendChild(doc.createTextNode("PC" + terminalModel.getTerminalId().trim()));
+            newTerminal.appendChild(id);
 
-            Element terminalId = doc.createElement("terminal_id");
-            terminalId.setTextContent(terminalModel.getTerminalId().trim());
-            terminal.appendChild(terminalId);
+            Element room = doc.createElement("terminal_room");
+            room.appendChild(doc.createTextNode("D" + terminalModel.getRoom().trim()));
+            newTerminal.appendChild(room);
 
-            Element terminalRoom = doc.createElement("terminal_room");
-            terminalRoom.setTextContent(terminalModel.getRoom().trim());
-            terminal.appendChild(terminalRoom);
+            Element os = doc.createElement("terminal_os");
+            os.appendChild(doc.createTextNode(terminalModel.getOsType().trim()));
+            newTerminal.appendChild(os);
 
-            Element terminalOs = doc.createElement("terminal_os");
-            terminalOs.setTextContent(terminalModel.getOsType().trim());
-            terminal.appendChild(terminalOs);
+            // Check if room needs a default schedule
+            if (terminalModel.getRoom().equals("526") || terminalModel.getRoom().equals("524") || terminalModel.getRoom().equals("426")) {
+                Element schedule = doc.createElement("default_schedule");
 
-            Element terminalStatus = doc.createElement("terminal_status");
-            terminalStatus.setTextContent(terminalModel.getStatus().trim());
-            terminal.appendChild(terminalStatus);
+                String[][] scheduleData = {
+                        {"Monday", "09:30-17:30"},
+                        {"Tuesday", "09:30-17:30"},
+                        {"Wednesday", "11:30-16:30"},
+                        {"Thursday", "11:30-16:30"},
+                        {"Friday", "07:30-15:30"},
+                        {"Saturday", "07:30-15:30"}
+                };
 
-            // Append the new terminal to the root element
-            root.appendChild(terminal);
+                for (String[] day : scheduleData) {
+                    Element dayElement = doc.createElement(day[0]);
+                    dayElement.appendChild(doc.createTextNode(day[1]));
+                    schedule.appendChild(dayElement);
+                }
+                newTerminal.appendChild(schedule);
+            }
 
-            // Write the updated document back to the file with precise formatting
+            Element status = doc.createElement("terminal_status");
+            status.appendChild(doc.createTextNode(terminalModel.getStatus().trim()));
+            newTerminal.appendChild(status);
+
+            root.appendChild(newTerminal);
+
+            removeWhiteSpaces(doc);
+
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-
-            // Set output properties for clean formatting
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
-            // Remove unnecessary whitespace nodes before writing
-            removeWhitespaceNodes(doc);
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(xmlFile);
+            StreamResult result = new StreamResult(new FileOutputStream(FILE_PATH));
             transformer.transform(source, result);
 
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    // Helper method to remove whitespace nodes from the document
-    private void removeWhitespaceNodes(Node node) {
+    private void removeWhiteSpaces(Node node) {
         NodeList children = node.getChildNodes();
         for (int i = children.getLength() - 1; i >= 0; i--) {
             Node child = children.item(i);
             if (child.getNodeType() == Node.TEXT_NODE && child.getNodeValue().trim().isEmpty()) {
                 node.removeChild(child);
             } else if (child.getNodeType() == Node.ELEMENT_NODE) {
-                removeWhitespaceNodes(child);
+                removeWhiteSpaces(child);
             }
         }
     }
