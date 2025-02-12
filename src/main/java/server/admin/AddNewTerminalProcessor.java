@@ -1,6 +1,7 @@
 package server.admin;
 
 import client.admin.model.AddNewTerminalModel;
+import javafx.scene.control.Alert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -30,6 +31,15 @@ public class AddNewTerminalProcessor {
             doc.getDocumentElement().normalize();
 
             Element root = doc.getDocumentElement();
+
+            // Validate if terminal ID exists in the specified room
+            if (isTerminalIdExistsInRoom(root, terminalModel.getTerminalId(), terminalModel.getRoom())) {
+                // Show alert if terminal ID already exists
+                showAlert("Validation Error", "The Terminal ID already exists in this room.", Alert.AlertType.ERROR);
+                return false; // Return false to indicate the validation failed
+            }
+
+            // Proceed to add the terminal if validation is passed
             Element newTerminal = doc.createElement("Terminal");
 
             Element id = doc.createElement("terminal_id");
@@ -90,6 +100,23 @@ public class AddNewTerminalProcessor {
         }
     }
 
+    // Validate if terminal ID already exists for a given room
+    private boolean isTerminalIdExistsInRoom(Element root, String terminalId, String room) {
+        NodeList terminalNodes = root.getElementsByTagName("Terminal");
+        for (int i = 0; i < terminalNodes.getLength(); i++) {
+            Element terminalElement = (Element) terminalNodes.item(i);
+
+            String existingTerminalId = terminalElement.getElementsByTagName("terminal_id").item(0).getTextContent();
+            String existingRoom = terminalElement.getElementsByTagName("terminal_room").item(0).getTextContent();
+
+            // If the terminal ID matches and the room matches, return true (duplicate found)
+            if (existingTerminalId.equals("PC" + terminalId.trim()) && existingRoom.equals("D" + room.trim())) {
+                return true;
+            }
+        }
+        return false; // Return false if no duplicates found
+    }
+
     private void removeWhiteSpaces(Node node) {
         NodeList children = node.getChildNodes();
         for (int i = children.getLength() - 1; i >= 0; i--) {
@@ -100,5 +127,13 @@ public class AddNewTerminalProcessor {
                 removeWhiteSpaces(child);
             }
         }
+    }
+
+    // Display an alert message to the user
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

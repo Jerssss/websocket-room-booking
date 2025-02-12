@@ -14,4 +14,32 @@
     </default_schedule>
     <terminal_status>Active</terminal_status>
   </Terminal>
+  <Terminal>
+    <terminal_id>PC23</terminal_id>
+    <terminal_room>D526</terminal_room>
+    <terminal_os>Mac</terminal_os>
+    <default_schedule>
+      <Monday>09:30-17:30</Monday>
+      <Tuesday>09:30-17:30</Tuesday>
+      <Wednesday>11:30-16:30</Wednesday>
+      <Thursday>11:30-16:30</Thursday>
+      <Friday>07:30-15:30</Friday>
+      <Saturday>07:30-15:30</Saturday>
+    </default_schedule>
+    <terminal_status>Active</terminal_status>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC22</terminal_id>
+    <terminal_room>D526</terminal_room>
+    <terminal_os>Mac</terminal_os>
+    <default_schedule>
+      <Monday>09:30-17:30</Monday>
+      <Tuesday>09:30-17:30</Tuesday>
+      <Wednesday>11:30-16:30</Wednesday>
+      <Thursday>11:30-16:30</Thursday>
+      <Friday>07:30-15:30</Friday>
+      <Saturday>07:30-15:30</Saturday>
+    </default_schedule>
+    <terminal_status>Active</terminal_status>
+  </Terminal>
 </Terminals>

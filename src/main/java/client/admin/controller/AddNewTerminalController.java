@@ -33,7 +33,7 @@ public class AddNewTerminalController {
     private final AddNewTerminalProcessor terminalProcessor = new AddNewTerminalProcessor(); // Direct server-side interaction
 
     @FXML
-    private Button openAddTerminalWindowButton;
+    private Button redirectAddTerminalWindowButton;
 
     @FXML
     private void saveChanges(ActionEvent event) {
@@ -84,7 +84,7 @@ public class AddNewTerminalController {
         alert.showAndWait();
     }
     @FXML
-    private void openAddTerminalWindow(ActionEvent event) {
+    private void redirectAddTerminalWindow(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/add_terminal_window.fxml"));
             Parent root = loader.load();
@@ -101,8 +101,8 @@ public class AddNewTerminalController {
     }
     @FXML
     private void initialize() {
-        if (openAddTerminalWindowButton != null) {
-            openAddTerminalWindowButton.setOnAction(event -> openAddTerminalWindow(event));
+        if (redirectAddTerminalWindowButton != null) {
+            redirectAddTerminalWindowButton.setOnAction(event -> redirectAddTerminalWindow(event));
         }
     }
 }
