@@ -14,25 +14,11 @@ public class RoomItemCardModel {
         }
     }
 
-    public String fetchRoomDetails(String roomId) {
+    public String fetchAllTerminalDetails() {
         if (serverConnection == null) return null;
 
         try {
-            String request = String.format("<FetchRoomDetails><RoomID>%s</RoomID></FetchRoomDetails>", roomId);
-            serverConnection.sendMessage(request);
-            return serverConnection.readMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String fetchTerminalDetails(String roomId) {
-        if (serverConnection == null) return null;
-
-        try {
-            String request = String.format("<FetchTerminalDetails><RoomID>%s</RoomID></FetchTerminalDetails>", roomId);
-            serverConnection.sendMessage(request);
+            serverConnection.sendMessage("<FetchAllTerminals />");
             return serverConnection.readMessage();
         } catch (IOException e) {
             e.printStackTrace();
