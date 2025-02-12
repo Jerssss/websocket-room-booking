@@ -3,13 +3,7 @@ package client.student.view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 public class ViewReservationView {
@@ -37,18 +31,98 @@ public class ViewReservationView {
     @FXML
     private Button refreshButton;//might rename to avoid confusion
     @FXML
-    private AnchorPane viewHistoryAnchorPane;
+    private TableView<?> modResTableView;
     @FXML
-    private ScrollPane viewHistoryScrollPane;
+    private TableColumn<?, ?> reservationIDColumn;
+    @FXML
+    private TableColumn<?, ?> terminalNoColumn;
+    @FXML
+    private TableColumn<?, ?> roomNoColumn;
+    @FXML
+    private TableColumn<?, ?> reservationStatusColumn;
 
-    private FXMLLoader fxmlLoader;
-    private Parent root;
+    // Event Handler Setup
+    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
+        refreshButton.setOnAction(event);
+    }
 
-//    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
-//        refreshButton.setOnAction(event);
-//TODO logic for refresh (update) button
-//    }
+    // Getters for all components
+    public VBox getCenterPane() {
+        return centerPane;
+    }
 
-    //TODO setters and getters
+    public Label getHistoryLabel() {
+        return historyLabel;
+    }
 
+    public Label getTimePickerLabel() {
+        return timePickerLabel;
+    }
+
+    public Label getColonLabel() {
+        return colonLabel;
+    }
+
+    public Label getDateLabel() {
+        return dateLabel;
+    }
+
+    public TextField getEndTimeTextField() {
+        return endTimeTextField;
+    }
+
+    public TextField getStartTimeTextField() {
+        return startTimeTextField;
+    }
+
+    public TextField getDayTextField() {
+        return dayTextField;
+    }
+
+    public TextField getMonthTextField() {
+        return monthTextField;
+    }
+
+    public TextField getYearTextField() {
+        return yearTextField;
+    }
+
+    public Button getRefreshButton() {
+        return refreshButton;
+    }
+
+    public TableView<?> getModResTableView() {
+        return modResTableView;
+    }
+
+    public TableColumn<?, ?> getReservationIDColumn() {
+        return reservationIDColumn;
+    }
+
+    public TableColumn<?, ?> getTerminalNoColumn() {
+        return terminalNoColumn;
+    }
+
+    public TableColumn<?, ?> getRoomNoColumn() {
+        return roomNoColumn;
+    }
+
+    public TableColumn<?, ?> getReservationStatusColumn() {
+        return reservationStatusColumn;
+    }
+
+    // Setters for text fields
+    public void setStartTime(String time) {
+        startTimeTextField.setText(time);
+    }
+
+    public void setEndTime(String time) {
+        endTimeTextField.setText(time);
+    }
+
+    public void setDate(String month, String day, String year) {
+        monthTextField.setText(month);
+        dayTextField.setText(day);
+        yearTextField.setText(year);
+    }
 }
