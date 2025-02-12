@@ -12,6 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AdminMainMenuView {
 
@@ -26,13 +31,13 @@ public class AdminMainMenuView {
     @FXML
     private Button reportsButton;
     @FXML
-    private Button logoutButton; // Ensure this matches the fx:id in FXML
+    private Button logoutButton;
     @FXML
-    private Label Name;
+    private Label headerNameLabel; // Ensure this matches the fx:id in FXML
     @FXML
-    private Label Date;
+    private Label headerDateLabel; // Ensure this matches the fx:id in FXML
     @FXML
-    private Label Time;
+    private Label headerTimeLabel; // Ensure this matches the fx:id in FXML
     @FXML
     private BorderPane rootPane;
 
@@ -47,8 +52,44 @@ public class AdminMainMenuView {
         }
     }
 
+    // Method to set the name of the logged-in user
+    public void setLoggedInUserName(String name) {
+        headerNameLabel.setText(name);
+    }
+
+    // Method to initialize the date and time labels
+    public void initializeDateTime() {
+        // Set initial date and time
+        updateDateTime();
+
+        // Schedule a timer to update the time every second
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                updateDateTime();
+            }
+        }, 0, 1000); // Update every second
+    }
+
+    // Helper method to update the date and time labels
+    private void updateDateTime() {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+
+        // Format the date and time
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        // Update the labels on the JavaFX Application Thread
+        javafx.application.Platform.runLater(() -> {
+            headerDateLabel.setText(currentDate.format(dateFormatter));
+            headerTimeLabel.setText(currentTime.format(timeFormatter));
+        });
+    }
+
     public void setActionAddNewTerminalButton(EventHandler<ActionEvent> event) {
-        addNewTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/add_terminal_pane.fxml")); // Correct path
+        addNewTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/add_terminal_pane.fxml"));
     }
 
     public void setActionShowStudentReservationButton(EventHandler<ActionEvent> event) {
@@ -68,6 +109,6 @@ public class AdminMainMenuView {
     }
 
     public void setActionLogoutButton(EventHandler<ActionEvent> event) {
-        logoutButton.setOnAction(event); // Ensure this is correctly setting the action
+        logoutButton.setOnAction(event);
     }
 }

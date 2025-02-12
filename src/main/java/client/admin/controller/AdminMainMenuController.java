@@ -16,13 +16,19 @@ public class AdminMainMenuController {
     private final AdminMainMenuView view;
     private final AdminMainMenuModel model;
 
-    public AdminMainMenuController(AdminMainMenuView view, AdminMainMenuModel model) {
+    public AdminMainMenuController(AdminMainMenuView view, AdminMainMenuModel model, String loggedInUserName) {
         this.view = view;
         this.model = model;
 
+        // Set the logged-in user's name
+        this.view.setLoggedInUserName(loggedInUserName);
+
+        // Initialize date and time labels
+        this.view.initializeDateTime();
+
         // Set up button actions
         this.view.setActionAddNewTerminalButton(event -> handleAddNewTerminal());
-        this.view.setActionLogoutButton(event -> handleLogout(event)); // Add this line
+        this.view.setActionLogoutButton(event -> handleLogout(event));
     }
 
     private void handleAddNewTerminal() {

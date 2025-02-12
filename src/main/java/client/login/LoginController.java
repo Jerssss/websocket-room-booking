@@ -63,9 +63,10 @@ public class LoginController {
             if ("Student".equalsIgnoreCase(userType)) {
                 redirectToStudentMainMenu(event);
             } else if ("Admin".equalsIgnoreCase(userType)) {
-                redirectToAdminMainMenu(event);
+                // Fetch the logged-in user's name (you can modify this based on your data)
+                String loggedInUserName = "Admin User"; // Replace with actual logic to fetch the name
+                redirectToAdminMainMenu(event, loggedInUserName);
             }
-            // Optionally, add logic to navigate to the Admin dashboard for admin users.
         } else {
             loginView.setPromptLabel("Invalid credentials. Please try again.");
             loginView.setPromptLabelVisible(true);
@@ -93,14 +94,14 @@ public class LoginController {
         }
     }
 
-    private void redirectToAdminMainMenu(ActionEvent event) {
+    private void redirectToAdminMainMenu(ActionEvent event, String loggedInUserName) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/admin/admin_menu_page.fxml"));
             Parent root = fxmlLoader.load();
 
             // Ensure that the correct controller is linked
             AdminMainMenuView adminMainMenuView = fxmlLoader.getController();
-            new AdminMainMenuController(adminMainMenuView, new AdminMainMenuModel());
+            new AdminMainMenuController(adminMainMenuView, new AdminMainMenuModel(), loggedInUserName);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
