@@ -1,21 +1,15 @@
 package client.admin.controller;
 
-import client.admin.model.AddNewTerminalModel;
 import client.admin.model.AdminMainMenuModel;
-import client.admin.view.AddNewTerminalView;
 import client.admin.view.AdminMainMenuView;
-import client.admin.model.AddNewTerminalModel;
-import client.admin.view.AddNewTerminalView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class AdminMainMenuController {
 
@@ -28,10 +22,29 @@ public class AdminMainMenuController {
 
         // Set up button actions
         this.view.setActionAddNewTerminalButton(event -> handleAddNewTerminal());
+        this.view.setActionLogoutButton(event -> handleLogout(event)); // Add this line
     }
 
     private void handleAddNewTerminal() {
         System.out.println("Navigating to Add New Terminal...");
     }
 
+    private void handleLogout(ActionEvent event) {
+        try {
+            // Load the login page
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene to the login page
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Login GUI: " + e.getMessage());
+        }
+    }
 }

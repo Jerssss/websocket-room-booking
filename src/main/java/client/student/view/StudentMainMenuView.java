@@ -21,7 +21,7 @@ public class StudentMainMenuView {
     @FXML
     private Button modifyReservationButton;
     @FXML
-    private Button logOutButton;
+    private Button logOutButton; // Ensure this matches the fx:id in FXML
     @FXML
     private Label headerNameLabel;
     @FXML
@@ -59,6 +59,6 @@ public class StudentMainMenuView {
     }
 
     public void setActionLogoutButton(EventHandler<ActionEvent> event) {
-        logOutButton.setOnAction(event);
+        logOutButton.setOnAction(event); // Ensure this is correctly setting the action
     }
 }

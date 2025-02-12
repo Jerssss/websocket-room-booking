@@ -95,11 +95,10 @@ public class LoginController {
 
     private void redirectToAdminMainMenu(ActionEvent event) {
         try {
-            // Ensure the path to admin_menu_page.fxml is correct
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/admin/admin_menu_page.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Initialize AdminMainMenuController (if required)
+            // Ensure that the correct controller is linked
             AdminMainMenuView adminMainMenuView = fxmlLoader.getController();
             new AdminMainMenuController(adminMainMenuView, new AdminMainMenuModel());
 

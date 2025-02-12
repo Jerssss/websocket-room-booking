@@ -8,9 +8,13 @@ import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientMain extends Application {
     private ServerConnection serverConnection;
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private boolean isConnected = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -18,67 +22,61 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage stage) {
-        if (!requestConnection()) {
-            showDisconnectedDialog();
-            return;
-        }
+        // ✅ Show the GUI first
+        Platform.runLater(() -> {
+            stage.getIcons().add(new Image(getClass().getResource("/images/client/app_icon.png").toExternalForm()));
+            ClientView view = new ClientView(stage);
+            view.runInterface();
+            new ClientController(view);
+        });
 
-        stage.getIcons().add(new Image(getClass().getResource("/images/client/app_icon.png").toExternalForm()));
-        ClientView view = new ClientView(stage);
-        view.runInterface();
-
-        new ClientController(view);
+        // ✅ Start the server connection in a background thread
+        executor.execute(this::requestConnection);
     }
 
-    public boolean requestConnection() {
-        Thread thread = new Thread(() -> {
-            while (true) { // Keep retrying until connected
-                try {
-                    serverConnection = new ServerConnection();
-                    System.out.println("Connected to the server.");
-                    System.out.println(serverConnection.readMessage()); // Read welcome message
+    public void requestConnection() {
+        try {
+            serverConnection = new ServerConnection();
+            isConnected = true;
+            System.out.println("Connected to the server.");
+            listenForServerMessages();
+        } catch (IOException e) {
+            isConnected = false;
+            showDisconnectedDialog();
+        }
+    }
 
-                    // Listen for messages from the server
-                    String serverResponse;
-                    while ((serverResponse = serverConnection.readMessage()) != null) {
-                        System.out.println(serverResponse);
-                        if ("Goodbye!".equalsIgnoreCase(serverResponse)) {
-                            break;
-                        }
+    private void listenForServerMessages() {
+        new Thread(() -> {
+            try {
+                while (isConnected) {
+                    String serverResponse = serverConnection.readMessage();
+                    if (serverResponse == null) {
+                        System.out.println("Server connection lost. Retrying...");
+                        isConnected = false;
+                        executor.execute(this::requestConnection);
+                        return;
                     }
-
-                    // If we reach here, the server has closed the connection
-                    showDisconnectedDialog();
-                    break; // Exit the loop after showing the dialog
-
-                } catch (IOException e) {
-                    showDisconnectedDialog();
-                    try {
-                        Thread.sleep(3000); // Wait before retrying
-                    } catch (InterruptedException ignored) {}
+                    System.out.println("Server: " + serverResponse);
+                    if ("Goodbye!".equalsIgnoreCase(serverResponse)) {
+                        isConnected = false;
+                        showDisconnectedDialog();
+                        return;
+                    }
                 }
+            } catch (IOException e) {
+                isConnected = false;
+                showDisconnectedDialog();
             }
-        });
-        thread.setDaemon(true);
-        thread.start();
-        return serverConnection != null;
+        }).start();
     }
 
     private void showDisconnectedDialog() {
-        Platform.runLater(() ->
-                JOptionPane.showMessageDialog(null,
-                        "Disconnected from the server.",
-                        "Connection Lost",
-                        JOptionPane.ERROR_MESSAGE)
-        );
-    }
-
-    private void showErrorDialog(String message) {
-        Platform.runLater(() ->
-                JOptionPane.showMessageDialog(null,
-                        message,
-                        "Connection Error",
-                        JOptionPane.ERROR_MESSAGE)
-        );
+        Platform.runLater(() -> {
+            JOptionPane.showMessageDialog(null,
+                    "Disconnected from the server.",
+                    "Connection Lost",
+                    JOptionPane.ERROR_MESSAGE);
+        });
     }
 }

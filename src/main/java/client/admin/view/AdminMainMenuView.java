@@ -1,4 +1,5 @@
 package client.admin.view;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -7,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,7 +26,7 @@ public class AdminMainMenuView {
     @FXML
     private Button reportsButton;
     @FXML
-    private Button logoutButton;
+    private Button logoutButton; // Ensure this matches the fx:id in FXML
     @FXML
     private Label Name;
     @FXML
@@ -46,7 +46,6 @@ public class AdminMainMenuView {
             throw new RuntimeException(e);
         }
     }
-
 
     public void setActionAddNewTerminalButton(EventHandler<ActionEvent> event) {
         addNewTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/add_terminal_pane.fxml")); // Correct path
@@ -69,6 +68,6 @@ public class AdminMainMenuView {
     }
 
     public void setActionLogoutButton(EventHandler<ActionEvent> event) {
-        logoutButton.setOnAction(event);
+        logoutButton.setOnAction(event); // Ensure this is correctly setting the action
     }
 }
