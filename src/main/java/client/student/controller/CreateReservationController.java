@@ -3,14 +3,10 @@ package client.student.controller;
 import client.student.model.CreateReservationModel;
 import client.student.view.CreateReservationView;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-
-import java.util.HashMap;
 
 public class CreateReservationController {
     private final CreateReservationView createReservationView;
@@ -54,9 +50,9 @@ public class CreateReservationController {
         }
 
         System.out.println("Finding rooms...");
-        GridPane roomsGridPane = createReservationView.getRoomGridPane();
-        roomsGridPane.getChildren().clear();
-        roomsGridPane.getChildren().add(new Label("Rooms found successfully!"));
+        AnchorPane roomsAnchorPane = createReservationView.getRoomsAnchorPane();
+        roomsAnchorPane.getChildren().clear();
+        roomsAnchorPane.getChildren().add(new Label("Rooms found successfully!"));
     }
 
     // Add input validation listeners

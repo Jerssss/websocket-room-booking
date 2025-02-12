@@ -6,6 +6,7 @@ import client.signup.SignUpController;
 import client.signup.SignUpModel;
 import client.student.view.StudentMainMenuView;
 import client.admin.view.AdminMainMenuView;
+import client.utility.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,29 +17,26 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import java.io.IOException;
-import java.net.Socket;
 
 public class LandingPageController {
-
     private FXMLLoader fxmlLoader;
     private Parent root;
     private LoginController loginController;
     private SignUpController signUpController;
 
-    StudentMainMenuView studentMainMenuView;
-    AdminMainMenuView adminMainMenuView;
-
-    private static final String SERVER_HOST = "localhost";
-    private static final int SERVER_PORT = 4321;
+    private StudentMainMenuView studentMainMenuView;
+    private AdminMainMenuView adminMainMenuView;
+    private ServerConnection serverConnection;
 
     public LandingPageController(LandingPageView view) {
+        try {
+            serverConnection = new ServerConnection();
+        } catch (IOException e) {
+            showErrorDialog("Server is down or unreachable. Please try again later.");
+            return;
+        }
 
         view.setActionSignInButton((ActionEvent event) -> {
-            if (!isServerAvailable()) {
-                showErrorDialog("Server is down or unreachable. Please try again later.");
-                return;
-            }
-
             try {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
                 root = fxmlLoader.load();
@@ -46,8 +44,7 @@ public class LandingPageController {
                 loginController = new LoginController(fxmlLoader.getController(), new LoginModel(), studentMainMenuView, adminMainMenuView);
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
+                stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -56,11 +53,6 @@ public class LandingPageController {
         });
 
         view.setActionSignUpButton((ActionEvent event) -> {
-            if (!isServerAvailable()) {
-                showErrorDialog("Server is down or unreachable. Please try again later.");
-                return;
-            }
-
             try {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/sign_up_page.fxml"));
                 root = fxmlLoader.load();
@@ -68,22 +60,13 @@ public class LandingPageController {
                 signUpController = new SignUpController(fxmlLoader.getController(), new SignUpModel());
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
+                stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
                 showErrorDialog("Error loading the sign-up page. Please try again.");
             }
         });
-    }
-
-    private boolean isServerAvailable() {
-        try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT)) {
-            return true; // Connection successful
-        } catch (IOException e) {
-            return false; // Server is down
-        }
     }
 
     private void showErrorDialog(String message) {
