@@ -4,15 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="792.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-            fx:controller="client.student.view.TerminalPickerWindowView" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="792.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.TerminalPickerWindowView">
    <top>
       <VBox prefHeight="44.0" prefWidth="870.0" BorderPane.alignment="CENTER">
          <children>
@@ -47,9 +46,6 @@
       <VBox alignment="CENTER" prefHeight="521.0" prefWidth="792.0" BorderPane.alignment="CENTER">
          <children>
             <ScrollPane fx:id="terminalsScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="330.0" prefWidth="750.0">
-               <content>
-                  <AnchorPane fx:id="terminalsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0" />
-               </content>
                <effect>
                   <DropShadow height="18.07" offsetY="5.0" radius="9.2675">
                      <color>
@@ -57,6 +53,9 @@
                      </color>
                   </DropShadow>
                </effect>
+               <content>
+                  <GridPane fx:id="terminalGridPane" alignment="CENTER_LEFT" hgap="10" vgap="10" />
+               </content>
             </ScrollPane>
          </children>
       </VBox>

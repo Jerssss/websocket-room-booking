@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="313.0" style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="313.0" style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="client.student.view.RoomItemCardView">
    <children>
       <VBox prefHeight="125.0" prefWidth="160.0">
          <children>
@@ -54,7 +55,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="See terminals" textFill="#0d3073">
+      <Button fx:id="seeTerminalsButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="See terminals" textFill="#0d3073">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

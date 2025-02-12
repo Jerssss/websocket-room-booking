@@ -6,14 +6,13 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-      fx:controller="client.student.view.CreateReservationView" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.CreateReservationView">
    <children>
       <VBox prefHeight="74.0" prefWidth="805.0">
          <children>
@@ -62,7 +61,7 @@
          <children>
             <ScrollPane fx:id="roomsScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="479.0" prefWidth="750.0">
                <content>
-                  <AnchorPane fx:id="roomsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="828.0" />
+                  <GridPane fx:id="roomGridPane" alignment="CENTER_LEFT" hgap="10" vgap="10" />
                </content>
                <effect>
                   <DropShadow height="18.07" offsetY="5.0" radius="9.2675">

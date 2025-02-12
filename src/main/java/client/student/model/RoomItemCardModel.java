@@ -11,6 +11,7 @@ public class RoomItemCardModel {
     private static final String SERVER_HOST = "localhost";
     private static final int SERVER_PORT = 4321;
 
+
     public RoomItemCardModel() {
         try {
             // Establish a connection to the server

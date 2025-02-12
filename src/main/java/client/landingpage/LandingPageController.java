@@ -7,6 +7,8 @@ import client.signup.SignUpModel;
 import client.student.view.StudentMainMenuView;
 import client.admin.view.AdminMainMenuView;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -60,6 +62,7 @@ public class LandingPageController {
             }
         });
     }
+
     public FXMLLoader getfxmlLoader() {
         return fxmlLoader;
     }
