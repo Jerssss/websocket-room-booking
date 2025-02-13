@@ -1,66 +1,69 @@
 package client.student.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 
 public class TerminalItemCardView {
 
     @FXML
     private Label pcName;
     @FXML
-    private Label availableTime;  // This must match FXML exactly
+    private Label timeAvailableLabel;
     @FXML
-    private Label date;
+    private Label dateAvailableLabel;
     @FXML
     private Label os;
     @FXML
-    private Button reservationButton;
+    private Button addTerminalButton;
+    @FXML
+    private ImageView pcImage;
 
-    public void setPcName(String name) {
-        if (pcName != null) {
-            pcName.setText(name);
-        } else {
-            System.out.println("pcName is NULL");
-        }
+    // Setters for the data
+    public void setTerminalCardData(String pcNameText, String availableTime, String date, String osText) {
+        pcName.setText(pcNameText);
+        timeAvailableLabel.setText(availableTime);
+        dateAvailableLabel.setText(date);
+        os.setText(osText);
     }
 
-    public void setAvailableTime(String time) {
-        if (availableTime != null) {
-            availableTime.setText(time);
-        } else {
-            System.out.println("availableTime is NULL");
-        }
+    // Handle button click
+    @FXML
+    private void handleAddTerminalButtonClick() {
+        // Add your functionality for button click here
+        System.out.println("Terminal Added");
     }
 
-    public void setDate(String dateText) {
-        if (date != null) {
-            date.setText(dateText);
-        } else {
-            System.out.println("date is NULL");
-        }
+    // Getter for the add terminal button
+    public Button getAddTerminalButton() {
+        return addTerminalButton;
     }
 
-    public void setOS(String osText) {
-        if (os != null) {
-            os.setText(osText);
-        } else {
-            System.out.println("os is NULL");
-        }
+    // Setter for the add terminal button
+    public void setAddTerminalButton(Button addTerminalButton) {
+        this.addTerminalButton = addTerminalButton;
     }
 
-    public void setReservationButtonAction(Runnable action) {
-        if (reservationButton != null) {
-            reservationButton.setOnAction(e -> action.run());
-        } else {
-            System.out.println("reservationButton is NULL");
-        }
+    // Setter for PC name
+    public void setPcName(String pcNameText) {
+        this.pcName.setText(pcNameText);
     }
 
+    // Setter for available time
     public void setTimeAvailable(String timeAvailable) {
+        this.timeAvailableLabel.setText(timeAvailable); // Set the current day's availability
+    }
+    // Setter for OS
+    public void setOS(String osText) {
+        this.os.setText(osText);
     }
 
-    public void setAvailability(String status) {
+    // Setter for availability status
 
+    // Setter for the current date
+    public void setCurrentDate(String currentDate) {
+        this.dateAvailableLabel.setText(currentDate);
     }
 }

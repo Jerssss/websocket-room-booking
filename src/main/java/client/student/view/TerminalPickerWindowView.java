@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class TerminalPickerWindowView implements Initializable {
@@ -57,6 +58,7 @@ public class TerminalPickerWindowView implements Initializable {
             doc.getDocumentElement().normalize();
 
             NodeList nodeList = doc.getElementsByTagName("Terminal");
+            System.out.println("Total Terminals Found: " + nodeList.getLength()); // Debug log
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
@@ -70,7 +72,14 @@ public class TerminalPickerWindowView implements Initializable {
                         String status = terminalElement.getElementsByTagName("terminal_status").item(0).getTextContent();
                         String availableTime = getAvailabilityForToday(terminalElement);
 
-                        addTerminalCard(terminalID, availableTime, os, status);
+                        // Debug log
+                        System.out.println("Terminal ID: " + terminalID);
+                        System.out.println("Room Code: " + roomCode);
+                        System.out.println("OS: " + os);
+                        System.out.println("Status: " + status);
+                        System.out.println("Available Time: " + availableTime);
+
+                        addTerminalCard(terminalID, availableTime, os);
                     }
                 }
             }
@@ -78,24 +87,34 @@ public class TerminalPickerWindowView implements Initializable {
             e.printStackTrace();
         }
     }
-
     private String getAvailabilityForToday(Element terminalElement) {
-        String dayOfWeek = java.time.LocalDate.now().getDayOfWeek().name(); // Get current day
-        NodeList schedule = terminalElement.getElementsByTagName("default_schedule").item(0).getChildNodes();
+        String dayOfWeek = LocalDate.now().getDayOfWeek().toString();
+        dayOfWeek = dayOfWeek.substring(0, 1) + dayOfWeek.substring(1).toLowerCase(); // Convert to XML format (e.g., "Monday")
 
-        for (int i = 0; i < schedule.getLength(); i++) {
-            Node node = schedule.item(i);
+        // Get the <default_schedule> node
+        NodeList scheduleList = terminalElement.getElementsByTagName("default_schedule");
+        if (scheduleList.getLength() == 0) {
+            return dayOfWeek + ": No Schedule Found"; // Handle missing <default_schedule>
+        }
+
+        Node scheduleNode = scheduleList.item(0);
+        if (scheduleNode == null) {
+            return dayOfWeek + ": No Schedule Found"; // Handle null schedule node
+        }
+
+        NodeList days = scheduleNode.getChildNodes();
+        for (int i = 0; i < days.getLength(); i++) {
+            Node node = days.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element dayElement = (Element) node;
-                if (dayElement.getTagName().equalsIgnoreCase(dayOfWeek)) {
-                    return dayElement.getTextContent();
+                if (dayElement.getTagName().equals(dayOfWeek)) {
+                    return dayOfWeek + ": " + dayElement.getTextContent(); // Return the current day's availability
                 }
             }
         }
-        return "Closed";
+        return dayOfWeek + ": Closed"; // Default fallback if no schedule is found
     }
-
-    public void addTerminalCard(String pcName, String timeAvailable, String os, String status) {
+    public void addTerminalCard(String pcName, String timeAvailable, String os) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/terminal_item_card.fxml"));
             HBox terminalCard = loader.load();
@@ -104,7 +123,7 @@ public class TerminalPickerWindowView implements Initializable {
             controller.setPcName(pcName);
             controller.setTimeAvailable(timeAvailable);
             controller.setOS(os);
-            controller.setAvailability(status);
+            controller.setCurrentDate(LocalDate.now().toString()); // Pass current date to the terminal card
 
             int totalCards = terminalGridPane.getChildren().size();
             int columnIndex = totalCards % 2;
