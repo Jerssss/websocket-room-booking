@@ -2,29 +2,23 @@
 <Reservations>
     <Reservation>
         <reservation_id>101</reservation_id>
-        <user_id>2001</user_id>
+        <Student_ID>2001</Student_ID>
         <terminal_id>1</terminal_id>
-        <reservation_date>2025-02-11</reservation_date>
-        <start_time>09:00</start_time>
-        <end_time>11:00</end_time>
+        <Room_No>D523</Room_No>
         <status>Approved</status>
     </Reservation>
     <Reservation>
         <reservation_id>102</reservation_id>
-        <user_id>2002</user_id>
+        <Student_ID>2002</Student_ID>
         <terminal_id>3</terminal_id>
-        <reservation_date>2025-02-12</reservation_date>
-        <start_time>13:00</start_time>
-        <end_time>15:00</end_time>
+        <Room_No>D521</Room_No>
         <status>Pending</status>
     </Reservation>
     <Reservation>
         <reservation_id>103</reservation_id>
-        <user_id>2003</user_id>
+        <Student_ID>2003</Student_ID>
         <terminal_id>2</terminal_id>
-        <reservation_date>2025-02-13</reservation_date>
-        <start_time>10:00</start_time>
-        <end_time>12:00</end_time>
+        <Room_No>D522</Room_No>
         <status>Cancelled</status>
     </Reservation>
 </Reservations>
