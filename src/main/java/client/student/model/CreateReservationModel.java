@@ -119,11 +119,11 @@ public class CreateReservationModel {
 
                     System.out.println("Processing: Room=" + room + ", OS=" + os + ", Status=" + status);
 
-                    if ("Active".equalsIgnoreCase(status)) {
+                    if ("Available".equalsIgnoreCase(status)) {
                         roomData.putIfAbsent(room, new HashMap<>());
                         Map<String, Integer> osCounts = roomData.get(room);
 
-                        // Fix: Ensure different OS counts separately
+                        // Ensure different OS counts separately
                         osCounts.put(os, osCounts.getOrDefault(os, 0) + 1);
                     }
                 }
@@ -144,5 +144,6 @@ public class CreateReservationModel {
 
         return roomData;
     }
+
 
 }
