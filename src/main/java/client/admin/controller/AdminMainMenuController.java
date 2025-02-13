@@ -32,7 +32,13 @@ public class AdminMainMenuController {
 
         // Set up button actions
         this.view.setActionAddNewTerminalButton(event -> handleAddNewTerminal());
+        this.view.setActionModifyTerminalButton(event -> handleModifyTerminal());
         this.view.setActionLogoutButton(event -> handleLogout(event));
+    }
+
+    private void handleModifyTerminal() {
+        System.out.println("Navigating to Modify Terminal Status...");
+
     }
 
     private void handleAddNewTerminal() {

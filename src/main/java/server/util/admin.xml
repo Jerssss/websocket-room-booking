@@ -17,4 +17,10 @@
         <Password>12345678</Password>
         <FacultyType>super</FacultyType>
     </Admin>
+    <Admin>
+        <Admin_ID>1</Admin_ID>
+        <Name>1</Name>
+        <Password>1</Password>
+        <FacultyType>1</FacultyType>
+    </Admin>
 </Admins>

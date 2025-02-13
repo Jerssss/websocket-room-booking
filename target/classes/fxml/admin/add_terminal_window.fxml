@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="266.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.admin.controller.AddNewTerminalController">
+            fx:controller="client.admin.view.AddNewTerminalView">
    <center>
       <VBox prefHeight="164.0" prefWidth="266.0" BorderPane.alignment="CENTER">
          <children>
@@ -95,7 +95,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="saveChangesButton" mnemonicParsing="false" text="Save Changes" onAction="#saveChanges"/>
+            <Button fx:id="saveChangesButton" mnemonicParsing="false" text="Save Changes"/>
          </children>
       </HBox>
    </bottom>

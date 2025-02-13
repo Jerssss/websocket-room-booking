@@ -97,7 +97,7 @@ public class AdminMainMenuView {
     }
 
     public void setActionModifyTerminalButton(EventHandler<ActionEvent> event) {
-        modifyTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/modify_reservation_pane.fxml"));
+        modifyTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/modify_terminal_pane.fxml"));
     }
 
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
