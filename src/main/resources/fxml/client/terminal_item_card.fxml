@@ -26,7 +26,7 @@
          <children>
             <HBox prefHeight="20.0" prefWidth="136.0">
                <children>
-                  <Label text="PC No.">
+                  <Label id="pcNo" text="PC No.">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -58,6 +58,20 @@
                      </padding>
                   </Label>
                   <Label fx:id="dateAvailableLabel" alignment="TOP_LEFT">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;">
+               <children>
+                  <Label fx:id="dateLabel1" alignment="TOP_LEFT" text="OS:">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="dateAvailableLabel1" alignment="TOP_LEFT">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
