@@ -6,6 +6,7 @@ import client.login.LoginModel;
 import client.login.LoginView;
 import client.signup.SignUpController;
 import client.signup.SignUpModel;
+import client.student.model.CreateReservationModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class CreateReservationView implements Initializable {
@@ -83,34 +85,50 @@ public class CreateReservationView implements Initializable {
 
     // Handle refresh button click
     private void handleRefreshButton() {
-        // Clear existing cards
-        roomGridPane.getChildren().clear();
+        roomGridPane.getChildren().clear(); // Clear previous cards
 
-        // Add new room cards (example data)
-        addRoomCard("D522", "Mac", 10);
-        addRoomCard("D523", "Windows", 5);
-        addRoomCard("D524", "Linux", 8);
-        addRoomCard("D522", "Mac", 10);
-        addRoomCard("D523", "Windows", 5);
-        addRoomCard("D524", "Linux", 8);
-        addRoomCard("D522", "Mac", 10);
-        addRoomCard("D523", "Windows", 5);
-        addRoomCard("D524", "Linux", 8);
+        Map<String, Map<String, Integer>> roomData = CreateReservationModel.parseTerminals("out/production/9444-team1_preproject/resources/data/Terminals.xml");
+
+        int totalCards = 0; // Track number of cards
+
+        for (Map.Entry<String, Map<String, Integer>> roomEntry : roomData.entrySet()) {
+            String roomName = roomEntry.getKey();
+            Map<String, Integer> osCounts = roomEntry.getValue();
+
+            for (Map.Entry<String, Integer> osEntry : osCounts.entrySet()) {
+                String os = osEntry.getKey();
+                int availableTerminals = osEntry.getValue();
+
+                addRoomCard(roomName, os, availableTerminals);
+
+                totalCards++; // Increment card count
+            }
+        }
+
+        System.out.println("Total Room Cards Added: " + totalCards);
+        roomGridPane.requestLayout();
     }
+
 
     // Method to load and add room cards
     public void addRoomCard(String roomName, String roomType, int availableTerminals) {
         try {
+            // Load the room card FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/room_item_card.fxml"));
             HBox roomCard = loader.load();
 
+            // Get the controller for the room card
             RoomItemCardView controller = loader.getController();
-            controller.setRoomName(roomName);
-            controller.setRoomType(roomType);
-            controller.setAvailableTerminals(availableTerminals);
 
+            // Set room details
+            controller.setRoomName(roomName); // Set the room name
+            controller.setRoomType(roomType); // Set the room type (OS)
+            controller.setAvailableTerminals(availableTerminals); // Set the number of available terminals
+
+            // Set the action for the "See Terminals" button
             controller.setActionSeeTerminalsButton((ActionEvent event) -> {
                 try {
+                    // Load the terminal picker window FXML
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/terminal_picker_window.fxml"));
                     Parent terminalPickerView = fxmlLoader.load();
 
@@ -125,26 +143,20 @@ public class CreateReservationView implements Initializable {
                     popupStage.centerOnScreen();
                     popupStage.showAndWait(); // Show and wait for it to close before returning
 
-//                    // Find the topmost container (going up one level)
-//                    Node source = (Node) event.getSource();
-//                    GridPane parentContainer = (GridPane) source.getScene().lookup("#roomGridPane"); // ID of the container
-//
-//
-//                    if (parentContainer != null) {
-//                        parentContainer.getChildren().setAll(terminalPickerView); // Swap view
-//                    } else {
-//                        System.out.println("ERROR: Parent container not found!");
-//                    }
+                    // Optional: If you want to pass data to the terminal picker window, you can do so here
+                    // Example:
+                    // TerminalPickerController terminalPickerController = fxmlLoader.getController();
+                    // terminalPickerController.setRoomName(roomName);
+                    // terminalPickerController.setRoomType(roomType);
 
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }
-
             });
 
-            // Calculate row and column indices (3 columns per row)
+            // Calculate row and column indices (2 columns per row)
             int totalCards = roomGridPane.getChildren().size();
-            int columnIndex = totalCards % 2; // Columns: 0, 1,
+            int columnIndex = totalCards % 2; // Columns: 0, 1
             int rowIndex = totalCards / 2;    // Rows increment after 2 cards
 
             // Add the card to the GridPane
