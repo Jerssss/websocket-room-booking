@@ -2,23 +2,23 @@
 <Reservations>
     <Reservation>
         <reservation_id>101</reservation_id>
-        <Student_ID>2001</Student_ID>
+        <Student_ID>1</Student_ID>
         <terminal_id>1</terminal_id>
-        <Room_No>D523</Room_No>
-        <status>Approved</status>
+        <terminal_room>D523</terminal_room>
+        <terminal_status>Approved</terminal_status>
     </Reservation>
     <Reservation>
         <reservation_id>102</reservation_id>
         <Student_ID>2002</Student_ID>
         <terminal_id>3</terminal_id>
-        <Room_No>D521</Room_No>
-        <status>Pending</status>
+        <terminal_room>D521</terminal_room>
+        <terminal_status>Pending</terminal_status>
     </Reservation>
     <Reservation>
         <reservation_id>103</reservation_id>
         <Student_ID>2003</Student_ID>
         <terminal_id>2</terminal_id>
-        <Room_No>D522</Room_No>
-        <status>Cancelled</status>
+        <terminal_room>D522</terminal_room>
+        <terminal_status>Cancelled</terminal_status>
     </Reservation>
 </Reservations>
