@@ -1,3 +1,8 @@
+package client.admin.controller;
+
+import client.admin.model.ReservationApprovalModel;
+import client.admin.view.ReservationApprovalView;
+
 public class ReservationApprovalController {
 
     private ReservationApprovalModel reservation;
