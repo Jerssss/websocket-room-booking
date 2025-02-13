@@ -3,8 +3,8 @@
     <Reservation>
         <reservation_id>101</reservation_id>
         <Student_ID>1</Student_ID>
-        <terminal_id>1</terminal_id>
-        <terminal_room>D523</terminal_room>
+        <terminal_id>PC23</terminal_id>
+        <terminal_room>D524</terminal_room>
         <terminal_status>Approved</terminal_status>
     </Reservation>
     <Reservation>

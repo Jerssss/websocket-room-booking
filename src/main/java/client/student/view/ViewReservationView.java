@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.util.Map;
+
 public class ViewReservationView {
 
     @FXML
@@ -31,7 +33,7 @@ public class ViewReservationView {
     @FXML
     private Button refreshButton;//might rename to avoid confusion
     @FXML
-    private TableView<?> modResTableView;
+    private TableView<Map<String, String>> modResTableView;
     @FXML
     private TableColumn<?, ?> reservationIDColumn;
     @FXML
@@ -91,7 +93,7 @@ public class ViewReservationView {
         return refreshButton;
     }
 
-    public TableView<?> getModResTableView() {
+    public TableView<Map<String, String>> getModResTableView() {
         return modResTableView;
     }
 
