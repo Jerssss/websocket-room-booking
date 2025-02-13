@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import server.utility.LogsXMLHandler;
 
 import java.io.IOException;
 
@@ -19,18 +20,16 @@ public class AdminMainMenuController {
 
     private final AdminMainMenuView view;
     private final AdminMainMenuModel model;
+    private final String loggedInUserName;
 
     public AdminMainMenuController(AdminMainMenuView view, AdminMainMenuModel model, String loggedInUserName) {
         this.view = view;
         this.model = model;
+        this.loggedInUserName = loggedInUserName;
 
-        // Set the logged-in user's name
         this.view.setLoggedInUserName(loggedInUserName);
-
-        // Initialize date and time labels
         this.view.initializeDateTime();
 
-        // Set up button actions
         this.view.setActionAddNewTerminalButton(event -> handleAddNewTerminal());
         this.view.setActionModifyTerminalButton(event -> handleModifyTerminal());
         this.view.setActionLogoutButton(event -> handleLogout(event));
@@ -38,7 +37,6 @@ public class AdminMainMenuController {
 
     private void handleModifyTerminal() {
         System.out.println("Navigating to Modify Terminal Status...");
-
     }
 
     private void handleAddNewTerminal() {
@@ -46,15 +44,14 @@ public class AdminMainMenuController {
     }
 
     private void handleLogout(ActionEvent event) {
+        LogsXMLHandler.logLogout(loggedInUserName, "Admin"); // Save logout to logs
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Ensure that the LoginController is properly initialized
             LoginView loginView = fxmlLoader.getController();
             new LoginController(loginView, new LoginModel(), new StudentMainMenuView(), new AdminMainMenuView());
 
-            // Get the current stage and switch to the login scene
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -66,5 +63,4 @@ public class AdminMainMenuController {
             System.out.println("Error loading Login GUI: " + e.getMessage());
         }
     }
-
 }

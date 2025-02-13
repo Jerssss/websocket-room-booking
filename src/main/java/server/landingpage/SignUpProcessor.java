@@ -1,10 +1,6 @@
 package server.landingpage;
 
-import client.student.view.DuplicateAccountErrorView;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,8 +8,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
+import server.utility.LogsXMLHandler;
+
 
 
 public class SignUpProcessor {
@@ -81,9 +77,8 @@ public class SignUpProcessor {
 
             rootElement.appendChild(newUser);
 
-            // Save the updated document with proper formatting
             saveDocument(document, file);
-
+            LogsXMLHandler.saveLog(userID, userType, "Signup");
             return true;
         } catch (Exception e) {
             e.printStackTrace();

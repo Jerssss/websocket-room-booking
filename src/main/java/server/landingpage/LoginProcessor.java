@@ -4,6 +4,7 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import server.utility.LogsXMLHandler;
 
 public class LoginProcessor {
 
@@ -33,6 +34,7 @@ public class LoginProcessor {
                 String xmlPassword = user.getElementsByTagName("Password").item(0).getTextContent();
 
                 if (xmlID.equals(userID) && xmlPassword.equals(password)) {
+                    LogsXMLHandler.saveLog(userID, userType, "Login");
                     return true; // Login successful
                 }
             }
