@@ -78,15 +78,15 @@ public class TerminalPickerWindowView implements Initializable {
     }
 
     // Method to load and add room cards
-    public void addRoomCard(String roomName, String roomType, String availableTerminals) {
+    public void addRoomCard(String pcName, String itemDescription, String reservationButton) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/terminal_item_card.fxml"));
             HBox roomCard = loader.load();
 
             TerminalItemCardView controller = loader.getController();
-            controller.setPcName(roomName);
-            controller.setItemDescription(roomType);
-            controller.setAvailability(availableTerminals);
+            controller.setPcName(pcName);
+            controller.setItemDescription(itemDescription);
+            controller.setAvailability(reservationButton);
 
     /*        controller.setActionSeeTerminalsButton((ActionEvent event) -> {
                 try{

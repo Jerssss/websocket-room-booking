@@ -11,10 +11,12 @@ public class TerminalItemCardView {
     private Label pcName;
 
     @FXML
-    private Label itemDescription;
+    private Label availableTime;
 
     @FXML
-    private Label availabity;
+    private Label date;
+    @FXML
+    private Label os;
 
     @FXML
     private Button reservationButton;

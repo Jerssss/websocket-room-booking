@@ -1,21 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Terminals>
     <Terminal>
-        <terminal_id>1</terminal_id>
-        <terminal_room>Room 101</terminal_room>
-        <terminal_os>Windows</terminal_os>
-        <terminal_status>Active</terminal_status>
+        <terminal_id>PC1</terminal_id>
+        <terminal_room>D528</terminal_room>
+        <terminal_os>Windows 10</terminal_os>
+        <default_schedule>
+            <Monday>09:30-17:30</Monday>
+            <Tuesday>09:30-17:30</Tuesday>
+            <Wednesday>11:30-16:30</Wednesday>
+            <Thursday>11:30-16:30</Thursday>
+            <Friday>07:30-15:30</Friday>
+            <Saturday>07:30-15:30</Saturday>
+        </default_schedule>
+        <terminal_status>Available</terminal_status>
     </Terminal>
+
     <Terminal>
-        <terminal_id>2</terminal_id>
-        <terminal_room>Room 102</terminal_room>
-        <terminal_os>Mac</terminal_os>
+        <terminal_id>PC2</terminal_id>
+        <terminal_room>D528</terminal_room>
+        <terminal_os>Windows 10</terminal_os>
+        <default_schedule>
+            <Monday>08:00-16:00</Monday>
+            <Tuesday>08:00-16:00</Tuesday>
+            <Wednesday>10:00-18:00</Wednesday>
+            <Thursday>10:00-18:00</Thursday>
+            <Friday>08:00-14:00</Friday>
+            <Saturday>Closed</Saturday>
+        </default_schedule>
+        <terminal_status>Available</terminal_status>
+    </Terminal>
+
+    <Terminal>
+        <terminal_id>PC3</terminal_id>
+        <terminal_room>D530</terminal_room>
+        <terminal_os>Ubuntu 22.04</terminal_os>
+        <default_schedule>
+            <Monday>07:00-15:00</Monday>
+            <Tuesday>07:00-15:00</Tuesday>
+            <Wednesday>09:00-17:00</Wednesday>
+            <Thursday>09:00-17:00</Thursday>
+            <Friday>07:00-13:00</Friday>
+            <Saturday>07:00-12:00</Saturday>
+        </default_schedule>
         <terminal_status>Maintenance</terminal_status>
     </Terminal>
+
     <Terminal>
-        <terminal_id>3</terminal_id>
-        <terminal_room>Room 103</terminal_room>
-        <terminal_os>Windows</terminal_os>
-        <terminal_status>Reserved</terminal_status>
+        <terminal_id>PC4</terminal_id>
+        <terminal_room>D531</terminal_room>
+        <terminal_os>macOS Ventura</terminal_os>
+        <default_schedule>
+            <Monday>10:00-18:00</Monday>
+            <Tuesday>10:00-18:00</Tuesday>
+            <Wednesday>12:00-20:00</Wednesday>
+            <Thursday>12:00-20:00</Thursday>
+            <Friday>09:00-16:00</Friday>
+            <Saturday>Closed</Saturday>
+        </default_schedule>
+        <terminal_status>Available</terminal_status>
+    </Terminal>
+
+    <Terminal>
+        <terminal_id>PC5</terminal_id>
+        <terminal_room>D532</terminal_room>
+        <terminal_os>Windows 10</terminal_os>
+        <default_schedule>
+            <Monday>08:30-16:30</Monday>
+            <Tuesday>08:30-16:30</Tuesday>
+            <Wednesday>10:30-18:30</Wednesday>
+            <Thursday>10:30-18:30</Thursday>
+            <Friday>08:30-14:30</Friday>
+            <Saturday>08:30-12:30</Saturday>
+        </default_schedule>
+        <terminal_status>In Use</terminal_status>
     </Terminal>
 </Terminals>

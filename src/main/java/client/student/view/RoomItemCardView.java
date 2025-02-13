@@ -12,6 +12,8 @@ public class RoomItemCardView {
 
     // Variables corresponding to the FXML components
     @FXML
+    private Label roomNamelabel;
+    @FXML
     private Label roomTypeDescription;
 
     @FXML
@@ -33,7 +35,7 @@ public class RoomItemCardView {
     // Methods to set data for the card
     public void setRoomName(String roomName) {
         // Assuming the room name is displayed in a label (you may need to add a Label for this in the FXML)
-        // roomNameLabel.setText(roomName);
+        this.roomNamelabel.setText(roomName);
     }
     public void setRoomType(String roomType) {
         roomTypeLabel.setText(roomType);
