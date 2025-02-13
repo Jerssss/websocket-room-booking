@@ -128,31 +128,28 @@ public class CreateReservationView implements Initializable {
             // Set the action for the "See Terminals" button
             controller.setActionSeeTerminalsButton((ActionEvent event) -> {
                 try {
-                    // Load the terminal picker window FXML
+                    // Load the Terminal Picker FXML
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/terminal_picker_window.fxml"));
-                    Parent terminalPickerView = fxmlLoader.load();
+                    Parent root = fxmlLoader.load();
 
-                    // Create a new stage (popup window)
-                    Stage popupStage = new Stage();
-                    popupStage.initModality(Modality.APPLICATION_MODAL); // Blocks interaction with other windows until closed
-                    popupStage.setTitle("Terminal Picker");
+                    // Get the controller of TerminalPickerWindowView
+                    TerminalPickerWindowView terminalPickerController = fxmlLoader.getController();
 
-                    // Set the scene
-                    Scene scene = new Scene(terminalPickerView);
-                    popupStage.setScene(scene);
-                    popupStage.centerOnScreen();
-                    popupStage.showAndWait(); // Show and wait for it to close before returning
+                    // Set the room name dynamically
+                    terminalPickerController.setRoomName(roomName);  // roomName should be the selected room
 
-                    // Optional: If you want to pass data to the terminal picker window, you can do so here
-                    // Example:
-                    // TerminalPickerController terminalPickerController = fxmlLoader.getController();
-                    // terminalPickerController.setRoomName(roomName);
-                    // terminalPickerController.setRoomType(roomType);
+                    // Show the window
+                    Stage stage = new Stage();
+                    stage.setTitle("Terminal Picker");
+                    stage.setScene(new Scene(root));
+                    stage.show();
 
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
+
+
 
             // Calculate row and column indices (2 columns per row)
             int totalCards = roomGridPane.getChildren().size();

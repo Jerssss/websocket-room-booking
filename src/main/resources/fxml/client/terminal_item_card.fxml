@@ -11,13 +11,15 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="313.0" style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.TerminalItemCardView">
+<HBox alignment="BOTTOM_CENTER" prefHeight="125.0" prefWidth="313.0"
+      style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="client.student.view.TerminalItemCardView">
    <children>
       <VBox alignment="CENTER" prefHeight="125.0" prefWidth="154.0">
          <children>
-            <ImageView fitHeight="84.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="pcImage" fitHeight="84.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../Downloads/superthings/kazuha-le-sserafim-perfect-night-2k-wallpaper-uhdpaper.com-508@1@m.jpg" />
                </image>
             </ImageView>
          </children>
@@ -26,7 +28,7 @@
          <children>
             <HBox prefHeight="20.0" prefWidth="136.0">
                <children>
-                  <Label id="pcNo" text="PC No.">
+                  <Label fx:id="pcName" text="PC No.">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -36,51 +38,27 @@
                   <Insets top="5.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="24.0" prefWidth="132.0" style="-fx-background-radius: 10;">
+            <HBox prefHeight="24.0" prefWidth="132.0">
                <children>
-                  <Label fx:id="timeLabel" alignment="TOP_LEFT" prefWidth="82.0" text="Time available: ">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="timeAvailableLabel" alignment="TOP_LEFT">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
+                  <Label text="Time available: " />
+                  <Label fx:id="timeAvailableLabel" />
                </children>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;">
+            <HBox prefHeight="29.0" prefWidth="132.0">
                <children>
-                  <Label fx:id="dateLabel" alignment="TOP_LEFT" text="Date: ">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="dateAvailableLabel" alignment="TOP_LEFT">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
+                  <Label text="Date: " />
+                  <Label fx:id="dateAvailableLabel" />
                </children>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;">
+            <HBox prefHeight="29.0" prefWidth="132.0">
                <children>
-                  <Label fx:id="dateLabel1" alignment="TOP_LEFT" text="OS:">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="dateAvailableLabel1" alignment="TOP_LEFT">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
+                  <Label text="OS:" />
+                  <Label fx:id="osAvailableLabel" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button id="reservationButton" fx:id="addTerminalButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="+" textFill="#0d3073">
+      <Button fx:id="addTerminalButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="+" textFill="#0d3073">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -93,6 +71,8 @@
       <DropShadow>
          <color>
             <Color opacity="0.20229007303714752" />
-         </color></DropShadow>
+         </color>
+      </DropShadow>
    </effect>
 </HBox>
+
