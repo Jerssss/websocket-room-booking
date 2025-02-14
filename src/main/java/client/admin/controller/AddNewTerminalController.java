@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import server.admin.AddNewTerminalProcessor;
 
+import javax.swing.*;
+
 public class AddNewTerminalController {
     private final AddNewTerminalView view;
     private final AddNewTerminalProcessor processor;
@@ -31,12 +33,13 @@ public class AddNewTerminalController {
 
         // Validate inputs
         if (terminalId.isEmpty() || room.isEmpty() || osType.isEmpty() || status.isEmpty()) {
-            showAlert("Error", "All fields must be filled", Alert.AlertType.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: All fields must be filled.");
+
             return;
         }
 
         if (!status.matches("Active|Reserved|Maintenance")) {
-            showAlert("Error", "Status must be 'Active', 'Reserved', or 'Maintenance'.", Alert.AlertType.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: Status must be 'Active, 'Reserved', or 'Maintenance");
             return;
         }
 
@@ -56,16 +59,9 @@ public class AddNewTerminalController {
         );
 
         if (success) {
-            showAlert("Success", "Terminal added successfully!", Alert.AlertType.INFORMATION);
+            JOptionPane.showMessageDialog(null, "Success! Terminal has been added!");
         } else {
-            showAlert("Error", "Failed to add terminal. Try again.", Alert.AlertType.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
         }
-    }
-
-    private void showAlert(String title, String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }
