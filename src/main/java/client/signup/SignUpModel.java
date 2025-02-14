@@ -23,32 +23,21 @@ public class SignUpModel {
         }
 
         try {
-            // Construct XML sign-up request
-            String signUpRequest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                    + "<Request>"
-                    + "<Type>SignUp</Type>"
-                    + "<UserID>" + userID + "</UserID>"
-                    + "<Name>" + name + "</Name>"
-                    + "<Password>" + password + "</Password>"
-                    + "<UserType>" + userType + "</UserType>"
-                    + "<CourseYear>" + courseYear + "</CourseYear>"
-                    + "<FacultyType>" + facultyType + "</FacultyType>"
-                    + "</Request>";
-
+            String signUpRequest = String.format(
+                    "<SignUp><UserID>%s</UserID><Name>%s</Name><Password>%s</Password><UserType>%s</UserType><CourseYear>%s</CourseYear><FacultyType>%s</FacultyType></SignUp>",
+                    userID, name, password, userType, courseYear, facultyType
+            );
             serverConnection.sendMessage(signUpRequest);
 
-            // Receive XML response
             String response = serverConnection.readMessage();
             System.out.println("Server Response: " + response);
 
-            // Check for success in the response
-            return response.contains("<Status>SUCCESS</Status>");
+            return "SUCCESS".equalsIgnoreCase(response);
         } catch (IOException e) {
             showErrorDialog("Lost connection to the server.");
             return false;
         }
     }
-
 
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));

@@ -2,10 +2,10 @@ package server;
 
 import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
-import server.utility.LogsXMLHandler;
 
 import java.io.*;
 import java.net.Socket;
+
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -23,89 +23,64 @@ public class ClientHandler implements Runnable {
 
             String clientMessage;
             boolean isLoggedIn = false;
-            String loggedInUserID = null;
-            String loggedInUserType = null;
 
             while ((clientMessage = reader.readLine()) != null) {
-                System.out.println("Received from Client: " + clientMessage);
+                System.out.println("Received from Client: " + clientMessage); // Log client request
 
                 if ("exit".equalsIgnoreCase(clientMessage)) {
                     writer.println("Goodbye!");
-                    if (isLoggedIn) LogsXMLHandler.logLogout(loggedInUserID, loggedInUserType);
                     break;
                 }
 
                 try {
-                    if (clientMessage.contains("<Request>")) {
-                        String requestType = extractField(clientMessage, "<Type>", "</Type>");
-
+                    if (clientMessage.contains("<Login>")) {
                         // Handle login request
-                        if ("Login".equalsIgnoreCase(requestType)) {
-                            String userID = extractField(clientMessage, "<UserID>", "</UserID>");
-                            String password = extractField(clientMessage, "<Password>", "</Password>");
-                            String userType = extractField(clientMessage, "<UserType>", "</UserType>");
+                        String userID = extractField(clientMessage, "<UserID>", "</UserID>");
+                        String password = extractField(clientMessage, "<Password>", "</Password>");
+                        String userType = extractField(clientMessage, "<UserType>", "</UserType>");
 
-                            boolean isValid = LoginProcessor.validateUser(userID, password, userType);
-
-                            String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                                    + "<Response>"
-                                    + "<Type>Login</Type>"
-                                    + "<Status>" + (isValid ? "SUCCESS" : "FAILURE") + "</Status>"
-                                    + "<UserID>" + userID + "</UserID>"
-                                    + "</Response>";
-
-                            writer.println(response);
-
-                            if (isValid) {
-                                LogsXMLHandler.saveLog(userID, "Login Success", userType);
-                                isLoggedIn = true;
-                                loggedInUserID = userID;
-                                loggedInUserType = userType;
-                            } else {
-                                LogsXMLHandler.saveLog(userID, "Login Failure", userType);
-                            }
-
-                            System.out.println("Login Attempt: UserID=" + userID + ", Result=" + (isValid ? "SUCCESS" : "FAILURE"));
+                        if (userID == null || password == null || userType == null) {
+                            writer.println("ERROR: Missing required fields for login.");
+                            continue;
                         }
 
-                        // Handle sign-up request
-                        else if ("SignUp".equalsIgnoreCase(requestType)) {
-                            String userID = extractField(clientMessage, "<UserID>", "</UserID>");
-                            String name = extractField(clientMessage, "<Name>", "</Name>");
-                            String password = extractField(clientMessage, "<Password>", "</Password>");
-                            String userType = extractField(clientMessage, "<UserType>", "</UserType>");
-                            String courseYear = extractField(clientMessage, "<CourseYear>", "</CourseYear>");
-                            String facultyType = extractField(clientMessage, "<FacultyType>", "</FacultyType>");
-
-                            boolean isRegistered = SignUpProcessor.registerUser(userID, name, password, userType, courseYear, facultyType);
-
-                            String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                                    + "<Response>"
-                                    + "<Type>SignUp</Type>"
-                                    + "<Status>" + (isRegistered ? "SUCCESS" : "FAILURE") + "</Status>"
-                                    + "<UserID>" + userID + "</UserID>"
-                                    + "</Response>";
-
-                            writer.println(response);
-
-                            if (isRegistered) {
-                                LogsXMLHandler.saveLog(userID, "SignUp Success", userType);
-                            } else {
-                                LogsXMLHandler.saveLog(userID, "SignUp Failure", userType);
-                            }
-
-                            System.out.println("SignUp Attempt: UserID=" + userID + ", Result=" + (isRegistered ? "SUCCESS" : "FAILURE"));
-                        }
-
-                        // Handle other operations after login
-                        else if (isLoggedIn) {
-                            writer.println("Request Received: " + clientMessage);
-                            System.out.println("Processing client request: " + clientMessage);
+                        boolean isValid = LoginProcessor.validateUser(userID, password, userType);
+                        if (isValid) {
+                            writer.println("SUCCESS");
+                            isLoggedIn = true; // Mark the client as logged in
+                            System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
                         } else {
-                            writer.println("Please log in first.");
+                            writer.println("FAILURE");
+                            System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
                         }
+                    } else if (clientMessage.contains("<SignUp>")) {
+                        // Handle sign-up request
+                        String userID = extractField(clientMessage, "<UserID>", "</UserID>");
+                        String name = extractField(clientMessage, "<Name>", "</Name>");
+                        String password = extractField(clientMessage, "<Password>", "</Password>");
+                        String userType = extractField(clientMessage, "<UserType>", "</UserType>");
+                        String courseYear = extractField(clientMessage, "<CourseYear>", "</CourseYear>");
+                        String facultyType = extractField(clientMessage, "<FacultyType>", "</FacultyType>");
+
+                        if (userID == null || name == null || password == null || userType == null) {
+                            writer.println("ERROR: Missing required fields for sign-up.");
+                            continue;
+                        }
+
+                        boolean isRegistered = SignUpProcessor.registerUser(userID, name, password, userType, courseYear, facultyType);
+                        if (isRegistered) {
+                            writer.println("SUCCESS");
+                            System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
+                        } else {
+                            writer.println("FAILURE");
+                            System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
+                        }
+                    } else if (isLoggedIn) {
+                        // Handle other client requests (e.g., CRUD operations)
+                        writer.println("Request Received: " + clientMessage);
+                        System.out.println("Processing client request: " + clientMessage);
                     } else {
-                        writer.println("Invalid request format.");
+                        writer.println("Please log in first.");
                     }
                 } catch (Exception e) {
                     writer.println("ERROR: Malformed request.");
@@ -125,6 +100,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    // Helper method to extract fields from XML-like messages
     private String extractField(String message, String startTag, String endTag) {
         try {
             if (message.contains(startTag) && message.contains(endTag)) {
@@ -133,6 +109,6 @@ public class ClientHandler implements Runnable {
         } catch (Exception e) {
             System.out.println("Error extracting field: " + startTag);
         }
-        return null;
+        return null; // Return null if the field is missing or malformed
     }
 }
