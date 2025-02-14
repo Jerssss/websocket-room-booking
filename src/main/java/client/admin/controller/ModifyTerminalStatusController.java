@@ -1,38 +1,34 @@
 package client.admin.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import client.admin.view.ModifyTerminalStatusView;
+import server.admin.ModifyTerminalProcessor;
+import server.utility.Terminal;
+
+import javax.swing.*;
+import java.util.List;
 
 public class ModifyTerminalStatusController {
 
-    private ModifyTerminalStatusView view;
+    private final ModifyTerminalStatusView view;
+    private final ModifyTerminalProcessor processor;
+    private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
-    // Constructor to set the view (in case you need it to access view methods)
     public ModifyTerminalStatusController(ModifyTerminalStatusView view) {
         this.view = view;
+        this.processor = new ModifyTerminalProcessor();
     }
 
-    // Set the action for the Search button
-    public void handleSearchButtonAction() {
-        view.setActionSearchButton(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Add the logic for search button click
-                System.out.println("Search button clicked!");
-            }
-        });
+    public void loadTerminalData() {
+        List<Terminal> terminals = processor.parseXML("src/main/java/server/util/terminal.xml");
+        terminalData.setAll(terminals);
+        view.setTerminalData(terminalData);
     }
 
-    // Set the action for the Save Changes button
-    public void handleSaveChangesButtonAction() {
-        view.setActionSaveChangesButton(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Add the logic for save changes button click
-                System.out.println("Save Changes button clicked!");
-            }
-        });
+    public void saveChanges() {
+        processor.saveToXML("src/main/java/server/util/terminal.xml", terminalData);
+        JOptionPane.showMessageDialog(null, "Changes have been successfully saved!",
+                "Save Successful", JOptionPane.INFORMATION_MESSAGE);
     }
-
 }

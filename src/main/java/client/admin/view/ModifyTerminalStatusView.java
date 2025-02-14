@@ -11,9 +11,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import server.admin.ModifyTerminalProcessor;
+import client.admin.controller.ModifyTerminalStatusController;
 import server.utility.Terminal;
-import java.util.List;
 
 public class ModifyTerminalStatusView {
 
@@ -23,7 +22,6 @@ public class ModifyTerminalStatusView {
     private Button saveChangesButton;
     @FXML
     private TextField searchStudResTextField;
-
     @FXML
     private TableView<Terminal> modResTableView;
     @FXML
@@ -35,30 +33,31 @@ public class ModifyTerminalStatusView {
     @FXML
     private TableColumn<Terminal, String> terminalStatusColumn;
 
+    private ModifyTerminalStatusController controller;
     private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
     public void initialize() {
+        controller = new ModifyTerminalStatusController(this);
+
         // Set up columns with data
         roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
         terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
         terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
 
-        // For the terminalStatusColumn, create a styled ComboBox cell
+        // Terminal status with dropdown
         terminalStatusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
         terminalStatusColumn.setCellFactory(createStyledStatusCellFactory());
 
-        // Load data from XML
-        loadDataFromXML("src/main/java/server/util/terminal.xml");
+        // Load data via controller
+        controller.loadTerminalData();
 
-        // Set the table items
-        modResTableView.setItems(terminalData);
+        // Set event handler for save button
+        setActionSaveChangesButton(event -> controller.saveChanges());
     }
 
-    private void loadDataFromXML(String filePath) {
-        List<Terminal> terminal = ModifyTerminalProcessor.parseXML(filePath);
-        if (terminal != null) {
-            terminalData.addAll(terminal);
-        }
+    public void setTerminalData(ObservableList<Terminal> data) {
+        terminalData.setAll(data);
+        modResTableView.setItems(terminalData);
     }
 
     private Callback<TableColumn<Terminal, String>, TableCell<Terminal, String>> createStyledStatusCellFactory() {
@@ -66,16 +65,10 @@ public class ModifyTerminalStatusView {
             private final ComboBox<String> statusComboBox = new ComboBox<>();
 
             {
-                // Set ComboBox options
                 statusComboBox.getItems().addAll("Active", "Reserved", "Under Maintenance");
+                statusComboBox.setStyle("-fx-border-color: transparent; -fx-padding: 5px; " +
+                        "-fx-font-size: 14px; -fx-font-family: 'Arial';");
 
-                // Remove default border and add padding for better blending
-                statusComboBox.setStyle("-fx-border-color: transparent; " +
-                        "-fx-padding: 5px; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-font-family: 'Arial';");
-
-                // Update the terminal status when selection is changed
                 statusComboBox.setOnAction(e -> {
                     Terminal terminal = getTableRow().getItem();
                     if (terminal != null) {
@@ -94,26 +87,20 @@ public class ModifyTerminalStatusView {
                     Terminal terminal = getTableRow().getItem();
                     statusComboBox.setValue(terminal.getTerminalStatus());
 
-                    // Even lighter gray for odd rows, pure white for even rows
+                    // Apply alternate row colors
                     int rowIndex = getIndex();
-                    Color rowColor = (rowIndex % 2 == 1) ? Color.web("#EEEEEE") : Color.WHITE;
-
-                    // Apply row background
+                    Color rowColor = (rowIndex % 2 == 1) ? Color.web("#f8f8f8") : Color.WHITE;
                     setBackground(new Background(new BackgroundFill(rowColor, new CornerRadii(5), null)));
 
-                    // Set ComboBox background to match row color
                     statusComboBox.setStyle("-fx-background-color: " + toRGBCode(rowColor) + "; " +
-                            "-fx-border-color: transparent; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-font-family: 'Arial';");
+                            "-fx-border-color: transparent; -fx-padding: 5px; " +
+                            "-fx-font-size: 14px; -fx-font-family: 'Arial';");
 
                     statusComboBox.setMaxWidth(Double.MAX_VALUE);
                     setGraphic(statusComboBox);
                 }
             }
 
-            // Convert Color to RGB hex code
             private String toRGBCode(Color color) {
                 return String.format("#%02X%02X%02X",
                         (int) (color.getRed() * 255),
@@ -123,17 +110,11 @@ public class ModifyTerminalStatusView {
         };
     }
 
-
-    // Unused methods but retained for reference as requested
-    public void setActionSearchButton(EventHandler<ActionEvent> event) {
-        searchButton.setOnAction(event);
-    }
-
     public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
         saveChangesButton.setOnAction(event);
     }
 
-    public TextField getSearchStudResTextField() {
-        return searchStudResTextField;
+    public ObservableList<Terminal> getTerminalData() {
+        return terminalData;
     }
 }
