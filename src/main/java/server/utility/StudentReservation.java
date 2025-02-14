@@ -2,6 +2,7 @@ package server.utility;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 
 public class StudentReservation {
     private StringProperty reservationId;
@@ -17,6 +18,9 @@ public class StudentReservation {
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
         this.date = new SimpleStringProperty(date);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
+    }
+
+    public StudentReservation(String resID, String terminalNo, String terminalRoom, String status) {
     }
 
     // Getters

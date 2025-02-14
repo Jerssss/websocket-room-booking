@@ -7,12 +7,13 @@ import org.w3c.dom.*;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import server.utility.StudentReservation;
+import server.utility.XMLUtility;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import server.utility.StudentReservation;
+
 
 public class ViewStudentReservationsModel {
     private ServerConnection serverConnection;
@@ -66,5 +67,8 @@ public class ViewStudentReservationsModel {
 
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
+    }
+    public List<StudentReservation> loadStudentReservations() {
+        return XMLUtility.loadStudentReservationsFromXML();
     }
 }

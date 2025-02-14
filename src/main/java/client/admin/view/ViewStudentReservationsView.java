@@ -17,7 +17,6 @@ public class ViewStudentReservationsView {
     private Button searchButton;
     @FXML
     private TextField searchStudResTextField;
-
     @FXML
     private TableView<StudentReservation> studResTableView;
     @FXML
@@ -31,6 +30,7 @@ public class ViewStudentReservationsView {
 
     @FXML
     private TableColumn<StudentReservation, String> statusColumn1;
+
     @FXML
 
     private ObservableList<StudentReservation> studResData = FXCollections.observableArrayList();
@@ -43,6 +43,9 @@ public class ViewStudentReservationsView {
     // Getters for the TextField
     public TextField getSearchStudResTextField() {
         return searchStudResTextField;
+    }
+    public TableView<StudentReservation> getStudResTableView() {
+        return studResTableView;  // Ensure studResTableView is properly initialized
     }
 
     @FXML
