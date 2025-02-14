@@ -22,7 +22,7 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage stage) {
-        // ✅ Show the GUI first
+        // Show the GUI first
         Platform.runLater(() -> {
             stage.getIcons().add(new Image(getClass().getResource("/images/client/app_icon.png").toExternalForm()));
             ClientView view = new ClientView(stage);
@@ -30,7 +30,7 @@ public class ClientMain extends Application {
             new ClientController(view);
         });
 
-        // ✅ Start the server connection in a background thread
+        // Start the server connection in a background thread
         executor.execute(this::requestConnection);
     }
 

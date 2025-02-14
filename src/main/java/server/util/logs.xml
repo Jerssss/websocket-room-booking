@@ -14,4 +14,32 @@
         <Date>2025-02-14</Date>
         <Time>18:57:02</Time>
     </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:26:18</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Login Success</Action>
+        <UserType>Admin</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:26:18</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Logout</Action>
+        <UserType>Admin</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:28:52</Time>
+    </Log>
+    <Log>
+        <UserID>awda</UserID>
+        <Action>Login Failure</Action>
+        <UserType>Student</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:29:01</Time>
+    </Log>
 </Logs>
