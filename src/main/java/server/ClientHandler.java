@@ -2,10 +2,19 @@ package server;
 
 import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
+import server.admin.AddNewTerminalProcessor;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import java.io.*;
 import java.net.Socket;
-
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -20,15 +29,14 @@ public class ClientHandler implements Runnable {
              PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true)) {
 
             writer.println("Welcome to the Server! Type 'exit' to logout.");
-
             String clientMessage;
             boolean isLoggedIn = false;
 
             while ((clientMessage = reader.readLine()) != null) {
-                System.out.println("Received from Client: " + clientMessage); // Log client request
+                System.out.println("Received from Client: " + clientMessage);
 
                 if ("exit".equalsIgnoreCase(clientMessage)) {
-                    writer.println("Goodbye!");
+                    writer.println("<Response><Status>SUCCESS</Status><Message>Goodbye!</Message></Response>");
                     break;
                 }
 
@@ -40,18 +48,16 @@ public class ClientHandler implements Runnable {
                         String userType = extractField(clientMessage, "<UserType>", "</UserType>");
 
                         if (userID == null || password == null || userType == null) {
-                            writer.println("ERROR: Missing required fields for login.");
+                            writer.println("<Response><Status>ERROR</Status><Message>Missing fields for login.</Message></Response>");
                             continue;
                         }
 
                         boolean isValid = LoginProcessor.validateUser(userID, password, userType);
                         if (isValid) {
-                            writer.println("SUCCESS");
-                            isLoggedIn = true; // Mark the client as logged in
-                            System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
+                            writer.println("<Response><Status>SUCCESS</Status><Message>Login Successful</Message></Response>");
+                            isLoggedIn = true;
                         } else {
-                            writer.println("FAILURE");
-                            System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
+                            writer.println("<Response><Status>FAILURE</Status><Message>Invalid Credentials</Message></Response>");
                         }
                     } else if (clientMessage.contains("<SignUp>")) {
                         // Handle sign-up request
@@ -63,27 +69,27 @@ public class ClientHandler implements Runnable {
                         String facultyType = extractField(clientMessage, "<FacultyType>", "</FacultyType>");
 
                         if (userID == null || name == null || password == null || userType == null) {
-                            writer.println("ERROR: Missing required fields for sign-up.");
+                            writer.println("<Response><Status>ERROR</Status><Message>Missing fields for sign-up.</Message></Response>");
                             continue;
                         }
 
                         boolean isRegistered = SignUpProcessor.registerUser(userID, name, password, userType, courseYear, facultyType);
                         if (isRegistered) {
-                            writer.println("SUCCESS");
-                            System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
+                            writer.println("<Response><Status>SUCCESS</Status><Message>Sign-up Successful</Message></Response>");
                         } else {
-                            writer.println("FAILURE");
-                            System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
+                            writer.println("<Response><Status>FAILURE</Status><Message>Sign-up Failed</Message></Response>");
                         }
-                    } else if (isLoggedIn) {
-                        // Handle other client requests (e.g., CRUD operations)
-                        writer.println("Request Received: " + clientMessage);
-                        System.out.println("Processing client request: " + clientMessage);
+                    } else if (clientMessage.contains("<AddTerminal>") && isLoggedIn) {
+                        // Handle Add Terminal request
+                        String responseXML = processAddTerminalRequest(clientMessage);
+                        writer.println(responseXML); // Send XML response
+                    } else if (!isLoggedIn) {
+                        writer.println("<Response><Status>ERROR</Status><Message>Please log in first.</Message></Response>");
                     } else {
-                        writer.println("Please log in first.");
+                        writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
-                    writer.println("ERROR: Malformed request.");
+                    writer.println("<Response><Status>ERROR</Status><Message>Malformed Request</Message></Response>");
                     System.out.println("Error processing client message: " + e.getMessage());
                 }
             }
@@ -100,7 +106,56 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    // Helper method to extract fields from XML-like messages
+    private String processAddTerminalRequest(String xmlRequest) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new ByteArrayInputStream(xmlRequest.getBytes()));
+
+            Element root = doc.getDocumentElement();
+            String terminalId = root.getElementsByTagName("TerminalID").item(0).getTextContent();
+            String room = root.getElementsByTagName("Room").item(0).getTextContent();
+            String osType = root.getElementsByTagName("OSType").item(0).getTextContent();
+            String status = root.getElementsByTagName("Status").item(0).getTextContent();
+
+            boolean success = new AddNewTerminalProcessor().processTerminalData(terminalId, room, osType, status);
+            return createXMLResponse(success, success ? "Terminal added successfully." : "Failed to add terminal.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Invalid XML Format</Message></Response>";
+        }
+    }
+
+    private String createXMLResponse(boolean success, String message) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element root = doc.createElement("Response");
+            doc.appendChild(root);
+
+            Element status = doc.createElement("Status");
+            status.appendChild(doc.createTextNode(success ? "SUCCESS" : "FAILURE"));
+            root.appendChild(status);
+
+            Element msg = doc.createElement("Message");
+            msg.appendChild(doc.createTextNode(message));
+            root.appendChild(msg);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            return writer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
+        }
+    }
+
     private String extractField(String message, String startTag, String endTag) {
         try {
             if (message.contains(startTag) && message.contains(endTag)) {
@@ -109,6 +164,6 @@ public class ClientHandler implements Runnable {
         } catch (Exception e) {
             System.out.println("Error extracting field: " + startTag);
         }
-        return null; // Return null if the field is missing or malformed
+        return null;
     }
 }

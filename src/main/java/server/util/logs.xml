@@ -91,4 +91,53 @@
         <Date>2025-02-14</Date>
         <Time>23:03:16</Time>
     </Log>
+    <Log>
+        <UserID>1</UserID>
+        <Action>Student</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:20:09</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <Action>Student</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:21:16</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:22:45</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:58:13</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:58:14</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:58:14</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-15</Date>
+        <Time>00:01:41</Time>
+    </Log>
 </Logs>

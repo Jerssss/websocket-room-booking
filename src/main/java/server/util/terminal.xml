@@ -20,4 +20,16 @@
     <terminal_os>1</terminal_os>
     <terminal_status>Active</terminal_status>
   </Terminal>
+  <Terminal>
+    <terminal_id>PC111</terminal_id>
+    <terminal_room>DD528</terminal_room>
+    <terminal_os>MAC</terminal_os>
+    <terminal_status>Active</terminal_status>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC115</terminal_id>
+    <terminal_room>DD528</terminal_room>
+    <terminal_os>MAC</terminal_os>
+    <terminal_status>Active</terminal_status>
+  </Terminal>
 </Terminals>
