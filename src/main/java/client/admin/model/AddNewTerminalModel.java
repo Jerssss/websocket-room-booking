@@ -20,21 +20,21 @@ public class AddNewTerminalModel {
 
     public AddNewTerminalModel() {
         try {
-            serverConnection = new ServerConnection(); // Reuse ServerConnection class
+            serverConnection = new ServerConnection();
         } catch (IOException e) {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
 
-    public boolean sendTerminalData(String terminalId, String room, String osType, String status) {
+    public boolean sendTerminalData(String terminalId, String name, String room, String osType, String status) {
         if (serverConnection == null) {
             showErrorDialog("No server connection available.");
             return false;
         }
         try {
-            String requestXML = createXMLRequest(terminalId, room, osType, status);
-            serverConnection.sendMessage(requestXML); // Use ServerConnection to send data
-            String responseXML = serverConnection.readMessage(); // Read server response
+            String requestXML = createXMLRequest(terminalId, name, room, osType, status);
+            serverConnection.sendMessage(requestXML);
+            String responseXML = serverConnection.readMessage();
             return parseXMLResponse(responseXML);
         } catch (IOException | ParserConfigurationException | TransformerException e) {
             showErrorDialog("Error occurred: " + e.getMessage());
@@ -42,7 +42,7 @@ public class AddNewTerminalModel {
         }
     }
 
-    private String createXMLRequest(String terminalId, String room, String osType, String status)
+    private String createXMLRequest(String terminalId, String name, String room, String osType, String status)
             throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -54,6 +54,10 @@ public class AddNewTerminalModel {
         Element id = doc.createElement("TerminalID");
         id.appendChild(doc.createTextNode(terminalId));
         root.appendChild(id);
+
+        Element nameElement = doc.createElement("Name");
+        nameElement.appendChild(doc.createTextNode(name));
+        root.appendChild(nameElement);
 
         Element roomElement = doc.createElement("Room");
         roomElement.appendChild(doc.createTextNode(room));
