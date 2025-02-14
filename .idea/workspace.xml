@@ -5,97 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61187ed5-a681-424b-889d-132ae44795ac" name="Changes" comment="moved the ReservationApprovalModel to the revised-main branch">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_11_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_11_22_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_9_49_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_9_49_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/admin/controller/ConfirmDeleteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/admin/model/ConfirmDeleteModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/ConfirmDeleteView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/confirm_delete_window.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/deleted_notifier_window.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/shared/deleted.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/controller/AdminMainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/controller/AdminMainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/controller/ModifyTerminalStatusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/controller/ModifyTerminalStatusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/controller/ReservationApprovalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/controller/ReservationApprovalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/model/ModifyTerminalStatusModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/model/ModifyTerminalStatusModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/AdminMainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/AdminMainMenuView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/ModifyTerminalStatusView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/ModifyTerminalStatusView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/ReservationApprovalView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/ReservationApprovalView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/admin/ModifyTerminalProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/admin/ModifyTerminalProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/ClientView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/AddNewTerminalController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/AdminMainMenuController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/ModifyTerminalStatusController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/ReportGeneratorController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/ReservationApprovalController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/ViewStudentReservationsController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/AddNewTerminalModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/AdminMainMenuModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/ModifyTerminalStatusModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/ReportGeneratorModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/ReservationApprovalModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/ViewStudentReservationsModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/AddNewTerminalView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/AdminMainMenuView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/ModifyTerminalStatusView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/ReportGeneratorView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/ReservationApprovalView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/ViewStudentReservationsView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/landingpage/LandingPageController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/landingpage/LandingPageView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/login/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/login/LoginModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/login/LoginView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/signup/SignUpController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/signup/SignUpModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/signup/SignUpView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/CreateReservationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/HistoryItemCardController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/ModifyReservationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/ModifyReservationWindowController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/RoomItemCardController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/StudentMainMenuController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/TerminalItemCardController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/TerminalPickerWindowController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/ViewReservationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/CreateReservationModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/HistoryItemCardModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/ModifyReservationModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/ModifyReservationWindowModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/RoomItemCardModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/StudentMainMenuModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/TerminalItemCardModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/TerminalPickerWindowModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/ViewReservationModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/CreateReservationView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/DuplicateAccountErrorView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/HistoryItemCardView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/ModifyReservationView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/ModifyReservationWindowView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/RoomItemCardView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/StudentMainMenuView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/TerminalItemCardView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/TerminalPickerWindowView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/ViewReservationView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/utility/ServerConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/utility/XMLParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_pane.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_window.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/ServerMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/admin/AddNewTerminalProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/admin/AdminProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/admin/ModifyTerminalProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/admin/ReportGeneratorProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/admin/ReservationApprovalProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/admin/ViewStudentReservationsProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/LoginProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/SignUpProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/student/CreateReservationProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/student/ModifyReservationProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/student/StudentProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/student/ViewReservationProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/utility/XMLHandler.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -150,13 +67,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;revised-main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "revised-main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject/src/main/resources/fxml/admin"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\resources\fxml\admin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\resources\images\shared" />
+      <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\java\client\admin\controller" />
+      <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\java\client\admin\model" />
+      <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\java\client\admin\view" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.ClientMain">
     <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.ClientMain" />
