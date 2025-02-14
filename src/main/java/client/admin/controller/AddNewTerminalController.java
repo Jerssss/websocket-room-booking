@@ -4,17 +4,23 @@ import client.admin.model.AddNewTerminalModel;
 import client.admin.view.AddNewTerminalView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import server.admin.AddNewTerminalProcessor;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class AddNewTerminalController {
     private final AddNewTerminalView view;
     private final AddNewTerminalProcessor processor;
     private final AddNewTerminalProcessor terminalProcessor = new AddNewTerminalProcessor();
+    private AddNewTerminalController controller;
 
 
     public AddNewTerminalController(AddNewTerminalView view) {
@@ -64,4 +70,8 @@ public class AddNewTerminalController {
             JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
         }
     }
+    public void setController(AddNewTerminalController controller) {
+        this.controller = controller;
+    }
 }
+

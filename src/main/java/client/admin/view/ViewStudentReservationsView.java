@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import server.utility.StudentReservation;
-import server.utility.ViewStudentReservationXMLParser;
+import server.admin.ViewStudentReservationsProcessor;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class ViewStudentReservationsView {
 
     // Method to load data from the XML file
     private void loadDataFromXML(String filePath) {
-        List<StudentReservation> studentReservations = ViewStudentReservationXMLParser.parseXML(filePath);
+        List<StudentReservation> studentReservations = ViewStudentReservationsProcessor.parseXML(filePath);
         if (studentReservations != null) {
             studResData.addAll(studentReservations);
         }
