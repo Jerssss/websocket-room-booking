@@ -1,51 +1,50 @@
 package client.student.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import server.utility.Terminal;
 
 public class ModifyReservationView {
 
     @FXML
     private VBox centerPane;
     @FXML
-    private Label modifyLabel;
+    private Button searchButton;
     @FXML
-    private Label timePickerLabel;
+    private Button saveChangesButton;
     @FXML
-    private Label colonLabel;
-    @FXML
-    private Label dateLabel;
-    @FXML
-    private TextField endTimeTextField;
-    @FXML
-    private TextField startTimeTextField;
-    @FXML
-    private TextField dayTextField;
-    @FXML
-    private TextField monthTextField;
-    @FXML
-    private TextField yearTextField;
-    @FXML
-    private Button refreshButton; //might rename to avoid confusion
-    @FXML
-    private ScrollPane modifyReservationScrollPane;
-    @FXML
-    private AnchorPane modifyReservationAnchorPane;
+    private TextField searchStudResTextField;
 
-    private FXMLLoader fxmlLoader;
-    private Parent root;
+    @FXML
+    private TableView<Terminal> modResTableView;
+    @FXML
+    private TableColumn<Terminal, String> roomNumberColumn;
+    @FXML
+    private TableColumn<Terminal, String> terminalColumn;
+    @FXML
+    private TableColumn<Terminal, String> terminalOSColumn;
+    @FXML
+    private TableColumn<Terminal, String> terminalStatusColumn;
+    private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
-    //    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
-//        refreshButton.setOnAction(event);
-//TODO logic for refresh (update) button
-//    }
 
-    //TODO setters and getters
+    public void setActionSearchButton(EventHandler<ActionEvent> event) {
+        searchButton.setOnAction(event);
+    }
+
+    public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
+        saveChangesButton.setOnAction(event);
+    }
+
+    public TextField getSearchStudResTextField() {
+        return searchStudResTextField;
+    }
 }

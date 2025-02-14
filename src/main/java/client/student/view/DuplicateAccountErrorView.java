@@ -16,6 +16,7 @@ public class DuplicateAccountErrorView {
             Scene duplicateAccountErrorScene = new Scene(root);
             Stage popupStage = new Stage();
             popupStage.setScene(duplicateAccountErrorScene);
+            popupStage.centerOnScreen();
             popupStage.show();
         } catch (IOException ioException) {
             ioException.printStackTrace();

@@ -14,4 +14,10 @@
     </default_schedule>
     <terminal_status>Active</terminal_status>
   </Terminal>
+  <Terminal>
+    <terminal_id>PC1</terminal_id>
+    <terminal_room>D1</terminal_room>
+    <terminal_os>1</terminal_os>
+    <terminal_status>Active</terminal_status>
+  </Terminal>
 </Terminals>
