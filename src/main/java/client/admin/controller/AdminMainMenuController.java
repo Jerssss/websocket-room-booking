@@ -33,6 +33,7 @@ public class AdminMainMenuController {
         this.view.setActionAddNewTerminalButton(event -> handleAddNewTerminal());
         this.view.setActionModifyTerminalButton(event -> handleModifyTerminal());
         this.view.setActionLogoutButton(event -> handleLogout(event));
+        this.view.setActionShowStudentReservationButton(event -> handleViewStudentReservation());
     }
 
     private void handleModifyTerminal() {
@@ -40,6 +41,9 @@ public class AdminMainMenuController {
     }
 
     private void handleAddNewTerminal() {
+        System.out.println("Navigating to Add New Terminal...");
+    }
+    private void handleViewStudentReservation() {
         System.out.println("Navigating to Add New Terminal...");
     }
 

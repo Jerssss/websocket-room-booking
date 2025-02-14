@@ -93,7 +93,7 @@ public class AdminMainMenuView {
     }
 
     public void setActionShowStudentReservationButton(EventHandler<ActionEvent> event) {
-        showStudentReservationButton.setOnAction(event1 -> loadView("/fxml/admin/view_reservation_pane.fxml"));
+        showStudentReservationButton.setOnAction(event1 -> loadView("/fxml/admin/student_reservations_pane.fxml"));
     }
 
     public void setActionModifyTerminalButton(EventHandler<ActionEvent> event) {
