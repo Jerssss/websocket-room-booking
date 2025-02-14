@@ -1,27 +1,33 @@
 package client.student.model;
 
 import client.utility.ServerConnection;
-import server.student.ViewReservationProcessor; // Import the processor class
 
 import java.io.IOException;
-import java.util.Map;
 
 public class ViewReservationModel {
-    private final String xmlFilePath = "src/main/java/server/util/reserved.xml"; // project path
-    private ServerConnection serverConnection;
-    private final ViewReservationProcessor processor; // Add processor instance
+    private final ServerConnection serverConnection;
 
-    public ViewReservationModel() {
-        try {
-            // Establish a connection to the server
-            serverConnection = new ServerConnection();
-        } catch (IOException e) {
-            System.err.println("Failed to connect to the server: " + e.getMessage());
-        }
-        this.processor = new ViewReservationProcessor(); // Initialize the processor
+    public ViewReservationModel() throws IOException {
+        serverConnection = new ServerConnection();
     }
 
-    public Map<String, Map<String, String>> fetchAllReservations() {
-        return processor.fetchAllReservations(); // Delegate to the processor
+    public String fetchAllReservations() {
+        try {
+            // Send the request to the server (e.g., "FETCH_RESERVATIONS")
+            serverConnection.sendMessage("FETCH_RESERVATIONS");
+
+            // Read the response from the server (plain string)
+            String response = serverConnection.readMessage();
+
+            return response; // Return the plain string
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void closeConnection() {
+        serverConnection.close();
     }
 }
