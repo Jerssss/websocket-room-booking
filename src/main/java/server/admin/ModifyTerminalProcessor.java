@@ -1,57 +1,65 @@
 package server.admin;
 
 import org.w3c.dom.*;
+import server.utility.Terminal;
+
 import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModifyTerminalProcessor {
-    private static final String XML_FILE = "src/main/java/server/util/terminal.xml";
 
-    public String getTerminalData() {
-        StringBuilder data = new StringBuilder();
+    // Method to parse XML and return a list of Terminal objects
+    public static List<Terminal> parseXML(String filePath) {
+        List<Terminal> terminals = new ArrayList<>();
+
         try {
-            File file = new File(XML_FILE);
+            // Initialize DocumentBuilderFactory and DocumentBuilder
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(file);
-            doc.getDocumentElement().normalize();
 
-            NodeList terminalList = doc.getElementsByTagName("Terminal");
+            // Parse the XML file
+            File xmlFile = new File(filePath);
+            Document document = builder.parse(xmlFile);
 
-            for (int i = 0; i < terminalList.getLength(); i++) {
-                Element terminal = (Element) terminalList.item(i);
-                String id = terminal.getElementsByTagName("terminal_id").item(0).getTextContent();
-                String room = terminal.getElementsByTagName("terminal_room").item(0).getTextContent();
-                String os = terminal.getElementsByTagName("terminal_os").item(0).getTextContent();
-                String status = terminal.getElementsByTagName("terminal_status").item(0).getTextContent();
+            // Normalize the XML structure
+            document.getDocumentElement().normalize();
 
-                data.append(id).append(",").append(room).append(",").append(os).append(",").append(status).append(";");
+            // Get all <Terminal> nodes
+            NodeList terminalNodes = document.getElementsByTagName("Terminal");
+
+            // Loop through the nodes and extract data
+            for (int i = 0; i < terminalNodes.getLength(); i++) {
+                Node node = terminalNodes.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    // Get the data for each terminal
+                    String terminalId = getTagValue("terminal_id", element);
+                    String terminalRoom = getTagValue("terminal_room", element);
+                    String terminalOs = getTagValue("terminal_os", element);
+                    String terminalStatus = getTagValue("terminal_status", element);
+
+                    // Create a new Terminal object and add it to the list
+                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus);
+                    terminals.add(terminal);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return data.toString();
+
+        return terminals;
     }
 
-    public void processRequest(Socket clientSocket) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
-
-            String request = reader.readLine();
-            if ("GET_TERMINALS".equals(request)) {
-                writer.println(getTerminalData());
-            }
-
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    // Helper method to extract the value of a tag
+    private static String getTagValue(String tag, Element element) {
+        NodeList nodeList = element.getElementsByTagName(tag);
+        if (nodeList.getLength() > 0) {
+            Node node = nodeList.item(0);
+            return node.getTextContent();
         }
+        return null;
     }
 }

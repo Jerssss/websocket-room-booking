@@ -1,6 +1,5 @@
 package client.admin.view;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,16 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import org.w3c.dom.*;
+import server.admin.ModifyTerminalProcessor;
 import server.utility.Terminal;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.List;
 
 public class ModifyTerminalStatusView {
 
@@ -54,38 +48,16 @@ public class ModifyTerminalStatusView {
         terminalStatusColumn.setCellFactory(createStyledStatusCellFactory());
 
         // Load data from XML
-        loadDataFromXML();
+        loadDataFromXML("src/main/java/server/util/terminal.xml");
 
         // Set the table items
         modResTableView.setItems(terminalData);
     }
 
-    private void loadDataFromXML() {
-        try {
-            // Load XML document
-            File xmlFile = new File("src/main/java/server/util/terminal.xml");
-            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new FileInputStream(xmlFile));
-            doc.getDocumentElement().normalize();
-
-            // Extract the list of terminals
-            NodeList nList = doc.getElementsByTagName("Terminal");
-
-            for (int i = 0; i < nList.getLength(); i++) {
-                Node node = nList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-
-                    String terminalId = element.getElementsByTagName("terminal_id").item(0).getTextContent();
-                    String terminalRoom = element.getElementsByTagName("terminal_room").item(0).getTextContent();
-                    String terminalOs = element.getElementsByTagName("terminal_os").item(0).getTextContent();
-                    String terminalStatus = element.getElementsByTagName("terminal_status").item(0).getTextContent();
-
-                    // Add terminal to the list
-                    terminalData.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void loadDataFromXML(String filePath) {
+        List<Terminal> terminal = ModifyTerminalProcessor.parseXML(filePath);
+        if (terminal != null) {
+            terminalData.addAll(terminal);
         }
     }
 
@@ -122,7 +94,7 @@ public class ModifyTerminalStatusView {
                     Terminal terminal = getTableRow().getItem();
                     statusComboBox.setValue(terminal.getTerminalStatus());
 
-                    // ✅ Even lighter gray for odd rows, pure white for even rows
+                    // Even lighter gray for odd rows, pure white for even rows
                     int rowIndex = getIndex();
                     Color rowColor = (rowIndex % 2 == 1) ? Color.web("#EEEEEE") : Color.WHITE;
 
