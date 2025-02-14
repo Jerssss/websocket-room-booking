@@ -1,8 +1,11 @@
 package client;
 
+import client.landingpage.LandingPageController;
 import client.utility.ServerConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -78,5 +81,48 @@ public class ClientMain extends Application {
                     "Connection Lost",
                     JOptionPane.ERROR_MESSAGE);
         });
+    }
+
+    // Inner class representing the ClientView
+    private class ClientView {
+        private FXMLLoader fxmlLoader;
+        private final Stage stage;
+
+        public ClientView(Stage stage) {
+            this.stage = stage;
+        }
+
+        public void runInterface() {
+            try {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/landing_page.fxml")); //calls the javafx scene
+                Scene scene = new Scene(fxmlLoader.load()); //reads from the file, takes in the nodes, stores it in Scene scene
+                stage.setTitle("Lendify");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+
+        public FXMLLoader getFxmlLoader() {
+            return fxmlLoader;
+        }
+
+        public Stage getStage() {
+            return stage;
+        }
+    }
+
+    // Inner class representing the ClientController
+    private class ClientController {
+        public ClientController(ClientView view) {
+            System.out.println("Loading client's landing page controller...");
+            new LandingPageController(view.getFxmlLoader().getController());
+        }
+    }
+
+    // Inner class representing the ClientModel
+    private class ClientModel {
+        // Model logic can be added here if needed
     }
 }
