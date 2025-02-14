@@ -23,29 +23,21 @@ public class LoginModel {
         }
 
         try {
-            // Construct XML request
-            String loginRequest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                    + "<Request>"
-                    + "<Type>Login</Type>"
-                    + "<UserID>" + userID + "</UserID>"
-                    + "<Password>" + password + "</Password>"
-                    + "<UserType>" + userType + "</UserType>"
-                    + "</Request>";
-
+            String loginRequest = String.format(
+                    "<Login><UserID>%s</UserID><Password>%s</Password><UserType>%s</UserType></Login>",
+                    userID, password, userType
+            );
             serverConnection.sendMessage(loginRequest);
 
-            // Receive XML response
-            String responseXML = serverConnection.readMessage();
-            System.out.println("Server Response: " + responseXML);
+            String response = serverConnection.readMessage();
+            System.out.println("Server Response: " + response);
 
-            return responseXML.contains("<Status>SUCCESS</Status>");
-
+            return "SUCCESS".equalsIgnoreCase(response);
         } catch (IOException e) {
             showErrorDialog("Lost connection to the server.");
             return false;
         }
     }
-
 
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
