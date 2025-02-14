@@ -42,4 +42,53 @@
         <Date>2025-02-14</Date>
         <Time>22:29:01</Time>
     </Log>
+    <Log>
+        <UserID>56765</UserID>
+        <Action>Admin</Action>
+        <UserType>Signup</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:37:18</Time>
+    </Log>
+    <Log>
+        <UserID>56765</UserID>
+        <Action>SignUp Success</Action>
+        <UserType>Admin</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:37:18</Time>
+    </Log>
+    <Log>
+        <UserID>0</UserID>
+        <Action>Admin</Action>
+        <UserType>Signup</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:44:05</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>22:57:44</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:01:41</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Admin</Action>
+        <UserType>Login</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:02:54</Time>
+    </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <Action>Logout</Action>
+        <UserType>Admin</UserType>
+        <Date>2025-02-14</Date>
+        <Time>23:03:16</Time>
+    </Log>
 </Logs>

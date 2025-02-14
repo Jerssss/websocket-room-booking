@@ -23,4 +23,16 @@
         <Password>1</Password>
         <FacultyType>1</FacultyType>
     </Admin>
+    <Admin>
+        <Admin_ID>56765</Admin_ID>
+        <Name>test</Name>
+        <Password>test</Password>
+        <FacultyType>test</FacultyType>
+    </Admin>
+    <Admin>
+        <Admin_ID>0</Admin_ID>
+        <Name>0</Name>
+        <Password>0</Password>
+        <FacultyType>0</FacultyType>
+    </Admin>
 </Admins>
