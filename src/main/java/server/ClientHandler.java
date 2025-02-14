@@ -3,6 +3,7 @@ package server;
 import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
 import server.admin.AddNewTerminalProcessor;
+import server.admin.ViewStudentReservationsProcessor;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +16,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
+import server.utility.StudentReservation;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -82,7 +85,11 @@ public class ClientHandler implements Runnable {
                     } else if (clientMessage.contains("<AddTerminal>") && isLoggedIn) {
                         // Handle Add Terminal request
                         String responseXML = processAddTerminalRequest(clientMessage);
-                        writer.println(responseXML); // Send XML response
+                        writer.println(responseXML);
+                    } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>") && isLoggedIn) {
+                        // Handle View Student Reservations request
+                        String responseXML = processViewStudentReservationsRequest();
+                        writer.println(responseXML);
                     } else if (!isLoggedIn) {
                         writer.println("<Response><Status>ERROR</Status><Message>Please log in first.</Message></Response>");
                     } else {
@@ -106,6 +113,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    // Process Add Terminal Request
     private String processAddTerminalRequest(String xmlRequest) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -123,6 +131,66 @@ public class ClientHandler implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
             return "<Response><Status>ERROR</Status><Message>Invalid XML Format</Message></Response>";
+        }
+    }
+
+    // Process View Student Reservations Request
+    private String processViewStudentReservationsRequest() {
+        try {
+            List<StudentReservation> reservations = ViewStudentReservationsProcessor.parseXML("src/main/java/server/util/reservations.xml");
+            return createReservationsXMLResponse(reservations);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>";
+        }
+    }
+
+    // Create XML Response for Student Reservations
+    private String createReservationsXMLResponse(List<StudentReservation> reservations) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element root = doc.createElement("Reservations");
+            doc.appendChild(root);
+
+            for (StudentReservation res : reservations) {
+                Element reservation = doc.createElement("Reservation");
+
+                Element resId = doc.createElement("reservation_id");
+                resId.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(resId);
+
+                Element terminalId = doc.createElement("terminal_id");
+                terminalId.appendChild(doc.createTextNode(res.getTerminalId()));
+                reservation.appendChild(terminalId);
+
+                Element room = doc.createElement("terminal_room");
+                room.appendChild(doc.createTextNode(res.getTerminalRoom()));
+                reservation.appendChild(room);
+
+                Element date = doc.createElement("date");
+                date.appendChild(doc.createTextNode(res.getDate()));
+                reservation.appendChild(date);
+
+                Element status = doc.createElement("terminal_status");
+                status.appendChild(doc.createTextNode(res.getTerminalStatus()));
+                reservation.appendChild(status);
+
+                root.appendChild(reservation);
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            return writer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
         }
     }
 
