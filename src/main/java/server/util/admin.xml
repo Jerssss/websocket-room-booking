@@ -7,9 +7,9 @@
     </Admin>
     <Admin>
         <Admin_ID>4321</Admin_ID>
-        <Name>4321</Name>
+        <Name>Tony Fowler</Name>
         <Password>4321</Password>
-        <FacultyType>4321</FacultyType>
+        <FacultyType>Custodian</FacultyType>
     </Admin>
     <Admin>
         <Admin_ID>2222222</Admin_ID>
@@ -19,7 +19,7 @@
     </Admin>
     <Admin>
         <Admin_ID>1</Admin_ID>
-        <Name>1</Name>
+        <Name>Dionela Marilag</Name>
         <Password>1</Password>
         <FacultyType>1</FacultyType>
     </Admin>
@@ -28,11 +28,5 @@
         <Name>test</Name>
         <Password>test</Password>
         <FacultyType>test</FacultyType>
-    </Admin>
-    <Admin>
-        <Admin_ID>0</Admin_ID>
-        <Name>0</Name>
-        <Password>0</Password>
-        <FacultyType>0</FacultyType>
     </Admin>
 </Admins>
