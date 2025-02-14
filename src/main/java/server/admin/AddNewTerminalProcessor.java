@@ -4,6 +4,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import server.utility.Terminal;
+import server.utility.TerminalVer2;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,6 +16,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddNewTerminalProcessor {
 
@@ -125,5 +129,58 @@ public class AddNewTerminalProcessor {
                 removeWhiteSpaces(child);
             }
         }
+    }
+    public static List<TerminalVer2> parseXML(String filePath) {
+        List<TerminalVer2> terminals = new ArrayList<>();
+
+        try {
+            // Initialize DocumentBuilderFactory and DocumentBuilder
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            // Parse the XML file
+            File xmlFile = new File(filePath);
+            Document document = builder.parse(xmlFile);
+
+            // Normalize the XML structure
+            document.getDocumentElement().normalize();
+
+            // Get all <Terminal> nodes
+            NodeList studentNodes = document.getElementsByTagName("Terminal");
+
+            // Loop through the nodes and extract data
+            for (int i = 0; i < studentNodes.getLength(); i++) {
+                Node node = studentNodes.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    // Get the data for each terminal
+                    String terminalId = getTagValue("terminal_id", element);
+                    String terminalRoom = getTagValue("terminal_room", element);
+                    String terminalOS = getTagValue("terminal_os", element);
+                    String date = getTagValue("date", element);
+                    String time = getTagValue("time", element);
+                    String terminalStatus = getTagValue("terminal_status", element);
+
+                    // Create a new Terminal object and add it to the list
+                    TerminalVer2 terminal = new TerminalVer2(terminalId, terminalRoom, terminalOS, terminalStatus, date, time);
+                    terminals.add(terminal);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return terminals;
+    }
+
+    // Helper method to extract the value of a tag
+    private static String getTagValue(String tag, Element element) {
+        NodeList nodeList = element.getElementsByTagName(tag);
+        if (nodeList.getLength() > 0) {
+            Node node = nodeList.item(0);
+            return node.getTextContent();
+        }
+        return null;
     }
 }

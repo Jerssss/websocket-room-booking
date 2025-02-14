@@ -40,12 +40,11 @@ public class AddNewTerminalController {
         // Validate inputs
         if (terminalId.isEmpty() || room.isEmpty() || osType.isEmpty() || status.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error: All fields must be filled.");
-
             return;
         }
 
         if (!status.matches("Active|Reserved|Maintenance")) {
-            JOptionPane.showMessageDialog(null, "Error: Status must be 'Active, 'Reserved', or 'Maintenance");
+            JOptionPane.showMessageDialog(null, "Error: Status must be 'Active', 'Reserved', or 'Maintenance'");
             return;
         }
 
@@ -66,12 +65,17 @@ public class AddNewTerminalController {
 
         if (success) {
             JOptionPane.showMessageDialog(null, "Success! Terminal has been added!");
+
+            // Update the TableView immediately
+            view.loadDataFromXML("src/main/java/server/util/terminal.xml"); // Ensure this method clears and reloads data
         } else {
             JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
         }
     }
+
     public void setController(AddNewTerminalController controller) {
         this.controller = controller;
     }
+
 }
 
