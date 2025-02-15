@@ -7,6 +7,8 @@ import server.landingpage.SignUpProcessor;
 import server.admin.AddNewTerminalProcessor;
 import server.admin.ViewStudentReservationsProcessor;
 import server.student.ModifyReservationProcessor;
+import server.student.ViewReservationProcessor;
+import server.utility.Reservation;
 import server.utility.StudentReservation;
 
 import java.io.*;
@@ -62,10 +64,12 @@ public class ClientHandler implements Runnable {
                         handleAddTerminal(clientMessage, writer);
                     } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>")) {
                         handleViewStudentReservations(writer);
-                    } else if (clientMessage.startsWith("FETCH_RESERVATIONS")) {
+                    } else if (clientMessage.startsWith("FETCH_RESERVATION")) {
                         handleFetchReservations(writer);
-                    } else if (clientMessage.startsWith("UPDATE_RESERVATION")) {
-                        handleUpdateReservation(clientMessage, writer);
+                    } else if (clientMessage.startsWith("fetch_reservation")) {
+                        handlefetchreservation(writer);
+                    } else if (clientMessage.startsWith("fetch_reservations")) {
+                        handleUpdateReservation( writer);
                     } else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
@@ -185,15 +189,59 @@ public class ClientHandler implements Runnable {
      * Handles fetching user reservations.
      */
     private void handleFetchReservations(PrintWriter writer) {
-        ModifyReservationProcessor processor = new ModifyReservationProcessor(currentUser);
-        String response = processor.fetchReservations();
-        writer.println(response);
+        try {
+            List<Reservation> reservations = ViewReservationProcessor.parseXML(
+                    "server/util/reservationapproval.xml"
+            );
+            writer.println(createReservations2XMLResponse(reservations));
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
+        }
+    }
+
+    private void handlefetchreservation(PrintWriter writer) {
+        try {
+            List<Reservation> reservations = ModifyReservationProcessor.parseXML(
+                    "server/util/reservationapproval.xml"
+            );
+            writer.println(createReservations2XMLResponse(reservations));
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
+        }
     }
 
     /**
      * Handles updating a reservation.
      */
-    private void handleUpdateReservation(String clientMessage, PrintWriter writer) {
+
+
+    private void handleUpdateReservation (PrintWriter writer){
+        try {
+            List<Reservation> reservations = ModifyReservationProcessor.parseXML(
+                    "server/util/reservationapproval.xml"
+            );
+            writer.println(createReservations2XMLResponse(reservations));
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
+        }
+    }
+
+
+  /*
+
+
+  wait lang/
+
+
+
+
+
+
+
+  private void handleUpdateReservation(String clientMessage, PrintWriter writer) {
         Map<String, String> updates = parseUpdateRequest(clientMessage);
         String reservationId = updates != null ? updates.get("ReservationID") : null;
 
@@ -204,7 +252,7 @@ public class ClientHandler implements Runnable {
         String response = processor.updateReservation(reservationId, updates);
         writer.println(response);
     }
-
+*/
     /**
      * Extracts a field from the XML message.
      */
@@ -316,6 +364,63 @@ public class ClientHandler implements Runnable {
 
                 Element status = doc.createElement("terminal_status");
                 status.appendChild(doc.createTextNode(res.getTerminalStatus()));
+                reservation.appendChild(status);
+
+                root.appendChild(reservation);
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            return writer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
+        }
+    }
+
+
+    private String createReservations2XMLResponse(List<Reservation> reservations) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element root = doc.createElement("Reservations");
+            doc.appendChild(root);
+
+            for (Reservation res : reservations) {
+                Element reservation = doc.createElement("Reservation");
+
+                Element reservationId = doc.createElement("reservation_id");
+                reservationId.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(reservationId);
+
+                Element userId = doc.createElement("user_id");
+                userId.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(userId);
+
+                Element terminalId = doc.createElement("terminal_id");
+                terminalId.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(terminalId);
+
+                Element reservationDate = doc.createElement("reservation_date");
+                reservationDate.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(reservationDate);
+
+                Element startTime = doc.createElement("start_time");
+                startTime.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(startTime);
+
+                Element endTime = doc.createElement("end_time");
+                endTime.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(endTime);
+
+                Element status = doc.createElement("status");
+                status.appendChild(doc.createTextNode(res.getReservationId()));
                 reservation.appendChild(status);
 
                 root.appendChild(reservation);
