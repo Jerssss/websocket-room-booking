@@ -155,6 +155,9 @@ public class ClientHandler implements Runnable {
     /**
      * Handles adding a new terminal.
      */
+    /**
+     * Handles adding a new terminal.
+     */
     private void handleAddTerminal(String clientMessage, PrintWriter writer) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -167,7 +170,13 @@ public class ClientHandler implements Runnable {
             String osType = root.getElementsByTagName("OSType").item(0).getTextContent();
             String status = root.getElementsByTagName("Status").item(0).getTextContent();
 
-            boolean success = new AddNewTerminalProcessor().processTerminalData(terminalId, room, osType, status);
+            // Extract day and time safely
+            String day = root.getElementsByTagName("Day").getLength() > 0 ?
+                    root.getElementsByTagName("Day").item(0).getTextContent() : "N/A";
+            String time = root.getElementsByTagName("Time").getLength() > 0 ?
+                    root.getElementsByTagName("Time").item(0).getTextContent() : "N/A";
+
+            boolean success = new AddNewTerminalProcessor().processTerminalData(terminalId, room, osType, day, time, status);
             writer.println(createXMLResponse(success, success ? "Terminal added successfully." : "Failed to add terminal."));
         } catch (Exception e) {
             e.printStackTrace();
