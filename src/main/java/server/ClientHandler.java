@@ -2,15 +2,29 @@ package server;
 
 import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
+import server.admin.AddNewTerminalProcessor;
+import server.admin.ViewStudentReservationsProcessor;
+import server.utility.StudentReservation;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class ClientHandler implements Runnable {
-    private static final ConcurrentHashMap<String, Socket> activeSessions = new ConcurrentHashMap<>(); // Store active user sessions
+    private static final ConcurrentMap<String, Boolean> activeUsers = new ConcurrentHashMap<>();
     private final Socket clientSocket;
-    private String loggedInUser = null; // Track logged-in user in this session
+    private String currentUser = null;
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -22,106 +36,203 @@ public class ClientHandler implements Runnable {
              PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true)) {
 
             writer.println("Welcome to the Server! Type 'exit' to logout.");
-
             String clientMessage;
+            boolean isLoggedIn = false;
+
             while ((clientMessage = reader.readLine()) != null) {
                 System.out.println("Received from Client: " + clientMessage);
 
                 if ("exit".equalsIgnoreCase(clientMessage)) {
-                    logoutUser();
-                    writer.println("Goodbye!");
+                    if (currentUser != null) {
+                        activeUsers.remove(currentUser);  // Remove user on logout
+                        System.out.println(currentUser + " has logged out.");
+                    }
+                    writer.println("<Response><Status>SUCCESS</Status><Message>Goodbye!</Message></Response>");
                     break;
                 }
 
                 try {
                     if (clientMessage.contains("<Login>")) {
-                        handleLogin(clientMessage, writer);
+                        String userID = extractField(clientMessage, "<UserID>", "</UserID>");
+                        String password = extractField(clientMessage, "<Password>", "</Password>");
+                        String userType = extractField(clientMessage, "<UserType>", "</UserType>");
+
+                        if (userID == null || password == null || userType == null) {
+                            writer.println("<Response><Status>ERROR</Status><Message>Missing fields for login.</Message></Response>");
+                            continue;
+                        }
+
+                        if (activeUsers.containsKey(userID)) {
+                            writer.println("<Response><Status>FAILURE</Status><Message>User is already logged in from another terminal.</Message></Response>");
+                        } else {
+                            boolean isValid = LoginProcessor.validateUser(userID, password, userType);
+                            if (isValid) {
+                                activeUsers.put(userID, true);  // Add user to active users
+                                currentUser = userID;
+                                writer.println("<Response><Status>SUCCESS</Status><Message>Login Successful</Message></Response>");
+                                isLoggedIn = true;
+                            } else {
+                                writer.println("<Response><Status>FAILURE</Status><Message>Invalid Credentials</Message></Response>");
+                            }
+                        }
+
                     } else if (clientMessage.contains("<SignUp>")) {
-                        handleSignUp(clientMessage, writer);
-                    } else if (loggedInUser != null) {
-                        writer.println("Request Received: " + clientMessage);
-                        System.out.println("Processing client request: " + clientMessage);
+                        String userID = extractField(clientMessage, "<UserID>", "</UserID>");
+                        String name = extractField(clientMessage, "<Name>", "</Name>");
+                        String password = extractField(clientMessage, "<Password>", "</Password>");
+                        String userType = extractField(clientMessage, "<UserType>", "</UserType>");
+                        String courseYear = extractField(clientMessage, "<CourseYear>", "</CourseYear>");
+                        String facultyType = extractField(clientMessage, "<FacultyType>", "</FacultyType>");
+
+                        if (userID == null || name == null || password == null || userType == null) {
+                            writer.println("<Response><Status>ERROR</Status><Message>Missing fields for sign-up.</Message></Response>");
+                            continue;
+                        }
+
+                        boolean isRegistered = SignUpProcessor.registerUser(userID, name, password, userType, courseYear, facultyType);
+                        if (isRegistered) {
+                            writer.println("<Response><Status>SUCCESS</Status><Message>Sign-up Successful</Message></Response>");
+                        } else {
+                            writer.println("<Response><Status>FAILURE</Status><Message>Sign-up Failed</Message></Response>");
+                        }
+                    } else if (clientMessage.contains("<AddTerminal>") && isLoggedIn) {
+                        String responseXML = processAddTerminalRequest(clientMessage);
+                        writer.println(responseXML);
+                    } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>") && isLoggedIn) {
+                        String responseXML = processViewStudentReservationsRequest();
+                        writer.println(responseXML);
+                    } else if (!isLoggedIn) {
+                        writer.println("<Response><Status>ERROR</Status><Message>Please log in first.</Message></Response>");
                     } else {
-                        writer.println("Please log in first.");
+                        writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
-                    writer.println("ERROR: Malformed request.");
+                    writer.println("<Response><Status>ERROR</Status><Message>Malformed Request</Message></Response>");
                     System.out.println("Error processing client message: " + e.getMessage());
                 }
             }
+
         } catch (IOException e) {
             System.out.println("Error handling client: " + e.getMessage());
         } finally {
-            logoutUser(); // Ensure user is logged out if connection is lost
+            if (currentUser != null) {
+                activeUsers.remove(currentUser);  // Ensure user is removed even on unexpected disconnect
+                System.out.println(currentUser + " has logged out.");
+            }
             try {
                 clientSocket.close();
+                System.out.println("Client disconnected: " + clientSocket.getInetAddress());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("Client disconnected: " + clientSocket.getInetAddress());
         }
     }
 
-    private void handleLogin(String clientMessage, PrintWriter writer) {
-        String userID = extractField(clientMessage, "<UserID>", "</UserID>");
-        String password = extractField(clientMessage, "<Password>", "</Password>");
-        String userType = extractField(clientMessage, "<UserType>", "</UserType>");
+    private String processAddTerminalRequest(String xmlRequest) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new ByteArrayInputStream(xmlRequest.getBytes()));
 
-        if (userID == null || password == null || userType == null) {
-            writer.println("<Response><Status>ERROR</Status><Message>Missing required fields for login.</Message></Response>");
-            return;
-        }
+            Element root = doc.getDocumentElement();
+            String terminalId = root.getElementsByTagName("TerminalID").item(0).getTextContent();
+            String room = root.getElementsByTagName("Room").item(0).getTextContent();
+            String osType = root.getElementsByTagName("OSType").item(0).getTextContent();
+            String status = root.getElementsByTagName("Status").item(0).getTextContent();
 
-        synchronized (activeSessions) {
-            if (activeSessions.containsKey(userID)) {
-                writer.println("<Response><Status>ERROR</Status><Message>Account already logged in.</Message></Response>");
-                return;
-            }
-        }
-
-        boolean isValid = LoginProcessor.validateUser(userID, password, userType);
-        if (isValid) {
-            synchronized (activeSessions) {
-                activeSessions.put(userID, clientSocket);
-            }
-            loggedInUser = userID;
-            writer.println("<Response><Status>SUCCESS</Status><Message>Login Successful</Message></Response>");
-            System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
-        } else {
-            writer.println("<Response><Status>FAILURE</Status><Message>Invalid credentials</Message></Response>");
-            System.out.println("Login Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
+            boolean success = new AddNewTerminalProcessor().processTerminalData(terminalId, room, osType, status);
+            return createXMLResponse(success, success ? "Terminal added successfully." : "Failed to add terminal.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Invalid XML Format</Message></Response>";
         }
     }
 
-    private void handleSignUp(String clientMessage, PrintWriter writer) {
-        String userID = extractField(clientMessage, "<UserID>", "</UserID>");
-        String name = extractField(clientMessage, "<Name>", "</Name>");
-        String password = extractField(clientMessage, "<Password>", "</Password>");
-        String userType = extractField(clientMessage, "<UserType>", "</UserType>");
-        String courseYear = extractField(clientMessage, "<CourseYear>", "</CourseYear>");
-        String facultyType = extractField(clientMessage, "<FacultyType>", "</FacultyType>");
-
-        if (userID == null || name == null || password == null || userType == null) {
-            writer.println("<Response><Status>ERROR</Status><Message>Missing required fields for sign-up.</Message></Response>");
-            return;
-        }
-
-        boolean isRegistered = SignUpProcessor.registerUser(userID, name, password, userType, courseYear, facultyType);
-        if (isRegistered) {
-            writer.println("<Response><Status>SUCCESS</Status><Message>Registration Successful</Message></Response>");
-            System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=SUCCESS");
-        } else {
-            writer.println("<Response><Status>FAILURE</Status><Message>Registration Failed</Message></Response>");
-            System.out.println("SignUp Attempt: UserID=" + userID + ", UserType=" + userType + ", Result=FAILURE");
+    private String processViewStudentReservationsRequest() {
+        try {
+            List<StudentReservation> reservations = ViewStudentReservationsProcessor.parseXML("src/main/java/server/util/reservations.xml");
+            return createReservationsXMLResponse(reservations);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>";
         }
     }
 
-    private void logoutUser() {
-        if (loggedInUser != null) {
-            synchronized (activeSessions) {
-                activeSessions.remove(loggedInUser);
+    private String createReservationsXMLResponse(List<StudentReservation> reservations) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element root = doc.createElement("Reservations");
+            doc.appendChild(root);
+
+            for (StudentReservation res : reservations) {
+                Element reservation = doc.createElement("Reservation");
+
+                Element resId = doc.createElement("reservation_id");
+                resId.appendChild(doc.createTextNode(res.getReservationId()));
+                reservation.appendChild(resId);
+
+                Element terminalId = doc.createElement("terminal_id");
+                terminalId.appendChild(doc.createTextNode(res.getTerminalId()));
+                reservation.appendChild(terminalId);
+
+                Element room = doc.createElement("terminal_room");
+                room.appendChild(doc.createTextNode(res.getTerminalRoom()));
+                reservation.appendChild(room);
+
+                Element date = doc.createElement("date");
+                date.appendChild(doc.createTextNode(res.getDate()));
+                reservation.appendChild(date);
+
+                Element status = doc.createElement("terminal_status");
+                status.appendChild(doc.createTextNode(res.getTerminalStatus()));
+                reservation.appendChild(status);
+
+                root.appendChild(reservation);
             }
-            System.out.println("User logged out: " + loggedInUser);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            return writer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
+        }
+    }
+
+    private String createXMLResponse(boolean success, String message) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element root = doc.createElement("Response");
+            doc.appendChild(root);
+
+            Element status = doc.createElement("Status");
+            status.appendChild(doc.createTextNode(success ? "SUCCESS" : "FAILURE"));
+            root.appendChild(status);
+
+            Element msg = doc.createElement("Message");
+            msg.appendChild(doc.createTextNode(message));
+            root.appendChild(msg);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            return writer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
         }
     }
 
