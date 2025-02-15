@@ -59,13 +59,13 @@
          <children>
             <TableView fx:id="modResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="472.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
                <columns>
-                  <TableColumn fx:id="reservationIDColumn" editable="false" prefWidth="121.0" resizable="false" text="Reservation ID" />
-                  <TableColumn fx:id="userIDColumn" editable="false" prefWidth="127.0" resizable="false" text="User ID" />
-                  <TableColumn fx:id="terminalIDColumn" editable="false" prefWidth="102.0" resizable="false" text="Terminal ID" />
-                  <TableColumn fx:id="reservationDateColumn" editable="false" prefWidth="138.0" resizable="false" text="Reservation Date" />
+                  <TableColumn fx:id="reservationIDColumn" editable="false" prefWidth="120.0" resizable="false" text="Reservation ID" />
+                  <TableColumn fx:id="userIDColumn" editable="false" prefWidth="120.0" resizable="false" text="User ID" />
+                  <TableColumn fx:id="terminalIDColumn" editable="false" prefWidth="120.0" resizable="false" text="Terminal ID" />
+                  <TableColumn fx:id="reservationDateColumn" editable="false" prefWidth="120.0" resizable="false" text="Reservation Date" />
                   <TableColumn fx:id="startTimeColumn" editable="false" prefWidth="100.0" resizable="false" text="Start Time" />
-                  <TableColumn fx:id="endTimeColumn" editable="false" prefWidth="92.0" resizable="false" text="End Time" />
-                  <TableColumn fx:id="reservationStatusColumn" editable="false" prefWidth="120.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="endTimeColumn" editable="false" prefWidth="100.0" resizable="false" text="End Time" />
+                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="120.0" resizable="false" text="Status" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.ModifyReservationView">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.ModifyReservationWindowView">
    <children>
       <VBox prefHeight="130.0" prefWidth="805.0">
          <children>
@@ -19,9 +20,9 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="733.0">
                      <children>
-                        <Label fx:id="modResLabel" text="Modify Reservation">
+                        <Label fx:id="modResLabel" text="Modify Terminal" textFill="#0d3073">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="System Bold" size="29.0" />
                            </font>
                         </Label>
                      </children>
@@ -45,12 +46,15 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="484.0" prefWidth="805.0">
          <children>
-            <TableView fx:id="modResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="408.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
+            <TableView fx:id="modResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="425.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
                <columns>
-                  <TableColumn fx:id="roomNumberColumn" editable="false" prefWidth="148.0" resizable="false" text="Room No." />
-                  <TableColumn fx:id="terminalColumn" editable="false" prefWidth="138.0" resizable="false" text="Terminal No." />
-                  <TableColumn fx:id="terminalOSColumn" editable="false" prefWidth="193.0" resizable="false" text="Terminal OS" />
-                  <TableColumn fx:id="terminalStatusColumn" editable="false" prefWidth="164.0" resizable="false" text="Terminal Status" />
+                  <TableColumn fx:id="reservationIDColumn" editable="false" prefWidth="120.0" resizable="false" text="Reservation ID" />
+                  <TableColumn fx:id="userIDColumn" editable="false" prefWidth="120.0" resizable="false" text="User ID" />
+                  <TableColumn fx:id="terminalIDColumn" editable="false" prefWidth="120.0" resizable="false" text="Terminal ID" />
+                  <TableColumn fx:id="reservationDateColumn" editable="false" prefWidth="120.0" resizable="false" text="Reservation Date" />
+                  <TableColumn fx:id="startTimeColumn" editable="false" prefWidth="100.0" resizable="false" text="Start Time" />
+                  <TableColumn fx:id="endTimeColumn" editable="false" prefWidth="100.0" resizable="false" text="End Time" />
+                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="120.0" resizable="false" text="Status" />
                   <TableColumn fx:id="editColumn" editable="false" minWidth="7.0" prefWidth="161.0" resizable="false" text="Edit" />
                </columns>
                <columnResizePolicy>
@@ -59,16 +63,9 @@
             </TableView>
          </children>
       </VBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="143.0" prefWidth="805.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="saveChangesButton" mnemonicParsing="false" onMouseEntered="#saveChangesButtonHovered" onMouseExited="#saveChangesButtonExited" prefHeight="21.0" prefWidth="150.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" text="Save Changes" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
+            <Button fx:id="saveChangesButton" mnemonicParsing="false" prefHeight="47.0" prefWidth="150.0" text="Save Changes" />
          </children>
       </HBox>
    </children>
