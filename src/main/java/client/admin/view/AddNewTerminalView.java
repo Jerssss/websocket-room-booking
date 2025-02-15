@@ -1,24 +1,25 @@
 package client.admin.view;
 
-import client.admin.model.AddNewTerminalModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;;
+import javafx.scene.control.*;
+
 import javafx.stage.Stage;
 import client.admin.controller.AddNewTerminalController;
 import server.admin.AddNewTerminalProcessor;
+import server.utility.TerminalVer2;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class AddNewTerminalView {
@@ -26,6 +27,9 @@ public class AddNewTerminalView {
 
     @FXML
     private Button saveChangesButton;
+    @FXML
+    private Button refreshButton;
+
 
     @FXML
     private Button redirectAddTerminalWindowButton;
@@ -45,8 +49,6 @@ public class AddNewTerminalView {
     private ComboBox dayComboBox;
     @FXML
     private ComboBox timeComboBox;
-    @FXML
-    private Button refreshButton;
     private String terminalId;
     private String room;
     private String osType;
@@ -99,38 +101,58 @@ public class AddNewTerminalView {
     public void setStatus(String status) {
         this.status = status;
     }
+    @FXML
+    private TableView<TerminalVer2> addTerminalTableView;
+    @FXML
+    private TableColumn<TerminalVer2, String> terminalColumn;
+    @FXML
+    private TableColumn<TerminalVer2, String> roomNumberColumn;
+    @FXML
+    private TableColumn<TerminalVer2, String> terminalOSColumn;
+    @FXML
+    private TableColumn<TerminalVer2, String> dateColumn;
+    @FXML
+    private TableColumn<TerminalVer2, String> timeColumn;
+    @FXML
+    private TableColumn<TerminalVer2, String> statusColumn;
+    @FXML
+
+    public static ObservableList<TerminalVer2> terminalResults = FXCollections.observableArrayList();
 
     // Setters for button actions
     public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
         saveChangesButton.setOnAction(handler);
     }
 
-    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
-        refreshButton.setOnAction(event);
+    public Button getSaveChangesButton() {
+        return saveChangesButton;
     }
 
-    private void redirectAddTerminalWindow(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/add_terminal_window.fxml"));
-            Parent root = loader.load();
-            AddNewTerminalView view = loader.getController();
-            AddNewTerminalController controller = new AddNewTerminalController(view);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public void setController(AddNewTerminalController controller) {
         this.controller = controller;
     }
-
     @FXML
     public void initialize() {
         if (redirectAddTerminalWindowButton != null) {
-            redirectAddTerminalWindowButton.setOnAction(event -> redirectAddTerminalWindow(event)
-            );
+            redirectAddTerminalWindowButton.setOnAction(event -> AddNewTerminalController.redirectAddTerminalWindow(event));
+        }
+
+        // Ensure table columns are initialized before setting cell value factories
+        if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
+                && dateColumn != null && statusColumn != null && addTerminalTableView != null) {
+
+            terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
+            roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
+            terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOSProperty());
+            dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+            statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
+
+            // Load data only when the TableView exists
+            AddNewTerminalController.loadDataFromXML("src/main/java/server/util/terminal.xml");
+
+            // Bind the ObservableList to the TableView
+            addTerminalTableView.setItems(terminalResults);
+            refreshButton.setOnAction(event -> AddNewTerminalController.refreshTable());
         }
     }
 }

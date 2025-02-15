@@ -23,7 +23,7 @@ public class AddNewTerminalProcessor {
 
     private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
 
-    public boolean processTerminalData(String terminalId, String room, String osType, String status) {
+    public static boolean processTerminalData(String terminalId, String room, String osType, String status) {
         try {
             File xmlFile = new File(FILE_PATH);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -55,27 +55,6 @@ public class AddNewTerminalProcessor {
             os.appendChild(doc.createTextNode(osType.trim()));
             newTerminal.appendChild(os);
 
-            // Check if room needs a default schedule
-            if (room.equals("526") || room.equals("524") || room.equals("426")) {
-                Element schedule = doc.createElement("default_schedule");
-
-                String[][] scheduleData = {
-                        {"Monday", "09:30-17:30"},
-                        {"Tuesday", "09:30-17:30"},
-                        {"Wednesday", "11:30-16:30"},
-                        {"Thursday", "11:30-16:30"},
-                        {"Friday", "07:30-15:30"},
-                        {"Saturday", "07:30-15:30"}
-                };
-
-                for (String[] day : scheduleData) {
-                    Element dayElement = doc.createElement(day[0]);
-                    dayElement.appendChild(doc.createTextNode(day[1]));
-                    schedule.appendChild(dayElement);
-                }
-                newTerminal.appendChild(schedule);
-            }
-
             Element statusElement = doc.createElement("terminal_status");
             statusElement.appendChild(doc.createTextNode(status.trim()));
             newTerminal.appendChild(statusElement);
@@ -103,7 +82,7 @@ public class AddNewTerminalProcessor {
     }
 
     // Validate if terminal ID already exists for a given room
-    private boolean isTerminalIdExistsInRoom(Element root, String terminalId, String room) {
+    private static boolean isTerminalIdExistsInRoom(Element root, String terminalId, String room) {
         NodeList terminalNodes = root.getElementsByTagName("Terminal");
         for (int i = 0; i < terminalNodes.getLength(); i++) {
             Element terminalElement = (Element) terminalNodes.item(i);
@@ -119,7 +98,7 @@ public class AddNewTerminalProcessor {
         return false; // Return false if no duplicates found
     }
 
-    private void removeWhiteSpaces(Node node) {
+    private static void removeWhiteSpaces(Node node) {
         NodeList children = node.getChildNodes();
         for (int i = children.getLength() - 1; i >= 0; i--) {
             Node child = children.item(i);

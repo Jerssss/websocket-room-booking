@@ -4,6 +4,7 @@ import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
 import javafx.application.Platform;
 import org.w3c.dom.*;
+import server.admin.AddNewTerminalProcessor;
 
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
@@ -17,9 +18,12 @@ import java.io.StringWriter;
 import java.io.IOException;
 
 public class AddNewTerminalModel {
+    private final AddNewTerminalProcessor terminalProcessor = new AddNewTerminalProcessor();
+    private final AddNewTerminalProcessor processor;
     private ServerConnection serverConnection;
 
     public AddNewTerminalModel() {
+        this.processor = new AddNewTerminalProcessor();
         try {
             serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
