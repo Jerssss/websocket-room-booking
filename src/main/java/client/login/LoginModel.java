@@ -55,6 +55,47 @@ public class LoginModel {
         }
     }
 
+    public String authenticateAndGetName(String userID, String password, String userType) {
+        if (serverConnection == null) {
+            showErrorDialog("Server is not available. Please try again later.");
+            return null;
+        }
+        try {
+            String loginRequest = String.format(
+                    "<Login><UserID>%s</UserID><Password>%s</Password><UserType>%s</UserType></Login>",
+                    userID, password, userType
+            );
+            serverConnection.sendMessage(loginRequest);
+            String response = serverConnection.readMessage();
+            return parseXMLForName(response);
+        } catch (IOException e) {
+            showErrorDialog("Lost connection to the server.");
+            return null;
+        }
+    }
+
+    /**
+     * Parse the server XML response and extract the user's name if login is successful.
+     */
+    private String parseXMLForName(String responseXML) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new ByteArrayInputStream(responseXML.getBytes()));
+            Element root = doc.getDocumentElement();
+            String status = root.getElementsByTagName("Status").item(0).getTextContent();
+
+            if ("SUCCESS".equalsIgnoreCase(status)) {
+                // Return the user's name if login is successful
+                return root.getElementsByTagName("Name").item(0).getTextContent();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
     }

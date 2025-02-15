@@ -51,18 +51,18 @@ public class LoginController {
             return;
         }
 
-        // Authenticate user
-        boolean isAuthenticated = loginModel.authenticate(userID, password, userType);
+        // Authenticate and retrieve user name
+        String userName = loginModel.authenticateAndGetName(userID, password, userType);
 
-        if (isAuthenticated) {
+        if (userName != null) {
             loginView.setPromptLabel("Login successful!");
             loginView.setPromptLabelVisible(true);
 
-            //  Pass the userID as the logged-in user's name
+            // Pass the user's NAME (not ID) to the main menu
             if ("Student".equalsIgnoreCase(userType)) {
-                redirectToStudentMainMenu(event, userID);
+                redirectToStudentMainMenu(event, userName);
             } else if ("Admin".equalsIgnoreCase(userType)) {
-                redirectToAdminMainMenu(event, userID);
+                redirectToAdminMainMenu(event, userName);
             }
         } else {
             loginView.setPromptLabel("Invalid credentials. Please try again.");
