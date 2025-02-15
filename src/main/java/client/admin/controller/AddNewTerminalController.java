@@ -2,6 +2,8 @@ package client.admin.controller;
 
 import client.admin.model.AddNewTerminalModel;
 import client.admin.view.AddNewTerminalView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class AddNewTerminalController {
     private final AddNewTerminalView view;
-    private final AddNewTerminalModel model;
+    private static AddNewTerminalModel model;
 
 
     public AddNewTerminalController(AddNewTerminalView view) {
@@ -32,11 +34,15 @@ public class AddNewTerminalController {
         String room = view.getRoomTextField().getText().trim();
         String osType = view.getOsTypeTextField().getText().trim();
         String status = view.getStatusTextField().getText().trim();
+        String selectedDay = view.getDayComboBox().getSelectionModel().getSelectedItem();
+        String selectedTime = view.getTimeComboBox().getSelectionModel().getSelectedItem();
+
         loadDataFromXML("src/main/java/server/util/terminal.xml");
 
         // Validate inputs
-        if (terminalId.isEmpty() || room.isEmpty() || osType.isEmpty() || status.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Error: All fields must be filled.");
+        if (terminalId.isEmpty() || room.isEmpty() || osType.isEmpty() || status.isEmpty() ||
+                selectedDay == null || selectedTime == null) {
+            JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including day and time.");
             return;
         }
 
@@ -51,12 +57,14 @@ public class AddNewTerminalController {
         view.setOsType(osType);
         view.setStatus(status);
 
-        // Process the data
+        // Process the data with day & time included
         boolean success = AddNewTerminalProcessor.processTerminalData(
                 view.getTerminalId(),
                 view.getRoom(),
                 view.getOsType(),
-                view.getStatus()
+                view.getStatus(),
+                selectedDay,
+                selectedTime
         );
 
         if (success) {
@@ -67,6 +75,7 @@ public class AddNewTerminalController {
             JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
         }
     }
+
     public static void redirectAddTerminalWindow(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(AddNewTerminalController.class.getResource("/fxml/admin/add_terminal_window.fxml"));
@@ -78,9 +87,10 @@ public class AddNewTerminalController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading Login GUI: " + e.getMessage());
+            System.out.println("Error loading Add Terminal GUI: " + e.getMessage());
         }
     }
+
     // Method to load data from the XML file
     public static void loadDataFromXML(String filePath) {
         List<TerminalVer2> terminalVer2s = AddNewTerminalProcessor.parseXML(filePath);
@@ -89,9 +99,9 @@ public class AddNewTerminalController {
             AddNewTerminalView.terminalResults.addAll(terminalVer2s);
         }
     }
+
     public static void refreshTable() {
         String filePath = "src/main/java/server/util/terminal.xml";
         loadDataFromXML(filePath);
     }
 }
-
