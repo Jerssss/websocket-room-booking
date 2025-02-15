@@ -63,12 +63,19 @@ public class ClientHandler implements Runnable {
                         String password = extractField(clientMessage, "<Password>", "</Password>");
                         String userType = extractField(clientMessage, "<UserType>", "</UserType>");
 
-                        if (userID == null || password == null || userType == null) {
-                            writer.println("<Response><Status>ERROR</Status><Message>Missing fields for login.</Message></Response>");
-                            continue;
+                        String userName = LoginProcessor.getUserName(userID, password, userType);
+                        if (userName != null) {
+                            writer.println(String.format(
+                                    "<Response><Status>SUCCESS</Status><Name>%s</Name><Message>Login Successful</Message></Response>",
+                                    userName
+                            ));
+                            activeUsers.put(userID, true);
+                        } else {
+                            writer.println("<Response><Status>FAILURE</Status><Message>Invalid Credentials</Message></Response>");
                         }
 
-                        if (activeUsers.containsKey(userID)) {
+
+                    if (activeUsers.containsKey(userID)) {
                             writer.println("<Response><Status>FAILURE</Status><Message>User is already logged in from another terminal.</Message></Response>");
                         } else {
                             boolean isValid = LoginProcessor.validateUser(userID, password, userType);

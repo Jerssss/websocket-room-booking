@@ -67,7 +67,7 @@ public class AddNewTerminalController {
             JOptionPane.showMessageDialog(null, "Success! Terminal has been added!");
 
             // Update the TableView immediately
-            view.loadDataFromXML("src/main/java/server/util/terminal.xml"); // Ensure this method clears and reloads data
+           // view.loadDataFromXML("src/main/java/server/util/terminal.xml"); // Ensure this method clears and reloads data
         } else {
             JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
         }
