@@ -45,7 +45,7 @@ public class AdminMainMenuView {
 
     @FXML
     public void setActionToggleButton(EventHandler<ActionEvent> event){
-        this.serverToggleButton.setOnAction(event);
+        serverToggleButton.setOnAction(event);
     }
 
 

@@ -15,6 +15,7 @@ public class ReservationApprovalView {
     @FXML private Button searchButton;
     @FXML private TableView<StudentReservation> approveResTableView;
     @FXML private TableColumn<StudentReservation, String> resIDColumn;
+    @FXML private TableColumn<StudentReservation, String> userIDColumn;
     @FXML private TableColumn<StudentReservation, String> terminalColumn;
     @FXML private TableColumn<StudentReservation, String> roomNumberColumn;
     @FXML private TableColumn<StudentReservation, String> dateColumn;
@@ -38,6 +39,7 @@ public class ReservationApprovalView {
     // Set up table columns
     public void initializeTable() {
         TableUtils.setupColumn(resIDColumn, "reservationId");
+//        TODO: TableUtils.setupColumn(userIDColumn, "xx");
         TableUtils.setupColumn(terminalColumn, "terminalId");
         TableUtils.setupColumn(roomNumberColumn, "terminalRoom");
         TableUtils.setupColumn(dateColumn, "date");

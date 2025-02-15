@@ -45,6 +45,8 @@ public class AddNewTerminalView {
     private ComboBox dayComboBox;
     @FXML
     private ComboBox timeComboBox;
+    @FXML
+    private Button refreshButton;
     private String terminalId;
     private String room;
     private String osType;
@@ -102,6 +104,11 @@ public class AddNewTerminalView {
     public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
         saveChangesButton.setOnAction(handler);
     }
+
+    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
+        refreshButton.setOnAction(event);
+    }
+
     private void redirectAddTerminalWindow(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/add_terminal_window.fxml"));
