@@ -1,23 +1,18 @@
 package client.admin.model;
 
-public class ReservationApprovalModel {
-    private int id; 
-    private String studentName;
-    private String date;
-    private String status;
+import javafx.collections.ObservableList;
+import server.admin.ReservationApprovalProcessor;
+import server.utility.StudentReservation;
 
-    public ReservationApprovalModel(int id, String studentName, String date) {
-        this.id = id;
-        this.studentName = studentName;
-        this.date = date;
-        this.status = "Pending";
+public class ReservationApprovalModel {
+    private final ReservationApprovalProcessor processor;
+
+    public ReservationApprovalModel() {
+        this.processor = new ReservationApprovalProcessor();
     }
 
-    public int getId() { return id; }
-    public String getStudentName() { return studentName; }
-    public String getDate() { return date; }
-    public String getStatus() { return status; }
-
-    public void approve() { this.status = "Approved"; }
-    public void reject() { this.status = "Rejected"; }
+    // Load all reservations using the processor
+    public ObservableList<StudentReservation> loadAllReservations() {
+        return processor.loadAllReservations();
+    }
 }

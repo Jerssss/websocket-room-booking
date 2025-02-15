@@ -1,3 +1,4 @@
+// File: client/admin/controller/AdminMainMenuController.java
 package client.admin.controller;
 
 import client.admin.model.AdminMainMenuModel;
@@ -27,13 +28,16 @@ public class AdminMainMenuController {
         this.model = model;
         this.loggedInUserName = loggedInUserName;
 
+        // Display logged-in user's name
         this.view.setLoggedInUserName(loggedInUserName);
         this.view.initializeDateTime();
 
+        // Handle button actions
         this.view.setActionAddNewTerminalButton(event -> handleAddNewTerminal());
         this.view.setActionModifyTerminalButton(event -> handleModifyTerminal());
-        this.view.setActionLogoutButton(event -> handleLogout(event));
         this.view.setActionShowStudentReservationButton(event -> handleViewStudentReservation());
+        this.view.setActionResApprovalButton(event -> handleReservationApproval());
+        this.view.setActionLogoutButton(this::handleLogout);
     }
 
     private void handleModifyTerminal() {
@@ -43,12 +47,17 @@ public class AdminMainMenuController {
     private void handleAddNewTerminal() {
         System.out.println("Navigating to Add New Terminal...");
     }
+
     private void handleViewStudentReservation() {
-        System.out.println("Navigating to Add New Terminal...");
+        System.out.println("Navigating to View Student Reservations...");
+    }
+
+    private void handleReservationApproval() {
+        System.out.println("Navigated to Reservation Approval Page.");
     }
 
     private void handleLogout(ActionEvent event) {
-        LogsXMLHandler.logLogout(loggedInUserName, "Admin"); // Save logout to logs
+        LogsXMLHandler.logLogout(loggedInUserName, "Admin");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
             Parent root = fxmlLoader.load();

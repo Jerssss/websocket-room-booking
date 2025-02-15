@@ -1,17 +1,17 @@
+// File: server/utility/StudentReservation.java
 package server.utility;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 
 public class StudentReservation {
-    private StringProperty reservationId;
-    private StringProperty terminalId;
-    private StringProperty terminalRoom;
-    private StringProperty date;
-    private StringProperty terminalStatus;
+    private final StringProperty reservationId;
+    private final StringProperty terminalId;
+    private final StringProperty terminalRoom;
+    private final StringProperty date;
+    private final StringProperty terminalStatus;
 
-    // Constructor
+    // Full Constructor
     public StudentReservation(String reservationId, String terminalId, String terminalRoom, String date, String terminalStatus) {
         this.reservationId = new SimpleStringProperty(reservationId);
         this.terminalId = new SimpleStringProperty(terminalId);
@@ -20,10 +20,12 @@ public class StudentReservation {
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
     }
 
-    public StudentReservation(String resID, String terminalNo, String terminalRoom, String status) {
+    // Constructor without Date (Optional Use Case)
+    public StudentReservation(String reservationId, String terminalId, String terminalRoom, String terminalStatus) {
+        this(reservationId, terminalId, terminalRoom, "", terminalStatus);
     }
 
-    // Getters
+    // Getters and Property Methods for TableView Bindings
     public String getReservationId() {
         return reservationId.get();
     }
@@ -47,12 +49,15 @@ public class StudentReservation {
     public StringProperty terminalRoomProperty() {
         return terminalRoom;
     }
+
     public String getDate() {
         return date.get();
     }
+
     public StringProperty dateProperty() {
         return date;
     }
+
     public String getTerminalStatus() {
         return terminalStatus.get();
     }
