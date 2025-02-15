@@ -37,8 +37,26 @@ public class AdminMainMenuController {
         this.view.setActionModifyTerminalButton(event -> handleModifyTerminal());
         this.view.setActionShowStudentReservationButton(event -> handleViewStudentReservation());
         this.view.setActionResApprovalButton(event -> handleReservationApproval());
+        this.view.setActionToggleButton(event -> handleServerToggleButton());
         this.view.setActionLogoutButton(this::handleLogout);
     }
+
+    public void handleServerToggleButton() {
+        /**
+         * rough idea how to use the toggle button
+         * if (togglebutton.isSelected()) {
+         *      setTextToggleValue("START")
+         *      include other logic when on
+         * }
+         *
+         * else {
+         *  setTextToggleValue("STOP")
+         *  include other logic when off
+         *
+         *  }
+         */
+    }
+
 
     private void handleModifyTerminal() {
         System.out.println("Navigating to Modify Terminal Status...");

@@ -5,14 +5,78 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61187ed5-a681-424b-889d-132ae44795ac" name="Changes" comment="created the ServerConnectionManager and call it in every connection model">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_11_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_11_22_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_9_49_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_9_49_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/AddNewTerminalView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/AddNewTerminalView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/ViewStudentReservationsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/ViewStudentReservationsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_pane.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_window.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_11_22_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_11_22_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_9_49_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_11_2025_9_49_AM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/AddNewTerminalController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/AddNewTerminalProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/AddNewTerminalView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/AdminMainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/AdminMainMenuModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/AdminMainMenuView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/ClientMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/CreateReservationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/CreateReservationModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/CreateReservationView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/LandingPageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/LoginModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/ModifyTerminalStatusController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/RoomItemCardModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/RoomItemCardView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/ServerMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/SignUpController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/SignUpModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/StudentMainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/StudentMainMenuView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AddNewTerminalController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AddNewTerminalProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AddNewTerminalView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AdminMainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AdminMainMenuModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/AdminMainMenuView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/ClientMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/CreateReservationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/CreateReservationModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/CreateReservationView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/LandingPageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/LoginModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/ModifyTerminalStatusController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/RoomItemCardModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/RoomItemCardView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/ServerMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/SignUpController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/SignUpModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/StudentMainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/StudentMainMenuView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2025_11_22_PM__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/controller/AdminMainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/controller/AdminMainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/AdminMainMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/AdminMainMenuView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/admin_menu_page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/admin_menu_page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/login/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/signup/SignUpController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/CreateReservationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/ModifyReservationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/RoomItemCardController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/StudentMainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/CreateReservationModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/model/ModifyReservationModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/student/view/CreateReservationView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/add_terminal_window.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/student_reservations_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/student_reservations_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/client/modify_reservation_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/client/modify_reservation_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/LoginProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/SignUpProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/student/ModifyReservationProcessor.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,16 +165,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject/src/main/resources/fxml/admin"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject/src/main/resources/fxml/admin&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\resources\fxml\admin" />

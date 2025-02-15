@@ -40,6 +40,14 @@ public class AdminMainMenuView {
     private Label headerTimeLabel; // Ensure this matches the fx:id in FXML
     @FXML
     private BorderPane rootPane;
+    @FXML
+    private ToggleButton serverToggleButton;
+
+    @FXML
+    public void setActionToggleButton(EventHandler<ActionEvent> event){
+        this.serverToggleButton.setOnAction(event);
+    }
+
 
     // Load a new view inside the main menu
     private void loadView(String fxmlFile) {
