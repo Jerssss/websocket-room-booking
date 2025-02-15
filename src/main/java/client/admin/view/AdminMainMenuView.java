@@ -53,8 +53,8 @@ public class AdminMainMenuView {
     }
 
     // Method to set the name of the logged-in user
-    public void setLoggedInUserName(String name) {
-        headerNameLabel.setText(name);
+    public void setLoggedInUserName(String Name) {
+        headerNameLabel.setText(Name);
     }
 
     // Method to initialize the date and time labels

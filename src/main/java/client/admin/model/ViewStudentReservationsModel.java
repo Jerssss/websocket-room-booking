@@ -1,6 +1,7 @@
 package client.admin.model;
 
 import client.utility.ServerConnection;
+import client.utility.ServerConnectionManager;
 import javafx.application.Platform;
 import org.w3c.dom.*;
 
@@ -20,7 +21,7 @@ public class ViewStudentReservationsModel {
 
     public ViewStudentReservationsModel() {
         try {
-            serverConnection = new ServerConnection();
+            serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }

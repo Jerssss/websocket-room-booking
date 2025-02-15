@@ -32,7 +32,7 @@ public class LandingPageController {
         try {
             serverConnection = new ServerConnection();
         } catch (IOException e) {
-            showErrorDialog("Server is down or unreachable. Please try again later.");
+           // showErrorDialog("Server is down or unreachable. Please try again later.");
             return;
         }
 

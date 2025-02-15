@@ -7,7 +7,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class ServerConnection {
-    private static final String SERVER_HOST = "localhost";
+    private static final String SERVER_HOST = "127.0.0.1";
     private static final int SERVER_PORT = 4321;
 
     private Socket socket;

@@ -1,6 +1,8 @@
 package client.admin.model;
 
 import client.utility.ServerConnection;
+import client.utility.ServerConnectionManager;
+
 import java.io.IOException;
 
 public class AdminMainMenuModel {
@@ -8,7 +10,7 @@ public class AdminMainMenuModel {
 
     public AdminMainMenuModel() {
         try {
-            serverConnection = new ServerConnection();
+            serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }

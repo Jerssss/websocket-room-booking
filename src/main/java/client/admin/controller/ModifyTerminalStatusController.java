@@ -13,6 +13,7 @@ public class ModifyTerminalStatusController {
 
     private final ModifyTerminalStatusView view;
     private final ModifyTerminalProcessor processor;
+
     private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
     public ModifyTerminalStatusController(ModifyTerminalStatusView view) {

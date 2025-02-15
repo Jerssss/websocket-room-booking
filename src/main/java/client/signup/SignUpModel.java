@@ -1,5 +1,6 @@
 package client.signup;
 
+import client.utility.ServerConnectionManager;
 import client.utility.ServerConnection;
 import javax.swing.JOptionPane;
 import javafx.application.Platform;
@@ -10,7 +11,7 @@ public class SignUpModel {
 
     public SignUpModel() {
         try {
-            serverConnection = new ServerConnection();
+            serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }
@@ -28,10 +29,8 @@ public class SignUpModel {
                     userID, name, password, userType, courseYear, facultyType
             );
             serverConnection.sendMessage(signUpRequest);
-
             String response = serverConnection.readMessage();
             System.out.println("Server Response: " + response);
-
             return "SUCCESS".equalsIgnoreCase(response);
         } catch (IOException e) {
             showErrorDialog("Lost connection to the server.");

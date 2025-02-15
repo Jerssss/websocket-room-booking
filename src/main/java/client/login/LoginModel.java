@@ -1,14 +1,13 @@
 package client.login;
 
+import client.utility.ServerConnectionManager;
 import client.utility.ServerConnection;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import javafx.application.Platform;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -17,7 +16,7 @@ public class LoginModel {
 
     public LoginModel() {
         try {
-            serverConnection = new ServerConnection();
+            serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }
@@ -47,7 +46,6 @@ public class LoginModel {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(new ByteArrayInputStream(responseXML.getBytes()));
-
             Element root = doc.getDocumentElement();
             String status = root.getElementsByTagName("Status").item(0).getTextContent();
             return status.equalsIgnoreCase("SUCCESS");
@@ -56,7 +54,6 @@ public class LoginModel {
             return false;
         }
     }
-
 
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));

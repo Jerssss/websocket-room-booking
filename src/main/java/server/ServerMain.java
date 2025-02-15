@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 
 public class ServerMain {
     private static final int PORT = 4321;
+    private static final String IP = "192.168.244.7";
     private static final int THREAD_POOL_SIZE = 10;
     private static boolean isRunning = true; // Server control flag
 
@@ -16,7 +17,7 @@ public class ServerMain {
         ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Server started on port " + PORT);
+            System.out.println("Server started on port " + IP);
             System.out.println("Type 'stop' to shut down the server.");
 
             // Start a separate thread for console commands
