@@ -1,6 +1,5 @@
 package client.admin.view;
 
-import client.utility.TableUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,9 +7,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import server.utility.ApprovalTerminal;
 import server.utility.StudentReservation;
-
-import java.util.List;
 
 public class ReservationApprovalView {
 
@@ -70,8 +68,8 @@ public class ReservationApprovalView {
     }
 
     /** Display Reservations */
-    public void displayApprovalReservations(List<StudentReservation> reservations) {
-        reservationList.setAll(reservations);
+    public void displayApprovalReservations(ObservableList<ApprovalTerminal> reservations) {
+        reservationList.setAll((StudentReservation) reservations);
     }
 
     /** Get Search TextField */
