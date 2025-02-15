@@ -1,12 +1,11 @@
+// File: client/admin/controller/ReservationApprovalController.java
 package client.admin.controller;
 
 import client.admin.model.ReservationApprovalModel;
 import client.admin.view.ReservationApprovalView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import server.utility.StudentReservation;
+import server.utility.ApprovalTerminal;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,45 +14,45 @@ public class ReservationApprovalController {
 
     private final ReservationApprovalView view;
     private final ReservationApprovalModel model;
-    private final ObservableList<StudentReservation> allReservations = FXCollections.observableArrayList();
+    private final ObservableList<ApprovalTerminal> allTerminals = FXCollections.observableArrayList();
 
+    // Constructor
     public ReservationApprovalController(ReservationApprovalView view) {
         this.view = view;
         this.model = new ReservationApprovalModel();
 
-        loadReservations();  // Load all reservations
-        setupSearchFunctionality();
+        loadTerminals();           // Load all terminals
+        setupSearchFunctionality(); // Set up search functionality
 
-        this.view.setActionRefreshButton(event -> loadReservations());
+        this.view.setActionRefreshButton(event -> loadTerminals());
     }
 
-    /** Load all reservations */
-    private void loadReservations() {
-        List<StudentReservation> reservations = model.fetchApprovalReservations();
-        allReservations.setAll(reservations);
-        view.displayApprovalReservations(allReservations);
+    /** Load all terminals from the model */
+    private void loadTerminals() {
+        List<ApprovalTerminal> terminals = model.fetchApprovalTerminals();
+        allTerminals.setAll(terminals);
+        view.displayApprovalReservations(allTerminals);
     }
 
-    /** Set up search button functionality */
+    /** Search terminals by room */
     private void setupSearchFunctionality() {
         view.setActionSearchButton(event -> {
             String searchQuery = view.getSearchStudResTextField().getText().trim();
-            filterReservations(searchQuery);
+            filterTerminals(searchQuery);
         });
     }
 
-    /** Filter reservations based on search query */
-    private void filterReservations(String searchQuery) {
+    /** Filter terminals by search query */
+    private void filterTerminals(String searchQuery) {
         if (searchQuery.isEmpty()) {
-            view.displayApprovalReservations(allReservations); // Show all if empty
+            view.displayApprovalReservations(allTerminals);
             return;
         }
 
-        List<StudentReservation> filteredList = allReservations.stream()
-                .filter(reservation -> reservation.getTerminalRoom() != null &&
-                        reservation.getTerminalRoom().equalsIgnoreCase(searchQuery))
+        List<ApprovalTerminal> filteredList = allTerminals.stream()
+                .filter(terminal -> terminal.getTerminalRoom().equalsIgnoreCase(searchQuery))
                 .collect(Collectors.toList());
 
-        view.displayApprovalReservations(filteredList);
+        view.displayApprovalReservations((ObservableList<ApprovalTerminal>) filteredList);
     }
 }

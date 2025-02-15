@@ -1,4 +1,3 @@
-// File: server/utility/StudentReservation.java
 package server.utility;
 
 import javafx.beans.property.SimpleStringProperty;

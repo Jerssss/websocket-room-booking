@@ -36,4 +36,7 @@ public class XMLUtility {
         }
         return reservations;
     }
+
+    public static void saveXMLDocument(String filePath, Document document) {
+    }
 }

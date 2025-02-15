@@ -15,7 +15,7 @@ public class ServerMain {
     private static ExecutorService threadPool;
     private static ServerSocket serverSocket;
 
-    /** Main Method: Required for IntelliJ */
+
     public static void main(String[] args) {
         System.out.println("Server started via console...");
         startServer();
@@ -71,7 +71,7 @@ public class ServerMain {
         System.out.println("Server has stopped.");
     }
 
-    /** 🎮 Console Input Handler (Keeps Old 'stop' Command) */
+
     private static void handleConsoleInput() {
         Scanner scanner = new Scanner(System.in);
         while (isRunning) {
