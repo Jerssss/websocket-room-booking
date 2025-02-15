@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import server.landingpage.SignUpProcessor;
 import org.w3c.dom.Document;
 import server.landingpage.SignUpProcessor;
 

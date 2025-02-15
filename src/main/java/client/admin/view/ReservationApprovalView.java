@@ -1,5 +1,6 @@
 package client.admin.view;
 
+import client.utility.TableUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,31 +14,6 @@ import java.util.List;
 
 public class ReservationApprovalView {
 
-<<<<<<< HEAD
-    @FXML private TextField searchStudResTextField;
-    @FXML private Button searchButton;
-    @FXML private TableView<StudentReservation> approveResTableView;
-    @FXML private TableColumn<StudentReservation, String> resIDColumn;
-    @FXML private TableColumn<StudentReservation, String> userIDColumn;
-    @FXML private TableColumn<StudentReservation, String> terminalColumn;
-    @FXML private TableColumn<StudentReservation, String> roomNumberColumn;
-    @FXML private TableColumn<StudentReservation, String> dateColumn;
-    @FXML private TableColumn<StudentReservation, String> statusColumn;
-=======
-    @FXML
-    private TableView<StudentReservation> approveResTableView;
-    @FXML
-    private TableColumn<StudentReservation, String> resIDColumn;
-    @FXML
-    private TableColumn<StudentReservation, String> terminalColumn;
-    @FXML
-    private TableColumn<StudentReservation, String> roomNumberColumn;
-    @FXML
-    private TableColumn<StudentReservation, String> dateColumn;
-    @FXML
-    private TableColumn<StudentReservation, String> statusColumn;
->>>>>>> d093ef69fd2b41ec74f17413e741f6dc7c04beda
-
     @FXML
     private TextField searchStudResTextField;
 
@@ -47,12 +23,34 @@ public class ReservationApprovalView {
     @FXML
     private Button refreshButton;
 
+    @FXML
+    private TableView<StudentReservation> approveResTableView;
+
+    @FXML
+    private TableColumn<StudentReservation, String> resIDColumn;
+
+    @FXML
+    private TableColumn<StudentReservation, String> userIDColumn;
+
+    @FXML
+    private TableColumn<StudentReservation, String> terminalColumn;
+
+    @FXML
+    private TableColumn<StudentReservation, String> roomNumberColumn;
+
+    @FXML
+    private TableColumn<StudentReservation, String> dateColumn;
+
+    @FXML
+    private TableColumn<StudentReservation, String> statusColumn;
+
     private final ObservableList<StudentReservation> reservationList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // Initialize table columns
+        // Initialize table columns with property values
         resIDColumn.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
+        userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         terminalColumn.setCellValueFactory(new PropertyValueFactory<>("terminalId"));
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("terminalRoom"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -61,35 +59,23 @@ public class ReservationApprovalView {
         approveResTableView.setItems(reservationList);
     }
 
+    /** Set Search Button Action */
+    public void setActionSearchButton(EventHandler<ActionEvent> event) {
+        searchButton.setOnAction(event);
+    }
 
+    /** Set Refresh Button Action */
     public void setActionRefreshButton(EventHandler<ActionEvent> event) {
         refreshButton.setOnAction(event);
     }
 
- 
-    public void displayApprovalReservations(ObservableList<StudentReservation> reservations) {
-        approveResTableView.setItems(reservations);
-    }
-    
-    public void setActionSearchButton(EventHandler<ActionEvent> event) {
-        searchButton.setOnAction(event);
-    }
-    
-    public TextField getSearchStudResTextField() {
-        return searchStudResTextField;
+    /** Display Reservations */
+    public void displayApprovalReservations(List<StudentReservation> reservations) {
+        reservationList.setAll(reservations);
     }
 
-<<<<<<< HEAD
-    // Set up table columns
-    public void initializeTable() {
-        TableUtils.setupColumn(resIDColumn, "reservationId");
-//        TODO: TableUtils.setupColumn(userIDColumn, "xx");
-        TableUtils.setupColumn(terminalColumn, "terminalId");
-        TableUtils.setupColumn(roomNumberColumn, "terminalRoom");
-        TableUtils.setupColumn(dateColumn, "date");
-        TableUtils.setupColumn(statusColumn, "terminalStatus");
-=======
-    public void displayApprovalReservations(List<StudentReservation> filteredList) {
->>>>>>> d093ef69fd2b41ec74f17413e741f6dc7c04beda
+    /** Get Search TextField */
+    public TextField getSearchStudResTextField() {
+        return searchStudResTextField;
     }
 }
