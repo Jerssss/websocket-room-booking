@@ -3,7 +3,7 @@ package client.utility;
 import java.io.IOException;
 
 public class ServerConnectionManager {
-    private static ServerConnection serverConnection;
+    public static ServerConnection serverConnection;
 
     // Private constructor to prevent direct instantiation
     private ServerConnectionManager() { }

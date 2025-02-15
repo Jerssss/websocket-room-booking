@@ -1,5 +1,6 @@
 package server;
 
+import client.utility.ServerConnectionManager;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import server.landingpage.LoginProcessor;
@@ -13,6 +14,7 @@ import server.utility.StudentReservation;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,10 +117,13 @@ public class ClientHandler implements Runnable {
                     userName
             ));
             currentUser = userID;
+            ServerConnectionManager.serverConnection.setLoggedInUserId(userID);  // Set the logged-in user ID
         } else {
             writer.println("<Response><Status>FAILURE</Status><Message>Invalid Credentials</Message></Response>");
         }
     }
+
+
 
     /**
      * Handles user sign-up requests.
@@ -190,15 +195,23 @@ public class ClientHandler implements Runnable {
      */
     private void handleFetchReservations(PrintWriter writer) {
         try {
-            List<Reservation> reservations = ViewReservationProcessor.parseXML(
-                    "server/util/reservationapproval.xml"
-            );
-            writer.println(createReservations2XMLResponse(reservations));
+            List<Reservation> reservations = ViewReservationProcessor.parseXML("server/util/reservationapproval.xml");
+
+            // Filter the reservations to show only those that belong to the logged-in user
+            List<Reservation> userReservations = new ArrayList<>();
+            for (Reservation res : reservations) {
+                if (res.getUserId().equals(currentUser)) {  // Only include reservations with the same user_id
+                    userReservations.add(res);
+                }
+            }
+
+            writer.println(createReservations2XMLResponse(userReservations));
         } catch (Exception e) {
             e.printStackTrace();
             writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
         }
     }
+
 
     private void handlefetchreservation(PrintWriter writer) {
         try {

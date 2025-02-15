@@ -7,7 +7,9 @@ import javafx.scene.control.TableColumn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import server.student.ViewReservationProcessor;
+import client.utility.ServerConnectionManager;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ViewReservationView {
@@ -32,6 +34,7 @@ public class ViewReservationView {
 
     @FXML
     private TableColumn<Reservation, String> endTimeColumn;
+
     @FXML
     private TableColumn<Reservation, String> statusColumn;
 
@@ -40,8 +43,9 @@ public class ViewReservationView {
     public TableView<Reservation> getStudResTableView() {
         return modResTableView;  // Ensure studResTableView is properly initialized
     }
+
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         // Initialize columns and bind properties
         reservationIDColumn.setCellValueFactory(cellData -> cellData.getValue().reservationIdProperty());
         userIDColumn.setCellValueFactory(cellData -> cellData.getValue().userIdProperty());
@@ -51,17 +55,24 @@ public class ViewReservationView {
         endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().reservationStatusProperty());
 
-
-        loadDataFromXML("src/main/java/server/util/reservationapproval.xml");
+        loadDataForLoggedInUser();
 
         modResTableView.setItems(reservationData);
     }
-    private void loadDataFromXML(String filePath) {
-        List<Reservation> reservations = ViewReservationProcessor.parseXML(filePath);
+
+    // Load reservations for the logged-in user only
+    private void loadDataForLoggedInUser() throws IOException {
+        String loggedInUserId = ServerConnectionManager.getConnection().getLoggedInUserId();  // Fetch logged-in user ID
+        System.out.println("Logged-in User ID: " + loggedInUserId);  // Debugging logged-in user ID
+
+        // Load the reservations and filter them by logged-in user's ID
+        List<Reservation> reservations = ViewReservationProcessor.parseXML("src/main/java/server/util/reservationapproval.xml");
         if (reservations != null) {
-            reservationData.addAll(reservations);
+            for (Reservation reservation : reservations) {
+                if (reservation.getUserId().equals(loggedInUserId)) {
+                    reservationData.add(reservation);  // Add only the logged-in user's reservations
+                }
+            }
         }
     }
-
 }
-

@@ -13,13 +13,15 @@ public class ServerConnection {
     private Socket socket;
     private PrintWriter writer;
     private BufferedReader reader;
+    private String loggedInUserId; // Variable to store the logged-in user's ID
+
 
     public ServerConnection() throws IOException {
         try {
             socket = new Socket(SERVER_HOST, SERVER_PORT);
             writer = new PrintWriter(socket.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+            this.loggedInUserId = null; // Initially no user is logged in
             // Read and print welcome message
             System.out.println(reader.readLine());
         } catch (IOException e) {
@@ -51,6 +53,16 @@ public class ServerConnection {
 
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
+    }
+
+    // Method to set the logged-in user ID after a successful login
+    public void setLoggedInUserId(String userId) {
+        this.loggedInUserId = userId;
+    }
+
+    // Method to get the logged-in user ID
+    public String getLoggedInUserId() {
+        return this.loggedInUserId;
     }
 }
 
