@@ -1,14 +1,19 @@
 package server;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
 import server.admin.AddNewTerminalProcessor;
 import server.admin.ViewStudentReservationsProcessor;
+import server.student.ModifyReservationProcessor;
 import server.utility.StudentReservation;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.xml.parsers.DocumentBuilder;
@@ -25,6 +30,7 @@ public class ClientHandler implements Runnable {
     private static final ConcurrentMap<String, Boolean> activeUsers = new ConcurrentHashMap<>();
     private final Socket clientSocket;
     private String currentUser = null;
+    private String loggedInUserId = null; // Track logged-in user in this session.
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -103,7 +109,31 @@ public class ClientHandler implements Runnable {
                         writer.println(responseXML);
                     } else if (!isLoggedIn) {
                         writer.println("<Response><Status>ERROR</Status><Message>Please log in first.</Message></Response>");
-                    } else {
+                    } else if (clientMessage.startsWith("FETCH_RESERVATIONS")) {
+                        ModifyReservationProcessor processor = new ModifyReservationProcessor(loggedInUserId);
+                        String response = processor.fetchReservations();
+                        writer.println(response);
+                    }
+                    else if (clientMessage.startsWith("UPDATE_RESERVATION")) {
+                        // Extract reservation ID and updates from XML
+                        Map<String, String> updates = parseUpdateRequest(clientMessage);
+                        String reservationId = extractField(clientMessage, "<ReservationID>", "</ReservationID>");
+                        ModifyReservationProcessor processor = new ModifyReservationProcessor(loggedInUserId);
+                        String response = processor.updateReservation(reservationId, updates);
+                        writer.println(response);
+                    }
+                    else if (clientMessage.startsWith("<UpdateRequest>")) {
+                        Map<String, String> updates = parseUpdateRequest(clientMessage);
+                        String reservationId = updates != null ? updates.get("ReservationID") : null;
+
+                        // Remove ReservationID from updates as it's not an updateable field
+                        updates.remove("ReservationID");
+
+                        ModifyReservationProcessor processor = new ModifyReservationProcessor(loggedInUserId);
+                        String response = processor.updateReservation(reservationId, updates);
+                        writer.println(response);
+                    }
+                    else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
@@ -245,5 +275,30 @@ public class ClientHandler implements Runnable {
             System.out.println("Error extracting field: " + startTag);
         }
         return null;
+    }
+
+    private Map<String, String> parseUpdateRequest(String xmlRequest) {
+        Map<String, String> updates = new HashMap<>();
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new ByteArrayInputStream(xmlRequest.getBytes()));
+
+            Element root = doc.getDocumentElement();
+            NodeList nodes = root.getChildNodes();
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    String tagName = node.getNodeName();
+                    String value = node.getTextContent();
+                    updates.put(tagName, value);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error parsing update request: " + e.getMessage());
+            return null;
+        }
+        return updates;
     }
 }
