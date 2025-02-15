@@ -1,6 +1,7 @@
 package client.student.model;
 
 import client.utility.ServerConnection;
+import client.utility.ServerConnectionManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,7 +19,7 @@ public class CreateReservationModel {
 
     public CreateReservationModel() {
         try {
-            serverConnection = new ServerConnection();
+            serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
