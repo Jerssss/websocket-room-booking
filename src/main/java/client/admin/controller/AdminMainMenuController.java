@@ -3,16 +3,14 @@ package client.admin.controller;
 
 import client.admin.model.AdminMainMenuModel;
 import client.admin.view.AdminMainMenuView;
-import client.login.LoginController;
-import client.login.LoginModel;
-import client.login.LoginView;
-import client.student.view.StudentMainMenuView;
+import client.admin.view.ReservationApprovalView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import server.ServerMain;
 import server.utility.LogsXMLHandler;
 
 import java.io.IOException;
@@ -22,6 +20,8 @@ public class AdminMainMenuController {
     private final AdminMainMenuView view;
     private final AdminMainMenuModel model;
     private final String loggedInUserName;
+
+    private Thread serverThread;  // Server Thread
 
     public AdminMainMenuController(AdminMainMenuView view, AdminMainMenuModel model, String loggedInUserName) {
         this.view = view;
@@ -41,22 +41,21 @@ public class AdminMainMenuController {
         this.view.setActionLogoutButton(this::handleLogout);
     }
 
+    /** Handle Toggle Button to Start/Stop Server */
     public void handleServerToggleButton() {
-        /**
-         * rough idea how to use the toggle button
-         * if (togglebutton.isSelected()) {
-         *      setTextToggleValue("START")
-         *      include other logic when on
-         * }
-         *
-         * else {
-         *  setTextToggleValue("STOP")
-         *  include other logic when off
-         *
-         *  }
-         */
+        if (view.isServerToggleSelected()) {
+            // Start Server
+            view.setToggleText("STOP");
+            serverThread = new Thread(ServerMain::startServer);
+            serverThread.start();
+            System.out.println("Server Started");
+        } else {
+            // Stop Server
+            view.setToggleText("START");
+            ServerMain.stopServer();
+            System.out.println("Server Stopped");
+        }
     }
-
 
     private void handleModifyTerminal() {
         System.out.println("Navigating to Modify Terminal Status...");
@@ -70,9 +69,13 @@ public class AdminMainMenuController {
         System.out.println("Navigating to View Student Reservations...");
     }
 
+
     private void handleReservationApproval() {
-        System.out.println("Navigated to Reservation Approval Page.");
+        System.out.println("");
     }
+
+
+
 
     private void handleLogout(ActionEvent event) {
         LogsXMLHandler.logLogout(loggedInUserName, "Admin");
@@ -80,18 +83,15 @@ public class AdminMainMenuController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
             Parent root = fxmlLoader.load();
 
-            LoginView loginView = fxmlLoader.getController();
-            new LoginController(loginView, new LoginModel(), new StudentMainMenuView(), new AdminMainMenuView());
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
 
-            System.out.println("Successfully logged out and redirected to the login page.");
+            System.out.println("Successfully logged out.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading Login GUI: " + e.getMessage());
+            System.out.println("Error loading Login GUI.");
         }
     }
 }

@@ -1,3 +1,4 @@
+// File: server/ServerMain.java
 package server;
 
 import java.io.IOException;
@@ -9,54 +10,74 @@ import java.util.concurrent.Executors;
 
 public class ServerMain {
     private static final int PORT = 4321;
-    private static final String IP = "127.0.0.1";
     private static final int THREAD_POOL_SIZE = 10;
-    private static boolean isRunning = true; // Server control flag
+    private static boolean isRunning = false;
+    private static ExecutorService threadPool;
+    private static ServerSocket serverSocket;
 
+    /** Main Method: Required for IntelliJ */
     public static void main(String[] args) {
-        ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        System.out.println("Server started via console...");
+        startServer();
+    }
 
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+    /** Start Server Method */
+    public static void startServer() {
+        if (isRunning) {
+            System.out.println("Server is already running.");
+            return;
+        }
+
+        isRunning = true;
+        threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
+        new Thread(ServerMain::handleConsoleInput).start(); // Console commands
+
+        try (ServerSocket socket = new ServerSocket(PORT)) {
+            serverSocket = socket;
             System.out.println("Server started on port " + PORT);
-            System.out.println("Server started on IP " + IP);
-            System.out.println("Type 'stop' to shut down the server.");
-
-            // Start a separate thread for console commands
-            new Thread(() -> handleConsoleInput(serverSocket, threadPool)).start();
 
             while (isRunning) {
-                try {
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("Client connected: " + clientSocket.getInetAddress());
-                    threadPool.execute(new ClientHandler(clientSocket));
-                } catch (IOException e) {
-                    if (isRunning) {
-                        System.out.println("Error accepting client connection: " + e.getMessage());
-                    }
-                }
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket.getInetAddress());
+                threadPool.execute(new ClientHandler(clientSocket));
             }
         } catch (IOException e) {
-            System.out.println("Server error: " + e.getMessage());
+            if (isRunning) {
+                System.out.println("Server error: " + e.getMessage());
+            }
         } finally {
             threadPool.shutdown();
             System.out.println("Server shutting down...");
         }
     }
 
-    private static void handleConsoleInput(ServerSocket serverSocket, ExecutorService threadPool) {
+    /** Stop Server Method */
+    public static void stopServer() {
+        if (!isRunning) {
+            System.out.println("Server is not running.");
+            return;
+        }
+
+        isRunning = false;
+        try {
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error closing server socket: " + e.getMessage());
+        }
+        threadPool.shutdown();
+        System.out.println("Server has stopped.");
+    }
+
+    /** 🎮 Console Input Handler (Keeps Old 'stop' Command) */
+    private static void handleConsoleInput() {
         Scanner scanner = new Scanner(System.in);
         while (isRunning) {
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("stop")) {
-                System.out.println("Stopping server...");
-                isRunning = false;
-                try {
-                    serverSocket.close(); // Force stop accept() loop
-                } catch (IOException e) {
-                    System.out.println("Error closing server socket: " + e.getMessage());
-                }
-                threadPool.shutdown();
-                System.out.println("Server has stopped.");
+                stopServer();
                 break;
             }
         }
