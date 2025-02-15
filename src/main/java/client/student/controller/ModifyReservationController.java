@@ -53,7 +53,7 @@ public class ModifyReservationController {
         ModifyReservationController.loadView("/fxml/client/Modify_reservation_window.fxml");
     }
 
-    private static void loadView(String fxmlFile) {
+    public static void loadView(String fxmlFile) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ModifyReservationController.class.getResource(fxmlFile));
             VBox view = fxmlLoader.load();

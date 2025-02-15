@@ -48,14 +48,19 @@ public class AdminMainMenuView {
     /** Load a new view inside the main menu */
     private void loadView(String fxmlFile) {
         try {
+            System.out.println("Loading FXML: " + fxmlFile);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+            if (fxmlLoader.getLocation() == null) {
+                throw new IllegalStateException("FXML file not found: " + fxmlFile);
+            }
             VBox view = fxmlLoader.load();
             rootPane.setCenter(view);
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             e.printStackTrace();
             showError("Failed to load view: " + fxmlFile);
         }
     }
+
 
     /** Set the name of the logged-in user */
     public void setLoggedInUserName(String name) {
@@ -95,7 +100,7 @@ public class AdminMainMenuView {
 
     /** Event handler for View Student Reservations Button */
     public void setActionShowStudentReservationButton(EventHandler<ActionEvent> event) {
-        showStudentReservationButton.setOnAction(event1 -> loadView("/fxml/admin/view_reservation_pane.fxml"));
+        showStudentReservationButton.setOnAction(event1 -> loadView("/fxml/admin/student_reservations_pane.fxml"));
     }
 
     /** Event handler for Modify Terminal Button */
@@ -103,9 +108,11 @@ public class AdminMainMenuView {
         modifyTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/modify_terminal_pane.fxml"));
     }
 
+
+
     /** Event handler for Reservation Approval Button */
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
-        resApprovalButton.setOnAction(event1 -> showReservationApprovalView());
+        resApprovalButton.setOnAction(event1 -> loadView("/fxml/admin/reservation_approval_pane.fxml"));
     }
 
     /** Event handler for Reports Button */
