@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.admin.view.AddNewTerminalView">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.AddNewTerminalView">
    <children>
       <VBox prefHeight="74.0" prefWidth="805.0">
          <children>
@@ -29,7 +28,7 @@
                         <Insets left="9.0" />
                      </HBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="450.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="229.0" spacing="10.0">
                      <children>
                         <StackPane alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="163.0">
                            <children>

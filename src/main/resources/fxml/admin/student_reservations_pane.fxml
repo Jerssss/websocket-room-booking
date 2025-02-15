@@ -11,14 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.ViewStudentReservationsView">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.ViewStudentReservationsView">
    <children>
       <VBox prefHeight="74.0" prefWidth="805.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="805.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="671.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="605.0">
                      <children>
                         <Label fx:id="studResTitleLabel" text="Student Reservations" textFill="#0d3073">
                            <font>
@@ -30,12 +29,21 @@
                         <Insets left="9.0" />
                      </HBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="450.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="316.0" spacing="10.0">
                      <children>
-                        <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="243.0">
                            <children>
                               <TextField fx:id="searchStudResTextField" promptText="Enter keywords..." styleClass="background-pane" stylesheets="@../../css/styles.css" />
                               <Button fx:id="searchButton" mnemonicParsing="false" prefWidth="60.0" text="Search" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="175.0" spacing="10.0">
+                     <children>
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="61.0">
+                           <children>
+                              <Button fx:id="refreshButton" mnemonicParsing="false" prefWidth="60.0" text="Refresh" />
                            </children>
                         </StackPane>
                      </children>

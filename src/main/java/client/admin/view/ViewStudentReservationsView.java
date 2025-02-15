@@ -16,6 +16,8 @@ public class ViewStudentReservationsView {
     @FXML
     private Button searchButton;
     @FXML
+    private Button refreshButton; //added this
+    @FXML
     private TextField searchStudResTextField;
     @FXML
     private TableView<StudentReservation> studResTableView;
