@@ -1,10 +1,12 @@
 package client.admin.model;
 
+import client.admin.view.AddNewTerminalView;
 import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
 import javafx.application.Platform;
 import org.w3c.dom.*;
 import server.admin.AddNewTerminalProcessor;
+import server.utility.TerminalVer2;
 
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,9 +18,9 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class AddNewTerminalModel {
-    private final AddNewTerminalProcessor terminalProcessor = new AddNewTerminalProcessor();
     private final AddNewTerminalProcessor processor;
     private ServerConnection serverConnection;
 

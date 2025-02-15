@@ -1,26 +1,22 @@
 package client.admin.view;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 
-import javafx.stage.Stage;
 import client.admin.controller.AddNewTerminalController;
 import server.admin.AddNewTerminalProcessor;
 import server.utility.TerminalVer2;
 
-import java.io.IOException;
+import javax.swing.*;
 import java.util.List;
-
 
 public class AddNewTerminalView {
     private AddNewTerminalController controller;
@@ -29,8 +25,6 @@ public class AddNewTerminalView {
     private Button saveChangesButton;
     @FXML
     private Button refreshButton;
-
-
     @FXML
     private Button redirectAddTerminalWindowButton;
 
@@ -46,9 +40,9 @@ public class AddNewTerminalView {
     @FXML
     private TextField statusTextField;
     @FXML
-    private ComboBox dayComboBox;
+    private ComboBox<String> dayComboBox;
     @FXML
-    private ComboBox timeComboBox;
+    private ComboBox<String> timeComboBox;
     private String terminalId;
     private String room;
     private String osType;
@@ -110,13 +104,12 @@ public class AddNewTerminalView {
     @FXML
     private TableColumn<TerminalVer2, String> terminalOSColumn;
     @FXML
-    private TableColumn<TerminalVer2, String> dateColumn;
+    private TableColumn<TerminalVer2, String> dayColumn;
     @FXML
     private TableColumn<TerminalVer2, String> timeColumn;
     @FXML
     private TableColumn<TerminalVer2, String> statusColumn;
     @FXML
-
     public static ObservableList<TerminalVer2> terminalResults = FXCollections.observableArrayList();
 
     // Setters for button actions
@@ -136,15 +129,33 @@ public class AddNewTerminalView {
         if (redirectAddTerminalWindowButton != null) {
             redirectAddTerminalWindowButton.setOnAction(event -> AddNewTerminalController.redirectAddTerminalWindow(event));
         }
+        Platform.runLater(() -> {
+            if (timeComboBox != null) {
+                ObservableList<String> timeOptions = FXCollections.observableArrayList(
+                        "09:30-17:30",
+                        "11:30-16:30",
+                        "07:30-15:30"
+                );
+                timeComboBox.setItems(timeOptions);
+            }
+
+            if (dayComboBox != null) {
+                ObservableList<String> days = FXCollections.observableArrayList(
+                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+                );
+                dayComboBox.setItems(days);
+            }
+        });
 
         // Ensure table columns are initialized before setting cell value factories
         if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
-                && dateColumn != null && statusColumn != null && addTerminalTableView != null) {
+                && dayColumn != null && statusColumn != null && addTerminalTableView != null) {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
             terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOSProperty());
-            dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+            dayColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+            timeColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
             statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
 
             // Load data only when the TableView exists
@@ -154,5 +165,21 @@ public class AddNewTerminalView {
             addTerminalTableView.setItems(terminalResults);
             refreshButton.setOnAction(event -> AddNewTerminalController.refreshTable());
         }
+    }
+
+    public ComboBox<String> getDayComboBox() {
+        return dayComboBox;
+    }
+
+    public void setDayComboBox(ComboBox<String> dayComboBox) {
+        this.dayComboBox = dayComboBox;
+    }
+
+    public ComboBox<String> getTimeComboBox() {
+        return timeComboBox;
+    }
+
+    public void setTimeComboBox(ComboBox<String> timeComboBox) {
+        this.timeComboBox = timeComboBox;
     }
 }

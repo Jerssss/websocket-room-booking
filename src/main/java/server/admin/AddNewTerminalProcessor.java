@@ -1,5 +1,7 @@
 package server.admin;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -23,7 +25,7 @@ public class AddNewTerminalProcessor {
 
     private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
 
-    public static boolean processTerminalData(String terminalId, String room, String osType, String status) {
+    public static boolean processTerminalData(String terminalId, String room, String osType, String status, String selectedDay, String selectedTime) {
         try {
             File xmlFile = new File(FILE_PATH);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -58,6 +60,15 @@ public class AddNewTerminalProcessor {
             Element statusElement = doc.createElement("terminal_status");
             statusElement.appendChild(doc.createTextNode(status.trim()));
             newTerminal.appendChild(statusElement);
+
+            // Adding day and time (Fixes previous issues)
+            Element dayElement = doc.createElement("day");
+            dayElement.appendChild(doc.createTextNode(selectedDay.trim())); // Fix
+            newTerminal.appendChild(dayElement);
+
+            Element timeElement = doc.createElement("time");
+            timeElement.appendChild(doc.createTextNode(selectedTime.trim())); // Fix
+            newTerminal.appendChild(timeElement);
 
             root.appendChild(newTerminal);
 
@@ -137,12 +148,12 @@ public class AddNewTerminalProcessor {
                     String terminalId = getTagValue("terminal_id", element);
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOS = getTagValue("terminal_os", element);
-                    String date = getTagValue("date", element);
+                    String day = getTagValue("day", element);
                     String time = getTagValue("time", element);
                     String terminalStatus = getTagValue("terminal_status", element);
 
                     // Create a new Terminal object and add it to the list
-                    TerminalVer2 terminal = new TerminalVer2(terminalId, terminalRoom, terminalOS, terminalStatus, date, time);
+                    TerminalVer2 terminal = new TerminalVer2(terminalId, terminalRoom, terminalOS, terminalStatus, day, time);
                     terminals.add(terminal);
                 }
             }
