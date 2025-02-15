@@ -55,7 +55,7 @@
             <TableColumn fx:id="terminalColumn" editable="false" prefWidth="104.0" resizable="false" text="Terminal No." />
             <TableColumn fx:id="roomNumberColumn" editable="false" prefWidth="105.0" resizable="false" text="Room No." />
             <TableColumn fx:id="terminalOSColumn" editable="false" prefWidth="140.0" resizable="false" text="Terminal OS" />
-            <TableColumn fx:id="dateColumn" editable="false" prefWidth="153.0" resizable="false" text="Date" />
+            <TableColumn fx:id="dayColumn" editable="false" prefWidth="153.0" resizable="false" text="Day" />
             <TableColumn fx:id="timeColumn" editable="false" prefWidth="132.0" resizable="false" text="Time" />
             <TableColumn fx:id="statusColumn" editable="false" prefWidth="170.0" resizable="false" text="Status" />
          </columns>
