@@ -1,12 +1,14 @@
 package client.student.view;
 
-import client.student.model.Reservation;
+import server.utility.Reservation;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import client.student.controller.ViewReservationController;
+import server.student.ViewReservationProcessor;
+
+import java.util.List;
 
 public class ViewReservationView {
 
@@ -19,29 +21,47 @@ public class ViewReservationView {
     @FXML
     private TableColumn<Reservation, String> userIDColumn;
 
-    private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
-
-    private ViewReservationController controller;
+    @FXML
+    private TableColumn<Reservation, String> terminalIDColumn;
 
     @FXML
+    private TableColumn<Reservation, String> reservationDateColumn;
+
+    @FXML
+    private TableColumn<Reservation, String> startTimeColumn;
+
+    @FXML
+    private TableColumn<Reservation, String> endTimeColumn;
+    @FXML
+    private TableColumn<Reservation, String> statusColumn;
+
+    private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
+
+    public TableView<Reservation> getStudResTableView() {
+        return modResTableView;  // Ensure studResTableView is properly initialized
+    }
+    @FXML
     public void initialize() {
-        // Initialize columns
-        reservationIDColumn.setCellValueFactory(cellData -> cellData.getValue().reservationIDProperty());
-        userIDColumn.setCellValueFactory(cellData -> cellData.getValue().userIDProperty());
+        // Initialize columns and bind properties
+        reservationIDColumn.setCellValueFactory(cellData -> cellData.getValue().reservationIdProperty());
+        userIDColumn.setCellValueFactory(cellData -> cellData.getValue().userIdProperty());
+        terminalIDColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
+        reservationDateColumn.setCellValueFactory(cellData -> cellData.getValue().reservationDateProperty());
+        startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+        endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
+        statusColumn.setCellValueFactory(cellData -> cellData.getValue().reservationStatusProperty());
 
-        // Initialize controller
-        controller = new ViewReservationController(this);
 
-        // Load reservations
-        controller.loadReservations();
-    }
+        loadDataFromXML("src/main/java/server/util/reservationapproval.xml");
 
-    // Method to set data in the TableView from the controller
-    public void setReservationData(ObservableList<Reservation> data) {
-        System.out.println("Number of reservations: " + reservationData.size());
-
-        reservationData.setAll(data);
         modResTableView.setItems(reservationData);
-
     }
+    private void loadDataFromXML(String filePath) {
+        List<Reservation> reservations = ViewReservationProcessor.parseXML(filePath);
+        if (reservations != null) {
+            reservationData.addAll(reservations);
+        }
+    }
+
 }
+

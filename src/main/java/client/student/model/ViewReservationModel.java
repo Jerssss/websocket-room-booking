@@ -1,92 +1,86 @@
 package client.student.model;
 
 import client.utility.ServerConnection;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Map;
-import java.util.HashMap;
-import org.w3c.dom.*;
-import org.xml.sax.InputSource;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import client.utility.ServerConnectionManager;
+import javafx.application.Platform;
+import org.w3c.dom.*;
+import server.utility.Reservation;
+
+import javax.swing.*;
 import javax.xml.parsers.*;
 
+
 public class ViewReservationModel {
-    private final ServerConnection serverConnection;
+    private  ServerConnection serverConnection;
 
-    public ViewReservationModel() throws IOException {
-        this.serverConnection = new ServerConnection();
-    }
 
-    // Fetch reservations from the server and return as a Map
-    public Map<String, Map<String, String>> fetchAllReservations() {
+    public ViewReservationModel() {
         try {
-            // Send request for reservations
-            serverConnection.sendMessage("FETCH_RESERVATIONS");
-            String response = serverConnection.readMessage();
-
-            // Log raw server response
-            System.out.println("Server Response: " + response);
-
-            // Parse and return the data
-            return parseReservations(response);
+            serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
 
 
-    // Parse the server's response (XML format) into a Map
-    private Map<String, Map<String, String>> parseReservations(String response) {
-        Map<String, Map<String, String>> reservations = new HashMap<>();
+
+    // Fetch reservations from the server and return as a Map
+    public List<Reservation> fetchAllReservations() {
+        List<Reservation>  reservation = new ArrayList<>();
+        if (serverConnection == null) {
+            showErrorDialog("No server connection available.");
+            return reservation;
+        }
         try {
-            // Parse the XML response
+            serverConnection.sendMessage("<Request><Type>fetch_reservation</Type></Request>"); // XML request
+            String responseXML = serverConnection.readMessage();
+            reservation = parseXMLResponse(responseXML);
+        } catch (IOException e) {
+            showErrorDialog("Error occurred: " + e.getMessage());
+        }
+        return reservation;
+    }
+
+    private List<Reservation> parseXMLResponse(String xmlResponse) {
+        List<Reservation> reservation = new ArrayList<>();
+        try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            InputSource is = new InputSource(new StringReader(response));
-            Document doc = builder.parse(is);
+            Document doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
 
-            // Extract the reservations
             NodeList nodeList = doc.getElementsByTagName("Reservation");
+
             for (int i = 0; i < nodeList.getLength(); i++) {
-                Element reservationElement = (Element) nodeList.item(i);
+                Element element = (Element) nodeList.item(i);
 
-                String reservationId = reservationElement.getElementsByTagName("reservation_id").item(0).getTextContent();
-                String studentId = reservationElement.getElementsByTagName("Student_ID").item(0).getTextContent();
-                String terminalId = reservationElement.getElementsByTagName("terminal_id").item(0).getTextContent();
-                String terminalRoom = reservationElement.getElementsByTagName("terminal_room").item(0).getTextContent();
-                String terminalStatus = reservationElement.getElementsByTagName("terminal_status").item(0).getTextContent();
+                String reservationId = element.getElementsByTagName("reservation_id").item(0).getTextContent();
+                String userId = element.getElementsByTagName("user_id").item(0).getTextContent();
+                String terminalId = element.getElementsByTagName("terminal_id").item(0).getTextContent();
+                String reservationDate = element.getElementsByTagName("reservation_date").item(0).getTextContent();
+                String startTime = element.getElementsByTagName("start_time").item(0).getTextContent();
+                String endTime = element.getElementsByTagName("end_time").item(0).getTextContent();
+                String status = element.getElementsByTagName("status").item(0).getTextContent();
 
-                // Store the reservation data in a map
-                Map<String, String> reservationData = new HashMap<>();
-                reservationData.put("reservation_id", reservationId);
-                reservationData.put("Student_ID", studentId);
-                reservationData.put("terminal_id", terminalId);
-                reservationData.put("terminal_room", terminalRoom);
-                reservationData.put("terminal_status", terminalStatus);
-
-                // Put the reservation data in the main map using reservation_id as the key
-                reservations.put(reservationId, reservationData);
+                reservation.add(new Reservation(reservationId, userId, terminalId, reservationDate, startTime, endTime, status));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return reservations;
+        return reservation;
     }
 
 
-    // Helper method to extract text value of a tag
-    private String getTagValue(String tag, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tag);
-        if (nodeList.getLength() > 0) {
-            Node node = nodeList.item(0);
-            return node.getTextContent();
-        }
-        return null;
+    private void showErrorDialog(String message) {
+        Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
+
     }
 
-    public void closeConnection() {
-        serverConnection.close();
-    }
+
 }
