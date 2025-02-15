@@ -14,10 +14,8 @@ import server.utility.StudentReservation;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.xml.parsers.DocumentBuilder;
@@ -66,9 +64,17 @@ public class ClientHandler implements Runnable {
                         handleAddTerminal(clientMessage, writer);
                     } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>")) {
                         handleViewStudentReservations(writer);
-                    } else if (clientMessage.startsWith("FETCH_RESERVATION")) {
-                        handleFetchReservations(writer);
-                    } else if (clientMessage.startsWith("fetch_reservation")) {
+                    } else if (clientMessage.contains("<Type>FilterReservations</Type>")) {
+                        String startDate = extractField(clientMessage, "<StartDate>", "</StartDate>");
+                        String endDate = extractField(clientMessage, "<EndDate>", "</EndDate>");
+
+                        if (startDate != null && endDate != null) {
+                            handleFetchReservations(writer, startDate, endDate);
+                        } else {
+                            writer.println("<Response><Status>ERROR</Status><Message>Invalid date range</Message></Response>");
+                        }
+                    }
+                    else if (clientMessage.startsWith("fetch_reservation")) {
                         handlefetchreservation(writer);
                     } else if (clientMessage.startsWith("fetch_reservations")) {
                         handleUpdateReservation( writer);
@@ -193,24 +199,35 @@ public class ClientHandler implements Runnable {
     /**
      * Handles fetching user reservations.
      */
-    private void handleFetchReservations(PrintWriter writer) {
+    private void handleFetchReservations(PrintWriter writer, String startDate, String endDate) {
         try {
+            // Parse the XML reservations file
             List<Reservation> reservations = ViewReservationProcessor.parseXML("server/util/reservationapproval.xml");
 
-            // Filter the reservations to show only those that belong to the logged-in user
-            List<Reservation> userReservations = new ArrayList<>();
+            // Convert start and end date to Date objects
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date start = dateFormat.parse(startDate);
+            Date end = dateFormat.parse(endDate);
+
+            // Filter reservations based on the date range
+            List<Reservation> filteredReservations = new ArrayList<>();
             for (Reservation res : reservations) {
-                if (res.getUserId().equals(currentUser)) {  // Only include reservations with the same user_id
-                    userReservations.add(res);
+                Date reservationDate = dateFormat.parse(res.getReservationDate());
+                if ((reservationDate.after(start) || reservationDate.equals(start)) &&
+                        (reservationDate.before(end) || reservationDate.equals(end))) {
+                    filteredReservations.add(res);
                 }
             }
 
-            writer.println(createReservations2XMLResponse(userReservations));
+            // Send the filtered reservations back to the client
+            writer.println(createReservations2XMLResponse(filteredReservations));
+
         } catch (Exception e) {
             e.printStackTrace();
             writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
         }
     }
+
 
 
     private void handlefetchreservation(PrintWriter writer) {

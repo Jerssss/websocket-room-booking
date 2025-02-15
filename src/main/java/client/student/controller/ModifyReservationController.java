@@ -1,12 +1,12 @@
 package client.student.controller;
 
-import client.student.model.Reservation;
 import client.student.view.ModifyReservationView;
 import client.student.model.ModifyReservationModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import server.utility.Reservation;
 
 import java.io.IOException;
 

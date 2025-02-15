@@ -6,30 +6,19 @@ import server.utility.Reservation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.Map;
 
 public class ViewReservationController {
 
     private ViewReservationView view;
     private ViewReservationModel model;
-    private ObservableList<Reservation> allReservations = FXCollections.observableArrayList();
 
-    public ViewReservationController(ViewReservationView view){
+    public ViewReservationController(ViewReservationView view) {
         this.view = view;
-        this.model = new ViewReservationModel();
-
-        loadReservations();
-
+        this.model = new ViewReservationModel();  // Initialize model
     }
 
-
-
-
-
-    private void loadReservations() {
-        List<Reservation> reservations = model.fetchAllReservations(); // Fetch from model
-        allReservations.setAll(reservations);
-        view.getStudResTableView().setItems(allReservations);
-    }
+    // Load reservations from the model and pass them to the view
 
 }
