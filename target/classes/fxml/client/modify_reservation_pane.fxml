@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.ModifyReservationView">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.ModifyReservationView">
    <children>
       <VBox prefHeight="130.0" prefWidth="805.0">
          <children>
@@ -20,9 +19,9 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="733.0">
                      <children>
-                        <Label fx:id="modResLabel" text="Modify Terminal" textFill="#0d3073">
+                        <Label fx:id="modResLabel" text="Modify Reservation">
                            <font>
-                              <Font name="System Bold" size="29.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -46,7 +45,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="484.0" prefWidth="805.0">
          <children>
-            <TableView fx:id="modResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="425.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
+            <TableView fx:id="modResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="408.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
                <columns>
                   <TableColumn fx:id="roomNumberColumn" editable="false" prefWidth="148.0" resizable="false" text="Room No." />
                   <TableColumn fx:id="terminalColumn" editable="false" prefWidth="138.0" resizable="false" text="Terminal No." />
@@ -60,9 +59,16 @@
             </TableView>
          </children>
       </VBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="143.0" prefWidth="805.0">
          <children>
-            <Button fx:id="saveChangesButton" mnemonicParsing="false" prefHeight="47.0" prefWidth="150.0" text="Save Changes" />
+            <Button fx:id="saveChangesButton" mnemonicParsing="false" onMouseEntered="#saveChangesButtonHovered" onMouseExited="#saveChangesButtonExited" prefHeight="21.0" prefWidth="150.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" text="Save Changes" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

@@ -1,5 +1,6 @@
 package client.admin.view;
 
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import client.admin.controller.ModifyTerminalStatusController;
+import javafx.util.Duration;
 import server.utility.Terminal;
 
 public class ModifyTerminalStatusView {
@@ -117,4 +119,22 @@ public class ModifyTerminalStatusView {
     public ObservableList<Terminal> getTerminalData() {
         return terminalData;
     }
+
+    public void saveChangesButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void saveChangesButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+
 }

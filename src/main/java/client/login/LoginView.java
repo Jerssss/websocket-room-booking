@@ -1,17 +1,18 @@
 package client.login;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 
 public class LoginView {
 
-
     @FXML
-    private Button signInPageSignInButton;
+    private Button logInPageLogInButton;
     @FXML
-    private Button signInPageSignUpButton;
+    private Button logInPageSignUpButton;
     @FXML
     private TextField idField;
     @FXML
@@ -49,10 +50,43 @@ public class LoginView {
 
     // Event handlers for button actions
     public void setActionSignInButton(EventHandler<ActionEvent> event) {
-        signInPageSignInButton.setOnAction(event);
+        logInPageLogInButton.setOnAction(event);
     }
 
     public void setActionSignUpButton(EventHandler<ActionEvent> event) {
-        signInPageSignUpButton.setOnAction(event);
+        logInPageSignUpButton.setOnAction(event);
+    }
+
+    public void signUpButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), logInPageSignUpButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void signUpButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), logInPageSignUpButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void logInButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), logInPageLogInButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void logInButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), logInPageLogInButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
     }
 }

@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1037.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.admin.view.AdminMainMenuView">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1037.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.AdminMainMenuView">
    <top>
       <VBox prefHeight="75.0" prefWidth="716.0" BorderPane.alignment="CENTER">
          <children>
@@ -197,7 +196,7 @@
                         <Insets left="25.0" />
                      </padding>
                   </HBox>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log Out" textFill="WHITE">
+                  <Button fx:id="logOutButton" mnemonicParsing="false" onMouseEntered="#logOutButtonHovered" onMouseExited="#logOutButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log Out" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

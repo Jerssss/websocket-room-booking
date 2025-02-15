@@ -1,5 +1,6 @@
 package client.student.view;
 
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import server.utility.Terminal;
 
 public class ModifyReservationView {
@@ -46,5 +48,22 @@ public class ModifyReservationView {
 
     public TextField getSearchStudResTextField() {
         return searchStudResTextField;
+    }
+
+    public void saveChangesButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void saveChangesButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
     }
 }

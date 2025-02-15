@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1037.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.StudentMainMenuView">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1037.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.StudentMainMenuView">
    <top>
       <VBox prefHeight="75.0" prefWidth="716.0" BorderPane.alignment="CENTER">
          <children>
@@ -68,9 +67,9 @@
          <children>
             <VBox prefHeight="450.0" prefWidth="172.0" spacing="10.0">
                <children>
-                  <StackPane prefHeight="37.0" prefWidth="153.0">
+                  <StackPane alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="153.0" stylesheets="@../../css/styles.css">
                      <children>
-                        <Button fx:id="createReservationButton" mnemonicParsing="false" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="Create Reservation" textFill="#0d3073" wrapText="true">
+                        <Button fx:id="createReservationButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="166.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" stylesheets="@../../css/styles.css" text="Create Reservation" textFill="#0d3073" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -78,22 +77,14 @@
                               <Insets left="20.0" />
                            </StackPane.margin>
                         </Button>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -140;">
-                           <image>
-                              <Image url="@../../images/client/create.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets left="100.0" />
-                           </StackPane.margin>
-                        </ImageView>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </StackPane>
-                  <StackPane prefHeight="37.0" prefWidth="153.0">
+                  <StackPane alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="153.0">
                      <children>
-                        <Button fx:id="viewReservationButton" mnemonicParsing="false" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="View Reservation" textFill="#0d3073" wrapText="true">
+                        <Button fx:id="viewReservationButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" stylesheets="@../../css/styles.css" text="View Reservation" textFill="#0d3073" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -101,19 +92,11 @@
                               <Insets left="20.0" />
                            </StackPane.margin>
                         </Button>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -140;">
-                           <image>
-                              <Image url="@../../images/client/create.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets left="100.0" />
-                           </StackPane.margin>
-                        </ImageView>
                      </children>
                   </StackPane>
-                  <StackPane prefHeight="37.0" prefWidth="153.0">
+                  <StackPane alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="153.0">
                      <children>
-                        <Button fx:id="modifyReservationButton" mnemonicParsing="false" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="Modify Reservation" textFill="#0d3073" wrapText="true">
+                        <Button fx:id="modifyReservationButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" stylesheets="@../../css/styles.css" text="Modify Reservation" textFill="#0d3073" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -121,21 +104,13 @@
                               <Insets left="20.0" />
                            </StackPane.margin>
                         </Button>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-x: -140;">
-                           <image>
-                              <Image url="@../../images/client/create.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets left="100.0" />
-                           </StackPane.margin>
-                        </ImageView>
                      </children>
                   </StackPane>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log Out" textFill="WHITE">
+                  <Button fx:id="logOutButton" mnemonicParsing="false" onMouseEntered="#logOutButtonHovered" onMouseExited="#logOutButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log Out" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

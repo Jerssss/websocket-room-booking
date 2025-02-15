@@ -7,4 +7,11 @@
         <Date>2025-02-15</Date>
         <Time>21:34:20</Time>
     </Log>
+    <Log>
+        <UserID>Dionela Marilag</UserID>
+        <UserType>Admin</UserType>
+        <Action>Logout</Action>
+        <Date>2025-02-16</Date>
+        <Time>00:47</Time>
+    </Log>
 </Logs>

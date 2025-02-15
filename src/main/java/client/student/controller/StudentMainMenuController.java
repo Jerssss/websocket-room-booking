@@ -26,14 +26,16 @@ public class StudentMainMenuController {
         this.studentMainMenuModel = studentMainMenuModel;
         this.loggedInUserName = loggedInUserName;
 
-        //  Set user name in the UI
+        // Set user name in the UI
         this.studentMainMenuView.setLoggedInUserName(loggedInUserName);
         this.studentMainMenuView.initializeDateTime();
 
+        // Initialize button actions
         initializeActions();
     }
 
     private void initializeActions() {
+        // Set action handlers for buttons
         studentMainMenuView.setActionCreateReservationButton(this::handleCreateReservation);
         studentMainMenuView.setActionViewReservationButton(this::handleViewReservation);
         studentMainMenuView.setActionModifyReservationButton(this::handleModifyReservation);
@@ -43,16 +45,19 @@ public class StudentMainMenuController {
     private void handleCreateReservation(ActionEvent event) {
         System.out.println("Navigating to Create Reservation Page...");
         studentMainMenuView.loadView("/fxml/client/create_reservation_pane.fxml");
+        studentMainMenuView.highlightSelectedButton(studentMainMenuView.getCreateReservationButton());
     }
 
     private void handleViewReservation(ActionEvent event) {
         System.out.println("Navigating to View Reservation Page...");
         studentMainMenuView.loadView("/fxml/client/view_reservation_pane.fxml");
+        studentMainMenuView.highlightSelectedButton(studentMainMenuView.getViewReservationButton());
     }
 
     private void handleModifyReservation(ActionEvent event) {
         System.out.println("Navigating to Modify Reservation Page...");
         studentMainMenuView.loadView("/fxml/client/modify_reservation_pane.fxml");
+        studentMainMenuView.highlightSelectedButton(studentMainMenuView.getModifyReservationButton());
     }
 
     private void handleLogout(ActionEvent event) {

@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="744.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.landingpage.LandingPageView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="744.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.landingpage.LandingPageView">
    <center>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="391.0" prefWidth="843.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="315.0" prefWidth="744.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Your Time," textFill="#0d3073">
+            <Label text="No Lines." textFill="#0d3073">
                <font>
                   <Font name="System Bold" size="46.0" />
                </font>
@@ -23,7 +23,7 @@
                   <Insets left="25.0" />
                </padding>
             </Label>
-            <Label text="Your Space," textFill="#0d3073">
+            <Label text="No Hassle." textFill="#0d3073">
                <font>
                   <Font name="System Bold" size="46.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Insets left="25.0" />
                </padding>
             </Label>
-            <Label text="Your Future." textFill="#0d3073">
+            <Label text="Just Work." textFill="#0d3073">
                <font>
                   <Font name="System Bold" size="46.0" />
                </font>
@@ -56,37 +56,48 @@
                   <Insets top="-5.0" />
                </VBox.margin>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="843.0" spacing="20.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="744.0" spacing="15.0">
                <children>
-                  <Button id="signUpButtonLandingPage" fx:id="signUpButtonLandingPage" mnemonicParsing="false" prefHeight="41.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign Up" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button id="signInButtonLandingPage" fx:id="signInButtonLandingPage" mnemonicParsing="false" prefHeight="41.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign In" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button id="signUpButtonLandingPage" fx:id="landingPageSignUpButton" mnemonicParsing="false" onMouseEntered="#signUpButtonHovered" onMouseExited="#signUpButtonExited" prefHeight="0.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: white; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign Up" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button id="signInButtonLandingPage" fx:id="landingPageLogInButton" mnemonicParsing="false" onMouseEntered="#logInButtonHovered" onMouseExited="#logInButtonExited" prefHeight="17.0" prefWidth="192.0" style="-fx-background-color: white; -fx-border-color: #0d3073; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log In" textFill="#0d3073">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <padding>
-                  <Insets left="25.0" top="-20.0" />
+                  <Insets left="25.0" />
                </padding>
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets top="55.0" />
+            <Insets />
          </BorderPane.margin>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </VBox>
    </center>
    <top>
-      <VBox alignment="CENTER" prefHeight="74.0" prefWidth="843.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="67.0" prefWidth="744.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="74.0" prefWidth="798.0" style="-fx-background-color: #0d3073;">
                <children>
                   <HBox prefHeight="58.0" prefWidth="86.0">
                      <children>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="73.0" prefWidth="104.0">
+                        <VBox alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="103.0">
                            <children>
                               <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -99,7 +110,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="528.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="105.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Lendify" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="41.0" prefWidth="123.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Lendify" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
@@ -117,4 +128,40 @@
          </children>
       </VBox>
    </top>
+   <bottom>
+      <VBox opacity="0.39" prefHeight="64.0" prefWidth="744.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="23.0" prefWidth="744.0">
+               <children>
+                  <Label prefHeight="52.0" prefWidth="155.0" text="Developed by Team 1" textFill="#0d3073" wrapText="true">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="52.0" prefWidth="746.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="686.0" text="Ang-angco, Jeremiah | Esperanzate, Anjelo | Flores, Gabriel Alyson | Grabanzor, Giana | Molina, Sebasthian | Tenorio, Kristelle Maye" textFill="#0d3073" wrapText="true">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
 </BorderPane>

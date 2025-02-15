@@ -37,6 +37,15 @@
                         </StackPane>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="175.0" spacing="10.0">
+                     <children>
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="61.0">
+                           <children>
+                              <Button fx:id="refreshButton" mnemonicParsing="false" prefWidth="60.0" text="Refresh" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
          </children>

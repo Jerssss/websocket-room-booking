@@ -33,7 +33,7 @@
                   <Insets bottom="8.0" top="-7.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="signInPageSignUpButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="SIGN UP" textFill="WHITE" />
+            <Button fx:id="logInPageSignUpButton" mnemonicParsing="false" onMouseEntered="#signUpButtonHovered" onMouseExited="#signUpButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="SIGN UP" textFill="WHITE" />
          </children>
       </VBox>
    </right>
@@ -83,7 +83,7 @@
             <HBox alignment="CENTER" prefHeight="16.0" prefWidth="349.0">
                <Label fx:id="promptLabel" textFill="#dd2c2c" />
             </HBox>
-            <Button fx:id="signInPageSignInButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="SIGN IN" textFill="WHITE" />
+            <Button fx:id="logInPageLogInButton" mnemonicParsing="false" onMouseEntered="#logInButtonHovered" onMouseExited="#logInButtonExited" prefHeight="22.0" prefWidth="145.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="LOG IN" textFill="WHITE" />
          </children>
       </VBox>
    </center>

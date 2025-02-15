@@ -13,9 +13,9 @@ import javafx.util.Duration;
 public class SignUpView {
 
     @FXML
-    private Button landingPageSignInButton;
+    private Button signInPageSignInButton;
     @FXML
-    private Button landingPageSignUpButton;
+    private Button signInPageSignUpButton;
     @FXML
     private ComboBox<String> signUpUserTypePicker;
     @FXML
@@ -74,12 +74,12 @@ public class SignUpView {
 
     // Adds action receiver to button landingPageSignInButton
     public void setActionSignInButton(EventHandler<ActionEvent> event) {
-        landingPageSignInButton.setOnAction(event);
+        signInPageSignInButton.setOnAction(event);
     }
 
     // Adds action receiver to button landingPageSignUpButton
     public void setActionSignUpButton(EventHandler<ActionEvent> event) {
-        landingPageSignUpButton.setOnAction(event);
+        signInPageSignUpButton.setOnAction(event);
     }
 
     // Getters
@@ -110,4 +110,39 @@ public class SignUpView {
     public Label getPromptLabel() {
         return signUpPromptLabel;
     }
+
+
+    public void signUpButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), signInPageSignUpButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void signUpButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), signInPageSignUpButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void logInButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), signInPageSignInButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void logInButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), signInPageSignInButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+
 }
