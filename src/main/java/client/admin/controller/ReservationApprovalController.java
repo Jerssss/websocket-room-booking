@@ -5,46 +5,55 @@ import client.admin.view.ReservationApprovalView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import server.utility.StudentReservation;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReservationApprovalController {
 
-    private final ReservationApprovalModel model;
     private final ReservationApprovalView view;
+    private final ReservationApprovalModel model;
+    private final ObservableList<StudentReservation> allReservations = FXCollections.observableArrayList();
 
-    public ReservationApprovalController(ReservationApprovalView view, ReservationApprovalModel model) {
+    public ReservationApprovalController(ReservationApprovalView view) {
         this.view = view;
-        this.model = model;
+        this.model = new ReservationApprovalModel();
 
-        // Set up table and search action
-        this.view.initializeTable();
-        this.view.setSearchButtonAction(this::handleSearch);
+        loadReservations();  // Load all reservations
+        setupSearchFunctionality();
 
-        // Load all reservations on startup
-        loadAllReservations();
+        this.view.setActionRefreshButton(event -> loadReservations());
     }
 
-    // Load all reservations from model
-    private void loadAllReservations() {
-        ObservableList<StudentReservation> reservations = model.loadAllReservations();
-        view.setTableData(reservations);
+    /** Load all reservations */
+    private void loadReservations() {
+        List<StudentReservation> reservations = model.fetchApprovalReservations();
+        allReservations.setAll(reservations);
+        view.displayApprovalReservations(allReservations);
     }
 
-    // Filter results based on search keyword
-    private void handleSearch(ActionEvent event) {
-        String keyword = view.getSearchKeyword().toLowerCase();
-        ObservableList<StudentReservation> allReservations = model.loadAllReservations();
-        ObservableList<StudentReservation> filtered = FXCollections.observableArrayList();
+    /** Set up search button functionality */
+    private void setupSearchFunctionality() {
+        view.setActionSearchButton(event -> {
+            String searchQuery = view.getSearchStudResTextField().getText().trim();
+            filterReservations(searchQuery);
+        });
+    }
 
-        for (StudentReservation res : allReservations) {
-            if (res.getReservationId().toLowerCase().contains(keyword) ||
-                    res.getTerminalId().toLowerCase().contains(keyword) ||
-                    res.getTerminalRoom().toLowerCase().contains(keyword) ||
-                    res.getDate().toLowerCase().contains(keyword) ||
-                    res.getTerminalStatus().toLowerCase().contains(keyword)) {
-                filtered.add(res);
-            }
+    /** Filter reservations based on search query */
+    private void filterReservations(String searchQuery) {
+        if (searchQuery.isEmpty()) {
+            view.displayApprovalReservations(allReservations); // Show all if empty
+            return;
         }
-        view.setTableData(filtered);
+
+        List<StudentReservation> filteredList = allReservations.stream()
+                .filter(reservation -> reservation.getTerminalRoom() != null &&
+                        reservation.getTerminalRoom().equalsIgnoreCase(searchQuery))
+                .collect(Collectors.toList());
+
+        view.displayApprovalReservations(filteredList);
     }
 }

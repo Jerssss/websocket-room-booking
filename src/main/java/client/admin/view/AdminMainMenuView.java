@@ -101,8 +101,12 @@ public class AdminMainMenuView {
     }
 
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
-        resApprovalButton.setOnAction(event1 -> loadView("/fxml/admin/reservation_approval_pane.fxml"));
+        resApprovalButton.setOnAction(event1 -> {
+            System.out.println("Loading Reservation Approval View...");
+            loadView("/fxml/admin/reservation_approval_pane.fxml");
+        });
     }
+
 
     public void setActionReportsButton(EventHandler<ActionEvent> event) {
         reportsButton.setOnAction(event1 -> loadView("/fxml/admin/modify_reservation_pane.fxml"));
