@@ -19,8 +19,8 @@ public class LogsXMLHandler {
 
             Element log = doc.createElement("Log");
             log.appendChild(createElement(doc, "UserID", userID));
-            log.appendChild(createElement(doc, "Action", action));
-            log.appendChild(createElement(doc, "UserType", userType));
+            log.appendChild(createElement(doc, "UserType", userType)); // Correct Field Order
+            log.appendChild(createElement(doc, "Action", action));     // Correct Field Order
             log.appendChild(createElement(doc, "Date", java.time.LocalDate.now().toString()));
             log.appendChild(createElement(doc, "Time", java.time.LocalTime.now().withNano(0).toString()));
 
@@ -36,6 +36,7 @@ public class LogsXMLHandler {
     public static synchronized void logLogout(String userID, String userType) {
         saveLog(userID, "Logout", userType);
     }
+
 
     private static Document loadOrCreateDocument(File file) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
