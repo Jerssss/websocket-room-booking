@@ -4,10 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61187ed5-a681-424b-889d-132ae44795ac" name="Changes" comment="created the ServerConnectionManager and call it in every connection model">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/AddNewTerminalView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/AddNewTerminalView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin/add_terminal_window.fxml" afterDir="false" />
+    <list default="true" id="61187ed5-a681-424b-889d-132ae44795ac" name="Changes" comment="edited the code for login and sign up">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/controller/ReservationApprovalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/controller/ReservationApprovalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/model/ReservationApprovalModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/model/ReservationApprovalModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/admin/view/ReservationApprovalView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/admin/view/ReservationApprovalView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/view/ModifyReservationWindowView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/view/ModifyReservationWindowView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/admin/ReservationApprovalProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/admin/ReservationApprovalProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/logs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/logs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/utility/ApprovalReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/utility/ApprovalReservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/AdminMainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/admin/controller/AdminMainMenuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/view/AddNewTerminalView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/admin/view/AddNewTerminalView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/login/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/login/LoginView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/admin/reservation_approval_pane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/admin/reservation_approval_pane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/LoginProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/landingpage/LoginProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/landingpage/SignUpProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/landingpage/SignUpProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/utility/Reservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/utility/Reservation.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +129,7 @@
       <recent name="C:\Users\jonat\Desktop\Integrative Programming School Projects\PRELIMS\9444-team1_preproject\src\main\java\client\admin\view" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ClientMain">
+  <component name="RunManager" selected="Application.ServerMain">
     <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.ClientMain" />
       <module name="Lendify" />
@@ -146,8 +158,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ClientMain" />
         <item itemvalue="Application.ServerMain" />
+        <item itemvalue="Application.ClientMain" />
         <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.ClientMain" />
         <item itemvalue="Application.ClientMain" />
@@ -235,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739581621099</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="edited the code for login and sign up">
+      <option name="closed" value="true" />
+      <created>1739677881300</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1739677881300</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -259,6 +279,7 @@
     <MESSAGE value="edited the admin names" />
     <MESSAGE value="created the xml communication of add new terminal" />
     <MESSAGE value="created the ServerConnectionManager and call it in every connection model" />
-    <option name="LAST_COMMIT_MESSAGE" value="created the ServerConnectionManager and call it in every connection model" />
+    <MESSAGE value="edited the code for login and sign up" />
+    <option name="LAST_COMMIT_MESSAGE" value="edited the code for login and sign up" />
   </component>
 </project>

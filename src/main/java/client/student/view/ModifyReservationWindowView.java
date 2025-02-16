@@ -80,10 +80,6 @@ public class ModifyReservationWindowView {
     }
 
 
-
-
-
-
     //action calls for buttons
     public void setActionSendRequestButton(EventHandler<ActionEvent> event) {
         sendRequestButton.setOnAction(event);
@@ -200,10 +196,6 @@ public class ModifyReservationWindowView {
     public void setInvalidTerminalPromptLabel(Label invalidTerminalPromptLabel) {
         this.invalidTerminalPromptLabel = invalidTerminalPromptLabel;
     }
-
-
-
-
 
 
 }

@@ -1,85 +1,67 @@
+// File: client/admin/controller/ReservationApprovalController.java
 package client.admin.controller;
 
 import client.admin.model.ReservationApprovalModel;
 import client.admin.view.ReservationApprovalView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import server.utility.ApprovalReservation;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReservationApprovalController {
 
-    @FXML
-    private TableView<ApprovalReservation> approveResTableView;
+    private ReservationApprovalView view;
+    private ReservationApprovalModel model;
+    private ObservableList<ApprovalReservation> allReservations = FXCollections.observableArrayList();
 
-    @FXML
-    private TableColumn<ApprovalReservation, String> reservationIdColumn;
+    public ReservationApprovalController(ReservationApprovalView view) {
+        this.view = view;
+        this.model = new ReservationApprovalModel();
 
-    @FXML
-    private TableColumn<ApprovalReservation, String> userIdColumn;
-
-    @FXML
-    private TableColumn<ApprovalReservation, String> terminalNoColumn;
-
-    @FXML
-    private TableColumn<ApprovalReservation, String> roomNumberColumn;
-
-    @FXML
-    private TableColumn<ApprovalReservation, String> dateColumn;
-
-    @FXML
-    private TableColumn<ApprovalReservation, String> startTimeColumn;
-
-    @FXML
-    private TableColumn<ApprovalReservation, String> endTimeColumn;
-
-    @FXML
-    private TableColumn<ApprovalReservation, String> statusColumn;
-
-    private final ReservationApprovalModel model = new ReservationApprovalModel();
-    private final ObservableList<ApprovalReservation> reservations = FXCollections.observableArrayList();
-
-    @FXML
-    public void initialize() {
-        // Link table columns to ApprovalReservation properties
-        reservationIdColumn.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
-        userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        terminalNoColumn.setCellValueFactory(new PropertyValueFactory<>("terminalId"));
-        roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomId"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
-        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        // Load initial reservations
-        loadReservations();
+        loadReservations();         // Load all reservations initially
+        setupSearchFunctionality(); // Set up search feature
+        setupRefreshFunctionality();// Set up refresh feature
     }
 
-    public void loadReservations() {
-        List<ApprovalReservation> reservationList = model.loadReservations();
-        reservations.setAll(reservationList);
-        approveResTableView.setItems(reservations);
+    private void loadReservations() {
+        List<ApprovalReservation> reservations = model.fetchAllApprovalReservations();
+        allReservations.setAll(reservations);
+        view.updateTable(allReservations);
     }
 
-    public void searchReservations(String keyword) {
-        if (keyword.isEmpty()) {
-            loadReservations();
+    private void setupSearchFunctionality() {
+        view.setActionSearchButton(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String searchQuery = view.getSearchStudResTextField().getText().trim();
+                filterReservations(searchQuery);
+            }
+        });
+    }
+
+    private void setupRefreshFunctionality() {
+        view.setActionRefreshButton(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                loadReservations();
+            }
+        });
+    }
+
+    private void filterReservations(String searchQuery) {
+        if (searchQuery.isEmpty()) {
+            view.updateTable(allReservations);
             return;
         }
 
-        List<ApprovalReservation> reservationList = model.loadReservations();
-        List<ApprovalReservation> filteredList = reservationList.stream()
-                .filter(res -> res.getUserId().contains(keyword) ||
-                        res.getReservationId().contains(keyword) ||
-                        res.getRoomId().contains(keyword) ||
-                        res.getStatus().contains(keyword))
-                .toList();
+        List<ApprovalReservation> filteredList = allReservations.stream()
+                .filter(reservation -> reservation.getRoomNumber().equalsIgnoreCase(searchQuery))
+                .collect(Collectors.toList());
 
-        reservations.setAll(filteredList);
-        approveResTableView.setItems(reservations);
+        view.updateTable(FXCollections.observableArrayList(filteredList));
     }
 }
