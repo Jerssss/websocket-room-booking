@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.ReportGeneratorView">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.ReportGeneratorView">
    <children>
       <VBox prefHeight="74.0" prefWidth="805.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="805.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="671.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="527.0">
                      <children>
                         <Label fx:id="reportsLabel" text="Reports" textFill="#0d3073">
                            <font>
@@ -23,10 +33,20 @@
                         <Insets left="9.0" />
                      </HBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="438.0" spacing="8.0">
+                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="407.0" spacing="10.0">
                      <children>
-                        <ComboBox fx:id="sortByComboBox" prefWidth="150.0" promptText="Sort By" />
-                        <Button fx:id="saveChangesButton" mnemonicParsing="false" prefWidth="111.0" text="Save Changes" />
+                        <StackPane alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="56.0" prefWidth="215.0">
+                           <children>
+                              <TextField fx:id="searchReportTextField" promptText="Enter keywords..." styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                              <Button fx:id="searchButton" mnemonicParsing="false" prefWidth="60.0" text="Search" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="413.0" spacing="3.0">
+                     <children>
+                        <ComboBox fx:id="sortByComboBox" prefHeight="25.0" prefWidth="108.0" promptText="Sort By" />
+                        <Button fx:id="saveReportButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Save Report" />
                      </children>
                   </HBox>
                </children>

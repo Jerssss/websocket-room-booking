@@ -1,79 +1,88 @@
 package server.admin;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import server.utility.LogReport;
+import server.utility.ReservationReport;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReportGeneratorProcessor {
-    private static final String filePath = "src/main/java/server/util/logs.xml";
 
-    // Parse the log XML and return the list of LogReport objects
-    public static List<LogReport> parseLogXML() {
-        List<LogReport> logs = new ArrayList<>();
+    // For LogReport filtering and sorting
+    public static List<LogReport> applySortingAndFiltering(List<LogReport> logs, String sortOption, String dateFilter) {
+        if (logs == null) return null;
 
-        try {
-            File xmlFile = new File(filePath);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(xmlFile);
-
-            NodeList logNodes = document.getElementsByTagName("Log");
-            for (int i = 0; i < logNodes.getLength(); i++) {
-                Node logNode = logNodes.item(i);
-                if (logNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element logElement = (Element) logNode;
-                    String userID = logElement.getElementsByTagName("UserID").item(0).getTextContent();
-                    String userType = logElement.getElementsByTagName("UserType").item(0).getTextContent();
-                    String action = logElement.getElementsByTagName("Action").item(0).getTextContent();
-                    String date = logElement.getElementsByTagName("Date").item(0).getTextContent();
-                    String time = logElement.getElementsByTagName("Time").item(0).getTextContent();
-
-                    logs.add(new LogReport(userID, userType, action, date, time));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Apply filtering by date if dateFilter is not null or empty
+        if (dateFilter != null && !dateFilter.isEmpty()) {
+            logs = logs.stream()
+                    .filter(log -> log.getDate().contains(dateFilter))
+                    .collect(Collectors.toList());
         }
 
-        return logs;
-    }
-
-    // Apply sorting and filtering on the logs
-    public static List<LogReport> applySortingAndFiltering(List<LogReport> logs, String sortOption, String dateFilter) {
-        if (logs == null || sortOption == null) return logs;
-
-        List<LogReport> filteredLogs = new ArrayList<>(logs);
-
+        // Apply sorting based on the selected sortOption
         switch (sortOption) {
             case "Sort by Students":
-                filteredLogs.removeIf(log -> !log.getUserType().equals("Student"));
-                filteredLogs.sort(Comparator.comparing(LogReport::getUserID)); // Sort by UserID for Students
-                break;
+                return logs.stream()
+                        .sorted((log1, log2) -> log1.getUserID().compareTo(log2.getUserID()))
+                        .collect(Collectors.toList());
+
             case "Sort by Admin":
-                filteredLogs.removeIf(log -> !log.getUserType().equals("Admin"));
-                filteredLogs.sort(Comparator.comparing(LogReport::getUserID)); // Sort by UserID for Admin
-                break;
+                return logs.stream()
+                        .sorted((log1, log2) -> log1.getUserType().compareTo(log2.getUserType()))
+                        .collect(Collectors.toList());
+
             case "Filter by Date":
-                if (dateFilter != null && !dateFilter.isEmpty()) {
-                    filteredLogs.removeIf(log -> !log.getDate().equals(dateFilter));
-                } else {
-                    // Invalid date input
-                    throw new IllegalArgumentException("Inputted date is invalid.");
-                }
-                break;
+                return logs.stream()
+                        .sorted((log1, log2) -> log1.getDate().compareTo(log2.getDate()))
+                        .collect(Collectors.toList());
+
             default:
-                // No sorting or filtering applied
-                break;
+                return logs;
         }
-        return filteredLogs;
+    }
+
+    // For ReservationReport filtering and sorting
+    public static List<ReservationReport> applySortingAndFilteringForReservations(List<ReservationReport> reservations, String sortOption, String dateFilter) {
+        if (reservations == null) return null;
+
+        // Apply filtering by date if dateFilter is not null or empty
+        if (dateFilter != null && !dateFilter.isEmpty()) {
+            reservations = reservations.stream()
+                    .filter(reservation -> reservation.getDate().contains(dateFilter))
+                    .collect(Collectors.toList());
+        }
+
+        // Apply sorting based on the selected sortOption
+        switch (sortOption) {
+            case "Sort by Students":
+                return reservations.stream()
+                        .sorted((reservation1, reservation2) -> reservation1.getReservationId().compareTo(reservation2.getReservationId()))
+                        .collect(Collectors.toList());
+
+            case "Sort by Admin":
+                return reservations.stream()
+                        .sorted((reservation1, reservation2) -> reservation1.getTerminalId().compareTo(reservation2.getTerminalId()))
+                        .collect(Collectors.toList());
+
+            case "Filter by Date":
+                return reservations.stream()
+                        .sorted((reservation1, reservation2) -> reservation1.getDate().compareTo(reservation2.getDate()))
+                        .collect(Collectors.toList());
+
+            default:
+                return reservations;
+        }
+    }
+
+    // Method to parse LogReport XML
+    public static List<LogReport> parseLogXML() {
+        // Implement your XML parsing logic here
+        return null; // Return a list of LogReport objects
+    }
+
+    // Method to parse ReservationReport XML
+    public static List<ReservationReport> parseReservationXML() {
+        // Implement your XML parsing logic here
+        return null; // Return a list of ReservationReport objects
     }
 }
