@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import server.admin.AddNewTerminalProcessor;
-import server.utility.TerminalVer2;
+import server.utility.Terminal;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -100,10 +100,10 @@ public class AddNewTerminalController {
 
     // Method to load data from the XML file
     public static void loadDataFromXML(String filePath) {
-        List<TerminalVer2> terminalVer2s = AddNewTerminalProcessor.parseXML(filePath);
-        if (terminalVer2s != null) {
+        List<Terminal> terminal = AddNewTerminalProcessor.parseXML(filePath);
+        if (terminal != null) {
             AddNewTerminalView.terminalResults.clear(); // Clear the current data
-            AddNewTerminalView.terminalResults.addAll(terminalVer2s);
+            AddNewTerminalView.terminalResults.addAll(terminal);
         }
     }
 

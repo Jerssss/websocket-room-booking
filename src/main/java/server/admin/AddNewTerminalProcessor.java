@@ -1,13 +1,10 @@
 package server.admin;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import server.utility.Terminal;
-import server.utility.TerminalVer2;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -120,8 +117,8 @@ public class AddNewTerminalProcessor {
             }
         }
     }
-    public static List<TerminalVer2> parseXML(String filePath) {
-        List<TerminalVer2> terminals = new ArrayList<>();
+    public static List<Terminal> parseXML(String filePath) {
+        List<Terminal> terminals = new ArrayList<>();
 
         try {
             // Initialize DocumentBuilderFactory and DocumentBuilder
@@ -153,7 +150,7 @@ public class AddNewTerminalProcessor {
                     String terminalStatus = getTagValue("terminal_status", element);
 
                     // Create a new Terminal object and add it to the list
-                    TerminalVer2 terminal = new TerminalVer2(terminalId, terminalRoom, terminalOS, terminalStatus, day, time);
+                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus, day, time);
                     terminals.add(terminal);
                 }
             }

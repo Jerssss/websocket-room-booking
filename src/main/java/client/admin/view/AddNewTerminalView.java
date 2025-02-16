@@ -12,11 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 
 import client.admin.controller.AddNewTerminalController;
-import server.admin.AddNewTerminalProcessor;
-import server.utility.TerminalVer2;
-
-import javax.swing.*;
-import java.util.List;
+import server.utility.Terminal;
 
 public class AddNewTerminalView {
     private AddNewTerminalController controller;
@@ -102,21 +98,21 @@ public class AddNewTerminalView {
         this.status = status;
     }
     @FXML
-    private TableView<TerminalVer2> addTerminalTableView;
+    private TableView<Terminal> addTerminalTableView;
     @FXML
-    private TableColumn<TerminalVer2, String> terminalColumn;
+    private TableColumn<Terminal, String> terminalColumn;
     @FXML
-    private TableColumn<TerminalVer2, String> roomNumberColumn;
+    private TableColumn<Terminal, String> roomNumberColumn;
     @FXML
-    private TableColumn<TerminalVer2, String> terminalOSColumn;
+    private TableColumn<Terminal, String> terminalOSColumn;
     @FXML
-    private TableColumn<TerminalVer2, String> dayColumn;
+    private TableColumn<Terminal, String> dayColumn;
     @FXML
-    private TableColumn<TerminalVer2, String> timeColumn;
+    private TableColumn<Terminal, String> timeColumn;
     @FXML
-    private TableColumn<TerminalVer2, String> statusColumn;
+    private TableColumn<Terminal, String> statusColumn;
     @FXML
-    public static ObservableList<TerminalVer2> terminalResults = FXCollections.observableArrayList();
+    public static ObservableList<Terminal> terminalResults = FXCollections.observableArrayList();
 
     // Setters for button actions
     public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
@@ -180,7 +176,7 @@ public class AddNewTerminalView {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
-            terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOSProperty());
+            terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
             dayColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
             timeColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
             statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
