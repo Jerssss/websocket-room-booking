@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModifyTerminalProcessor {
+    private static final String filePath = "src/main/java/server/util/terminal.xml";
 
-    public List<Terminal> parseXML(String filePath) {
+    public static List<Terminal> parseXML() {
         List<Terminal> terminals = new ArrayList<>();
 
         try {
@@ -53,7 +54,7 @@ public class ModifyTerminalProcessor {
     }
 
 
-    public void saveToXML(String filePath, List<Terminal> terminals) {
+    public static void saveToXML(List<Terminal> terminals) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -81,7 +82,7 @@ public class ModifyTerminalProcessor {
         }
     }
 
-    private void appendChildWithText(Document doc, Element parent, String tag, String text) {
+    private static void appendChildWithText(Document doc, Element parent, String tag, String text) {
         Element element = doc.createElement(tag);
         element.appendChild(doc.createTextNode(text));
         parent.appendChild(element);
