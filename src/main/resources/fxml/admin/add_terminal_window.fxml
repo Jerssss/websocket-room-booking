@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="266.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.AddNewTerminalView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="266.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.admin.view.AddNewTerminalView">
    <center>
       <VBox prefHeight="164.0" prefWidth="266.0" BorderPane.alignment="CENTER">
          <children>
@@ -33,14 +34,14 @@
                   </HBox>
                   <HBox prefHeight="43.0" prefWidth="310.0">
                      <children>
-                        <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                        <StackPane alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="254.0">
                            <children>
                               <Label text="OS Type:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="osTypeTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="108.0" styleClass="background-pane" stylesheets="@../../css/styles.css" translateX="80.0" />
+                              <ComboBox fx:id="osTypeComboBox" prefHeight="25.0" prefWidth="109.0" promptText="OS Type" translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>
@@ -54,21 +55,21 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="roomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="108.0" styleClass="background-pane" stylesheets="@../../css/styles.css" translateX="80.0" />
+                              <ComboBox fx:id="roomComboBox" prefHeight="25.0" prefWidth="109.0" promptText="OS Type" translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>
                   </HBox>
                   <HBox prefHeight="43.0" prefWidth="310.0">
                      <children>
-                        <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                        <StackPane alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="297.0">
                            <children>
+                              <ComboBox fx:id="statusComboBox" prefHeight="25.0" prefWidth="109.0" promptText="Status" translateX="80.0" />
                               <Label text="Status:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="statusTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="108.0" styleClass="background-pane" stylesheets="@../../css/styles.css" translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>

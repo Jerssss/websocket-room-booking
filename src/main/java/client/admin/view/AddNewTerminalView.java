@@ -43,6 +43,12 @@ public class AddNewTerminalView {
     private ComboBox<String> dayComboBox;
     @FXML
     private ComboBox<String> timeComboBox;
+    @FXML
+    private ComboBox<String> osTypeComboBox;
+    @FXML
+    private ComboBox<String> roomComboBox;
+    @FXML
+    private ComboBox<String> statusComboBox;
     private String terminalId;
     private String room;
     private String osType;
@@ -144,6 +150,27 @@ public class AddNewTerminalView {
                         "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
                 );
                 dayComboBox.setItems(days);
+            }
+
+            if (osTypeComboBox != null) {
+                ObservableList<String> days = FXCollections.observableArrayList(
+                        "macOS", "Windows"
+                );
+                osTypeComboBox.setItems(days);
+            }
+
+            if (roomComboBox != null) {
+                ObservableList<String> days = FXCollections.observableArrayList(
+                        "D524", "D526", "D426"
+                );
+                roomComboBox.setItems(days);
+            }
+
+            if (statusComboBox != null) {
+                ObservableList<String> days = FXCollections.observableArrayList(
+                        "Pending" //TODO
+                );
+                statusComboBox.setItems(days);
             }
         });
 
