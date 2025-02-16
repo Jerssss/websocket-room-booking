@@ -1,0 +1,26 @@
+/* Button style */
+.button-selected {
+    -fx-text-fill: black;
+    -fx-background-color: #4CAF50; /* Green background */
+    -fx-border-color: #2E8B57; /* Dark green border */
+}
+
+/* Text field style */
+.text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: #BDD1E8;
+    -fx-padding: 5 0 5 28;
+    -fx-prompt-text-fill: #8988b1;
+}
+
+/* Background pane style */
+.background-pane {
+    -fx-background-image: url("../images/client/paper.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: auto;
+}
+
+/* User type picker style */
+.userTypePicker {
+    -fx-prompt-text-fill: #8988b1;
+}

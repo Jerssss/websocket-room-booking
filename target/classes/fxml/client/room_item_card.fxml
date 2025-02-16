@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="313.0" style="-fx-border-width: 3 3 3 3; -fx-border-color: #0d3073; -fx-border-radius: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.RoomItemCardView">
+   <children>
+      <VBox prefHeight="125.0" prefWidth="160.0">
+         <children>
+            <HBox prefHeight="20.0" prefWidth="136.0">
+               <children>
+                  <Label fx:id="roomNamelabel" text="Room Name"> <!-- FIXED: Added fx:id -->
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="23.0" prefWidth="136.0" style="-fx-background-radius: 10;">
+               <children>
+                  <Label fx:id="roomTypeDescription" alignment="TOP_CENTER" text="Room Type: ">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="roomTypeLabel" alignment="TOP_CENTER" text="Mac">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="26.0" prefWidth="160.0" style="-fx-background-radius: 10;">
+               <children>
+                  <Label fx:id="availableTerminalsLabel" alignment="TOP_LEFT" text="Available terminals: ">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="terminalNumberLabel" alignment="TOP_LEFT" text="##">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="seeTerminalsButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="109.0" text="See terminals" textFill="#0d3073">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </HBox.margin>
+      </Button>
+   </children>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.21755725145339966" />
+         </color>
+      </DropShadow>
+   </effect>
+</HBox>
