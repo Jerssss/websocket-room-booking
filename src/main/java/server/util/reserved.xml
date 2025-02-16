@@ -11,7 +11,7 @@
     <Reservation>
         <reservation_id>102</reservation_id>
         <Student_ID>2002</Student_ID>
-        <terminal_id>3</terminal_id>
+        <terminal_id>PC32</terminal_id>
         <date>2025-02-11</date>
         <terminal_room>D521</terminal_room>
         <terminal_status>Pending</terminal_status>
@@ -19,7 +19,7 @@
     <Reservation>
         <reservation_id>103</reservation_id>
         <Student_ID>2003</Student_ID>
-        <terminal_id>2</terminal_id>
+        <terminal_id>PC24</terminal_id>
         <date>2025-04-11</date>
         <terminal_room>D522</terminal_room>
         <terminal_status>Cancelled</terminal_status>

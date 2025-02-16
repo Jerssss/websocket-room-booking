@@ -209,13 +209,14 @@ public class ClientHandler implements Runnable {
      */
     private void handleViewStudentReservations(PrintWriter writer) {
         try {
-            List<StudentReservation> reservations = ViewStudentReservationsController.parseReservedXML();
+            List<StudentReservation> reservations = ViewStudentReservationsProcessor.loadStudentReservationsFromXML();
             writer.println(createReservationsXMLResponse(reservations));
         } catch (Exception e) {
             e.printStackTrace();
             writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
         }
     }
+
 
 
     /**
