@@ -2,8 +2,6 @@ package client.admin.controller;
 
 import client.admin.model.AddNewTerminalModel;
 import client.admin.view.AddNewTerminalView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,24 +28,28 @@ public class AddNewTerminalController {
     }
 
     private void handleSaveChange(ActionEvent event) {
+        // Get selected values from combo boxes
         String terminalId = view.getTerminalNoTextField().getText().trim();
-        String room = view.getRoomTextField().getText().trim();
-        String osType = view.getOsTypeTextField().getText().trim();
-        String status = view.getStatusTextField().getText().trim();
+        String room = view.getRoomNumberComboBox().getSelectionModel().getSelectedItem();
+        String osType = view.getTerminalOSComboBox().getSelectionModel().getSelectedItem();
+        String status = view.getStatusComboBox().getSelectionModel().getSelectedItem();
         String selectedDay = view.getDayComboBox().getSelectionModel().getSelectedItem();
         String selectedTime = view.getTimeComboBox().getSelectionModel().getSelectedItem();
 
         loadDataFromXML("src/main/java/server/util/terminal.xml");
 
         // Validate inputs
-        if (terminalId.isEmpty() || room.isEmpty() || osType.isEmpty() || status.isEmpty() ||
+        if (terminalId.isEmpty() || room == null || osType == null || status == null ||
                 selectedDay == null || selectedTime == null) {
             JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including day and time.");
+            closeWindow(); // Close window even if there's an error
             return;
         }
 
-        if (!status.matches("Active|Reserved|Maintenance")) {
-            JOptionPane.showMessageDialog(null, "Error: Status must be 'Active', 'Reserved', or 'Maintenance'");
+        // Validate Terminal ID - must be numeric
+        if (!terminalId.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Error: Terminal ID must be a number.");
+            closeWindow(); // Close window even if there's an error
             return;
         }
 
@@ -69,12 +71,17 @@ public class AddNewTerminalController {
 
         if (success) {
             JOptionPane.showMessageDialog(null, "Success! Terminal has been added!");
-            Stage stage = (Stage) view.getSaveChangesButton().getScene().getWindow();
-            stage.close();
         } else {
             JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
         }
+        closeWindow(); // Always close the window at the end
     }
+
+    private void closeWindow() {
+        Stage stage = (Stage) view.getSaveChangesButton().getScene().getWindow();
+        stage.close();
+    }
+
 
     public static void redirectAddTerminalWindow(ActionEvent event) {
         try {
