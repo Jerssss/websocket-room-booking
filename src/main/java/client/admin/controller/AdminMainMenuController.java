@@ -41,6 +41,7 @@ public class AdminMainMenuController {
         this.view.setActionModifyTerminalButton(event -> handleModifyTerminal());
         this.view.setActionShowStudentReservationButton(event -> handleViewStudentReservation());
         this.view.setActionResApprovalButton(event -> handleReservationApproval());
+        this.view.setActionReportsButton(event -> handleReports());
         this.view.setActionToggleButton(event -> handleServerToggleButton());
         this.view.setActionLogoutButton(this::handleLogout);
     }
@@ -61,25 +62,21 @@ public class AdminMainMenuController {
         }
     }
 
-    private void handleModifyTerminal() {
-        System.out.println("Navigating to Modify Terminal Status...");
-    }
-
     private void handleAddNewTerminal() {
         System.out.println("Navigating to Add New Terminal...");
     }
-
     private void handleViewStudentReservation() {
         System.out.println("Navigating to View Student Reservations...");
     }
-
-
+    private void handleModifyTerminal() {
+        System.out.println("Navigating to Modify Terminal Status...");
+    }
+    private void handleReports() {
+        System.out.println("Navigating to Reports...");
+    }
     private void handleReservationApproval() {
         System.out.println("");
     }
-
-
-
 
     // File: AdminMainMenuController.java (same for StudentMainMenuController)
     private void handleLogout(ActionEvent event) {
