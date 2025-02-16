@@ -172,7 +172,6 @@ public class ClientHandler implements Runnable {
     /**
      * Handles adding a new terminal.
      */
-
     private void handleAddTerminal(String clientMessage, PrintWriter writer) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -212,8 +211,6 @@ public class ClientHandler implements Runnable {
         }
     }
 
-
-
     /**
      * Handles fetching user reservations.
      */
@@ -246,8 +243,6 @@ public class ClientHandler implements Runnable {
         }
     }
 
-
-
     private void handlefetchreservation(PrintWriter writer) {
         try {
             List<Reservation> reservations = ModifyReservationProcessor.parseXML(
@@ -263,8 +258,6 @@ public class ClientHandler implements Runnable {
     /**
      * Handles updating a reservation.
      */
-
-
     private void handleUpdateReservation (PrintWriter writer){
         try {
             List<Reservation> reservations = ModifyReservationProcessor.parseXML(
@@ -354,17 +347,8 @@ public class ClientHandler implements Runnable {
         }
     }
 
-
-
   /*
-
-
   wait lang/
-
-
-
-
-
 
 
   private void handleUpdateReservation(String clientMessage, PrintWriter writer) {
@@ -378,7 +362,8 @@ public class ClientHandler implements Runnable {
         String response = processor.updateReservation(reservationId, updates);
         writer.println(response);
     }
-*/
+    */
+
     /**
      * Extracts a field from the XML message.
      */
@@ -507,7 +492,6 @@ public class ClientHandler implements Runnable {
             return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
         }
     }
-
 
     private String createReservations2XMLResponse(List<Reservation> reservations) {
         try {

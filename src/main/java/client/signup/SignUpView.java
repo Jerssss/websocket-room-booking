@@ -136,6 +136,7 @@ public class SignUpView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void logInButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), signInPageSignInButton);
         st.setToX(0.9);
@@ -144,5 +145,4 @@ public class SignUpView {
         st.setAutoReverse(false);
         st.play();
     }
-
 }
