@@ -3,6 +3,8 @@ package server;
 import client.admin.controller.ViewStudentReservationsController;
 import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
+import client.utility.SessionManager;
+import client.utility.SessionTokenGenerator;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import server.landingpage.LoginProcessor;
@@ -110,42 +112,35 @@ public class ClientHandler implements Runnable {
      * Handles user login requests.
      */
     private void handleLogin(String clientMessage, PrintWriter writer) {
-        // Extract fields
         String userID = extractField(clientMessage, "<UserID>", "</UserID>");
         String password = extractField(clientMessage, "<Password>", "</Password>");
         String userType = extractField(clientMessage, "<UserType>", "</UserType>");
 
-        // Validate fields
         if (userID == null || password == null || userType == null) {
-            writer.println("<Response><Status>ERROR</Status><Message>Invalid login request. Missing fields.</Message></Response>");
+            writer.println("<Response><Status>ERROR</Status><Message>Invalid login request.</Message></Response>");
             return;
         }
 
-        // Attempt login
         String userName = LoginProcessor.getUserName(userID, password, userType);
         if (userName != null) {
+            // Generate session token
+            String sessionToken = SessionTokenGenerator.generateUniqueToken();
+
+            // Create the session (critical missing step!)
+            SessionManager.createSession(sessionToken, userID);
+
+            // Send the token to the client
             writer.println(String.format(
-                    "<Response><Status>SUCCESS</Status><Name>%s</Name><Message>Login Successful</Message></Response>",
+                    "<Response><Status>SUCCESS</Status><SessionToken>%s</SessionToken><Name>%s</Name></Response>",
+                    sessionToken,
                     userName
             ));
-            currentUser = userID;
 
-
-            try {
-                ServerConnection connection = ServerConnectionManager.getConnection();
-                connection.setLoggedInUserId(userID);
-            } catch (IOException e) {
-                System.err.println("Error initializing server connection during login.");
-                e.printStackTrace();
-                writer.println("<Response><Status>ERROR</Status><Message>Server connection failed.</Message></Response>");
-            }
+            System.out.println("DEBUG: Session created for UserID=" + userID + ", Token=" + sessionToken);
         } else {
             writer.println("<Response><Status>FAILURE</Status><Message>Invalid Credentials</Message></Response>");
         }
     }
-
-
-
 
     /**
      * Handles user sign-up requests.
