@@ -1,19 +1,13 @@
 package client.admin.model;
 
 
-import client.admin.controller.ViewStudentReservationsController;
 import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import server.admin.ViewStudentReservationsProcessor;
 import server.utility.StudentReservation;
-
-
 import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,12 +22,10 @@ public class ViewStudentReservationsModel {
         }
     }
 
-
     // Fetch student reservations from XML using the processor
     public List<StudentReservation> fetchStudentReservations() {
-        return ViewStudentReservationsController.parseReservedXML();
+        return parseXML();
     }
-
 
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));

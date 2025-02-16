@@ -1,6 +1,12 @@
 package server.admin;
 
 
+
+
+
+
+
+
 import server.utility.StudentReservation;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
@@ -14,11 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 public class ViewStudentReservationsProcessor {
-
-
     private static final String FILE_PATH = "src/main/java/server/util/reserved.xml";
-
 
     // Load student reservations from XML file
     public static List<StudentReservation> loadStudentReservationsFromXML() {
@@ -30,11 +35,9 @@ public class ViewStudentReservationsProcessor {
                 return studentReservations;
             }
 
-
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(file);
-
 
             NodeList nodeList = doc.getElementsByTagName("Reservation");
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -45,7 +48,6 @@ public class ViewStudentReservationsProcessor {
                 String date = getTagValue("date", element);
                 String terminalStatus = getTagValue("terminal_status", element);
 
-
                 studentReservations.add(new StudentReservation(reservationId, terminalId, terminalRoom, date, terminalStatus));
             }
         } catch (Exception e) {
@@ -53,7 +55,6 @@ public class ViewStudentReservationsProcessor {
         }
         return studentReservations;
     }
-
 
     // Helper method to get the value of a tag
     private static String getTagValue(String tag, Element element) {
