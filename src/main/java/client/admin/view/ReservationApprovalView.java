@@ -16,6 +16,8 @@ public class ReservationApprovalView {
     @FXML
     private Button refreshButton;
     @FXML
+    private Button saveChangesButton;
+    @FXML
     private TextField searchStudResTextField;
 
     @FXML
@@ -52,6 +54,10 @@ public class ReservationApprovalView {
     public void setActionRefreshButton(EventHandler<ActionEvent> event) {
         refreshButton.setOnAction(event);
     }
+    public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
+        saveChangesButton.setOnAction(event);
+    }
+
 
     @FXML
     public void initialize() {
