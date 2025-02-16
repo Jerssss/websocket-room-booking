@@ -2,8 +2,13 @@ package client.admin.model;
 
 import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import server.admin.ModifyTerminalProcessor;
+import server.utility.Terminal;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ModifyTerminalStatusModel {
     private ServerConnection serverConnection;
@@ -15,5 +20,22 @@ public class ModifyTerminalStatusModel {
             e.printStackTrace();
         }
     }
-}
 
+    public ObservableList<Terminal> loadTerminalData() {
+        if (serverConnection != null) {
+            List<Terminal> terminals = ModifyTerminalProcessor.parseXML();
+            if (terminals == null) {
+                System.out.println("No terminal data received from server!");
+                return FXCollections.observableArrayList();
+            }
+            return FXCollections.observableArrayList(terminals);
+        }
+        return FXCollections.observableArrayList();
+    }
+
+    public void saveTerminalData(ObservableList<Terminal> terminalData) {
+        if (serverConnection != null) {
+            ModifyTerminalProcessor.saveToXML(terminalData);
+        }
+    }
+}
