@@ -23,6 +23,7 @@ public class ReportGeneratorController {
 
     public void loadReservationReports() {
         ObservableList<ReservationReport> reservations = model.loadReservationsFromServer();
+        System.out.println("Reservations loaded into View: " + reservations.size()); // Debugging
         view.setReservationReports(reservations);
     }
 
