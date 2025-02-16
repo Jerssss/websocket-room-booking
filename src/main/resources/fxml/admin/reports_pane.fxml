@@ -24,7 +24,7 @@
                         <Font name="System Bold" size="29.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="searchReportTextField" promptText="Enter keywords..." />
+                  <TextField fx:id="searchReportTextField" promptText="Enter keywords..." styleClass="background-pane" stylesheets="@../../css/styles.css" />
                   <Button fx:id="searchButton" text="Search" />
                   <Button fx:id="refreshButton" text="Refresh" />
                </children>
@@ -38,7 +38,7 @@
       <!-- Report Tables -->
       <VBox alignment="CENTER" prefHeight="521.0" prefWidth="805.0">
          <children>
-            <TabPane fx:id="reportsTabPane" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="reportsTabPane" stylesheets="@../../css/tablestyles.css" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab fx:id="logReportTab" text="Log Report">
                      <content>
@@ -46,11 +46,11 @@
                            <children>
                               <TableView fx:id="logReportTableView" prefHeight="482.0" prefWidth="805.0">
                                  <columns>
-                                    <TableColumn fx:id="resIDColumn1" text="User ID" prefWidth="150.0" />
-                                    <TableColumn fx:id="terminalColumn1" text="User Type" prefWidth="150.0" />
-                                    <TableColumn fx:id="roomNumberColumn1" text="Actions" prefWidth="150.0" />
-                                    <TableColumn fx:id="statusColumn1" text="Date" prefWidth="150.0" />
-                                    <TableColumn fx:id="statusColumn12" text="Time" prefWidth="150.0" />
+                                    <TableColumn fx:id="resIDColumn1" prefWidth="150.0" text="User ID" />
+                                    <TableColumn fx:id="terminalColumn1" prefWidth="150.0" text="User Type" />
+                                    <TableColumn fx:id="roomNumberColumn1" prefWidth="150.0" text="Actions" />
+                                    <TableColumn fx:id="statusColumn1" prefWidth="150.0" text="Date" />
+                                    <TableColumn fx:id="statusColumn12" prefWidth="150.0" text="Time" />
                                  </columns>
                               </TableView>
                            </children>
@@ -64,11 +64,11 @@
                            <children>
                               <TableView fx:id="reservationReportTableView" prefHeight="482.0" prefWidth="805.0">
                                  <columns>
-                                    <TableColumn fx:id="resIDColumn11" text="Reservation ID" prefWidth="150.0" />
-                                    <TableColumn fx:id="terminalColumn11" text="Terminal No." prefWidth="150.0" />
-                                    <TableColumn fx:id="roomNumberColumn11" text="Room No." prefWidth="150.0" />
-                                    <TableColumn fx:id="statusColumn11" text="Reservation Status" prefWidth="175.0" />
-                                    <TableColumn fx:id="statusColumn111" text="Terminal Status" prefWidth="175.0" />
+                                    <TableColumn fx:id="resIDColumn11" prefWidth="150.0" text="Reservation ID" />
+                                    <TableColumn fx:id="terminalColumn11" prefWidth="150.0" text="Terminal No." />
+                                    <TableColumn fx:id="roomNumberColumn11" prefWidth="150.0" text="Room No." />
+                                    <TableColumn fx:id="statusColumn11" prefWidth="175.0" text="Reservation Status" />
+                                    <TableColumn fx:id="statusColumn111" prefWidth="175.0" text="Terminal Status" />
                                  </columns>
                               </TableView>
                            </children>
