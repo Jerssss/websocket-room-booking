@@ -19,7 +19,6 @@ import javax.xml.parsers.*;
 public class ViewReservationModel {
     private  ServerConnection serverConnection;
 
-
     public ViewReservationModel() {
         try {
             serverConnection = ServerConnectionManager.getConnection();
@@ -27,8 +26,6 @@ public class ViewReservationModel {
             showErrorDialog("Server is down or unreachable. Please try again later.");
         }
     }
-
-
 
     // Fetch reservations from the server and return as a Map
     public List<Reservation> fetchAllReservations() {
@@ -76,8 +73,6 @@ public class ViewReservationModel {
         return reservations;
     }
 
-
-
     private List<Reservation> parseXMLResponse(String xmlResponse) {
         List<Reservation> reservations = new ArrayList<>();
         try {
@@ -113,13 +108,10 @@ public class ViewReservationModel {
         return reservations;
     }
 
-
-
-
     private void showErrorDialog(String message) {
-        Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
+        Platform.runLater(() -> JOptionPane.showMessageDialog(
+                null, message, "Connection Error", JOptionPane.ERROR_MESSAGE
+        ));
 
     }
-
-
 }

@@ -6,6 +6,7 @@ import client.login.LoginModel;
 import client.login.LoginView;
 import client.student.model.StudentMainMenuModel;
 import client.student.view.StudentMainMenuView;
+import client.student.view.ViewReservationView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,11 +21,16 @@ public class StudentMainMenuController {
     private final StudentMainMenuView studentMainMenuView;
     private final StudentMainMenuModel studentMainMenuModel;
     private final String loggedInUserName;
+    private String sessionToken;
 
-    public StudentMainMenuController(StudentMainMenuView studentMainMenuView, StudentMainMenuModel studentMainMenuModel, String loggedInUserName) {
+    public StudentMainMenuController(StudentMainMenuView studentMainMenuView,
+                                     StudentMainMenuModel studentMainMenuModel,
+                                     String loggedInUserName,
+                                     String sessionToken) {
         this.studentMainMenuView = studentMainMenuView;
         this.studentMainMenuModel = studentMainMenuModel;
         this.loggedInUserName = loggedInUserName;
+        this.sessionToken = sessionToken;
 
         // Set user name in the UI
         this.studentMainMenuView.setLoggedInUserName(loggedInUserName);
@@ -32,6 +38,8 @@ public class StudentMainMenuController {
 
         // Initialize button actions
         initializeActions();
+
+        System.out.println("DEBUG: Session token in controller: " + sessionToken);
     }
 
     private void initializeActions() {
@@ -50,8 +58,23 @@ public class StudentMainMenuController {
 
     private void handleViewReservation(ActionEvent event) {
         System.out.println("Navigating to View Reservation Page...");
-        studentMainMenuView.loadView("/fxml/client/view_reservation_pane.fxml");
-        studentMainMenuView.highlightSelectedButton(studentMainMenuView.getViewReservationButton());
+        try {
+            // Load the reservation pane into the center of the root BorderPane
+            studentMainMenuView.loadView("/fxml/client/view_reservation_pane.fxml");
+
+            // Pass session token to the reservation controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/view_reservation_pane.fxml"));
+            loader.load();
+            ViewReservationView controller = loader.getController();
+            controller.setSessionToken(sessionToken);
+            controller.loadReservationData();
+
+            // Highlight the selected button
+            studentMainMenuView.highlightSelectedButton(studentMainMenuView.getViewReservationButton());
+        } catch (IOException e) {
+            System.err.println("Failed to load reservation pane: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void handleModifyReservation(ActionEvent event) {

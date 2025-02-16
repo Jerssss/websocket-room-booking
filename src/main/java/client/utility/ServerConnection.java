@@ -58,10 +58,12 @@ public class ServerConnection {
     // Method to set the logged-in user ID after a successful login
     public void setLoggedInUserId(String userId) {
         this.loggedInUserId = userId;
+        System.out.println("DEBUG: User ID set to: " + this.loggedInUserId);
     }
 
     // Method to get the logged-in user ID
     public String getLoggedInUserId() {
+        System.out.println("DEBUG: Retrieved User ID: " + this.loggedInUserId);
         return this.loggedInUserId;
     }
 }

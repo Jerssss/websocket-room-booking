@@ -1,5 +1,6 @@
 package client.student.view;
 
+import client.utility.SessionManager;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,7 +9,9 @@ import javafx.fxml.FXML;
 import server.student.ViewReservationProcessor;
 import client.utility.ServerConnectionManager;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -41,12 +44,15 @@ public class ViewReservationView {
     private TableColumn<Reservation, String> statusColumn;
 
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
-
     public TableView<Reservation> getStudResTableView() {
         return modResTableView;
     }
-
+    private String sessionToken;
     @FXML
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
+    }
+
     public void initialize() throws IOException {
         // Initialize columns and bind properties
         reservationIDColumn.setCellValueFactory(cellData -> cellData.getValue().reservationIdProperty());
@@ -56,8 +62,6 @@ public class ViewReservationView {
         startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
         endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().reservationStatusProperty());
-
-        loadDataForLoggedInUser();
         modResTableView.setItems(reservationData);
 
         // Populate ComboBoxes with default values
@@ -103,10 +107,28 @@ public class ViewReservationView {
         yearComboBox.getSelectionModel().select(0); // Default to "Select Year"
     }
 
+    public void loadReservationData() throws IOException {
+        if (sessionToken == null) {
+            System.err.println("Error: Session token not set!");
+            return;
+        }
+        loadDataForLoggedInUser(sessionToken); // Now uses the class field
+    }
+
     // Load reservations for the logged-in user only
-    private void loadDataForLoggedInUser() throws IOException {
-        String loggedInUserId = ServerConnectionManager.getConnection().getLoggedInUserId();  // Fetch logged-in user ID
+    private void loadDataForLoggedInUser(String sessionToken) throws IOException {
+        String loggedInUserId = SessionManager.getUserId(sessionToken);  // Fetch logged-in user ID
         System.out.println("Logged-in User ID: " + loggedInUserId);  // Debugging logged-in user ID
+
+        // Check if the user has an established connection
+        if (loggedInUserId == null) {
+            System.err.println("Error: Invalid or expired session token!");
+            return;
+        }
+
+        // XML Path verification
+        String xmlPath = "src/main/java/server/util/reservationapproval.xml";
+        System.out.println("Debug - Loading XML from: " + new File(xmlPath).getAbsolutePath());
 
         // Load the reservations and filter them by logged-in user's ID
         List<Reservation> reservations = ViewReservationProcessor.parseXML("src/main/java/server/util/reservationapproval.xml");
@@ -127,29 +149,29 @@ public class ViewReservationView {
         // Clear the current reservation data
         reservationData.clear();
 
-        try {
-            String loggedInUserId = ServerConnectionManager.getConnection().getLoggedInUserId();  // Fetch logged-in user ID
-            List<Reservation> reservations = ViewReservationProcessor.parseXML("src/main/java/server/util/reservationapproval.xml");
+        String loggedInUserId = SessionManager.getUserId(sessionToken);
+        if (loggedInUserId == null) {
+            System.err.println("Error: Invalid session token!");
+            return;
+        }
+        List<Reservation> reservations = ViewReservationProcessor.parseXML("src/main/java/server/util/reservationapproval.xml");
 
-            if (reservations != null) {
-                for (Reservation reservation : reservations) {
-                    LocalDate reservationDate = LocalDate.parse(reservation.getReservationDate()); // Assuming reservationDate is a LocalDate
+        if (reservations != null) {
+            for (Reservation reservation : reservations) {
+                LocalDate reservationDate = LocalDate.parse(reservation.getReservationDate()); // Assuming reservationDate is a LocalDate
 
-                    boolean matchesYear = !selectedYear.equals("Select Year") && String.valueOf(reservationDate.getYear()).equals(selectedYear);
+                boolean matchesYear = !selectedYear.equals("Select Year") && String.valueOf(reservationDate.getYear()).equals(selectedYear);
 
-                    // If only the year is selected
-                    boolean matchesMonth = !selectedMonth.equals("Select Month") && reservationDate.getMonthValue() == getMonthNumber(selectedMonth);
+                // If only the year is selected
+                boolean matchesMonth = !selectedMonth.equals("Select Month") && reservationDate.getMonthValue() == getMonthNumber(selectedMonth);
 
-                    // Show the reservation if it matches the selected filters (year and/or month)
-                    if (reservation.getUserId().equals(loggedInUserId)) {
-                        if (matchesYear && (selectedMonth.equals("Select Month") || matchesMonth)) {
-                            reservationData.add(reservation);  // Add reservation to filtered list
-                        }
+                // Show the reservation if it matches the selected filters (year and/or month)
+                if (reservation.getUserId().equals(loggedInUserId)) {
+                    if (matchesYear && (selectedMonth.equals("Select Month") || matchesMonth)) {
+                        reservationData.add(reservation);  // Add reservation to filtered list
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
