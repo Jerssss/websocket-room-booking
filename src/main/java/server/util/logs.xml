@@ -21,4 +21,11 @@
         <Date>2025-02-16</Date>
         <Time>02:22:13</Time>
     </Log>
+    <Log>
+        <UserID>Tony Fowler</UserID>
+        <UserType>Admin</UserType>
+        <Action>Logout</Action>
+        <Date>2025-02-16</Date>
+        <Time>08:33:07</Time>
+    </Log>
 </Logs>
