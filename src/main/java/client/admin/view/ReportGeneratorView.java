@@ -28,7 +28,9 @@ public class ReportGeneratorView {
     private Button saveChangesButton;
 
     @FXML
-    private TextField dateFilterTextField;
+    private Button searchButton;
+    @FXML
+    private TextField searchReportTextField;
 
     @FXML
     private TabPane reportsTabPane;
