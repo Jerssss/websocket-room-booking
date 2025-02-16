@@ -1,5 +1,6 @@
 package server;
 
+import client.admin.controller.ViewStudentReservationsController;
 import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
 import org.w3c.dom.Node;
@@ -208,15 +209,14 @@ public class ClientHandler implements Runnable {
      */
     private void handleViewStudentReservations(PrintWriter writer) {
         try {
-            List<StudentReservation> reservations = ViewStudentReservationsProcessor.parseXML(
-                    "src/main/java/server/util/reservations.xml"
-            );
+            List<StudentReservation> reservations = ViewStudentReservationsController.parseReservedXML();
             writer.println(createReservationsXMLResponse(reservations));
         } catch (Exception e) {
             e.printStackTrace();
             writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
         }
     }
+
 
     /**
      * Handles fetching user reservations.
