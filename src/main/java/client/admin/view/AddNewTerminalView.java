@@ -44,9 +44,9 @@ public class AddNewTerminalView {
     @FXML
     private ComboBox<String> timeComboBox;
     @FXML
-    private ComboBox<String> osTypeComboBox;
+    private ComboBox<String> terminalOSComboBox;
     @FXML
-    private ComboBox<String> roomComboBox;
+    private ComboBox<String> roomNumberComboBox;
     @FXML
     private ComboBox<String> statusComboBox;
     private String terminalId;
@@ -152,31 +152,31 @@ public class AddNewTerminalView {
                 dayComboBox.setItems(days);
             }
 
-            if (osTypeComboBox != null) {
-                ObservableList<String> days = FXCollections.observableArrayList(
+            if (terminalOSComboBox != null) {
+                ObservableList<String> os = FXCollections.observableArrayList(
                         "macOS", "Windows"
                 );
-                osTypeComboBox.setItems(days);
+                terminalOSComboBox.setItems(os);
             }
 
-            if (roomComboBox != null) {
-                ObservableList<String> days = FXCollections.observableArrayList(
+            if (roomNumberComboBox != null) {
+                ObservableList<String> room = FXCollections.observableArrayList(
                         "D524", "D526", "D426"
                 );
-                roomComboBox.setItems(days);
+                roomNumberComboBox.setItems(room);
             }
 
             if (statusComboBox != null) {
-                ObservableList<String> days = FXCollections.observableArrayList(
-                        "Pending" //TODO
+                ObservableList<String> status = FXCollections.observableArrayList(
+                        "Active", "Down", "Maintenance" //TODO
                 );
-                statusComboBox.setItems(days);
+                statusComboBox.setItems(status);
             }
         });
 
         // Ensure table columns are initialized before setting cell value factories
         if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
-                && dayColumn != null && statusColumn != null && addTerminalTableView != null) {
+                && dayColumn != null && timeColumn != null && statusColumn != null && addTerminalTableView != null) {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
@@ -185,12 +185,15 @@ public class AddNewTerminalView {
             timeColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
             statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
 
-            // Load data only when the TableView exists
+            // Load data from XML
             AddNewTerminalController.loadDataFromXML("src/main/java/server/util/terminal.xml");
 
-            // Bind the ObservableList to the TableView
             addTerminalTableView.setItems(terminalResults);
-            refreshButton.setOnAction(event -> AddNewTerminalController.refreshTable());
+
+            // Refresh button action
+            if (refreshButton != null) {
+                refreshButton.setOnAction(event -> AddNewTerminalController.refreshTable());
+            }
         }
     }
 
@@ -208,5 +211,23 @@ public class AddNewTerminalView {
 
     public void setTimeComboBox(ComboBox<String> timeComboBox) {
         this.timeComboBox = timeComboBox;
+    }
+    public ComboBox<String> getRoomNumberComboBox() {
+        return roomNumberComboBox;
+    }
+    public void setRoomNumberComboBox(ComboBox<String> roomNumberComboBox) {
+        this.roomNumberComboBox = roomNumberComboBox;
+    }
+    public ComboBox<String> getTerminalOSComboBox() {
+        return terminalOSComboBox;
+    }
+    public void setTerminalOSComboBox(ComboBox<String> terminalOSComboBox) {
+        this.terminalOSComboBox = terminalOSComboBox;
+    }
+    public ComboBox<String> getStatusComboBox() {
+        return statusComboBox;
+    }
+    public void setStatusComboBox(ComboBox<String> statusComboBox) {
+        this.statusComboBox = statusComboBox;
     }
 }

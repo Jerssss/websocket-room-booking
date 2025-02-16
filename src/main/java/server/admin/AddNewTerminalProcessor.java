@@ -50,7 +50,7 @@ public class AddNewTerminalProcessor {
             newTerminal.appendChild(id);
 
             Element roomElement = doc.createElement("terminal_room");
-            roomElement.appendChild(doc.createTextNode("D" + room.trim()));
+            roomElement.appendChild(doc.createTextNode(room.trim()));
             newTerminal.appendChild(roomElement);
 
             Element os = doc.createElement("terminal_os");
@@ -102,7 +102,7 @@ public class AddNewTerminalProcessor {
             String existingRoom = terminalElement.getElementsByTagName("terminal_room").item(0).getTextContent();
 
             // If the terminal ID matches and the room matches, return true (duplicate found)
-            if (existingTerminalId.equals("PC" + terminalId.trim()) && existingRoom.equals("D" + room.trim())) {
+            if (existingTerminalId.equals("PC" + terminalId.trim()) && existingRoom.equals(room.trim())) {
                 return true;
             }
         }
