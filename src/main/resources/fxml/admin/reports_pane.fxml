@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -19,14 +20,33 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="805.0" spacing="15.0">
                <children>
-                  <Label fx:id="reportsLabel" text="Reports" textFill="#0d3073">
-                     <font>
-                        <Font name="System Bold" size="29.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="searchReportTextField" promptText="Enter keywords..." styleClass="background-pane" stylesheets="@../../css/styles.css" />
-                  <Button fx:id="searchButton" text="Search" />
-                  <Button fx:id="refreshButton" text="Refresh" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="481.0">
+                     <children>
+                        <Label fx:id="reportsLabel" prefHeight="43.0" prefWidth="322.0" text="Reports" textFill="#0d3073">
+                           <font>
+                              <Font name="System Bold" size="29.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <StackPane prefHeight="56.0" prefWidth="204.0">
+                           <children>
+                              <TextField fx:id="searchReportTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="160.0" promptText="Enter keywords..." styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                              <Button fx:id="searchButton" text="Search" translateX="100.0" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="97.0">
+                     <children>
+                        <Button fx:id="refreshButton" text="Refresh" />
+                     </children>
+                  </HBox>
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
