@@ -60,7 +60,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button id="signUpButtonLandingPage" fx:id="landingPageSignUpButton" mnemonicParsing="false" onMouseEntered="#signUpButtonHovered" onMouseExited="#signUpButtonExited" prefHeight="0.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: white; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign Up" textFill="WHITE">
+                        <Button id="signInButtonLandingPage" fx:id="landingPageLogInButton" mnemonicParsing="false" onMouseEntered="#logInButtonHovered" onMouseExited="#logInButtonExited" prefHeight="17.0" prefWidth="192.0" style="-fx-background-color: white; -fx-border-color: #0d3073; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log In" textFill="#0d3073">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -69,7 +69,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button id="signInButtonLandingPage" fx:id="landingPageLogInButton" mnemonicParsing="false" onMouseEntered="#logInButtonHovered" onMouseExited="#logInButtonExited" prefHeight="17.0" prefWidth="192.0" style="-fx-background-color: white; -fx-border-color: #0d3073; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Log In" textFill="#0d3073">
+                        <Button id="signUpButtonLandingPage" fx:id="landingPageSignUpButton" mnemonicParsing="false" onMouseEntered="#signUpButtonHovered" onMouseExited="#signUpButtonExited" prefHeight="0.0" prefWidth="192.0" style="-fx-background-color: #0d3073; -fx-border-color: white; -fx-border-radius: 30px; -fx-background-radius: 30px;" stylesheets="@../../css/styles.css" text="Sign Up" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
