@@ -43,13 +43,18 @@ public class ModifyTerminalStatusView {
     @FXML
     private TableColumn<Terminal, String> editColumn;
     private Stage confirmationStage;
+    @FXML
     private Label roomNoLabel;
+    @FXML
     private Label terminalNoLabel;
+    @FXML
     private Label terminalOSLabel;
+    @FXML
     private Label terminalStatusLabel;
+    @FXML
     private Button confirmButton;
+    @FXML
     private Button cancelButton;
-
     private ModifyTerminalStatusController controller = new ModifyTerminalStatusController(this);
     private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
@@ -64,14 +69,81 @@ public class ModifyTerminalStatusView {
         if (controller != null) {
             controller.loadTerminalData();
         }
+
+        // Attach the buttons functionality
+        setActionSearchButton(actionEvent -> controller.searchTerminals(searchStudResTextField.getText()));
         setActionSaveChangesButton(event -> controller.saveChanges());
     }
 
-    public void setTerminalData(ObservableList<Terminal> data) {
-        terminalData.setAll(data);
-        modResTableView.setItems(terminalData);
+    public void setActionSearchButton(EventHandler<ActionEvent> event) {
+        searchButton.setOnAction(event);
+        System.out.println("[DEBUG] Search triggered. Query: " + searchStudResTextField.getText());
     }
 
+    public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
+        saveChangesButton.setOnAction(event);
+    }
+
+    public void setTerminalData(ObservableList<Terminal> data) {
+        terminalData.setAll(data); // Update dataset
+        modResTableView.setItems(null); // Force reset
+        modResTableView.setItems(terminalData); // Reload table data
+        modResTableView.refresh(); // Force UI refresh
+        System.out.println("[DEBUG] Terminal data updated. New table size: " + terminalData.size());
+    }
+
+    private Callback<TableColumn<Terminal, String>, TableCell<Terminal, String>> createStyledStatusCellFactory() {
+        return column -> new TableCell<Terminal, String>() {
+            private final ComboBox<String> statusComboBox = new ComboBox<>();
+
+            {
+                statusComboBox.getItems().addAll("Active", "Reserved", "Under Maintenance");
+                statusComboBox.setStyle("-fx-border-color: transparent; " +
+                        "-fx-padding: 5px; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-font-family: 'System';");
+                statusComboBox.setOnAction(e -> {
+                    Terminal terminal = getTableRow().getItem();
+                    if (terminal != null) {
+                        terminal.setTerminalStatus(statusComboBox.getValue());
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    Terminal terminal = getTableRow().getItem();
+                    statusComboBox.setValue(terminal.getTerminalStatus());
+
+                    int rowIndex = getIndex();
+                    Color rowColor = (rowIndex % 2 == 1) ? Color.web("#f8f8f8") : Color.WHITE;
+                    setBackground(new Background(new BackgroundFill(rowColor, new CornerRadii(5), null)));
+
+                    statusComboBox.setStyle("-fx-background-color: " +
+                            toRGBCode(rowColor) + "; " +
+                            "-fx-border-color: transparent; " +
+                            "-fx-padding: 5px; " +
+                            "-fx-font-size: 14px; " +
+                            "-fx-font-family: 'Arial';");
+
+                    statusComboBox.setMaxWidth(Double.MAX_VALUE);
+                    setGraphic(statusComboBox);
+                }
+            }
+
+            private String toRGBCode(Color color) {
+                return String.format("#%02X%02X%02X",
+                        (int) (color.getRed() * 255),
+                        (int) (color.getGreen() * 255),
+                        (int) (color.getBlue() * 255));
+            }
+        };
+    }
     private TableCell<Terminal, String> createDeleteButtonCellFactory() {
         return new TableCell<>() {
             private final Button deleteButton = new Button("Remove Terminal");
@@ -129,7 +201,7 @@ public class ModifyTerminalStatusView {
 
         // Handle confirm button action
         confirmButton.setOnAction(event -> {
-            modResTableView.getItems().remove(terminal);
+            controller.removeTerminal(terminal); // Remove terminal and refresh table
             confirmationStage.close();
         });
 
@@ -137,66 +209,6 @@ public class ModifyTerminalStatusView {
         cancelButton.setOnAction(event -> confirmationStage.close());
 
         confirmationStage.showAndWait();
-    }
-
-    private Callback<TableColumn<Terminal, String>, TableCell<Terminal, String>> createStyledStatusCellFactory() {
-        return column -> new TableCell<Terminal, String>() {
-            private final ComboBox<String> statusComboBox = new ComboBox<>();
-
-            {
-                statusComboBox.getItems().addAll("Active", "Reserved", "Under Maintenance");
-                statusComboBox.setStyle("-fx-border-color: transparent; " +
-                        "-fx-padding: 5px; " +
-                        "-fx-font-size: 12px; " +
-                        "-fx-font-family: 'System';");
-                statusComboBox.setOnAction(e -> {
-                    Terminal terminal = getTableRow().getItem();
-                    if (terminal != null) {
-                        terminal.setTerminalStatus(statusComboBox.getValue());
-                    }
-                });
-            }
-
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    Terminal terminal = getTableRow().getItem();
-                    statusComboBox.setValue(terminal.getTerminalStatus());
-
-                    int rowIndex = getIndex();
-                    Color rowColor = (rowIndex % 2 == 1) ? Color.web("#f8f8f8") : Color.WHITE;
-                    setBackground(new Background(new BackgroundFill(rowColor, new CornerRadii(5), null)));
-
-                    statusComboBox.setStyle("-fx-background-color: " +
-                            toRGBCode(rowColor) + "; " +
-                            "-fx-border-color: transparent; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-font-family: 'Arial';");
-
-                    statusComboBox.setMaxWidth(Double.MAX_VALUE);
-                    setGraphic(statusComboBox);
-                }
-            }
-            private String toRGBCode(Color color) {
-                return String.format("#%02X%02X%02X",
-                        (int) (color.getRed() * 255),
-                        (int) (color.getGreen() * 255),
-                        (int) (color.getBlue() * 255));
-            }
-        };
-    }
-
-    public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
-        saveChangesButton.setOnAction(event);
-    }
-
-    public ObservableList<Terminal> getTerminalData() {
-        return terminalData;
     }
 
     public void saveChangesButtonExited() {
