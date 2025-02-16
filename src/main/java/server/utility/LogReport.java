@@ -6,19 +6,21 @@ import javafx.beans.property.StringProperty;
 public class LogReport {
     private final StringProperty userID;
     private final StringProperty userType;
-    private final StringProperty roomNumber;
-    private final StringProperty status;
+    private final StringProperty action;
     private final StringProperty date;
+    private final StringProperty time;
 
-    public LogReport(String user, String uType, String room, String stat, String date) {
-        this.userID = new SimpleStringProperty(user);
-        this.userType = new SimpleStringProperty(uType);
-        this.roomNumber = new SimpleStringProperty(room);
-        this.status = new SimpleStringProperty(stat);
+    public LogReport(String userID, String userType, String action, String date, String time) {
+        this.userID = new SimpleStringProperty(userID);
+        this.userType = new SimpleStringProperty(userType);
+        this.action = new SimpleStringProperty(action);
         this.date = new SimpleStringProperty(date);
+        this.time = new SimpleStringProperty(time);
     }
 
-    // Getters for the actual values
+
+
+    // Return actual string values
     public String getUserID() {
         return userID.get();
     }
@@ -27,19 +29,19 @@ public class LogReport {
         return userType.get();
     }
 
-    public String getRoomNumber() {
-        return roomNumber.get();
-    }
-
-    public String getStatus() {
-        return status.get();
+    public String getAction() {
+        return action.get();
     }
 
     public String getDate() {
         return date.get();
     }
 
-    // Property getters (already present)
+    public String getTime() {
+        return time.get();
+    }
+
+    // Property getters (JavaFX Table binding)
     public StringProperty userIDProperty() {
         return userID;
     }
@@ -48,15 +50,17 @@ public class LogReport {
         return userType;
     }
 
-    public StringProperty roomNumberProperty() {
-        return roomNumber;
-    }
-
-    public StringProperty statusProperty() {
-        return status;
+    public StringProperty actionProperty() {
+        return action;
     }
 
     public StringProperty dateProperty() {
         return date;
     }
+
+    public StringProperty timeProperty() {
+        return time;
+    }
+
+
 }

@@ -2,13 +2,9 @@ package client.admin.controller;
 
 import client.admin.model.ReportGeneratorModel;
 import client.admin.view.ReportGeneratorView;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import server.admin.ReportGeneratorProcessor;
 import server.utility.LogReport;
 import server.utility.ReservationReport;
-
-import java.util.List;
 
 public class ReportGeneratorController {
 
@@ -30,21 +26,10 @@ public class ReportGeneratorController {
         view.setReservationReports(reservations);
     }
 
-    public void applySortingAndFiltering(String sortOption, String dateFilter) {
-        List<LogReport> logs = model.loadLogsFromServer();
-        List<ReservationReport> reservations = model.loadReservationsFromServer();
-
-        // Apply sorting and filtering for logs
-        List<LogReport> sortedAndFilteredLogs = ReportGeneratorProcessor.applySortingAndFiltering(logs, sortOption, dateFilter);
-
-        // Apply sorting and filtering for reservations
-        List<ReservationReport> sortedAndFilteredReservations = ReportGeneratorProcessor.applySortingAndFilteringForReservations(reservations, sortOption, dateFilter);
-
-        // Update view with the sorted and filtered logs and reservations
-        ObservableList<LogReport> observableLogs = FXCollections.observableArrayList(sortedAndFilteredLogs);
-        ObservableList<ReservationReport> observableReservations = FXCollections.observableArrayList(sortedAndFilteredReservations);
-
-        view.setLogsData(observableLogs);
-        view.setReservationReports(observableReservations);
+    public void searchReports(String query) {
+        ObservableList<LogReport> logs = model.searchLogs(query);
+        ObservableList<ReservationReport> reservations = model.searchReservations(query);
+        view.setLogsData(logs);
+        view.setReservationReports(reservations);
     }
 }
