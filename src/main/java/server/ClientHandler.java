@@ -10,6 +10,7 @@ import server.admin.AddNewTerminalProcessor;
 import server.admin.ViewStudentReservationsProcessor;
 import server.student.ModifyReservationProcessor;
 import server.student.ViewReservationProcessor;
+import server.admin.ReservationApprovalProcessor;
 import server.utility.ApprovalReservation;
 import server.utility.Reservation;
 import server.utility.StudentReservation;
@@ -29,7 +30,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import server.utility.ReservationApprovalProcessor;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -284,9 +284,7 @@ public class ClientHandler implements Runnable {
     private void handleReservationApprovals(PrintWriter writer) {
         try {
             System.out.println("Fetching Reservation Approvals...");
-            List<ApprovalReservation> reservations = server.utility.ReservationApprovalProcessor.readReservationsFromXML(
-                    "reservationapproval.xml"
-            );
+            List<ApprovalReservation> reservations = server.admin.ReservationApprovalProcessor.parseXML("reservationapproval.xml");
             System.out.println("Found " + reservations.size() + " reservations for approval.");
             writer.println(createApprovalReservationsXMLResponse(reservations));
 

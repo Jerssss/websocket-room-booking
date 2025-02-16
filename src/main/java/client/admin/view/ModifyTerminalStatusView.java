@@ -6,15 +6,22 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
-import client.admin.controller.ModifyTerminalStatusController;
 import javafx.util.Duration;
+import client.admin.controller.ModifyTerminalStatusController;
 import server.utility.Terminal;
+
+import java.io.IOException;
 
 public class ModifyTerminalStatusView {
     @FXML
@@ -35,34 +42,101 @@ public class ModifyTerminalStatusView {
     private TableColumn<Terminal, String> terminalStatusColumn;
     @FXML
     private TableColumn<Terminal, String> editColumn;
+    private Stage confirmationStage;
+    private Label roomNoLabel;
+    private Label terminalNoLabel;
+    private Label terminalOSLabel;
+    private Label terminalStatusLabel;
+    private Button confirmButton;
+    private Button cancelButton;
 
-    private ModifyTerminalStatusController controller;
+    private ModifyTerminalStatusController controller = new ModifyTerminalStatusController(this);
     private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
     public void initialize() {
-        controller = new ModifyTerminalStatusController(this);
-
         roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
         terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
         terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-
         terminalStatusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
         terminalStatusColumn.setCellFactory(createStyledStatusCellFactory());
+        editColumn.setCellFactory(column -> createDeleteButtonCellFactory());
 
         if (controller != null) {
             controller.loadTerminalData();
         }
-
         setActionSaveChangesButton(event -> controller.saveChanges());
-    }
-
-    public void setController(ModifyTerminalStatusController controller) {
-        this.controller = controller;
     }
 
     public void setTerminalData(ObservableList<Terminal> data) {
         terminalData.setAll(data);
         modResTableView.setItems(terminalData);
+    }
+
+    private TableCell<Terminal, String> createDeleteButtonCellFactory() {
+        return new TableCell<>() {
+            private final Button deleteButton = new Button("Remove Terminal");
+
+            {
+                deleteButton.setStyle("-fx-background-color: #0d3073; -fx-text-fill: white;");
+                deleteButton.setOnAction(event -> {
+                    Terminal terminal = getTableRow().getItem();
+                    if (terminal != null) {
+                        showConfirmationPane(terminal);
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        };
+    }
+
+    private void showConfirmationPane(Terminal terminal) {
+        if (confirmationStage == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/confirm_delete_window.fxml"));
+                BorderPane confirmationPane = loader.load();
+
+                // Get elements from FXML
+                roomNoLabel = (Label) confirmationPane.lookup("#roomNoLabel");
+                terminalNoLabel = (Label) confirmationPane.lookup("#terminalNoLabel");
+                terminalOSLabel = (Label) confirmationPane.lookup("#terminalOSLabel");
+                terminalStatusLabel = (Label) confirmationPane.lookup("#terminalStatusLabel");
+                confirmButton = (Button) confirmationPane.lookup("#confirmButton");
+                cancelButton = (Button) confirmationPane.lookup("#cancelButton");
+
+                confirmationStage = new Stage();
+                confirmationStage.initModality(Modality.APPLICATION_MODAL);
+                confirmationStage.setScene(new Scene(confirmationPane));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        // Set terminal details in confirmation pane
+        roomNoLabel.setText(terminal.getTerminalRoom());
+        terminalNoLabel.setText(terminal.getTerminalId());
+        terminalOSLabel.setText(terminal.getTerminalOs());
+        terminalStatusLabel.setText(terminal.getTerminalStatus());
+
+        // Handle confirm button action
+        confirmButton.setOnAction(event -> {
+            modResTableView.getItems().remove(terminal);
+            confirmationStage.close();
+        });
+
+        // Handle cancel button action
+        cancelButton.setOnAction(event -> confirmationStage.close());
+
+        confirmationStage.showAndWait();
     }
 
     private Callback<TableColumn<Terminal, String>, TableCell<Terminal, String>> createStyledStatusCellFactory() {
@@ -71,9 +145,10 @@ public class ModifyTerminalStatusView {
 
             {
                 statusComboBox.getItems().addAll("Active", "Reserved", "Under Maintenance");
-                statusComboBox.setStyle("-fx-border-color: transparent; -fx-padding: 5px; " +
-                        "-fx-font-size: 14px; -fx-font-family: 'Arial';");
-
+                statusComboBox.setStyle("-fx-border-color: transparent; " +
+                        "-fx-padding: 5px; " +
+                        "-fx-font-size: 12px; " +
+                        "-fx-font-family: 'System';");
                 statusComboBox.setOnAction(e -> {
                     Terminal terminal = getTableRow().getItem();
                     if (terminal != null) {
@@ -96,15 +171,17 @@ public class ModifyTerminalStatusView {
                     Color rowColor = (rowIndex % 2 == 1) ? Color.web("#f8f8f8") : Color.WHITE;
                     setBackground(new Background(new BackgroundFill(rowColor, new CornerRadii(5), null)));
 
-                    statusComboBox.setStyle("-fx-background-color: " + toRGBCode(rowColor) + "; " +
-                            "-fx-border-color: transparent; -fx-padding: 5px; " +
-                            "-fx-font-size: 14px; -fx-font-family: 'Arial';");
+                    statusComboBox.setStyle("-fx-background-color: " +
+                            toRGBCode(rowColor) + "; " +
+                            "-fx-border-color: transparent; " +
+                            "-fx-padding: 5px; " +
+                            "-fx-font-size: 14px; " +
+                            "-fx-font-family: 'Arial';");
 
                     statusComboBox.setMaxWidth(Double.MAX_VALUE);
                     setGraphic(statusComboBox);
                 }
             }
-
             private String toRGBCode(Color color) {
                 return String.format("#%02X%02X%02X",
                         (int) (color.getRed() * 255),

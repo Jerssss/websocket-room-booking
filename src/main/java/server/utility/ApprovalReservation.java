@@ -46,4 +46,8 @@ public class ApprovalReservation {
     public String getStartTime() { return startTime.get(); }
     public String getEndTime() { return endTime.get(); }
     public String getStatus() { return status.get(); }
+
+    public String getRoomId() {
+        return roomNumber.get();
+    }
 }
