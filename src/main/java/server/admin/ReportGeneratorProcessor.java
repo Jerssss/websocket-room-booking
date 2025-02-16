@@ -10,11 +10,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ReportGeneratorProcessor {
     private static final String filePath = "src/main/java/server/util/logs.xml";
 
+    // Parse the log XML and return the list of LogReport objects
     public static List<LogReport> parseLogXML() {
         List<LogReport> logs = new ArrayList<>();
 
@@ -45,4 +47,33 @@ public class ReportGeneratorProcessor {
         return logs;
     }
 
+    // Apply sorting and filtering on the logs
+    public static List<LogReport> applySortingAndFiltering(List<LogReport> logs, String sortOption, String dateFilter) {
+        if (logs == null || sortOption == null) return logs;
+
+        List<LogReport> filteredLogs = new ArrayList<>(logs);
+
+        switch (sortOption) {
+            case "Sort by Students":
+                filteredLogs.removeIf(log -> !log.getUserType().equals("Student"));
+                filteredLogs.sort(Comparator.comparing(LogReport::getUserID)); // Sort by UserID for Students
+                break;
+            case "Sort by Admin":
+                filteredLogs.removeIf(log -> !log.getUserType().equals("Admin"));
+                filteredLogs.sort(Comparator.comparing(LogReport::getUserID)); // Sort by UserID for Admin
+                break;
+            case "Filter by Date":
+                if (dateFilter != null && !dateFilter.isEmpty()) {
+                    filteredLogs.removeIf(log -> !log.getDate().equals(dateFilter));
+                } else {
+                    // Invalid date input
+                    throw new IllegalArgumentException("Inputted date is invalid.");
+                }
+                break;
+            default:
+                // No sorting or filtering applied
+                break;
+        }
+        return filteredLogs;
+    }
 }

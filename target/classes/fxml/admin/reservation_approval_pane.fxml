@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0"
       styleClass="background-pane"
       stylesheets="@../../css/styles.css"
@@ -12,7 +14,6 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="client.admin.view.ReservationApprovalView"
 >
-
    <children>
       <!-- Header Section -->
       <VBox prefHeight="74.0" prefWidth="805.0">
@@ -33,13 +34,31 @@
                      </HBox.margin>
                   </HBox>
 
+                  <!-- Filter Section (Added) -->
+                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="316.0" spacing="10.0">
+                     <children>
+                        <!-- Filter by Date ComboBox -->
+                        <ComboBox fx:id="filterByComboBox" promptText="Sort by..." prefWidth="150.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Filter by Date" />
+                                 <String fx:value="Filter by User ID" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+
+                        <!-- Date Filter TextField (Initially invisible) -->
+                        <TextField fx:id="dateFilterTextField" promptText="Enter Date"
+                                   visible="false" prefWidth="150.0" />
+                     </children>
+                  </HBox>
+
                   <!-- Search Section -->
                   <HBox alignment="CENTER" prefHeight="74.0" prefWidth="316.0" spacing="10.0">
                      <children>
                         <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="243.0">
                            <children>
-                              <TextField fx:id="searchStudResTextField" promptText="Enter keywords..."
-                                         styleClass="background-pane" stylesheets="@../../css/styles.css" />
+                              <TextField fx:id="searchStudResTextField" promptText="Enter keywords..."/>
                               <Button fx:id="searchButton" mnemonicParsing="false" prefWidth="60.0" text="Search" />
                            </children>
                         </StackPane>
@@ -66,9 +85,7 @@
          <children>
             <TableView fx:id="approveResTableView" focusTraversable="false"
                        minHeight="-Infinity" prefHeight="477.0" prefWidth="1015.0"
-                       style="-fx-font-size: 13;"
-                       stylesheets="@../../css/tablestyles.css">
-
+                       style="-fx-font-size: 13;">
                <columns>
                   <TableColumn fx:id="reservationIdColumn" editable="false" prefWidth="177.0" text="Reservation ID" />
                   <TableColumn fx:id="userIdColumn" editable="false" prefWidth="134.0" text="User ID" />
@@ -79,12 +96,9 @@
                   <TableColumn fx:id="endTimeColumn" editable="false" prefWidth="174.0" text="End Time" />
                   <TableColumn fx:id="statusColumn" editable="false" prefWidth="189.0" text="Status" />
                </columns>
-
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
             </TableView>
          </children>
       </VBox>
    </children>
 </VBox>
+

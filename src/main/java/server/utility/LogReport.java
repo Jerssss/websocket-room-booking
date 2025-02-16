@@ -10,7 +10,7 @@ public class LogReport {
     private final StringProperty status;
     private final StringProperty date;
 
-    public LogReport (String user, String uType, String room, String stat, String date) {
+    public LogReport(String user, String uType, String room, String stat, String date) {
         this.userID = new SimpleStringProperty(user);
         this.userType = new SimpleStringProperty(uType);
         this.roomNumber = new SimpleStringProperty(room);
@@ -18,6 +18,28 @@ public class LogReport {
         this.date = new SimpleStringProperty(date);
     }
 
+    // Getters for the actual values
+    public String getUserID() {
+        return userID.get();
+    }
+
+    public String getUserType() {
+        return userType.get();
+    }
+
+    public String getRoomNumber() {
+        return roomNumber.get();
+    }
+
+    public String getStatus() {
+        return status.get();
+    }
+
+    public String getDate() {
+        return date.get();
+    }
+
+    // Property getters (already present)
     public StringProperty userIDProperty() {
         return userID;
     }
@@ -38,4 +60,3 @@ public class LogReport {
         return date;
     }
 }
-

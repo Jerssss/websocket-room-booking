@@ -1,14 +1,17 @@
 package client.admin.view;
 
-import client.admin.controller.ModifyTerminalStatusController;
 import client.admin.controller.ReportGeneratorController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import server.utility.LogReport;
 import server.utility.ReservationReport;
+
+import javax.swing.*;
 
 public class ReportGeneratorView {
 
@@ -22,7 +25,10 @@ public class ReportGeneratorView {
     private ComboBox<String> sortByComboBox;
 
     @FXML
-    private Button saveReportButton;
+    private Button saveChangesButton;
+
+    @FXML
+    private TextField dateFilterTextField;
 
     @FXML
     private TabPane reportsTabPane;
@@ -68,6 +74,7 @@ public class ReportGeneratorView {
 
     @FXML
     private TableColumn<ReservationReport, String> dateColumn11;
+
     private ReportGeneratorController controller = new ReportGeneratorController(this);
 
     private final ObservableList<LogReport> logReports = FXCollections.observableArrayList();
@@ -75,6 +82,9 @@ public class ReportGeneratorView {
 
     @FXML
     public void initialize() {
+
+        sortByComboBox.getItems().addAll("Sort by Students", "Sort by Admin", "Filter by Date");
+
         // Set up columns for Log Report
         resIDColumn1.setCellValueFactory(cellData -> cellData.getValue().userIDProperty());
         terminalColumn1.setCellValueFactory(cellData -> cellData.getValue().userTypeProperty());
@@ -89,18 +99,53 @@ public class ReportGeneratorView {
         statusColumn11.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
         statusColumn12.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 
+        sortByComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("Filter by Date")) {
+                dateFilterTextField.setVisible(true);
+                saveChangesButton.setText("Search");
+                centerPane.requestLayout();  // Force layout refresh
+            } else {
+                dateFilterTextField.setVisible(false);
+                saveChangesButton.setText("Save Changes");
+                centerPane.requestLayout();  // Force layout refresh
+            }
+            applySortingAndFiltering(newValue);
+        });
+
+
+        // Initialize the search button
+        saveChangesButton.setOnAction(event -> applySortingAndFiltering(sortByComboBox.getValue()));
+
         if (controller != null) {
             controller.loadLogsData();
         }
 
-        // Manually add test data
-        reservationReports.add(new ReservationReport("RES456", "T002", "Room 102", "Reserved", "2025-02-16"));
         reservationReportTableView.setItems(reservationReports);
-
     }
 
     public void setLogsData(ObservableList<LogReport> data) {
         logReports.setAll(data);
         logReportTableView.setItems(logReports);
+    }
+
+    private void applySortingAndFiltering(String sortOption) {
+        if (sortOption == null) return;
+
+        String dateFilter = null;
+
+        if (sortOption.equals("Filter by Date")) {
+            dateFilter = dateFilterTextField.getText();
+        }
+
+        // Delegate the sorting and filtering logic to the controller
+        controller.applySortingAndFiltering(sortOption, dateFilter);
+    }
+
+    public void showDateError(String message) {
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showNoDataForDate(String message) {
+        JOptionPane.showMessageDialog(null, message, "No Data", JOptionPane.INFORMATION_MESSAGE);
     }
 }
