@@ -14,7 +14,12 @@ import server.utility.ApprovalReservation;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -67,6 +72,44 @@ public class ReservationApprovalModel {
         return reservations;
     }
 
+    // Method to update reservation status and save it to XML
+    public void updateReservationStatus(String reservationId, String newStatus) {
+        // Logic to find and update the status of the reservation in the list
+        // This could involve updating the status in the internal list of reservations.
+    }
+
+    // Method to save updated reservations back to the XML file
+    public void saveUpdatedReservationsToXML(List<ApprovalReservation> reservations) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new File("src/main/java/server/util/reservation_approval.xml"));
+
+            NodeList reservationNodes = doc.getElementsByTagName("Reservation");
+            for (int i = 0; i < reservationNodes.getLength(); i++) {
+                Element reservationElement = (Element) reservationNodes.item(i);
+                String reservationId = reservationElement.getElementsByTagName("reservation_id").item(0).getTextContent();
+
+                // Find the matching reservation and update its status
+                for (ApprovalReservation reservation : reservations) {
+                    if (reservation.getReservationId().equals(reservationId)) {
+                        reservationElement.getElementsByTagName("status").item(0).setTextContent(reservation.getStatus());
+                    }
+                }
+            }
+
+            // Save the updated XML file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("src/main/java/server/util/reservation_approval.xml"));
+            transformer.transform(source, result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<ApprovalReservation> parseXMLResponse(String xmlResponse) {
         List<ApprovalReservation> reservations = new ArrayList<>();
         try {
@@ -110,11 +153,8 @@ public class ReservationApprovalModel {
             System.out.println("XML Parsing Error: " + e.getMessage());
         }
 
-//        System.out.println("Final Parsed Reservations Count: " + reservations.size()); //DEBUGGER
         return reservations;
     }
-
-
 
     // Helper method to safely get tag values
     private String getTagValue(String tag, Element element) {
@@ -124,9 +164,6 @@ public class ReservationApprovalModel {
         }
         return "UNKNOWN";  // Return placeholder if missing
     }
-
-
-
 
 
     private void showErrorDialog(String message) {

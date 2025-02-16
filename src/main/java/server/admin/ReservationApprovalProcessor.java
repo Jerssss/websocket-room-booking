@@ -52,7 +52,6 @@ public class ReservationApprovalProcessor {
                             reservationId, userId, terminalId, roomId,
                             reservationDate, startTime, endTime, status
                     ));
-//                    System.out.println("helooo!!!!!" + reservationNodes); DEBUGGER
                 }
             }
         } catch (Exception e) {
@@ -101,77 +100,4 @@ public class ReservationApprovalProcessor {
         DocumentBuilder builder = factory.newDocumentBuilder();
         return builder.parse(new File(FILE_PATH));
     }
-
-    // === Uncomment and complete the additional operations if needed === //
-
-    /*
-    public String fetchAllReservations() {
-        try {
-            Document doc = loadReservations();
-            return convertDocToString(doc);
-        } catch (Exception e) {
-            return errorResponse("Error fetching reservations");
-        }
-    }
-
-    public String updateReservation(String reservationId, Map<String, String> updates) {
-        try {
-            Document doc = loadReservations();
-            NodeList reservations = doc.getElementsByTagName("Reservation");
-
-            for (int i = 0; i < reservations.getLength(); i++) {
-                Element reservation = (Element) reservations.item(i);
-                String currentResId = reservation.getElementsByTagName("reservation_id")
-                        .item(0).getTextContent();
-
-                if (currentResId.equals(reservationId)) {
-                    updateReservationFields(reservation, updates);
-                    saveReservations(doc);
-                    return successResponse("Reservation updated successfully");
-                }
-            }
-            return errorResponse("Reservation not found");
-        } catch (Exception e) {
-            return errorResponse("Error updating reservation");
-        }
-    }
-
-    private Document loadReservations() throws Exception {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        return builder.parse(new File(FILE_PATH));
-    }
-
-    private void updateReservationFields(Element reservation, Map<String, String> updates) {
-        for (Map.Entry<String, String> entry : updates.entrySet()) {
-            NodeList nodes = reservation.getElementsByTagName(entry.getKey());
-            if (nodes.getLength() > 0) {
-                nodes.item(0).setTextContent(entry.getValue());
-            }
-        }
-    }
-
-    private void saveReservations(Document doc) throws Exception {
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.transform(new DOMSource(doc), new StreamResult(new File(FILE_PATH)));
-    }
-
-    private String convertDocToString(Document doc) throws Exception {
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
-        StringWriter writer = new StringWriter();
-        transformer.transform(new DOMSource(doc), new StreamResult(writer));
-        return writer.toString();
-    }
-
-    private String successResponse(String message) {
-        return "<Response><Status>SUCCESS</Status><Message>" + message + "</Message></Response>";
-    }
-
-    private String errorResponse(String message) {
-        return "<Response><Status>ERROR</Status><Message>" + message + "</Message></Response>";
-    }
-    */
 }

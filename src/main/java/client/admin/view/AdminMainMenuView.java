@@ -121,7 +121,7 @@ public class AdminMainMenuView {
                 VBox view = fxmlLoader.load();
                 ReservationApprovalView reservationApprovalView = fxmlLoader.getController();
                 ReservationApprovalController controller = new ReservationApprovalController(new ReservationApprovalModel(), reservationApprovalView);
-//                    reservationApprovalView.setController(controller);
+                   // reservationApprovalView.setController(controller);
                 rootPane.setCenter(view);
             } catch (IOException e) {
                 e.printStackTrace();

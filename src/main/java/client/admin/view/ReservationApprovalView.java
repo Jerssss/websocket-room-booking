@@ -2,6 +2,7 @@
 package client.admin.view;
 //hello
 
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import server.utility.ApprovalReservation;
 import server.utility.Terminal;
 
@@ -117,6 +119,22 @@ public class ReservationApprovalView {
     public void updateTable(ObservableList<ApprovalReservation> reservations) {
         reservationData.setAll(reservations);
         approveResTableView.setItems(reservationData);
+    }
+    public void saveChangesButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void saveChangesButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
     }
 
     public TextField getSearchStudResTextField() {

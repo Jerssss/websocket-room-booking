@@ -75,7 +75,7 @@ public class AdminMainMenuController {
         System.out.println("Navigating to Reports...");
     }
     private void handleReservationApproval() {
-        System.out.println("");
+        System.out.println("Navigating to Reservation Approval");
     }
 
     // File: AdminMainMenuController.java (same for StudentMainMenuController)
