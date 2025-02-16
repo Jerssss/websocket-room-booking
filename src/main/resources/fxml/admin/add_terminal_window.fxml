@@ -41,7 +41,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="osTypeComboBox" prefHeight="25.0" prefWidth="109.0" promptText="OS Type" translateX="80.0" />
+                              <ComboBox fx:id="terminalOSComboBox" prefHeight="25.0" prefWidth="109.0" promptText="OS Type" translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>
@@ -55,7 +55,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="roomComboBox" prefHeight="25.0" prefWidth="109.0" promptText="OS Type" translateX="80.0" />
+                              <ComboBox fx:id="roomNumberComboBox" prefHeight="25.0" prefWidth="109.0" promptText="Room No." translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>
