@@ -72,16 +72,24 @@ public class ReportGeneratorProcessor {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
-                reservations.add(new ReservationReport(
-                        getElementText(element, "ReservationID"),
-                        getElementText(element, "UserID"),
-                        getElementText(element, "TerminalID"),
-                        getElementText(element, "RoomNumber"),
-                        getElementText(element, "ReservationDate"),
-                        getElementText(element, "StartTime"),
-                        getElementText(element, "EndTime"),
-                        getElementText(element, "Status")
-                ));
+
+                // Extracting values with updated tag names
+                String reservationId = getElementText(element, "reservation_id");
+                String userId = getElementText(element, "user_id");
+                String terminalId = getElementText(element, "terminal_id");
+                String roomId = getElementText(element, "room_id"); // Updated from roomNumber
+                String reservationDate = getElementText(element, "reservation_date"); // Updated from date
+                String startTime = getElementText(element, "start_time");
+                String endTime = getElementText(element, "end_time");
+                String status = getElementText(element, "status");
+
+                // Ensure all values are present before adding
+                if (reservationId.isEmpty() || userId.isEmpty() || terminalId.isEmpty()) {
+                    System.out.println("⚠ WARNING: Some fields are empty. Skipping entry.");
+                    continue;
+                }
+
+                reservations.add(new ReservationReport(reservationId, userId, terminalId, roomId, status, reservationDate, startTime, endTime));
             }
         } catch (Exception e) {
             e.printStackTrace();
