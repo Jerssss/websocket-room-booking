@@ -3,32 +3,29 @@ package client.admin.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import client.admin.view.ModifyTerminalStatusView;
-import server.admin.ModifyTerminalProcessor;
+import client.admin.model.ModifyTerminalStatusModel;
 import server.utility.Terminal;
-
 import javax.swing.*;
-import java.util.List;
 
 public class ModifyTerminalStatusController {
 
     private final ModifyTerminalStatusView view;
-    private final ModifyTerminalProcessor processor;
+    private final ModifyTerminalStatusModel model;
 
     private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
 
     public ModifyTerminalStatusController(ModifyTerminalStatusView view) {
         this.view = view;
-        this.processor = new ModifyTerminalProcessor();
+        this.model = new ModifyTerminalStatusModel();
     }
 
     public void loadTerminalData() {
-        List<Terminal> terminals = processor.parseXML("src/main/java/server/util/terminal.xml");
-        terminalData.setAll(terminals);
+        ObservableList<Terminal> terminalData = model.loadTerminalData();
         view.setTerminalData(terminalData);
     }
 
     public void saveChanges() {
-        processor.saveToXML("src/main/java/server/util/terminal.xml", terminalData);
+        model.saveTerminalData(view.getTerminalData());
         JOptionPane.showMessageDialog(null, "Changes have been successfully saved!",
                 "Save Successful", JOptionPane.INFORMATION_MESSAGE);
     }
