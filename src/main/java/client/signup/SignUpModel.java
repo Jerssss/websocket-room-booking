@@ -24,14 +24,30 @@ public class SignUpModel {
         }
 
         try {
+            // Construct the XML request
             String signUpRequest = String.format(
                     "<SignUp><UserID>%s</UserID><Name>%s</Name><Password>%s</Password><UserType>%s</UserType><CourseYear>%s</CourseYear><FacultyType>%s</FacultyType></SignUp>",
                     userID, name, password, userType, courseYear, facultyType
             );
+
+            // Send the request to the server
             serverConnection.sendMessage(signUpRequest);
+
+            // Read the server's response
             String response = serverConnection.readMessage();
-            System.out.println("Server Response: " + response);
-            return "SUCCESS".equalsIgnoreCase(response);
+
+            // Debug: Print the response received
+            System.out.println("DEBUG: Received response from server -> '" + response + "'");
+
+            // Check for null response (possible connection issue)
+            if (response == null) {
+                System.out.println("DEBUG: Server response is null. Possible connection issue.");
+                return false;
+            }
+
+            // Trim response and compare to "SUCCESS"
+            return response.contains("<Status>SUCCESS</Status>");
+
         } catch (IOException e) {
             showErrorDialog("Lost connection to the server.");
             return false;
