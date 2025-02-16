@@ -1,6 +1,8 @@
 // File: client/admin/view/AdminMainMenuView.java
 package client.admin.view;
 
+import client.admin.controller.ReservationApprovalController;
+import client.admin.model.ReservationApprovalModel;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -112,7 +114,21 @@ public class AdminMainMenuView {
 
     /** Event handler for Reservation Approval Button */
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
-        resApprovalButton.setOnAction(event1 -> loadView("/fxml/admin/reservation_approval_pane.fxml"));
+
+        resApprovalButton.setOnAction(event1 -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/admin/reservation_approval_pane.fxml"));
+            try {
+                VBox view = fxmlLoader.load();
+                ReservationApprovalView reservationApprovalView = fxmlLoader.getController();
+                ReservationApprovalController controller = new ReservationApprovalController(new ReservationApprovalModel(), reservationApprovalView);
+//                    reservationApprovalView.setController(controller);
+                rootPane.setCenter(view);
+            } catch (IOException e) {
+                e.printStackTrace();
+                showError("Failed to load reservation approval view.");
+            }
+        });
+
     }
 
     /** Event handler for Reports Button */

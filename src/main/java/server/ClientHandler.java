@@ -224,7 +224,7 @@ public class ClientHandler implements Runnable {
     private void handleFetchReservations(PrintWriter writer, String startDate, String endDate) {
         try {
             // Parse the XML reservations file
-            List<Reservation> reservations = ViewReservationProcessor.parseXML("server/util/reservationapproval.xml");
+            List<Reservation> reservations = ViewReservationProcessor.parseXML("/src/main/java/server/util/reservation_approval.xml");
 
             // Convert start and end date to Date objects
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -255,7 +255,7 @@ public class ClientHandler implements Runnable {
     private void handlefetchreservation(PrintWriter writer) {
         try {
             List<Reservation> reservations = ModifyReservationProcessor.parseXML(
-                    "server/util/reservationapproval.xml"
+                    "/src/main/java/server/util/reservation_approval.xml"
             );
             writer.println(createReservations2XMLResponse(reservations));
         } catch (Exception e) {
@@ -272,7 +272,7 @@ public class ClientHandler implements Runnable {
     private void handleUpdateReservation (PrintWriter writer){
         try {
             List<Reservation> reservations = ModifyReservationProcessor.parseXML(
-                    "server/util/reservationapproval.xml"
+                    "/src/main/java/server/util/reservation_approval.xml"
             );
             writer.println(createReservations2XMLResponse(reservations));
         } catch (Exception e) {
@@ -284,7 +284,7 @@ public class ClientHandler implements Runnable {
     private void handleReservationApprovals(PrintWriter writer) {
         try {
             System.out.println("Fetching Reservation Approvals...");
-            List<ApprovalReservation> reservations = server.admin.ReservationApprovalProcessor.parseXML("reservationapproval.xml");
+            List<ApprovalReservation> reservations = server.admin.ReservationApprovalProcessor.parseXML("src/main/java/server/util/reservation_approval.xml");
             System.out.println("Found " + reservations.size() + " reservations for approval.");
             writer.println(createApprovalReservationsXMLResponse(reservations));
 

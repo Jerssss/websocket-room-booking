@@ -17,18 +17,21 @@ import java.util.Map;
 
 public class ReservationApprovalProcessor {
 
-    private static final String FILE_PATH = "src/main/java/server/util/reservationapproval.xml";
+    private static final String FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
 
     /** Parse XML file and return a list of ApprovalReservation objects */
     public static List<ApprovalReservation> parseXML(String filePath) {
         List<ApprovalReservation> reservations = new ArrayList<>();
         try {
+            System.out.println("Loading XML file from: " + filePath); // Debug print
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(new File(filePath));
             document.getDocumentElement().normalize();
 
             NodeList reservationNodes = document.getElementsByTagName("Reservation");
+            System.out.println("Found " + reservationNodes.getLength() + " reservations."); // Debug print
 
             for (int i = 0; i < reservationNodes.getLength(); i++) {
                 Node node = reservationNodes.item(i);
@@ -44,11 +47,11 @@ public class ReservationApprovalProcessor {
                     String endTime = getTagValue("end_time", element);
                     String status = getTagValue("status", element);
 
-                    ApprovalReservation reservation = new ApprovalReservation(
+                    reservations.add(new ApprovalReservation(
                             reservationId, userId, terminalId, roomId,
                             reservationDate, startTime, endTime, status
-                    );
-                    reservations.add(reservation);
+                    ));
+//                    System.out.println("helooo!!!!!" + reservationNodes); DEBUGGER
                 }
             }
         } catch (Exception e) {
@@ -64,6 +67,38 @@ public class ReservationApprovalProcessor {
             return node.getTextContent();
         }
         return null;
+    }
+
+    public String fetchAllReservations() {
+        try {
+            Document doc = loadReservations();
+            System.out.println("Loaded XML Document: " + doc); // Debug print
+            return convertDocToString(doc);
+        } catch (Exception e) {
+            return errorResponse("Error fetching reservations");
+        }
+    }
+
+    private String convertDocToString(Document doc) throws Exception {
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        StringWriter writer = new StringWriter();
+        transformer.transform(new DOMSource(doc), new StreamResult(writer));
+        return writer.toString();
+    }
+
+    private String successResponse(String message) {
+        return "<Response><Status>SUCCESS</Status><Message>" + message + "</Message></Response>";
+    }
+
+    private String errorResponse(String message) {
+        return "<Response><Status>ERROR</Status><Message>" + message + "</Message></Response>";
+    }
+
+    private Document loadReservations() throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        return builder.parse(new File(FILE_PATH));
     }
 
     // === Uncomment and complete the additional operations if needed === //

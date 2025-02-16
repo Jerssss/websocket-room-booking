@@ -10,7 +10,8 @@
       stylesheets="@../../css/styles.css"
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      >
+      fx:controller="client.admin.view.ReservationApprovalView"
+>
 
    <children>
       <!-- Header Section -->

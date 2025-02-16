@@ -18,9 +18,9 @@ public class ReservationApprovalController {
     private ReservationApprovalModel model;
     private ObservableList<ApprovalReservation> allReservations = FXCollections.observableArrayList();
 
-    public ReservationApprovalController(ReservationApprovalView view) {
+    public ReservationApprovalController(ReservationApprovalModel reservationApprovalModel, ReservationApprovalView view) {
         this.view = view;
-        this.model = new ReservationApprovalModel();
+        this.model = reservationApprovalModel;
 
         loadReservations();         // Load all reservations initially
         setupSearchFunctionality(); // Set up search feature
@@ -29,6 +29,7 @@ public class ReservationApprovalController {
 
     private void loadReservations() {
         List<ApprovalReservation> reservations = model.fetchAllApprovalReservations();
+        System.out.println("loadReservations() called");
         allReservations.setAll(reservations);
         view.updateTable(allReservations);
     }

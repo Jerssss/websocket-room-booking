@@ -71,6 +71,7 @@ public class ReservationApprovalView {
     // Method to update the table with new data
     public void updateTable(ObservableList<ApprovalReservation> reservations) {
         reservationData.setAll(reservations);
+        approveResTableView.setItems(reservationData);
     }
 
     // Getter for search field
