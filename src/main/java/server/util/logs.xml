@@ -105,4 +105,39 @@
         <Date>2025-02-16</Date>
         <Time>22:34:43</Time>
     </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>01:15:25</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>02:54:35</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>02:55:18</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>02:55:22</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>02:58:10</Time>
+    </Log>
 </Logs>

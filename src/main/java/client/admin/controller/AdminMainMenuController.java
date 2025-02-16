@@ -51,8 +51,12 @@ public class AdminMainMenuController {
         if (view.isServerToggleSelected()) {
             // Start Server
             view.setToggleText("STOP");
-            serverThread = new Thread(ServerMain::startServer);
-            serverThread.start();
+            try {
+                Thread.sleep(1000); // Optional: Add a delay to ensure the port is released
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ServerMain.startServer();
             System.out.println("Server Started");
         } else {
             // Stop Server

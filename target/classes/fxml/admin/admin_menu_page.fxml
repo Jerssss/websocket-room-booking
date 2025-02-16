@@ -188,7 +188,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ToggleButton fx:id="serverToggleButton" mnemonicParsing="false" />
+                              <ToggleButton fx:id="serverToggleButton" mnemonicParsing="false" text="STOP" />
                            </children>
                         </HBox>
                      </children>

@@ -22,6 +22,8 @@ import java.util.TimerTask;
 
 public class AdminMainMenuView {
 
+    
+
     @FXML
     private Button addNewTerminalButton;
     @FXML
