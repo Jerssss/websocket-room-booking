@@ -22,6 +22,10 @@ public class LoginView {
     @FXML
     private Label promptLabel;
 
+    @FXML
+    private Button signInButton;
+    @FXML
+    private Button signUpButton;
     // Getters for UI components
     public TextField getIDField() {
         return idField;
@@ -56,6 +60,26 @@ public class LoginView {
     public void setActionSignUpButton(EventHandler<ActionEvent> event) {
         logInPageSignUpButton.setOnAction(event);
     }
+
+    public void initialize() {
+        System.out.println("Initializing Login View...");
+
+        // Attach event handlers to buttons
+        if (signInButton != null) {
+            signInButton.setOnAction(event -> {
+                System.out.println("Sign In Button Clicked");
+                // Trigger event from controller if needed
+            });
+        }
+
+        if (signUpButton != null) {
+            signUpButton.setOnAction(event -> {
+                System.out.println("Sign Up Button Clicked");
+                // Trigger event from controller if needed
+            });
+        }
+    }
+
 
     public void signUpButtonExited() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), logInPageSignUpButton);

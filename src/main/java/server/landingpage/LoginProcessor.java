@@ -1,10 +1,14 @@
+// File: server/landingpage/LoginProcessor.java
 package server.landingpage;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import server.utility.LogsXMLHandler;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import server.utility.LogsXMLHandler;
 
 public class LoginProcessor {
     public static String getUserName(String userID, String password, String userType) {
@@ -27,8 +31,10 @@ public class LoginProcessor {
                 String xmlPassword = user.getElementsByTagName("Password").item(0).getTextContent();
 
                 if (xmlID.equals(userID) && xmlPassword.equals(password)) {
-                    // Return the user's name if credentials match
-                    return user.getElementsByTagName("Name").item(0).getTextContent();
+                    String userName = user.getElementsByTagName("Name").item(0).getTextContent();
+                    // Add login log
+                    LogsXMLHandler.saveLog(userID, "Login", userType);
+                    return userName;
                 }
             }
         } catch (Exception e) {
@@ -58,6 +64,7 @@ public class LoginProcessor {
                 String xmlPassword = user.getElementsByTagName("Password").item(0).getTextContent();
 
                 if (xmlID.equals(userID) && xmlPassword.equals(password)) {
+                    // Add login log (for validation route)
                     LogsXMLHandler.saveLog(userID, "Login", userType);
                     return true;
                 }

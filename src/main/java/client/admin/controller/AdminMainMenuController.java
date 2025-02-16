@@ -3,7 +3,6 @@ package client.admin.controller;
 
 import client.admin.model.AdminMainMenuModel;
 import client.admin.view.AdminMainMenuView;
-import client.admin.view.ReservationApprovalView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,7 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import server.ServerMain;
-import server.utility.LogsXMLHandler;
+import client.login.LoginView;
+import client.login.LoginController;
+import client.login.LoginModel;
+import client.student.view.StudentMainMenuView;
+
+
 
 import java.io.IOException;
 
@@ -77,21 +81,29 @@ public class AdminMainMenuController {
 
 
 
+    // File: AdminMainMenuController.java (same for StudentMainMenuController)
     private void handleLogout(ActionEvent event) {
-        LogsXMLHandler.logLogout(loggedInUserName, "Admin");
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
-            Parent root = fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
+            Parent root = loader.load();
 
+            // Reinitialize LoginController with proper references
+            LoginView loginView = loader.getController();
+            new LoginController(
+                    loginView,
+                    new LoginModel(),
+                    new StudentMainMenuView(),
+                    new AdminMainMenuView()
+            );
+
+            // Switch back to login screen
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-
-            System.out.println("Successfully logged out.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading Login GUI.");
+            System.out.println("Error loading login page: " + e.getMessage());
         }
     }
 }

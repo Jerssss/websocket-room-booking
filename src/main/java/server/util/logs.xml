@@ -28,4 +28,11 @@
         <Date>2025-02-16</Date>
         <Time>08:33:07</Time>
     </Log>
+    <Log>
+        <UserID>4321</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-16</Date>
+        <Time>11:50:37</Time>
+    </Log>
 </Logs>

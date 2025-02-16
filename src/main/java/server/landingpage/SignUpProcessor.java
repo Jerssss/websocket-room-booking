@@ -1,19 +1,16 @@
+// File: server/landingpage/SignUpProcessor.java
 package server.landingpage;
 
-
+import server.utility.LogsXMLHandler;
 import org.w3c.dom.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+
+import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import server.utility.LogsXMLHandler;
-
-
 
 public class SignUpProcessor {
-
     public static boolean registerUser(String userID, String name, String password, String userType, String courseYear, String facultyType) {
         String baseDir = System.getProperty("user.dir");
         String xmlFilePath = userType.equalsIgnoreCase("Admin")
@@ -23,20 +20,19 @@ public class SignUpProcessor {
         try {
             File file = new File(xmlFilePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setIgnoringElementContentWhitespace(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document;
 
-            // Parse or create a new document
+            // Parse or create document
             if (file.exists() && file.length() > 0) {
                 document = builder.parse(file);
-                document.getDocumentElement().normalize(); // Normalize the document
-                removeWhitespaceNodes(document); // Remove unnecessary whitespace nodes
+                document.getDocumentElement().normalize();
+                removeWhitespaceNodes(document);
 
                 // Check for duplicate ID
                 if (isDuplicateID(document, userType + "_ID", userID)) {
                     System.out.println("Duplicate ID found: " + userID);
-                    return false; // Registration fails
+                    return false;
                 }
             } else {
                 document = builder.newDocument();
@@ -48,37 +44,28 @@ public class SignUpProcessor {
             Element newUser = document.createElement(userType);
 
             // Add ID
-            Element idElement = document.createElement(userType + "_ID");
-            idElement.appendChild(document.createTextNode(userID.trim()));
-            newUser.appendChild(idElement);
+            newUser.appendChild(createElement(document, userType + "_ID", userID));
 
-            // Add Name (for both Students and Admins)
+            // Add Name
             if (name != null && !name.isEmpty()) {
-                Element nameElement = document.createElement("Name");
-                nameElement.appendChild(document.createTextNode(name.trim()));
-                newUser.appendChild(nameElement);
+                newUser.appendChild(createElement(document, "Name", name));
             }
 
             // Add Password
-            Element passwordElement = document.createElement("Password");
-            passwordElement.appendChild(document.createTextNode(password.trim()));
-            newUser.appendChild(passwordElement);
+            newUser.appendChild(createElement(document, "Password", password));
 
-            // Add additional fields based on user type
-            if (userType.equalsIgnoreCase("Student") && courseYear != null && !courseYear.isEmpty()) {
-                Element courseYearElement = document.createElement("CourseYear");
-                courseYearElement.appendChild(document.createTextNode(courseYear.trim()));
-                newUser.appendChild(courseYearElement);
-            } else if (userType.equalsIgnoreCase("Admin") && facultyType != null && !facultyType.isEmpty()) {
-                Element facultyTypeElement = document.createElement("FacultyType");
-                facultyTypeElement.appendChild(document.createTextNode(facultyType.trim()));
-                newUser.appendChild(facultyTypeElement);
+            // Add additional fields
+            if ("Student".equalsIgnoreCase(userType) && courseYear != null) {
+                newUser.appendChild(createElement(document, "CourseYear", courseYear));
+            } else if ("Admin".equalsIgnoreCase(userType) && facultyType != null) {
+                newUser.appendChild(createElement(document, "FacultyType", facultyType));
             }
 
             rootElement.appendChild(newUser);
-
             saveDocument(document, file);
-            LogsXMLHandler.saveLog(userID, userType, "Signup");
+
+            // Log the signup (fixed argument order)
+            LogsXMLHandler.saveLog(userID, "SignUp", userType);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,6 +73,11 @@ public class SignUpProcessor {
         }
     }
 
+    private static Element createElement(Document doc, String tagName, String textContent) {
+        Element element = doc.createElement(tagName);
+        element.appendChild(doc.createTextNode(textContent.trim()));
+        return element;
+    }
 
     public static boolean isDuplicateID(Document document, String idTagName, String userID) {
         NodeList idNodes = document.getElementsByTagName(idTagName);
