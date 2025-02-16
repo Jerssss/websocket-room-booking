@@ -17,7 +17,6 @@ import javafx.util.Duration;
 import server.utility.Terminal;
 
 public class ModifyTerminalStatusView {
-
     @FXML
     private Button searchButton;
     @FXML
@@ -34,6 +33,8 @@ public class ModifyTerminalStatusView {
     private TableColumn<Terminal, String> terminalOSColumn;
     @FXML
     private TableColumn<Terminal, String> terminalStatusColumn;
+    @FXML
+    private TableColumn<Terminal, String> editColumn;
 
     private ModifyTerminalStatusController controller;
     private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
@@ -41,20 +42,22 @@ public class ModifyTerminalStatusView {
     public void initialize() {
         controller = new ModifyTerminalStatusController(this);
 
-        // Set up columns with data
         roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
         terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
         terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
 
-        // Terminal status with dropdown
         terminalStatusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
         terminalStatusColumn.setCellFactory(createStyledStatusCellFactory());
 
-        // Load data via controller
-        controller.loadTerminalData();
+        if (controller != null) {
+            controller.loadTerminalData();
+        }
 
-        // Set event handler for save button
         setActionSaveChangesButton(event -> controller.saveChanges());
+    }
+
+    public void setController(ModifyTerminalStatusController controller) {
+        this.controller = controller;
     }
 
     public void setTerminalData(ObservableList<Terminal> data) {
@@ -89,7 +92,6 @@ public class ModifyTerminalStatusView {
                     Terminal terminal = getTableRow().getItem();
                     statusComboBox.setValue(terminal.getTerminalStatus());
 
-                    // Apply alternate row colors
                     int rowIndex = getIndex();
                     Color rowColor = (rowIndex % 2 == 1) ? Color.web("#f8f8f8") : Color.WHITE;
                     setBackground(new Background(new BackgroundFill(rowColor, new CornerRadii(5), null)));
@@ -128,6 +130,7 @@ public class ModifyTerminalStatusView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void saveChangesButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
         st.setToX(0.9);
@@ -136,5 +139,4 @@ public class ModifyTerminalStatusView {
         st.setAutoReverse(false);
         st.play();
     }
-
 }
