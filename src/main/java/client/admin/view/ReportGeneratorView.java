@@ -44,11 +44,15 @@ public class ReportGeneratorView {
         statusColumn1.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
         statusColumn12.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
 
+        // Bind columns to model properties
         resIDColumn11.setCellValueFactory(cellData -> cellData.getValue().reservationIdProperty());
         terminalColumn11.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
         roomNumberColumn11.setCellValueFactory(cellData -> cellData.getValue().roomNumberProperty());
         statusColumn11.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
         statusColumn111.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
+
+        // Bind tables to observable lists
+        reservationReportTableView.setItems(reservationReports);
 
         // Button actions
         searchButton.setOnAction(event -> performSearch());
@@ -72,7 +76,12 @@ public class ReportGeneratorView {
     }
 
     public void setReservationReports(ObservableList<ReservationReport> data) {
+        System.out.println("Setting reservations in TableView: " + data.size());
+
         reservationReports.setAll(data);
+        reservationReportTableView.setItems(null);  // Clear first
+        reservationReportTableView.setItems(reservationReports);
+        reservationReportTableView.refresh();
     }
 
     public void setLogsData(ObservableList<LogReport> data) {
