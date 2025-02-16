@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import server.admin.ReportGeneratorProcessor;
 import server.utility.LogReport;
+import server.utility.ReservationReport;
 
 import java.util.List;
 
@@ -24,23 +25,26 @@ public class ReportGeneratorController {
         view.setLogsData(logs);
     }
 
-    public void applySortingAndFiltering(String sortOption, String dateFilter) {
-        // Get logs from the model (assuming you already have the logs loaded in the model)
-        List<LogReport> logs = model.loadLogsFromServer();
+    public void loadReservationReports() {
+        ObservableList<ReservationReport> reservations = model.loadReservationsFromServer();
+        view.setReservationReports(reservations);
+    }
 
-        // Apply sorting and filtering via the processor
+    public void applySortingAndFiltering(String sortOption, String dateFilter) {
+        List<LogReport> logs = model.loadLogsFromServer();
+        List<ReservationReport> reservations = model.loadReservationsFromServer();
+
+        // Apply sorting and filtering for logs
         List<LogReport> sortedAndFilteredLogs = ReportGeneratorProcessor.applySortingAndFiltering(logs, sortOption, dateFilter);
 
-        if (sortOption.equals("Filter by Date")) {
-            if (sortedAndFilteredLogs.isEmpty()) {
-                view.showNoDataForDate("No data found for the entered date.");
-            } else {
-                ObservableList<LogReport> observableLogs = FXCollections.observableArrayList(sortedAndFilteredLogs);
-                view.setLogsData(observableLogs);
-            }
-        } else {
-            ObservableList<LogReport> observableLogs = FXCollections.observableArrayList(sortedAndFilteredLogs);
-            view.setLogsData(observableLogs);
-        }
+        // Apply sorting and filtering for reservations
+        List<ReservationReport> sortedAndFilteredReservations = ReportGeneratorProcessor.applySortingAndFilteringForReservations(reservations, sortOption, dateFilter);
+
+        // Update view with the sorted and filtered logs and reservations
+        ObservableList<LogReport> observableLogs = FXCollections.observableArrayList(sortedAndFilteredLogs);
+        ObservableList<ReservationReport> observableReservations = FXCollections.observableArrayList(sortedAndFilteredReservations);
+
+        view.setLogsData(observableLogs);
+        view.setReservationReports(observableReservations);
     }
 }

@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import server.utility.LogReport;
 import server.admin.ReportGeneratorProcessor;
+import server.utility.ReservationReport;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +30,18 @@ public class ReportGeneratorModel {
                 return FXCollections.observableArrayList();
             }
             return FXCollections.observableArrayList(logs);
+        }
+        return FXCollections.observableArrayList();
+    }
+
+    public ObservableList<ReservationReport> loadReservationsFromServer() {
+        if (serverConnection != null) {
+            List<ReservationReport> reservations = ReportGeneratorProcessor.parseReservationXML();
+            if (reservations == null) {
+                System.out.println("No reservation data received from server!");
+                return FXCollections.observableArrayList();
+            }
+            return FXCollections.observableArrayList(reservations);
         }
         return FXCollections.observableArrayList();
     }

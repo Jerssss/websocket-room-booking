@@ -18,6 +18,27 @@ public class ReservationReport {
         this.date = new SimpleStringProperty(date);
     }
 
+    public String getReservationId() {
+        return reservationId.get();
+    }
+
+    public String getTerminalId() {
+        return terminalId.get();
+    }
+
+    public String getRoomNumber() {
+        return roomNumber.get();
+    }
+
+    public String getStatus() {
+        return status.get();
+    }
+
+    public String getDate() {
+        return date.get();
+    }
+
+    // Property getters
     public StringProperty reservationIdProperty() {
         return reservationId;
     }
@@ -38,4 +59,3 @@ public class ReservationReport {
         return date;
     }
 }
-
