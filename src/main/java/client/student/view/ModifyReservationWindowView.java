@@ -98,7 +98,7 @@ public class ModifyReservationWindowView {
         reservationDateColumn.setCellValueFactory(cellData -> cellData.getValue().reservationDateProperty());
         startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
         endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
-        statusColumn.setCellValueFactory(cellData -> cellData.getValue().reservationStatusProperty());
+//        statusColumn.setCellValueFactory(cellData -> cellData.getValue().reservationStatusProperty());
 
 
         loadDataFromXML("src/main/java/server/util/reservationapproval.xml");

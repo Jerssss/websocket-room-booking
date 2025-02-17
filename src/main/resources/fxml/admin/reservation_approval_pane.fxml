@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="client.admin.view.ReservationApprovalView">
+<VBox fx:id="centerPane" prefHeight="573.0" prefWidth="805.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.ReservationApprovalView">
 
    <children>
       <!-- Header Section -->
@@ -67,14 +66,14 @@
             <TableView fx:id="approveResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="420.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
 
                <columns>
-                  <TableColumn fx:id="reservationIdColumn" editable="false" prefWidth="177.0" text="Reservation ID" />
-                  <TableColumn fx:id="userIdColumn" editable="false" prefWidth="134.0" text="User ID" />
-                  <TableColumn fx:id="terminalNoColumn" editable="false" text="Terminal No." />
-                  <TableColumn fx:id="roomNumberColumn" editable="false" prefWidth="131.0" text="Room No." />
-                  <TableColumn fx:id="dateColumn" editable="false" prefWidth="188.0" text="Date" />
-                  <TableColumn fx:id="startTimeColumn" editable="false" prefWidth="174.0" text="Start Time" />
-                  <TableColumn fx:id="endTimeColumn" editable="false" prefWidth="174.0" text="End Time" />
-                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="189.0" text="Status" />
+                  <TableColumn fx:id="reservationIdColumn" editable="false" prefWidth="116.0" text="Reservation ID" />
+                  <TableColumn fx:id="userIdColumn" editable="false" minWidth="6.0" prefWidth="72.0" text="User ID" />
+                  <TableColumn fx:id="terminalNoColumn" editable="false" prefWidth="95.0" text="Terminal No." />
+                  <TableColumn fx:id="roomNumberColumn" editable="false" prefWidth="77.0" text="Room No." />
+                  <TableColumn fx:id="dateColumn" editable="false" prefWidth="87.0" text="Date" />
+                  <TableColumn fx:id="startTimeColumn" editable="false" prefWidth="105.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeColumn" editable="false" prefWidth="134.0" text="End Time" />
+                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="122.0" text="Status" />
                </columns>
 
                <columnResizePolicy>

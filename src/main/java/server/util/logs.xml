@@ -154,4 +154,18 @@
         <Date>2025-02-17</Date>
         <Time>06:03:02</Time>
     </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>06:10:42</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>15:07:06</Time>
+    </Log>
 </Logs>

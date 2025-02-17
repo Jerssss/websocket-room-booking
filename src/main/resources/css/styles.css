@@ -24,3 +24,13 @@
 .userTypePicker {
     -fx-prompt-text-fill: #8988b1;
 }
+
+.date-picker .text-field {
+    -fx-alignment: left; 
+    -fx-padding: 0 0 0 5px;
+}
+
+.text-field2 {
+	-fx-alignment: left; 
+    -fx-padding: 0 0 0 5px;
+}
