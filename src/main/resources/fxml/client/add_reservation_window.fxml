@@ -13,7 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="372.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.AddNewTerminalView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="372.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.student.view.CreateReservationView">
    <center>
       <VBox prefHeight="163.0" prefWidth="266.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,12 +24,12 @@
                      <children>
                         <StackPane alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="367.0">
                            <children>
-                              <Label text="Terminal:">
+                              <Label text="Terminal No.:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="terminalNumberComboBox" prefHeight="25.0" prefWidth="203.0" promptText="Terminal #" translateX="80.0" />
+                              <TextField fx:id="terminalNoTextField" prefHeight="25.0" prefWidth="203.0" promptText="Terminal #" translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>
@@ -111,7 +112,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="47.0" prefWidth="310.0" style="-fx-background-color: #0d3073;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="41.0" prefWidth="255.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Add New Terminal" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="41.0" prefWidth="255.0" style="-fx-font-family: &quot;Trebuchet MS&quot;, Helvetica, sans-serif &quot;Trebuchet MS&quot;, Helvetica, sans-serif;" text="Add New Reservation" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
