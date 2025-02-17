@@ -10,6 +10,7 @@ import java.util.List;
 import client.utility.ServerConnectionManager;
 import javafx.application.Platform;
 import org.w3c.dom.*;
+import server.student.ViewReservationProcessor;
 import server.utility.Reservation;
 
 import javax.swing.*;
@@ -113,5 +114,27 @@ public class ViewReservationModel {
                 null, message, "Connection Error", JOptionPane.ERROR_MESSAGE
         ));
 
+    }
+
+    public List<Reservation> fetchReservations(String sessionToken) {
+        if (sessionToken == null || sessionToken.isEmpty()) {
+            System.err.println("❌ Error: Session token is null or empty in Model!");
+            return null;
+        }
+
+        // Get the XML file path
+        String xmlPath = "src/main/java/server/util/reservation_approval.xml";
+        System.out.println("🔍 Fetching reservations from XML: " + xmlPath);
+
+        // Parse XML and return reservations
+        List<Reservation> reservations = ViewReservationProcessor.parseXML(xmlPath);
+
+        if (reservations == null || reservations.isEmpty()) {
+            System.err.println("❌ No reservations found in XML!");
+        } else {
+            System.out.println("✅ Reservations successfully loaded: " + reservations.size());
+        }
+
+        return reservations;
     }
 }

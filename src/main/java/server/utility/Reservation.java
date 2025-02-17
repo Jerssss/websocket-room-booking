@@ -10,18 +10,18 @@ public class Reservation {
     private final SimpleStringProperty reservationDate;
     private final SimpleStringProperty startTime;
     private final SimpleStringProperty endTime;
-    private final SimpleStringProperty reservationStatus;
+    private final SimpleStringProperty status;
 
     // Constructor
     public Reservation(String reservationId, String userId, String terminalId, String reservationDate,
-                       String startTime, String endTime, String reservationStatus) {
+                       String startTime, String endTime, String status) {
         this.reservationId = new SimpleStringProperty(reservationId);
         this.userId = new SimpleStringProperty(userId);
         this.terminalId = new SimpleStringProperty(terminalId);
         this.reservationDate = new SimpleStringProperty(reservationDate);
         this.startTime = new SimpleStringProperty(startTime);
         this.endTime = new SimpleStringProperty(endTime);
-        this.reservationStatus = new SimpleStringProperty(reservationStatus);
+        this.status = new SimpleStringProperty(status);
     }
 
     // Property methods for JavaFX
@@ -49,8 +49,8 @@ public class Reservation {
         return endTime;
     }
 
-    public StringProperty reservationStatusProperty() {
-        return reservationStatus;
+    public StringProperty statusProperty() {
+        return status;
     }
 
     // Getters and Setters
@@ -102,12 +102,12 @@ public class Reservation {
         this.endTime.set(endTime);
     }
 
-    public String getReservationStatus() {
-        return reservationStatus.get();
+    public String getStatus() {
+        return status.get();
     }
 
-    public void setReservationStatus(String reservationStatus) {
-        this.reservationStatus.set(reservationStatus);
+    public void setStatus(String reservationStatus) {
+        this.status.set(reservationStatus);
     }
 
 
