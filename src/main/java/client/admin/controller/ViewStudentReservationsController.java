@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class ViewStudentReservationsController {
 
-    private ViewStudentReservationsView view;
-    private ViewStudentReservationsModel model;
-    private ObservableList<StudentReservation> allReservations = FXCollections.observableArrayList();
+    private final ViewStudentReservationsView view;
+    private final ViewStudentReservationsModel model;
+    private final ObservableList<StudentReservation> allReservations = FXCollections.observableArrayList();
     public ViewStudentReservationsController(ViewStudentReservationsView view) {
         this.view = view;
         this.model = new ViewStudentReservationsModel();
@@ -53,9 +53,12 @@ public class ViewStudentReservationsController {
         List<StudentReservation> filteredList = allReservations.stream()
                 .filter(reservation -> {
                     String combinedFields = (reservation.getReservationId() + " " +
-                            reservation.getTerminalId() + " " +
+                            reservation.getReservationId() + " " +
+                            reservation.getUserId() + " " +
                             reservation.getTerminalRoom() + " " +
                             reservation.getDate() + " " +
+                            reservation.getStartTime() + " " +
+                            reservation.getEndTime() + " " +
                             reservation.getTerminalStatus()).toLowerCase();
                     return combinedFields.contains(searchQuery.toLowerCase());
                 })

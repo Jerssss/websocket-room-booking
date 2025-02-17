@@ -20,13 +20,20 @@ public class ViewStudentReservationsView {
     @FXML
     private TableView<StudentReservation> studResTableView;
     @FXML
-    private TableColumn<StudentReservation, String> resIDColumn;
+    private TableColumn<StudentReservation, String> reservationIdColumn;
     @FXML
-    private TableColumn<StudentReservation, String> terminalColumn;
+    private TableColumn<StudentReservation, String> userIdColumn;
+
+    @FXML
+    private TableColumn<StudentReservation, String> terminalNumberColumn;
     @FXML
     private TableColumn<StudentReservation, String> roomNumberColumn;
     @FXML
     private TableColumn<StudentReservation, String> dateColumn;
+    @FXML
+    private TableColumn<StudentReservation, String> startTimeColumn;
+    @FXML
+    private TableColumn<StudentReservation, String> endTimeColumn;
     @FXML
     private TableColumn<StudentReservation, String> statusColumn;
 
@@ -50,10 +57,13 @@ public class ViewStudentReservationsView {
     @FXML
     public void initialize() {
         System.out.println("ViewStudentReservationsView initialized!"); // Debugging
-        resIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReservationId()));
-        terminalColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTerminalId()));
+        reservationIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReservationId()));
+        userIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUserId()));
+        terminalNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTerminalNumber()));
         roomNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTerminalRoom()));
         dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
+        startTimeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartTime()));
+        endTimeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndTime()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTerminalStatus()));
 
         System.out.println("ViewStudentReservationsView initialized!");

@@ -23,7 +23,7 @@ import java.util.List;
 
 
 public class ViewStudentReservationsProcessor {
-    private static final String FILE_PATH = "src/main/java/server/util/reserved.xml";
+    private static final String FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
 
     // Load student reservations from XML file
     public static List<StudentReservation> loadStudentReservationsFromXML() {
@@ -43,12 +43,15 @@ public class ViewStudentReservationsProcessor {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
                 String reservationId = getTagValue("reservation_id", element);
-                String terminalId = getTagValue("terminal_id", element);
-                String terminalRoom = getTagValue("terminal_room", element);
-                String date = getTagValue("date", element);
-                String terminalStatus = getTagValue("terminal_status", element);
+                String userId = getTagValue("user_id", element);
+                String terminalNumber = getTagValue("terminal_id", element);
+                String terminalRoom = getTagValue("room_id", element);
+                String date = getTagValue("reservation_date", element);
+                String startTime = getTagValue("start_time", element);
+                String endTime = getTagValue("end_time", element);
+                String terminalStatus = getTagValue("status", element);
 
-                studentReservations.add(new StudentReservation(reservationId, terminalId, terminalRoom, date, terminalStatus));
+                studentReservations.add(new StudentReservation(reservationId, userId, terminalNumber, terminalRoom, date, startTime, endTime, terminalStatus));
             }
         } catch (Exception e) {
             e.printStackTrace();
