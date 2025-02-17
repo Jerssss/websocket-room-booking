@@ -13,23 +13,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="372.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.student.view.CreateReservationView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="372.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.CreateReservationView">
    <center>
       <VBox prefHeight="163.0" prefWidth="266.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="197.0" prefWidth="310.0">
                <children>
-                  <HBox prefHeight="43.0" prefWidth="310.0">
+                  <HBox prefHeight="43.0" prefWidth="310.0" scaleShape="false">
                      <children>
-                        <StackPane alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="367.0">
+                        <StackPane alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="203.0">
                            <children>
                               <Label text="Terminal No.:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="terminalNoTextField" prefHeight="25.0" prefWidth="203.0" promptText="Terminal #" translateX="80.0" />
+                              <TextField fx:id="terminalNoTextField" editable="false" prefHeight="29.0" prefWidth="276.0" promptText="Terminal #" translateX="80.0" />
                            </children>
                         </StackPane>
                      </children>
