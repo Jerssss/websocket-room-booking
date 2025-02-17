@@ -1,7 +1,6 @@
-// File: client/admin/view/ReservationApprovalView.java
 package client.admin.view;
-//hello
 
+import client.admin.controller.ReservationApprovalController;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import server.utility.ApprovalReservation;
-import server.utility.Terminal;
 
 public class ReservationApprovalView {
 
@@ -34,6 +32,7 @@ public class ReservationApprovalView {
             roomNumberColumn, dateColumn, startTimeColumn, endTimeColumn;
     @FXML
     private TableColumn<ApprovalReservation, String> statusColumn;
+    private ReservationApprovalController controller = new ReservationApprovalController(this);
 
     private final ObservableList<ApprovalReservation> reservationData = FXCollections.observableArrayList();
 
@@ -48,10 +47,14 @@ public class ReservationApprovalView {
     public void setActionRefreshButton(EventHandler<ActionEvent> event) {
         refreshButton.setOnAction(event);
     }
+
     public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
         saveChangesButton.setOnAction(event);
     }
 
+    public TextField getSearchStudResTextField() {
+        return searchStudResTextField;
+    }
 
     @FXML
     public void initialize() {
@@ -66,6 +69,21 @@ public class ReservationApprovalView {
         endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         statusColumn.setCellFactory(createStyledStatusCellFactory());
         approveResTableView.setItems(reservationData);
+
+        if (controller != null) {
+            controller.loadTerminalData();
+        }
+
+        setActionSaveChangesButton(event -> controller.saveChanges());
+
+    }
+
+    public void setTerminalData(ObservableList<ApprovalReservation> data) {
+        reservationData.setAll(data); // Update dataset
+        approveResTableView.setItems(null); // Force reset
+        approveResTableView.setItems(reservationData); // Reload table data
+        approveResTableView.refresh(); // Force UI refresh
+        System.out.println("[DEBUG] Terminal data updated. New table size: " + reservationData.size());
     }
 
     private Callback<TableColumn<ApprovalReservation, String>, TableCell<ApprovalReservation, String>> createStyledStatusCellFactory() {
@@ -76,13 +94,12 @@ public class ReservationApprovalView {
             {
                 statusComboBox.setStyle("-fx-border-color: transparent; " +
                         "-fx-padding: 5px; " +
-                        "-fx-font-size: 12px; " +
+                        "-fx-font-size: 13px; " +
                         "-fx-font-family: 'System';");
                 statusComboBox.setOnAction(e -> {
                     ApprovalReservation reservation = getTableRow().getItem();
                     if (reservation != null) {
                         reservation.statusProperty().set(statusComboBox.getValue());
-
                     }
                 });
             }
@@ -103,8 +120,8 @@ public class ReservationApprovalView {
                             toRGBCode(rowColor) + "; " +
                             "-fx-border-color: transparent; " +
                             "-fx-padding: 5px; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-font-family: 'Arial';");
+                            "-fx-font-size: 13px; " +
+                            "-fx-font-family: 'System';");
 
                     statusComboBox.setMaxWidth(Double.MAX_VALUE);
                     setGraphic(statusComboBox);
@@ -136,6 +153,7 @@ public class ReservationApprovalView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void saveChangesButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
         st.setToX(0.9);
@@ -143,9 +161,5 @@ public class ReservationApprovalView {
         st.setCycleCount(1);
         st.setAutoReverse(false);
         st.play();
-    }
-
-    public TextField getSearchStudResTextField() {
-        return searchStudResTextField;
     }
 }
