@@ -1,20 +1,19 @@
+// File: client/student/controller/StudentMainMenuController.java
 package client.student.controller;
 
-import client.admin.model.AdminMainMenuModel;
-import client.admin.view.AdminMainMenuView;
 import client.login.LoginController;
 import client.login.LoginModel;
 import client.login.LoginView;
 import client.student.model.StudentMainMenuModel;
 import client.student.view.StudentMainMenuView;
-import client.student.view.ViewReservationView;
+import client.admin.view.AdminMainMenuView;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import server.utility.LogsXMLHandler;
 
 import java.io.IOException;
 
@@ -30,28 +29,34 @@ public class StudentMainMenuController {
         this.model = model;
         this.loggedInUserName = loggedInUserName;
 
+        // Display logged-in user's name
         this.view.setLoggedInUserName(loggedInUserName);
         this.view.initializeDateTime();
 
+        // Handle button actions
         this.view.setActionCreateReservationButton(event -> handleCreateReservation());
         this.view.setActionViewReservationButton(event -> handleViewReservation());
         this.view.setActionModifyReservationButton(event -> handleModifyReservation());
-
-        this.view.setActionLogoutButton (this::handleLogout);
+        this.view.setActionLogoutButton(this::handleLogout);
     }
-
 
     private void handleCreateReservation() {
         System.out.println("Navigating to Add New Terminal...");
     }
+
     private void handleViewReservation() {
         System.out.println("Navigating to View Student Reservations...");
     }
+
     private void handleModifyReservation() {
         System.out.println("Navigating to Modify Terminal Status...");
     }
 
+    /** Handle Logout Action and Log to logs.xml */
     private void handleLogout(ActionEvent event) {
+        // Log the logout action
+        LogsXMLHandler.logLogout(loggedInUserName, "Student");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
             Parent root = loader.load();
