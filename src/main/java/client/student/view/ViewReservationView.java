@@ -22,7 +22,6 @@ import java.util.List;
 
 public class ViewReservationView {
 
-
     @FXML
     private ComboBox<String> monthComboBox;
     @FXML
