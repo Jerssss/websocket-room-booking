@@ -7,27 +7,25 @@ import javafx.beans.property.StringProperty;
 
 public class StudentReservation {
     private final StringProperty reservationId;
-    private StringProperty terminalId;
-    private StringProperty terminalRoom;
-    private StringProperty date;
-    private StringProperty terminalStatus;
+    private final StringProperty userId;
+    private final StringProperty terminalNumber;
+    private final StringProperty terminalRoom;
+    private final StringProperty date;
+    private final StringProperty startTime;
+    private final StringProperty endTime;
+    private final StringProperty terminalStatus;
 
 
     // Full Constructor
-    public StudentReservation(String reservationId, String terminalId, String terminalRoom, String date, String terminalStatus) {
+    public StudentReservation(String reservationId, String userId, String terminalNumber, String terminalRoom, String date, String startTime, String endTime, String terminalStatus) {
         this.reservationId = new SimpleStringProperty(reservationId);
-        this.terminalId = new SimpleStringProperty(terminalId);
+        this.userId = new SimpleStringProperty(userId);
+        this.terminalNumber = new SimpleStringProperty(terminalNumber);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
         this.date = new SimpleStringProperty(date); // Default value since XML has no <date>
+        this.startTime = new SimpleStringProperty(startTime);
+        this.endTime = new SimpleStringProperty(endTime);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
-    }
-
-
-    public StudentReservation(String reservationId, String terminalRoom, String terminalStatus) {
-        this.reservationId = new SimpleStringProperty(reservationId);
-        this.terminalRoom = new SimpleStringProperty(terminalRoom);
-
-
     }
 
 
@@ -42,15 +40,23 @@ public class StudentReservation {
     public StringProperty reservationIdProperty() {
         return reservationId;
     }
-
-
-    public String getTerminalId() {
-        return terminalId.get();
+    public String getUserId() {
+        return userId.get();
     }
 
 
-    public StringProperty terminalIdProperty() {
-        return terminalId;
+    public StringProperty userIdProperty() {
+        return userId;
+    }
+
+
+    public String getTerminalNumber() {
+        return terminalNumber.get();
+    }
+
+
+    public StringProperty terminalNumberProperty() {
+        return terminalNumber;
     }
 
 
@@ -72,12 +78,26 @@ public class StudentReservation {
     public StringProperty dateProperty() {
         return date;
     }
+    public String getStartTime() {
+        return startTime.get();
+    }
 
+
+    public StringProperty startTimeProperty() {
+        return startTime;
+    }
+    public String getEndTime() {
+        return endTime.get();
+    }
+
+
+    public StringProperty endTimeProperty() {
+        return endTime;
+    }
 
     public String getTerminalStatus() {
         return terminalStatus.get();
     }
-
 
     public StringProperty terminalStatusProperty() {
         return terminalStatus;

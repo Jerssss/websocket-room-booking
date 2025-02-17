@@ -30,4 +30,14 @@
         <end_time>12:00</end_time>
         <status>Cancelled</status>
     </Reservation>
+    <Reservation>
+        <reservation_id>104</reservation_id>
+        <user_id>1</user_id>
+        <terminal_id>4</terminal_id>
+        <room_id>D528</room_id>
+        <reservation_date>2025-02-13</reservation_date>
+        <start_time>10:00</start_time>
+        <end_time>12:00</end_time>
+        <status>Cancelled</status>
+    </Reservation>
 </Reservations>

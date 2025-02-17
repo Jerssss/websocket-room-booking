@@ -394,7 +394,7 @@ public class ClientHandler implements Runnable {
                 reservation.appendChild(resId);
 
                 Element terminalId = doc.createElement("terminal_id");
-                terminalId.appendChild(doc.createTextNode(res.getTerminalId()));
+                terminalId.appendChild(doc.createTextNode(res.getTerminalNumber()));
                 reservation.appendChild(terminalId);
 
                 Element room = doc.createElement("terminal_room");

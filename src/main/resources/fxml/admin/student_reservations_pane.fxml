@@ -54,7 +54,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="484.0" prefWidth="805.0">
          <children>
-            <TableView fx:id="approveResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="490.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
+            <TableView fx:id="studResTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="490.0" prefWidth="805.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
                <columns>
                   <TableColumn fx:id="reservationIdColumn" editable="false" prefWidth="116.0" text="Reservation ID" />
                   <TableColumn fx:id="userIdColumn" editable="false" minWidth="6.0" prefWidth="82.0" text="User ID" />
