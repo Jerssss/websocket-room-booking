@@ -31,7 +31,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class CreateReservationView implements Initializable {
+public class CreateReservationView  {
 
     // Variables corresponding to the FXML components
     @FXML
@@ -70,101 +70,6 @@ public class CreateReservationView implements Initializable {
     @FXML
     private GridPane roomGridPane;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Allow GridPane to grow indefinitely
-        roomGridPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        roomGridPane.setHgap(10);
-        roomGridPane.setVgap(10);
-        // Configure ScrollPane to fit-to-width
-        roomsScrollPane.setFitToWidth(true);
-        // Set up event handler for the refresh button
-        refreshButton.setOnAction(event -> handleRefreshButton());
-
-    }
-
-    // Handle refresh button click
-    private void handleRefreshButton() {
-        roomGridPane.getChildren().clear(); // Clear previous cards
-
-        Map<String, Map<String, Integer>> roomData = CreateReservationModel.parseTerminals("out/production/9444-team1_preproject/resources/data/Terminals.xml");
-
-        int totalCards = 0; // Track number of cards
-
-        for (Map.Entry<String, Map<String, Integer>> roomEntry : roomData.entrySet()) {
-            String roomName = roomEntry.getKey();
-            Map<String, Integer> osCounts = roomEntry.getValue();
-
-            for (Map.Entry<String, Integer> osEntry : osCounts.entrySet()) {
-                String os = osEntry.getKey();
-                int availableTerminals = osEntry.getValue();
-
-                addRoomCard(roomName, os, availableTerminals);
-
-                totalCards++; // Increment card count
-            }
-        }
-
-        System.out.println("Total Room Cards Added: " + totalCards);
-        roomGridPane.requestLayout();
-    }
-
-
-    // Method to load and add room cards
-    public void addRoomCard(String roomName, String roomType, int availableTerminals) {
-        try {
-            // Load the room card FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/room_item_card.fxml"));
-            HBox roomCard = loader.load();
-
-            // Get the controller for the room card
-            RoomItemCardView controller = loader.getController();
-
-            // Set room details
-            controller.setRoomName(roomName); // Set the room name
-            controller.setRoomType(roomType); // Set the room type (OS)
-            controller.setAvailableTerminals(availableTerminals); // Set the number of available terminals
-
-            // Set the action for the "See Terminals" button
-            controller.setActionSeeTerminalsButton((ActionEvent event) -> {
-                try {
-                    // Load the Terminal Picker FXML
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/terminal_picker_window.fxml"));
-                    Parent root = fxmlLoader.load();
-
-                    // Get the controller of TerminalPickerWindowView
-                    TerminalPickerWindowView terminalPickerController = fxmlLoader.getController();
-
-                    // Set the room name dynamically
-                    terminalPickerController.setRoomName(roomName);  // roomName should be the selected room
-
-                    // Show the window
-                    Stage stage = new Stage();
-                    stage.setTitle("Terminal Picker");
-                    stage.setScene(new Scene(root));
-                    stage.show();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
-
-
-            // Calculate row and column indices (2 columns per row)
-            int totalCards = roomGridPane.getChildren().size();
-            int columnIndex = totalCards % 2; // Columns: 0, 1
-            int rowIndex = totalCards / 2;    // Rows increment after 2 cards
-
-            // Add the card to the GridPane
-            roomGridPane.add(roomCard, columnIndex, rowIndex);
-
-            // Add margin for spacing
-            GridPane.setMargin(roomCard, new Insets(5));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     // Getters for the components

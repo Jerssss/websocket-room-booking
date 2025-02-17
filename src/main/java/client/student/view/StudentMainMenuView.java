@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -41,44 +42,33 @@ public class StudentMainMenuView {
     @FXML
     private BorderPane rootPane;
 
-    private List<Button> menuButtons; // Store all menu buttons
-
-    public void initialize() {
-        // Initialize the list of buttons
-        menuButtons = List.of(createReservationButton, viewReservationButton, modifyReservationButton);
-    }
-
-    // Getter methods for buttons
-    public Button getCreateReservationButton() {
-        return createReservationButton;
-    }
-
-    public Button getViewReservationButton() {
-        return viewReservationButton;
-    }
-
-    public Button getModifyReservationButton() {
-        return modifyReservationButton;
-    }
-
-    public void loadView(String fxmlFile) {
-        URL fxmlLocation = getClass().getResource(fxmlFile);
-        if (fxmlLocation == null) {
-            throw new RuntimeException("FXML file not found: " + fxmlFile);
-        }
-
+    private void loadView(String fxmlFile) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+            System.out.println("Loading FXML: " + fxmlFile);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+            if (fxmlLoader.getLocation() == null) {
+                throw new IllegalStateException("FXML file not found: " + fxmlFile);
+            }
             VBox view = fxmlLoader.load();
             rootPane.setCenter(view);
-        } catch (IOException e) {
-            throw new RuntimeException("Error loading FXML file: " + fxmlFile, e);
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            showError("Failed to load view: " + fxmlFile);
         }
     }
 
+
+    public void setActionLogoutButton(EventHandler<ActionEvent> event) {
+        logOutButton.setOnAction(event);
+    }
+
+    public void setLoggedInUserName(String name) {
+        headerNameLabel.setText(name);
+    }
+
+    /** Initialize the date and time labels */
     public void initializeDateTime() {
         updateDateTime();
-
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -88,6 +78,7 @@ public class StudentMainMenuView {
         }, 0, 1000);
     }
 
+    /** Helper method to update the date and time labels */
     private void updateDateTime() {
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
@@ -95,37 +86,47 @@ public class StudentMainMenuView {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-        Platform.runLater(() -> {
+        javafx.application.Platform.runLater(() -> {
             headerDateLabel.setText(currentDate.format(dateFormatter));
             headerTimeLabel.setText(currentTime.format(timeFormatter));
         });
     }
 
-    public void setLoggedInUserName(String name) {
-        headerNameLabel.setText(name);
-    }
-
     public void setActionCreateReservationButton(EventHandler<ActionEvent> event) {
-        createReservationButton.setOnAction(event);
+        createReservationButton.setOnAction(event1 -> loadView("/fxml/client/create_reservation_pane.fxml"));
     }
 
+    /** Event handler for View  Reservations Button */
     public void setActionViewReservationButton(EventHandler<ActionEvent> event) {
-        viewReservationButton.setOnAction(event);
+        viewReservationButton.setOnAction(event1 -> loadView("/fxml/client/view_reservation_pane.fxml"));
     }
 
+    /** Event handler for Modify Reservation Button */
     public void setActionModifyReservationButton(EventHandler<ActionEvent> event) {
-        modifyReservationButton.setOnAction(event);
+        modifyReservationButton.setOnAction(event1 -> loadView("/fxml/client/modify_reservation_pane.fxml"));
     }
 
-    public void setActionLogoutButton(EventHandler<ActionEvent> event) {
-        logOutButton.setOnAction(event);
-    }
 
-    public void highlightSelectedButton(Button selectedButton) {
-        for (Button button : menuButtons) {
-            button.getStyleClass().remove("button-selected");
-        }
-        selectedButton.getStyleClass().add("button-selected");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public void logOutButtonExited() {
@@ -145,7 +146,5 @@ public class StudentMainMenuView {
         st.play();
     }
 
-    public BorderPane getBorderPane() {
-        return this.rootPane;
-    }
+
 }
