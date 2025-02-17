@@ -80,38 +80,6 @@ public class ModifyReservationWindowView {
     }
 
 
-    //action calls for buttons
-    public void setActionSendRequestButton(EventHandler<ActionEvent> event) {
-        sendRequestButton.setOnAction(event);
-    }
-
-    public void setActionDeleteReservationButton(EventHandler<ActionEvent> event) {
-        deleteReservationButton.setOnAction(event);
-    }
-
-
-    public void initialize() {
-        // Initialize columns and bind properties
-        reservationIDColumn.setCellValueFactory(cellData -> cellData.getValue().reservationIdProperty());
-        userIDColumn.setCellValueFactory(cellData -> cellData.getValue().userIdProperty());
-        terminalIDColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
-        reservationDateColumn.setCellValueFactory(cellData -> cellData.getValue().reservationDateProperty());
-        startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
-        endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
-//        statusColumn.setCellValueFactory(cellData -> cellData.getValue().reservationStatusProperty());
-
-
-        loadDataFromXML("src/main/java/server/util/reservationapproval.xml");
-
-        modResTableView.setItems(reservationData);
-    }
-    private void loadDataFromXML(String filePath) {
-        List<Reservation> reservations = ModifyReservationProcessor.parseXML(filePath);
-        if (reservations != null) {
-            reservationData.addAll(reservations);
-        }
-    }
-
 
     //getters
     public Label getReservationIDLabel() {
