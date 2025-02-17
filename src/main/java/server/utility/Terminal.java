@@ -17,6 +17,13 @@ public class Terminal {
         this.terminalOs = new SimpleStringProperty(terminalOs);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
     }
+    public Terminal(String terminalId, String terminalRoom, String terminalOs, String date, String time) {
+        this.terminalId = new SimpleStringProperty(terminalId);
+        this.terminalRoom = new SimpleStringProperty(terminalRoom);
+        this.terminalOs = new SimpleStringProperty(terminalOs);
+        this.date = new SimpleStringProperty(date);
+        this.time = new SimpleStringProperty(time);
+    }
 
     public Terminal(String terminalId, String terminalRoom, String terminalOS, String terminalStatus, String date, String time) {
         this.terminalId = new SimpleStringProperty(terminalId);

@@ -1,74 +1,83 @@
 package client.student.view;
 
-import client.admin.view.AdminMainMenuView;
-import client.login.LoginController;
-import client.login.LoginModel;
-import client.login.LoginView;
-import client.signup.SignUpController;
-import client.signup.SignUpModel;
-import client.student.model.CreateReservationModel;
-import javafx.event.ActionEvent;
+import client.admin.controller.AddNewTerminalController;
+import client.admin.controller.ModifyTerminalStatusController;
+import client.student.controller.CreateReservationController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import server.utility.Terminal;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
+public class CreateReservationView {
 
-public class CreateReservationView  {
-
-    // Variables corresponding to the FXML components
     @FXML
     private VBox centerPane;
 
     @FXML
-    private Label roomsLabel;
+    private Label studResTitleLabel;
 
     @FXML
-    private TextField startTimeTextField;
+    private TableView<Terminal> addTerminalTableView;
 
     @FXML
-    private TextField endTimeTextField;
+    private TableColumn<Terminal, String> terminalColumn;
 
     @FXML
-    private Label timeLabel;
+    private TableColumn<Terminal, String> roomNumberColumn;
 
     @FXML
-    private TextField monthTextField;
+    private TableColumn<Terminal, String> terminalOSColumn;
 
     @FXML
-    private TextField dayTextField;
+    private TableColumn<Terminal, String> dayColumn;
 
     @FXML
-    private TextField yearTextField;
+    private TableColumn<Terminal, String> timeColumn;
 
     @FXML
-    private Label dateLabel;
+    private Button redirectCreateReservationWindowButton;
 
     @FXML
     private Button refreshButton;
 
-    @FXML
-    private ScrollPane roomsScrollPane;
 
-    @FXML
-    private GridPane roomGridPane;
+    private CreateReservationController controller = new CreateReservationController(this);
+    private ObservableList<Terminal> terminalData = FXCollections.observableArrayList();
+
+
+    public void initialize(){
+        terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
+        roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
+        terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
+        dayColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        timeColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
+
+        if (controller != null) {
+            controller.loadTerminalData();
+        }
+
+        if (redirectCreateReservationWindowButton != null) {
+            redirectCreateReservationWindowButton.setOnAction(CreateReservationController::redirectCreateReservationWindow);
+        }
+
+
+
+
+    }
+
+
+    public void setTerminalData(ObservableList<Terminal> data) {
+        terminalData.setAll(data); // Update dataset
+        addTerminalTableView.setItems(null); // Force reset
+        addTerminalTableView.setItems(terminalData); // Reload table data
+        addTerminalTableView.refresh(); // Force UI refresh
+        System.out.println("[DEBUG] Terminal data updated. New table size: " + terminalData.size());
+    }
 
 
 
@@ -77,48 +86,13 @@ public class CreateReservationView  {
         return centerPane;
     }
 
-    public Label getRoomsLabel() {
-        return roomsLabel;
-    }
-
-    public TextField getStartTimeTextField() {
-        return startTimeTextField;
-    }
-
-    public TextField getEndTimeTextField() {
-        return endTimeTextField;
-    }
-
-    public Label getTimeLabel() {
-        return timeLabel;
-    }
-
-    public TextField getMonthTextField() {
-        return monthTextField;
-    }
-
-    public TextField getDayTextField() {
-        return dayTextField;
-    }
-
-    public TextField getYearTextField() {
-        return yearTextField;
-    }
-
-    public Label getDateLabel() {
-        return dateLabel;
-    }
 
     public Button getRefreshButton() {
-
         return refreshButton;
     }
 
-    public ScrollPane getRoomsScrollPane() {
-        return roomsScrollPane;
-    }
 
-    public GridPane getRoomGridPane() {
-        return roomGridPane;
-    }
+
+
+
 }
