@@ -11,6 +11,7 @@ import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
 import server.admin.AddNewTerminalProcessor;
 import server.admin.ViewStudentReservationsProcessor;
+import server.student.CreateReservationProcessor;
 import server.student.ModifyReservationProcessor;
 import server.student.ViewReservationProcessor;
 import server.admin.ReservationApprovalProcessor;
@@ -70,11 +71,13 @@ public class ClientHandler implements Runnable {
                         handleAddTerminal(clientMessage, writer);
                     } else if (clientMessage.contains("<Request><Type>ViewReservations</Type></Request>")) {
                         handleViewReservation(writer);
+                    } else if (clientMessage.contains("<Request><Type>CreateReservations</Type></Request>")) {
+                        handleCreateReservation(clientMessage, writer);
                     } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>")) {
                         handleViewStudentReservations(writer);
                     }else if (clientMessage.contains("<Type>ViewReservationApprovals</Type>")) {
                         handleReservationApprovals(writer);
-                    }  else {
+                    }else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
@@ -202,12 +205,10 @@ public class ClientHandler implements Runnable {
     /**
      * Handles fetching user reservations.
      */
-
-
     private void handleReservationApprovals(PrintWriter writer) {
         try {
             System.out.println("Fetching Reservation Approvals...");
-            List<ApprovalReservation> reservations = server.admin.ReservationApprovalProcessor.parseXML("src/main/java/server/util/reservation_approval.xml");
+            List<ApprovalReservation> reservations = server.admin.ReservationApprovalProcessor.parseXML();
             System.out.println("Found " + reservations.size() + " reservations for approval.");
             writer.println(createApprovalReservationsXMLResponse(reservations));
 
@@ -281,6 +282,9 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles viewing reservations
+     */
     private void handleViewReservation(PrintWriter writer) {
         try {
             List<Reservation> reservations = ViewReservationProcessor.loadReservationFromXML();
@@ -288,6 +292,34 @@ public class ClientHandler implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
             writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
+        }
+    }
+
+    /**
+     * Handles creating reservations
+     */
+    private void handleCreateReservation(String clientMessage, PrintWriter writer) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new ByteArrayInputStream(clientMessage.getBytes()));
+
+            Element root = doc.getDocumentElement();
+            String terminalId = root.getElementsByTagName("TerminalID").item(0).getTextContent();
+            String room = root.getElementsByTagName("Room").item(0).getTextContent();
+            String osType = root.getElementsByTagName("OSType").item(0).getTextContent();
+
+            // Extract day and time safely
+            String day = root.getElementsByTagName("Day").getLength() > 0 ?
+                    root.getElementsByTagName("Day").item(0).getTextContent() : "N/A";
+            String time = root.getElementsByTagName("Time").getLength() > 0 ?
+                    root.getElementsByTagName("Time").item(0).getTextContent() : "N/A";
+
+            boolean success = new CreateReservationProcessor().processReservationData(terminalId, room, osType, day, time);
+            writer.println(createXMLResponse(success, success ? "Reservation added successfully." : "Failed to add reservation."));
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("<Response><Status>ERROR</Status><Message>Invalid XML Format</Message></Response>");
         }
     }
 
