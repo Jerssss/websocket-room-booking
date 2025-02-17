@@ -33,10 +33,11 @@ public class AddNewTerminalProcessor {
 
             Element root = doc.getDocumentElement();
 
+            System.out.println("[DEBUG] Checking if terminal ID " + terminalId + " exists in room " + room);
             // Validate if terminal ID exists in the specified room
             if (isTerminalIdExistsInRoom(root, terminalId, room)) {
-                System.out.println("Error: Terminal ID already exists in this room.");
-                return false;
+                System.out.println("[ERROR] Terminal ID " + terminalId + " already exists in room " + room);
+                return false; // Return false if the terminal already exists
             }
 
             // Proceed to add the terminal if validation is passed
@@ -58,13 +59,13 @@ public class AddNewTerminalProcessor {
             statusElement.appendChild(doc.createTextNode(status.trim()));
             newTerminal.appendChild(statusElement);
 
-            // Adding day and time (Fixes previous issues)
+            // Adding day and time
             Element dayElement = doc.createElement("day");
-            dayElement.appendChild(doc.createTextNode(selectedDay.trim())); // Fix
+            dayElement.appendChild(doc.createTextNode(selectedDay.trim()));
             newTerminal.appendChild(dayElement);
 
             Element timeElement = doc.createElement("time");
-            timeElement.appendChild(doc.createTextNode(selectedTime.trim())); // Fix
+            timeElement.appendChild(doc.createTextNode(selectedTime.trim()));
             newTerminal.appendChild(timeElement);
 
             root.appendChild(newTerminal);
@@ -81,7 +82,6 @@ public class AddNewTerminalProcessor {
             StreamResult result = new StreamResult(new FileOutputStream(FILE_PATH));
             transformer.transform(source, result);
 
-            System.out.println("Terminal added successfully.");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,31 +117,24 @@ public class AddNewTerminalProcessor {
             }
         }
     }
+
     public static List<Terminal> parseXML(String filePath) {
         List<Terminal> terminals = new ArrayList<>();
 
         try {
-            // Initialize DocumentBuilderFactory and DocumentBuilder
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-
-            // Parse the XML file
             File xmlFile = new File(filePath);
             Document document = builder.parse(xmlFile);
-
-            // Normalize the XML structure
             document.getDocumentElement().normalize();
 
-            // Get all <Terminal> nodes
-            NodeList studentNodes = document.getElementsByTagName("Terminal");
+            NodeList terminalNodes = document.getElementsByTagName("Terminal");
 
-            // Loop through the nodes and extract data
-            for (int i = 0; i < studentNodes.getLength(); i++) {
-                Node node = studentNodes.item(i);
+            for (int i = 0; i < terminalNodes.getLength(); i++) {
+                Node node = terminalNodes.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    // Get the data for each terminal
                     String terminalId = getTagValue("terminal_id", element);
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOS = getTagValue("terminal_os", element);
@@ -149,7 +142,6 @@ public class AddNewTerminalProcessor {
                     String time = getTagValue("time", element);
                     String terminalStatus = getTagValue("terminal_status", element);
 
-                    // Create a new Terminal object and add it to the list
                     Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus, day, time);
                     terminals.add(terminal);
                 }
@@ -161,7 +153,6 @@ public class AddNewTerminalProcessor {
         return terminals;
     }
 
-    // Helper method to extract the value of a tag
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag);
         if (nodeList.getLength() > 0) {
