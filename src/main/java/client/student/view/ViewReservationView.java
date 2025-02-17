@@ -1,46 +1,33 @@
 package client.student.view;
 
 import client.student.controller.ViewReservationController;
-import client.utility.SessionManager;
-import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
+import server.student.ViewReservationProcessor;
 import server.utility.Reservation;
 import javafx.fxml.FXML;
-import server.student.ViewReservationProcessor;
-import client.utility.ServerConnectionManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.List;
 
 public class ViewReservationView {
 
     @FXML
-    private ComboBox<String> monthComboBox;
-    @FXML
-    private ComboBox<String> dayComboBox;
-    @FXML
-    private ComboBox<String> yearComboBox;
-    @FXML
     private Button refreshButton;
     @FXML
-    private TableView<Reservation> modResTableView;
-
+    private Button searchButton;
+    @FXML
+    private TableView<Reservation> viewResTableView;
+    @FXML
+    private TextField searchResTextField;
     @FXML
     private TableColumn<Reservation, String> reservationIDColumn;
     @FXML
-    private TableColumn<Reservation, String> userIDColumn;
+    private TableColumn<Reservation, String> terminalNumberColumn;
     @FXML
-    private TableColumn<Reservation, String> terminalIDColumn;
+    private TableColumn<Reservation, String> roomNumberColumn;
     @FXML
-    private TableColumn<Reservation, String> reservationDateColumn;
+    private TableColumn<Reservation, String> dateColumn;
     @FXML
     private TableColumn<Reservation, String> startTimeColumn;
     @FXML
@@ -48,10 +35,51 @@ public class ViewReservationView {
     @FXML
     private TableColumn<Reservation, String> statusColumn;
 
-    private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
-    public TableView<Reservation> getStudResTableView() {
-        return modResTableView;
+    public Button getSearchButton() {return searchButton;}
+    public Button getRefreshButton() {return refreshButton;}
+    public TextField getSearchField(){
+        if (searchResTextField == null) {
+            System.err.println("Error: Search field is NULL in View");
+        }
+        return searchResTextField;
+    }
+    public TableView<Reservation> getViewResTableView() {
+        return viewResTableView;
     }
 
+    @FXML
+    public void initialize() {
+        System.out.println("ViewReservationsView initialized!"); // Debugging
+        reservationIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReservationId()));
+        terminalNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTerminalNumber()));
+        roomNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRoomNumber()));
+        dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
+        startTimeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartTime()));
+        endTimeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndTime()));
+        statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 
+        System.out.println("ViewStudentReservationsView initialized!");
+
+        if (searchButton != null) {
+            System.out.println("Search button exists in FXML!");
+        } else {
+            System.out.println("ERROR: Search button is NULL!");
+        }
+
+        if (searchResTextField != null) {
+            System.out.println("Search field exists in FXML!");
+        } else {
+            System.out.println("ERROR: Search field is NULL!");
+        }
+
+        new ViewReservationController(this);
+
+        showReservationsInTable();
+    }
+
+    private void showReservationsInTable() {
+        List<Reservation> reservations = ViewReservationProcessor.loadStudentReservationsFromXML();
+        ObservableList<Reservation> reservationData = FXCollections.observableArrayList(reservations);
+        viewResTableView.setItems(reservationData);
+    }
 }
