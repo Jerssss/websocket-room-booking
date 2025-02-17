@@ -14,7 +14,7 @@ public class ViewReservationProcessor {
     private static final String FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
 
     // Load reservations from XML file
-    public static List<Reservation> loadStudentReservationsFromXML() {
+    public static List<Reservation> loadReservationFromXML() {
         List<Reservation> reservations = new ArrayList<>();
         try {
             File file = new File(FILE_PATH);
