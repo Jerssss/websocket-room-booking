@@ -116,21 +116,7 @@ public class AdminMainMenuView {
 
     /** Event handler for Reservation Approval Button */
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
-
-        resApprovalButton.setOnAction(event1 -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/admin/reservation_approval_pane.fxml"));
-            try {
-                VBox view = fxmlLoader.load();
-                ReservationApprovalView reservationApprovalView = fxmlLoader.getController();
-                ReservationApprovalController controller = new ReservationApprovalController(new ReservationApprovalModel(), reservationApprovalView);
-                   // reservationApprovalView.setController(controller);
-                rootPane.setCenter(view);
-            } catch (IOException e) {
-                e.printStackTrace();
-                showError("Failed to load reservation approval view.");
-            }
-        });
-
+        resApprovalButton.setOnAction(event1 -> loadView("/fxml/admin/reservation_approval_pane.fxml"));
     }
 
     /** Event handler for Reports Button */

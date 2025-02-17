@@ -24,4 +24,12 @@
     <day>Friday</day>
     <time>09:30-17:30</time>
   </Terminal>
+  <Terminal>
+    <terminal_id>PC55</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>Windows</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Monday</day>
+    <time>09:30-17:30</time>
+  </Terminal>
 </Terminals>

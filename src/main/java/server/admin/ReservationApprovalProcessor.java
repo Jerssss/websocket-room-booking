@@ -1,5 +1,4 @@
 // File: server/admin/ReservationApprovalProcessor.java
-//hello
 package server.admin;
 
 import org.w3c.dom.*;
@@ -14,13 +13,12 @@ import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ReservationApprovalProcessor {
 
     private static final String FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
 
-    /** Parse XML file and return a list of ApprovalReservation objects */
+    // Parse XML file and return a list of ApprovalReservation objects
     public static List<ApprovalReservation> parseXML(String filePath) {
         List<ApprovalReservation> reservations = new ArrayList<>();
         try {
@@ -60,6 +58,7 @@ public class ReservationApprovalProcessor {
         return reservations;
     }
 
+    // Helper method to get tag value
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag);
         if (nodeList.getLength() > 0) {
@@ -79,6 +78,7 @@ public class ReservationApprovalProcessor {
         }
     }
 
+    // Convert document to string
     private String convertDocToString(Document doc) throws Exception {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer = tf.newTransformer();
@@ -87,14 +87,17 @@ public class ReservationApprovalProcessor {
         return writer.toString();
     }
 
+    // Success response
     private String successResponse(String message) {
         return "<Response><Status>SUCCESS</Status><Message>" + message + "</Message></Response>";
     }
 
+    // Error response
     private String errorResponse(String message) {
         return "<Response><Status>ERROR</Status><Message>" + message + "</Message></Response>";
     }
 
+    // Load reservations XML file
     private Document loadReservations() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();

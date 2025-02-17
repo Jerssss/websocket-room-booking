@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,14 +12,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.application.Platform;
 import javafx.util.Duration;
 
 public class StudentMainMenuView {
@@ -106,21 +102,6 @@ public class StudentMainMenuView {
         modifyReservationButton.setOnAction(event1 -> loadView("/fxml/client/modify_reservation_pane.fxml"));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -145,6 +126,4 @@ public class StudentMainMenuView {
         st.setAutoReverse(false);
         st.play();
     }
-
-
 }
