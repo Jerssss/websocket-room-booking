@@ -54,21 +54,17 @@ public class LoginController {
             return;
         }
 
-        // Authenticate and retrieve user name
         String userName = loginModel.authenticateAndGetName(userID, password, userType);
 
         if (userName != null) {
             loginView.setPromptLabel("Login successful!");
             loginView.setPromptLabelVisible(true);
 
-            // Generate a session token (replace with your actual token generator)
-            String sessionToken = SessionTokenGenerator.generateUniqueToken();
 
             // Store the session in SessionManager
-            SessionManager.createSession(sessionToken, userID);
             // Pass the user's NAME (not ID) to the main menu
             if ("Student".equalsIgnoreCase(userType)) {
-                redirectToStudentMainMenu(event, userName, sessionToken);
+                redirectToStudentMainMenu(event, userName);
             } else if ("Admin".equalsIgnoreCase(userType)) {
                 redirectToAdminMainMenu(event, userName);
             }
@@ -78,19 +74,14 @@ public class LoginController {
         }
     }
 
-    private void redirectToStudentMainMenu(ActionEvent event, String loggedInUserName, String sessionToken) {
+    private void redirectToStudentMainMenu(ActionEvent event, String loggedInUserName) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/student_main_menu.fxml"));
             Parent root = fxmlLoader.load();
 
-            //  Ensure the controller receives the logged-in user's name
+            // Ensure that the correct controller is linked
             StudentMainMenuView studentMainMenuView = fxmlLoader.getController();
-            new StudentMainMenuController(
-                    studentMainMenuView,
-                    new StudentMainMenuModel(),
-                    loggedInUserName,
-                    sessionToken
-            );
+            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel(), loggedInUserName);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
