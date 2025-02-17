@@ -68,6 +68,8 @@ public class ClientHandler implements Runnable {
                         handleSignUp(clientMessage, writer);
                     } else if (clientMessage.contains("<AddTerminal>")) {
                         handleAddTerminal(clientMessage, writer);
+                    } else if (clientMessage.contains("<Request><Type>ViewReservations</Type></Request>")) {
+                        handleViewReservation(writer);
                     } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>")) {
                         handleViewStudentReservations(writer);
                     }else if (clientMessage.contains("<Type>ViewReservationApprovals</Type>")) {
@@ -276,6 +278,16 @@ public class ClientHandler implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
             return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
+        }
+    }
+
+    private void handleViewReservation(PrintWriter writer) {
+        try {
+            List<Reservation> reservations = ViewReservationProcessor.loadReservationFromXML();
+            writer.println(createReservations2XMLResponse(reservations));
+        } catch (Exception e) {
+            e.printStackTrace();
+            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
         }
     }
 
