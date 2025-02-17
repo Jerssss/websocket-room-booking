@@ -30,6 +30,6 @@ public class ViewReservationModel {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
     }
     public static List<Reservation> parseXML() {
-        return ViewReservationProcessor.loadStudentReservationsFromXML();
+        return ViewReservationProcessor.loadReservationFromXML();
     }
 }
