@@ -72,21 +72,7 @@ public class ClientHandler implements Runnable {
                         handleViewStudentReservations(writer);
                     }else if (clientMessage.contains("<Type>ViewReservationApprovals</Type>")) {
                         handleReservationApprovals(writer);
-                    } else if (clientMessage.contains("<Type>FilterReservations</Type>")) {
-                        String startDate = extractField(clientMessage, "<StartDate>", "</StartDate>");
-                        String endDate = extractField(clientMessage, "<EndDate>", "</EndDate>");
-
-                        if (startDate != null && endDate != null) {
-                            handleFetchReservations(writer, startDate, endDate);
-                        } else {
-                            writer.println("<Response><Status>ERROR</Status><Message>Invalid date range</Message></Response>");
-                        }
-                    }
-                    else if (clientMessage.startsWith("fetch_reservation")) {
-                        handlefetchreservation(writer);
-                    } else if (clientMessage.startsWith("fetch_reservations")) {
-                        handleUpdateReservation( writer);
-                    } else {
+                    }  else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
@@ -214,61 +200,7 @@ public class ClientHandler implements Runnable {
     /**
      * Handles fetching user reservations.
      */
-    private void handleFetchReservations(PrintWriter writer, String startDate, String endDate) {
-        try {
-            // Parse the XML reservations file
-            List<Reservation> reservations = ViewReservationProcessor.parseXML("/src/main/java/server/util/reservation_approval.xml");
 
-            // Convert start and end date to Date objects
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date start = dateFormat.parse(startDate);
-            Date end = dateFormat.parse(endDate);
-
-            // Filter reservations based on the date range
-            List<Reservation> filteredReservations = new ArrayList<>();
-            for (Reservation res : reservations) {
-                Date reservationDate = dateFormat.parse(res.getReservationDate());
-                if ((reservationDate.after(start) || reservationDate.equals(start)) &&
-                        (reservationDate.before(end) || reservationDate.equals(end))) {
-                    filteredReservations.add(res);
-                }
-            }
-
-            // Send the filtered reservations back to the client
-            writer.println(createReservations2XMLResponse(filteredReservations));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
-        }
-    }
-
-    private void handlefetchreservation(PrintWriter writer) {
-        try {
-            List<Reservation> reservations = ModifyReservationProcessor.parseXML(
-                    "/src/main/java/server/util/reservation_approval.xml"
-            );
-            writer.println(createReservations2XMLResponse(reservations));
-        } catch (Exception e) {
-            e.printStackTrace();
-            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
-        }
-    }
-
-    /**
-     * Handles updating a reservation.
-     */
-    private void handleUpdateReservation (PrintWriter writer){
-        try {
-            List<Reservation> reservations = ModifyReservationProcessor.parseXML(
-                    "/src/main/java/server/util/reservation_approval.xml"
-            );
-            writer.println(createReservations2XMLResponse(reservations));
-        } catch (Exception e) {
-            e.printStackTrace();
-            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
-        }
-    }
 
     private void handleReservationApprovals(PrintWriter writer) {
         try {
