@@ -4,7 +4,7 @@
     <terminal_id>PC23</terminal_id>
     <terminal_room>D426</terminal_room>
     <terminal_os>Windows</terminal_os>
-    <terminal_status>Maintenance</terminal_status>
+    <terminal_status>Under Maintenance</terminal_status>
     <day>Wednesday</day>
     <time>07:30-15:30</time>
   </Terminal>
@@ -31,5 +31,93 @@
     <terminal_status>Active</terminal_status>
     <day>Monday</day>
     <time>09:30-17:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC52</terminal_id>
+    <terminal_room>D526</terminal_room>
+    <terminal_os>Windows</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Tuesday</day>
+    <time>11:30-16:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC52</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Monday</day>
+    <time>09:30-17:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC42</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Monday</day>
+    <time>09:30-17:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC33</terminal_id>
+    <terminal_room>D426</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Down</terminal_status>
+    <day>Friday</day>
+    <time>07:30-15:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC45</terminal_id>
+    <terminal_room>D526</terminal_room>
+    <terminal_os>Windows</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Wednesday</day>
+    <time>11:30-16:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC44</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Monday</day>
+    <time>09:30-17:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC6</terminal_id>
+    <terminal_room>D526</terminal_room>
+    <terminal_os>Windows</terminal_os>
+    <terminal_status>Down</terminal_status>
+    <day>Thursday</day>
+    <time>11:30-16:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC6</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Down</terminal_status>
+    <day>Wednesday</day>
+    <time>07:30-15:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC23</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Under Maintenance</terminal_status>
+    <day>Monday</day>
+    <time>11:30-16:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC5</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Active</terminal_status>
+    <day>Monday</day>
+    <time>09:30-17:30</time>
+  </Terminal>
+  <Terminal>
+    <terminal_id>PC77</terminal_id>
+    <terminal_room>D524</terminal_room>
+    <terminal_os>macOS</terminal_os>
+    <terminal_status>Under Maintenance</terminal_status>
+    <day>Tuesday</day>
+    <time>11:30-16:30</time>
   </Terminal>
 </Terminals>

@@ -11,7 +11,9 @@ import server.utility.StudentReservation;
 import java.util.List;
 
 public class ViewStudentReservationsView {
+    @FXML
     public Label studResTitleLabel;
+    @FXML
     public Button refreshButton;
     @FXML
     private Button searchButton;

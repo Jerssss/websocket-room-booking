@@ -22,7 +22,7 @@ public class StudentReservation {
         this.userId = new SimpleStringProperty(userId);
         this.terminalNumber = new SimpleStringProperty(terminalNumber);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
-        this.date = new SimpleStringProperty(date); // Default value since XML has no <date>
+        this.date = new SimpleStringProperty(date);
         this.startTime = new SimpleStringProperty(startTime);
         this.endTime = new SimpleStringProperty(endTime);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);

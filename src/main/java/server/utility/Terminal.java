@@ -94,4 +94,11 @@ public class Terminal {
     public StringProperty timeProperty() {
         return time;
     }
+
+    public String getDate() {
+        return date.get();
+    }
+    public String getTime() {
+        return time.get();
+    }
 }

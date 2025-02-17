@@ -22,19 +22,13 @@ public class AddNewTerminalView {
     @FXML
     private Button refreshButton;
     @FXML
+    private TextField searchTerminalTextField;
+    @FXML
+    private Button searchButton;
+    @FXML
     private Button redirectAddTerminalWindowButton;
-
     @FXML
     private TextField terminalNoTextField;
-
-    @FXML
-    private TextField roomTextField;
-
-    @FXML
-    private TextField osTypeTextField;
-
-    @FXML
-    private TextField statusTextField;
     @FXML
     private ComboBox<String> dayComboBox;
     @FXML
@@ -55,21 +49,13 @@ public class AddNewTerminalView {
         return terminalNoTextField;
     }
 
-    public TextField getRoomTextField() {
-        return roomTextField;
-    }
-
-    public TextField getOsTypeTextField() {
-        return osTypeTextField;
-    }
-
-    public TextField getStatusTextField() {
-        return statusTextField;
-    }
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
 
+    public Button getSearchButton() {
+        return searchButton;
+    }
     public String getTerminalId() {
         return terminalId;
     }
@@ -97,6 +83,7 @@ public class AddNewTerminalView {
     public void setStatus(String status) {
         this.status = status;
     }
+
     @FXML
     private TableView<Terminal> addTerminalTableView;
     @FXML
@@ -122,14 +109,27 @@ public class AddNewTerminalView {
     public Button getSaveChangesButton() {
         return saveChangesButton;
     }
+    public TextField getSearchTerminalTextField() {
+        return searchTerminalTextField;
+    }
+    public TableView getAddTerminalTableView() {
+        return addTerminalTableView;
+    }
 
     public void setController(AddNewTerminalController controller) {
         this.controller = controller;
+        System.out.println("[DEBUG] Controller has been set in AddNewTerminalView.");
     }
+
     @FXML
     public void initialize() {
+        setupRedirectButtonAction();
+        setupSaveChangesButtonAction();
         if (redirectAddTerminalWindowButton != null) {
-            redirectAddTerminalWindowButton.setOnAction(event -> AddNewTerminalController.redirectAddTerminalWindow(event));
+            redirectAddTerminalWindowButton.setOnAction(event -> {
+                // Ensure this works by checking the correct action
+                AddNewTerminalController.redirectAddTerminalWindow(event);
+            });
         }
         Platform.runLater(() -> {
             if (timeComboBox != null) {
@@ -164,7 +164,7 @@ public class AddNewTerminalView {
 
             if (statusComboBox != null) {
                 ObservableList<String> status = FXCollections.observableArrayList(
-                        "Active", "Down", "Maintenance" //TODO
+                        "Active", "Down", "Under Maintenance"
                 );
                 statusComboBox.setItems(status);
             }
@@ -190,7 +190,9 @@ public class AddNewTerminalView {
             if (refreshButton != null) {
                 refreshButton.setOnAction(event -> AddNewTerminalController.refreshTable());
             }
+            setupSearchFunctionality();
         }
+        setupRefreshButtonAction();
     }
 
     public ComboBox<String> getDayComboBox() {
@@ -225,5 +227,59 @@ public class AddNewTerminalView {
     }
     public void setStatusComboBox(ComboBox<String> statusComboBox) {
         this.statusComboBox = statusComboBox;
+    }
+    private void setupSearchFunctionality() {
+
+        searchButton.setOnAction(event -> {
+            String searchText = searchTerminalTextField.getText().toLowerCase();
+
+            // If search is empty, show all terminals
+            if (searchText.isEmpty()) {
+                addTerminalTableView.setItems(terminalResults);
+                return;
+            }
+
+            // Filter the list based on search text
+            ObservableList<Terminal> filteredList = FXCollections.observableArrayList();
+            for (Terminal terminal : terminalResults) {
+                if (terminal.getTerminalId().toLowerCase().contains(searchText) ||
+                        terminal.getTerminalRoom().toLowerCase().contains(searchText) ||
+                        terminal.getTerminalOs().toLowerCase().contains(searchText) ||
+                        terminal.getDate().toLowerCase().contains(searchText) ||
+                        terminal.getTime().toLowerCase().contains(searchText) ||
+                        terminal.getTerminalStatus().toLowerCase().contains(searchText)) {
+                    filteredList.add(terminal);
+                }
+            }
+            addTerminalTableView.setItems(filteredList);
+        });
+    }
+    private void setupRedirectButtonAction() {
+        if (redirectAddTerminalWindowButton != null) {
+            redirectAddTerminalWindowButton.setOnAction(event -> {
+                System.out.println("[DEBUG] Redirecting to Add Terminal window.");
+                AddNewTerminalController.redirectAddTerminalWindow(event);
+            });
+        }
+    }
+
+    private void setupSaveChangesButtonAction() {
+        if (saveChangesButton != null) {
+            saveChangesButton.setOnAction(event -> {
+                System.out.println("[DEBUG] Save changes action triggered.");
+                // Handle save action here
+            });
+        }
+    }
+
+    private void setupRefreshButtonAction() {
+        if (refreshButton != null) {
+            refreshButton.setOnAction(event -> {
+                System.out.println("[DEBUG] Refresh action triggered.");
+                searchTerminalTextField.clear();
+                AddNewTerminalController.loadDataFromXML("src/main/java/server/util/terminal.xml");
+                addTerminalTableView.setItems(terminalResults); // Restore full list
+            });
+        }
     }
 }
