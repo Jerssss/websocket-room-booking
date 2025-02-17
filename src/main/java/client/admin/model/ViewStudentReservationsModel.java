@@ -1,6 +1,5 @@
 package client.admin.model;
 
-
 import client.utility.ServerConnection;
 import client.utility.ServerConnectionManager;
 import javafx.application.Platform;
@@ -9,7 +8,6 @@ import server.utility.StudentReservation;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
-
 
 public class ViewStudentReservationsModel {
     private ServerConnection serverConnection;

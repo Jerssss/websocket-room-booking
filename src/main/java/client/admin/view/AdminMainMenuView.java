@@ -1,8 +1,6 @@
 // File: client/admin/view/AdminMainMenuView.java
 package client.admin.view;
 
-import client.admin.controller.ReservationApprovalController;
-import client.admin.model.ReservationApprovalModel;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,8 +19,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AdminMainMenuView {
-
-    
 
     @FXML
     private Button addNewTerminalButton;

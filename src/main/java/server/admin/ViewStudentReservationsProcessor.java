@@ -1,26 +1,12 @@
 package server.admin;
 
-
-
-
-
-
-
-
 import server.utility.StudentReservation;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 public class ViewStudentReservationsProcessor {
     private static final String FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
