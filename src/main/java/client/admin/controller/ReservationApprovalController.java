@@ -23,70 +23,21 @@ public class ReservationApprovalController {
     private final ReservationApprovalView view;
     private final ReservationApprovalModel model;
     private final ObservableList<ApprovalReservation> allReservations = FXCollections.observableArrayList();
+    private ObservableList<ApprovalReservation> reservationData = FXCollections.observableArrayList();
 
-    public ReservationApprovalController(ReservationApprovalModel reservationApprovalModel, ReservationApprovalView view) {
+    public ReservationApprovalController(ReservationApprovalView view) {
         this.view = view;
-        this.model = reservationApprovalModel;
-
-        // Load FXML for the reservation approval pane
-        loadFXML();
-
-        loadReservations();         // Load all reservations initially
-        setupSearchFunctionality(); // Set up search feature
-        setupRefreshFunctionality();// Set up refresh feature
-        setupSaveChangesFunctionality(); // Set up save changes feature
+        this.model = new ReservationApprovalModel();
     }
 
-    private void loadFXML() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/reservation_approval_pane.fxml"));
-            loader.setController(this);
-            Parent root = loader.load();
-
-            // Set the loaded root to the current scene's stage
-            Stage stage = (Stage) view.getSearchStudResTextField().getScene().getWindow(); // Assuming there's a TextField to get the Stage
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error loading FXML file.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    public void loadTerminalData() {
+        reservationData = model.loadTerminalData();
+        view.setTerminalData(reservationData);
     }
-
-    private void loadReservations() {
-        List<ApprovalReservation> reservations = model.fetchAllApprovalReservations();
-        System.out.println("loadReservations() called");
-        allReservations.setAll(reservations);
-        view.updateTable(allReservations);
-    }
-
-    private void setupSearchFunctionality() {
-        view.setActionSearchButton(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String searchQuery = view.getSearchStudResTextField().getText().trim();
-                filterReservations(searchQuery);
-            }
-        });
-    }
-
-    private void setupRefreshFunctionality() {
-        view.setActionRefreshButton(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                loadReservations();
-            }
-        });
-    }
-
-    private void setupSaveChangesFunctionality() {
-        view.setActionSaveChangesButton(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                saveChanges();
-            }
-        });
+    public void saveChanges() {
+        model.saveReservationData(reservationData); // Save only the current table data
+        JOptionPane.showMessageDialog(null, "Changes have been successfully saved!",
+                "Save Successful", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void filterReservations(String searchQuery) {
@@ -112,20 +63,6 @@ public class ReservationApprovalController {
 
         // Update the table with filtered list
         view.updateTable(FXCollections.observableArrayList(filteredList));
-    }
-
-    private void saveChanges() {
-        // Iterate over all reservations and update their status in the model
-        for (ApprovalReservation reservation : allReservations) {
-            String updatedStatus = reservation.getStatus();
-            model.updateReservationStatus(reservation.getReservationId(), updatedStatus);
-        }
-
-        // After updating the status, save the updated reservations back to the XML
-        model.saveUpdatedReservationsToXML(allReservations);
-
-        // Show confirmation message
-        JOptionPane.showMessageDialog(null, "Changes have been successfully saved!", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }
