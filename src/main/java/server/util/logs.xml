@@ -1,171 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Logs>
     <Log>
-        <UserID>Tony Fowler</UserID>
+        <UserID>4321</UserID>
         <UserType>Admin</UserType>
-        <Action>Logout</Action>
-        <Date>2025-02-15</Date>
-        <Time>21:34:20</Time>
-    </Log>
-    <Log>
-        <UserID>Dionela Marilag</UserID>
-        <UserType>Admin</UserType>
-        <Action>Logout</Action>
-        <Date>2025-02-16</Date>
-        <Time>00:47</Time>
-    </Log>
-    <Log>
-        <UserID>Tony Fowler</UserID>
-        <UserType>Admin</UserType>
-        <Action>Logout</Action>
-        <Date>2025-02-16</Date>
-        <Time>02:22:13</Time>
-    </Log>
-    <Log>
-        <UserID>Tony Fowler</UserID>
-        <UserType>Admin</UserType>
-        <Action>Logout</Action>
-        <Date>2025-02-16</Date>
-        <Time>08:33:07</Time>
+        <Action>Login</Action>
+        <Date>2025-02-17</Date>
+        <Time>21:45:57</Time>
     </Log>
     <Log>
         <UserID>4321</UserID>
         <UserType>Admin</UserType>
         <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>11:50:37</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Student</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>12:11:51</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>17:00:10</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>17:06:07</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>19:52:29</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>19:53:23</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>19:53:48</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>19:55:54</Time>
+        <Date>2025-02-17</Date>
+        <Time>22:03:32</Time>
     </Log>
     <Log>
         <UserID>4321</UserID>
         <UserType>Admin</UserType>
         <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>22:07:38</Time>
-    </Log>
-    <Log>
-        <UserID>4321</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>22:27:16</Time>
-    </Log>
-    <Log>
-        <UserID>4321</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-16</Date>
-        <Time>22:34:43</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Student</UserType>
-        <Action>Login</Action>
         <Date>2025-02-17</Date>
-        <Time>01:15:25</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>02:54:35</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Student</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>02:55:18</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>02:55:22</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>02:58:10</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Student</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>06:02:55</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>06:03:02</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Admin</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>06:10:42</Time>
-    </Log>
-    <Log>
-        <UserID>1</UserID>
-        <UserType>Student</UserType>
-        <Action>Login</Action>
-        <Date>2025-02-17</Date>
-        <Time>15:07:06</Time>
+        <Time>22:04:47</Time>
     </Log>
 </Logs>
