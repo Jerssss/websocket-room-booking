@@ -3,6 +3,10 @@ package client.admin.controller;
 
 import client.admin.model.AdminMainMenuModel;
 import client.admin.view.AdminMainMenuView;
+import client.login.LoginController;
+import client.login.LoginModel;
+import client.login.LoginView;
+import client.student.view.StudentMainMenuView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,12 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import server.ServerMain;
-import client.login.LoginView;
-import client.login.LoginController;
-import client.login.LoginModel;
-import client.student.view.StudentMainMenuView;
-
-
+import server.utility.LogsXMLHandler;
 
 import java.io.IOException;
 
@@ -69,21 +68,28 @@ public class AdminMainMenuController {
     private void handleAddNewTerminal() {
         System.out.println("Navigating to Add New Terminal...");
     }
+
     private void handleViewStudentReservation() {
         System.out.println("Navigating to View Student Reservations...");
     }
+
     private void handleModifyTerminal() {
         System.out.println("Navigating to Modify Terminal Status...");
     }
+
     private void handleReports() {
         System.out.println("Navigating to Reports...");
     }
+
     private void handleReservationApproval() {
         System.out.println("Navigating to Reservation Approval");
     }
 
-    // File: AdminMainMenuController.java (same for StudentMainMenuController)
+    /** Handle Logout Action and Log to logs.xml */
     private void handleLogout(ActionEvent event) {
+        // Log the logout action
+        LogsXMLHandler.logLogout(loggedInUserName, "Admin");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/login_page.fxml"));
             Parent root = loader.load();
