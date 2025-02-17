@@ -10,8 +10,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="330.0" styleClass="background-pane" stylesheets="@../../css/styles.css"
-            fx:controller="client.admin.view.ModifyTerminalStatusView" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="366.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.admin.view.ModifyTerminalStatusView">
     <top>
         <HBox prefHeight="41.0" prefWidth="388.0" style="-fx-background-color: #0d3073;" BorderPane.alignment="CENTER">
             <children>
@@ -33,7 +32,7 @@
     <center>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="144.0" prefWidth="288.0" style="-fx-background-color: white;">
+                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="191.0" prefWidth="288.0" style="-fx-background-color: white;">
                     <children>
                         <HBox prefHeight="28.0" prefWidth="330.0">
                             <children>
@@ -107,7 +106,7 @@
                     <effect>
                         <DropShadow offsetX="-9.0" offsetY="7.0">
                             <color>
-                                <Color opacity="0.2786259651184082" />
+                                <Color opacity="0.08778627216815948" />
                             </color>
                         </DropShadow>
                     </effect>
@@ -115,17 +114,14 @@
                         <Insets top="5.0" />
                     </VBox.margin>
                 </VBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="306.0">
+                <HBox alignment="CENTER" prefHeight="63.0" prefWidth="366.0">
                     <children>
-                        <Label fx:id="warningLabel" text="Note: You will be deleting the record, permanently." textFill="#cd1f1f">
+                        <Label fx:id="warningLabel" alignment="CENTER" text="Note: You will be deleting the record, permanently." textFill="#cd1f1f">
                             <font>
                                 <Font name="System Italic" size="12.0" />
                             </font>
                         </Label>
                     </children>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
                 </HBox>
             </children>
             <BorderPane.margin>
@@ -134,7 +130,7 @@
         </VBox>
     </center>
     <bottom>
-        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="330.0" spacing="10.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="366.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
                 <Button fx:id="confirmButton" mnemonicParsing="false" text="Confirm" />
