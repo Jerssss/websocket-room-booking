@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 public class Reservation {
     private final SimpleStringProperty reservationId;
     private final SimpleStringProperty userId;
+    private final SimpleStringProperty roomId;
     private final SimpleStringProperty terminalId;
     private final SimpleStringProperty reservationDate;
     private final SimpleStringProperty startTime;
@@ -13,10 +14,11 @@ public class Reservation {
     private final SimpleStringProperty status;
 
     // Constructor
-    public Reservation(String reservationId, String userId, String terminalId, String reservationDate,
+    public Reservation(String reservationId, String userId, String roomId, String terminalId, String reservationDate,
                        String startTime, String endTime, String status) {
         this.reservationId = new SimpleStringProperty(reservationId);
         this.userId = new SimpleStringProperty(userId);
+        this.roomId = new SimpleStringProperty(roomId);
         this.terminalId = new SimpleStringProperty(terminalId);
         this.reservationDate = new SimpleStringProperty(reservationDate);
         this.startTime = new SimpleStringProperty(startTime);
