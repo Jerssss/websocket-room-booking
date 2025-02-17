@@ -58,8 +58,6 @@ public class ViewReservationView {
         endTimeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndTime()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 
-        System.out.println("ViewStudentReservationsView initialized!");
-
         if (searchButton != null) {
             System.out.println("Search button exists in FXML!");
         } else {
@@ -78,7 +76,7 @@ public class ViewReservationView {
     }
 
     private void showReservationsInTable() {
-        List<Reservation> reservations = ViewReservationProcessor.loadStudentReservationsFromXML();
+        List<Reservation> reservations = ViewReservationProcessor.loadReservationFromXML();
         ObservableList<Reservation> reservationData = FXCollections.observableArrayList(reservations);
         viewResTableView.setItems(reservationData);
     }
