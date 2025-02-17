@@ -3,6 +3,7 @@ package server.admin;
 
 import org.w3c.dom.*;
 import server.utility.ApprovalReservation;
+import server.utility.Terminal;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,14 +20,14 @@ public class ReservationApprovalProcessor {
     private static final String FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
 
     // Parse XML file and return a list of ApprovalReservation objects
-    public static List<ApprovalReservation> parseXML(String filePath) {
+    public static List<ApprovalReservation> parseXML() {
         List<ApprovalReservation> reservations = new ArrayList<>();
         try {
-            System.out.println("Loading XML file from: " + filePath); // Debug print
+            System.out.println("Loading XML file from: " + FILE_PATH); // Debug print
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File(filePath));
+            Document document = builder.parse(new File(FILE_PATH));
             document.getDocumentElement().normalize();
 
             NodeList reservationNodes = document.getElementsByTagName("Reservation");
@@ -68,23 +69,42 @@ public class ReservationApprovalProcessor {
         return null;
     }
 
-    public String fetchAllReservations() {
+    public static void saveToXML(List<ApprovalReservation> reservations) {
         try {
-            Document doc = loadReservations();
-            System.out.println("Loaded XML Document: " + doc); // Debug print
-            return convertDocToString(doc);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.newDocument();
+
+            Element root = document.createElement("Terminals");
+            document.appendChild(root);
+
+            for (ApprovalReservation reservation : reservations) {
+                Element terminalElement = document.createElement("Terminal");
+                root.appendChild(terminalElement);
+
+                appendChildWithText(document, terminalElement, "reservation_id", reservation.getTerminalId());
+                appendChildWithText(document, terminalElement, "user_id", reservation.getUserId());
+                appendChildWithText(document, terminalElement, "terminal_id", reservation.getTerminalId());
+                appendChildWithText(document, terminalElement, "room_id", reservation.getRoomId());
+                appendChildWithText(document, terminalElement, "reservation_date", reservation.getReservationDate());
+                appendChildWithText(document, terminalElement, "start_time", reservation.getStartTime());
+                appendChildWithText(document, terminalElement, "end_time", reservation.getEndTime());
+                appendChildWithText(document, terminalElement, "status", reservation.getStatus());
+            }
+
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.transform(new DOMSource(document), new StreamResult(new File(FILE_PATH)));
+
         } catch (Exception e) {
-            return errorResponse("Error fetching reservations");
+            e.printStackTrace();
         }
     }
 
-    // Convert document to string
-    private String convertDocToString(Document doc) throws Exception {
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
-        StringWriter writer = new StringWriter();
-        transformer.transform(new DOMSource(doc), new StreamResult(writer));
-        return writer.toString();
+    private static void appendChildWithText(Document doc, Element parent, String tag, String text) {
+        Element element = doc.createElement(tag);
+        element.appendChild(doc.createTextNode(text));
+        parent.appendChild(element);
     }
 
     // Success response
