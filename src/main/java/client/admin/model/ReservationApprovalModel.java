@@ -21,6 +21,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class ReservationApprovalModel {
     private ServerConnection serverConnection;
 
     public ReservationApprovalModel() {
+
         try {
             serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
@@ -113,48 +115,34 @@ public class ReservationApprovalModel {
     private List<ApprovalReservation> parseXMLResponse(String xmlResponse) {
         List<ApprovalReservation> reservations = new ArrayList<>();
         try {
-//            System.out.println("Parsing XML Response: " + xmlResponse); // Debug print
-
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setIgnoringElementContentWhitespace(true);  // Ignore whitespace
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes(StandardCharsets.UTF_8)));
+            InputStream is = new ByteArrayInputStream(xmlResponse.getBytes(StandardCharsets.UTF_8));
+            Document doc = builder.parse(is);
 
-            doc.getDocumentElement().normalize(); // Normalize XML structure
-            NodeList nodeList = doc.getElementsByTagName("Reservation");
+            NodeList reservationNodes = doc.getElementsByTagName("Reservation");
+            for (int i = 0; i < reservationNodes.getLength(); i++) {
+                Element reservationElement = (Element) reservationNodes.item(i);
 
-//            System.out.println("Found " + nodeList.getLength() + " reservations."); // Debug print
+                String reservationId = reservationElement.getElementsByTagName("reservation_id").item(0).getTextContent();
+                String userId = reservationElement.getElementsByTagName("user_id").item(0).getTextContent();
+                String terminalId = reservationElement.getElementsByTagName("terminal_id").item(0).getTextContent();
+                String roomNumber = reservationElement.getElementsByTagName("room_number").item(0).getTextContent();
+                String reservationDate = reservationElement.getElementsByTagName("reservation_date").item(0).getTextContent();
+                String startTime = reservationElement.getElementsByTagName("start_time").item(0).getTextContent();
+                String endTime = reservationElement.getElementsByTagName("end_time").item(0).getTextContent();
+                String status = reservationElement.getElementsByTagName("status").item(0).getTextContent();
 
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Element element = (Element) nodeList.item(i);
-
-                // Debugging each field extraction
-                System.out.println("Processing reservation " + (i + 1));
-
-                String reservationId = getTagValue("reservation_id", element);
-                String userId = getTagValue("user_id", element);
-                String terminalId = getTagValue("terminal_id", element);
-                String roomId = getTagValue("room_id", element);
-                String reservationDate = getTagValue("reservation_date", element);
-                String startTime = getTagValue("start_time", element);
-                String endTime = getTagValue("end_time", element);
-                String status = getTagValue("status", element);
-
-                System.out.println("Parsed Reservation ID: " + reservationId);
-
-                reservations.add(new ApprovalReservation(
-                        reservationId, userId, terminalId, roomId,
-                        reservationDate, startTime, endTime, status
-                ));
+                ApprovalReservation reservation = new ApprovalReservation(reservationId, userId, terminalId, roomNumber,
+                        reservationDate, startTime, endTime, status);
+                reservations.add(reservation);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("XML Parsing Error: " + e.getMessage());
         }
-
         return reservations;
     }
+
 
     // Helper method to safely get tag values
     private String getTagValue(String tag, Element element) {

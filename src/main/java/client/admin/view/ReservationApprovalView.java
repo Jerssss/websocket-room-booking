@@ -30,7 +30,7 @@ public class ReservationApprovalView {
     @FXML
     private TableView<ApprovalReservation> approveResTableView;
     @FXML
-    private TableColumn<ApprovalReservation, String> reservationIdColumn, userIdColumn, terminalNoColumn,
+    private TableColumn<ApprovalReservation, String> reservationIdColumn, userIdColumn, terminalNumberColumn,
             roomNumberColumn, dateColumn, startTimeColumn, endTimeColumn;
     @FXML
     private TableColumn<ApprovalReservation, String> statusColumn;
@@ -55,9 +55,11 @@ public class ReservationApprovalView {
 
     @FXML
     public void initialize() {
+        System.out.println("Initializing ReservationApprovalView...");
+
         reservationIdColumn.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        terminalNoColumn.setCellValueFactory(new PropertyValueFactory<>("terminalId"));
+        terminalNumberColumn.setCellValueFactory(new PropertyValueFactory<>("terminalId"));
         roomNumberColumn.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
         startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
@@ -80,6 +82,7 @@ public class ReservationApprovalView {
                     ApprovalReservation reservation = getTableRow().getItem();
                     if (reservation != null) {
                         reservation.statusProperty().set(statusComboBox.getValue());
+
                     }
                 });
             }
@@ -117,9 +120,14 @@ public class ReservationApprovalView {
     }
 
     public void updateTable(ObservableList<ApprovalReservation> reservations) {
-        reservationData.setAll(reservations);
-        approveResTableView.setItems(reservationData);
+        if (reservations != null && !reservations.isEmpty()) {
+            reservationData.setAll(reservations);
+            approveResTableView.setItems(reservationData);
+        } else {
+            System.out.println("No data available to populate the table.");
+        }
     }
+
     public void saveChangesButtonExited() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
         st.setToX(1.0);
