@@ -104,6 +104,7 @@ public class ModifyTerminalProcessor {
                 appendChildWithText(document, terminalElement, "start_time", terminal.getStartTime());
                 appendChildWithText(document, terminalElement, "end_time", terminal.getEndTime());
             }
+
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(new DOMSource(document), new StreamResult(new File(filePath)));
