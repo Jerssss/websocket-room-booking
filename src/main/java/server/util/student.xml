@@ -1,55 +1,50 @@
 <Students>
     <Student>
         <Student_ID>2240000</Student_ID>
-        <Name>Natuto Na</Name>
+        <Name>ANG-ANGCO, JEREMIAH</Name>
         <Password>2240000</Password>
         <CourseYear>BSCS 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>1</Student_ID>
-        <Name>Test Student</Name>
-        <Password>1</Password>
+        <Student_ID>2240001</Student_ID>
+        <Name>Tester</Name>
+        <Password>2240001</Password>
         <CourseYear>BSIT 1</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240841</Student_ID>
-        <Password>2240841</Password>
+        <Student_ID>2240002</Student_ID>
+        <Name>ESPERANZATE, ANJELO</Name>
+        <Password>2240002</Password>
         <CourseYear>BSIT 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240932</Student_ID>
-        <Name>Jios</Name>
-        <Password>helloguys</Password>
-        <CourseYear>2</CourseYear>
+        <Student_ID>2240003</Student_ID>
+        <Name>FLORES, GABRIEL ALYSON</Name>
+        <Password>2240003</Password>
+        <CourseYear>BSIT 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240084</Student_ID>
-        <Name>aswdfrtg</Name>
-        <Password>12345678</Password>
-        <CourseYear>2</CourseYear>
+        <Student_ID>2240004</Student_ID>
+        <Name>GRABANZOR, GIANA KRISTY</Name>
+        <Password>2240004</Password>
+        <CourseYear>BSIT 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240087</Student_ID>
-        <Name>anjelo</Name>
-        <Password>12345678</Password>
-        <CourseYear>2</CourseYear>
+        <Student_ID>2240005</Student_ID>
+        <Name>MOLINA, BERNARDO SEBASTHIAN</Name>
+        <Password>2240005</Password>
+        <CourseYear>BSIT 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240083</Student_ID>
-        <Name>anjrli</Name>
-        <Password>12345678</Password>
-        <CourseYear>2</CourseYear>
+        <Student_ID>2240006</Student_ID>
+        <Name>TENORIO, KRISTELLE MAYE</Name>
+        <Password>2240006</Password>
+        <CourseYear>BSIT 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240088</Student_ID>
-        <Name>jkjkjk</Name>
-        <Password>12345678</Password>
-        <CourseYear>2</CourseYear>
-    </Student>
-    <Student>
-        <Student_ID>1234567</Student_ID>
-        <Name>jj</Name>
-        <Password>12345678</Password>
-        <CourseYear>2</CourseYear>
+        <Student_ID>2240007</Student_ID>
+        <Name>Test Student</Name>
+        <Password>1</Password>
+        <CourseYear>BSIT 1</CourseYear>
     </Student>
 </Students>

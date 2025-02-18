@@ -8,20 +8,25 @@ public class Terminal {
     private StringProperty terminalRoom;
     private StringProperty terminalOs;
     private StringProperty terminalStatus;
-    private SimpleStringProperty date;
+    private SimpleStringProperty reservationDate;
     private SimpleStringProperty time;
+    private SimpleStringProperty startTime;
+    private SimpleStringProperty endTime;
 
-    public Terminal(String terminalId, String terminalRoom, String terminalOs, String terminalStatus) {
+    public Terminal(String terminalId, String terminalRoom, String terminalOs, String terminalStatus, String reservationDate, String startTime, String endTime) {
         this.terminalId = new SimpleStringProperty(terminalId);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
         this.terminalOs = new SimpleStringProperty(terminalOs);
+        this.startTime = new SimpleStringProperty(startTime);
+        this.endTime = new SimpleStringProperty(endTime);
+        this.reservationDate = new SimpleStringProperty(reservationDate);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
     }
     public Terminal(String terminalId, String terminalRoom, String terminalOs, String date, String time) {
         this.terminalId = new SimpleStringProperty(terminalId);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
         this.terminalOs = new SimpleStringProperty(terminalOs);
-        this.date = new SimpleStringProperty(date);
+        this.reservationDate = new SimpleStringProperty(date);
         this.time = new SimpleStringProperty(time);
     }
 
@@ -30,7 +35,7 @@ public class Terminal {
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
         this.terminalOs = new SimpleStringProperty(terminalOS);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
-        this.date = new SimpleStringProperty(date);
+        this.reservationDate = new SimpleStringProperty(date);
         this.time = new SimpleStringProperty(time);
     }
 
@@ -82,11 +87,14 @@ public class Terminal {
     public StringProperty terminalStatusProperty() {
         return terminalStatus;
     }
-    public void setDate(String date) {
-        this.date.set(date);
+    public void setReservationDate(String reservationDate) {
+        this.reservationDate.set(reservationDate);
     }
-    public StringProperty dateProperty() {
-        return date;
+    public String getReservationDate(){
+        return reservationDate.get();
+    }
+    public StringProperty reservationDateProperty() {
+        return reservationDate;
     }
     public void setTime(String time) {
         this.time.set(time);
@@ -94,11 +102,25 @@ public class Terminal {
     public StringProperty timeProperty() {
         return time;
     }
-
-    public String getDate() {
-        return date.get();
+    public void startTime(String startTime) {
+        this.startTime(startTime);
     }
-    public String getTime() {
-        return time.get();
+
+    public String getStartTime() {
+        return startTime.get();
+    }
+    public StringProperty startTimeProperty() {
+        return startTime;
+    }
+
+    public void endTime(String endTime) {
+        this.endTime(endTime);
+    }
+
+    public String getEndTime() {
+        return endTime.get();
+    }
+    public StringProperty endTimeProperty() {
+        return endTime;
     }
 }
