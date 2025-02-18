@@ -73,11 +73,11 @@ public class ReservationApprovalProcessor {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.newDocument();
 
-            Element root = document.createElement("Terminals");
+            Element root = document.createElement("Reservations");
             document.appendChild(root);
 
             for (ApprovalReservation reservation : reservations) {
-                Element terminalElement = document.createElement("Terminal");
+                Element terminalElement = document.createElement("Reservation");
                 root.appendChild(terminalElement);
 
                 appendChildWithText(document, terminalElement, "reservation_id", reservation.getTerminalId());
