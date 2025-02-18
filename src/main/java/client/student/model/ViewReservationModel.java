@@ -1,7 +1,7 @@
+// client/student/model/ViewReservationModel.java
 package client.student.model;
 
 import client.utility.ServerConnection;
-
 import java.io.IOException;
 import java.util.List;
 import client.utility.ServerConnectionManager;
@@ -12,8 +12,10 @@ import javax.swing.*;
 
 public class ViewReservationModel {
     private ServerConnection serverConnection;
+    private String sessionToken;
 
-    public ViewReservationModel() {
+    public ViewReservationModel(String sessionToken) {
+        this.sessionToken = sessionToken;
         try {
             serverConnection = ServerConnectionManager.getConnection();
         } catch (IOException e) {
@@ -21,7 +23,6 @@ public class ViewReservationModel {
         }
     }
 
-    // Fetch  reservations from XML using the processor
     public List<Reservation> fetchReservations() {
         return parseXML();
     }
@@ -29,7 +30,9 @@ public class ViewReservationModel {
     private void showErrorDialog(String message) {
         Platform.runLater(() -> JOptionPane.showMessageDialog(null, message, "Connection Error", JOptionPane.ERROR_MESSAGE));
     }
-    public static List<Reservation> parseXML() {
-        return ViewReservationProcessor.loadReservationFromXML();
+
+    // Remove static modifier to use instance variable sessionToken
+    private List<Reservation> parseXML() {
+        return ViewReservationProcessor.loadReservationFromXML(sessionToken);
     }
 }
