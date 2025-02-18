@@ -1,18 +1,33 @@
 package server.utility;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Reservation {
-    private final SimpleStringProperty reservationId;
-    private final SimpleStringProperty userId;
+    private SimpleStringProperty reservationId;
+    private SimpleStringProperty userId;
     private final SimpleStringProperty terminalNumber;
     private final SimpleStringProperty roomNumber;
     private final SimpleStringProperty date;
-    private final SimpleStringProperty startTime;
-    private final SimpleStringProperty endTime;
+    private SimpleStringProperty startTime;
+    private SimpleStringProperty endTime;
     private final SimpleStringProperty status;
+    private SimpleStringProperty edit;
 
     // Constructor
+    public Reservation(String reservationId, String userId, String terminalNumber, String roomNumber, String date,
+                       String startTime, String endTime, String status, String edit) {
+        this.reservationId = new SimpleStringProperty(reservationId);
+        this.userId = new SimpleStringProperty(userId);
+        this.terminalNumber = new SimpleStringProperty(terminalNumber);
+        this.roomNumber = new SimpleStringProperty(roomNumber);
+        this.date = new SimpleStringProperty(date);
+        this.startTime = new SimpleStringProperty(startTime);
+        this.endTime = new SimpleStringProperty(endTime);
+        this.status = new SimpleStringProperty(status);
+        this.edit = new SimpleStringProperty(edit);
+    }
+
     public Reservation(String reservationId, String userId, String terminalNumber, String roomNumber, String date,
                        String startTime, String endTime, String status) {
         this.reservationId = new SimpleStringProperty(reservationId);
@@ -23,6 +38,43 @@ public class Reservation {
         this.startTime = new SimpleStringProperty(startTime);
         this.endTime = new SimpleStringProperty(endTime);
         this.status = new SimpleStringProperty(status);
+    }
+
+    // String Properties
+    public StringProperty reservationIdProperty() {
+        return reservationId;
+    }
+
+    public StringProperty userIdProperty() {
+        return userId;
+    }
+
+    public StringProperty terminalNumberProperty() {
+        return terminalNumber;
+    }
+
+    public StringProperty roomNumberProperty() {
+        return roomNumber;
+    }
+
+    public StringProperty dateProperty() {
+        return date;
+    }
+
+    public StringProperty startTimeProperty() {
+        return startTime;
+    }
+
+    public StringProperty endTimeProperty() {
+        return endTime;
+    }
+
+    public StringProperty statusProperty() {
+        return status;
+    }
+
+    public StringProperty editProperty() {
+        return edit;
     }
 
     // Getters and Setters

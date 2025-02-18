@@ -39,7 +39,6 @@ public class StudentMainMenuView {
     private BorderPane rootPane;
 
     private String sessionToken;
-    private Button currentlyHighlightedButton = null; // Track the currently highlighted button
 
     private void loadView(String fxmlFile) {
         try {
@@ -96,16 +95,12 @@ public class StudentMainMenuView {
     }
 
     public void setActionCreateReservationButton(EventHandler<ActionEvent> event) {
-        createReservationButton.setOnAction(event1 -> {
-            highlightButton(createReservationButton); // Highlight the button when clicked
-            loadView("/fxml/client/create_reservation_pane.fxml"); // Load the view
-        });
+        createReservationButton.setOnAction(event1 -> loadView("/fxml/client/create_reservation_pane.fxml"));
     }
 
     /** Event handler for View  Reservations Button */
     public void setActionViewReservationButton(EventHandler<ActionEvent> event) {
         viewReservationButton.setOnAction(event1 -> {
-            highlightButton(viewReservationButton);
             try {
                 // Load the ViewReservationView FXML
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/view_reservation_pane.fxml"));
@@ -127,8 +122,19 @@ public class StudentMainMenuView {
     /** Event handler for Modify Reservation Button */
     public void setActionModifyReservationButton(EventHandler<ActionEvent> event) {
         modifyReservationButton.setOnAction(event1 -> {
-            highlightButton(modifyReservationButton); //highlight the button when clicked
-            loadView("/fxml/client/modify_reservation_pane.fxml"); //load the view
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/modify_reservation_pane.fxml"));
+                VBox view = loader.load();
+
+                // Pass the sessionToken to ModifyReservationView
+                ModifyReservationView viewController = loader.getController();
+                viewController.setSessionToken(sessionToken);
+
+                rootPane.setCenter(view);
+            } catch (IOException e) {
+                e.printStackTrace();
+                showError("Failed to load view: /fxml/client/modify_reservation_pane.fxml");
+            }
         });
     }
 
@@ -139,20 +145,6 @@ public class StudentMainMenuView {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-    private void highlightButton(Button button) {
-        //remove the highlight from the previously highlighted button
-        if (currentlyHighlightedButton != null) {
-            currentlyHighlightedButton.getStyleClass().remove("highlighted-button");
-        }
-
-        //highlight the new button
-        button.getStyleClass().add("highlighted-button");
-
-        //updates the currently highlighted button
-        currentlyHighlightedButton = button;
-    }
-
 
     public void logOutButtonExited() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), logOutButton);
@@ -174,5 +166,4 @@ public class StudentMainMenuView {
     public BorderPane getBorderPane() {
         return this.rootPane;
     }
-
 }
