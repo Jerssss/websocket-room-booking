@@ -29,9 +29,9 @@ public class ModifyTerminalStatusView {
     @FXML
     private Button saveChangesButton;
     @FXML
-    private TextField searchStudResTextField;
+    private TextField modTerTextField;
     @FXML
-    private TableView<Terminal> modResTableView;
+    private TableView<Terminal> modTerTableView;
     @FXML
     private TableColumn<Terminal, String> roomNumberColumn;
     @FXML
@@ -71,13 +71,13 @@ public class ModifyTerminalStatusView {
         }
 
         // Attach the buttons functionality
-        setActionSearchButton(actionEvent -> controller.searchTerminals(searchStudResTextField.getText()));
+        setActionSearchButton(actionEvent -> controller.searchTerminals(modTerTextField.getText()));
         setActionSaveChangesButton(event -> controller.saveChanges());
     }
 
     public void setActionSearchButton(EventHandler<ActionEvent> event) {
         searchButton.setOnAction(event);
-        System.out.println("[DEBUG] Search triggered. Query: " + searchStudResTextField.getText());
+        System.out.println("[DEBUG] Search triggered. Query: " + modTerTextField.getText());
     }
 
     public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
@@ -86,9 +86,9 @@ public class ModifyTerminalStatusView {
 
     public void setTerminalData(ObservableList<Terminal> data) {
         terminalData.setAll(data); // Update dataset
-        modResTableView.setItems(null); // Force reset
-        modResTableView.setItems(terminalData); // Reload table data
-        modResTableView.refresh(); // Force UI refresh
+        modTerTableView.setItems(null); // Force reset
+        modTerTableView.setItems(terminalData); // Reload table data
+        modTerTableView.refresh(); // Force UI refresh
         System.out.println("[DEBUG] Terminal data updated. New table size: " + terminalData.size());
     }
 
@@ -97,10 +97,10 @@ public class ModifyTerminalStatusView {
             private final ComboBox<String> statusComboBox = new ComboBox<>();
 
             {
-                statusComboBox.getItems().addAll("Active", "Reserved", "Under Maintenance");
+                statusComboBox.getItems().addAll("Active", "Down", "Under Maintenance");
                 statusComboBox.setStyle("-fx-border-color: transparent; " +
                         "-fx-padding: 5px; " +
-                        "-fx-font-size: 12px; " +
+                        "-fx-font-size: 13px; " +
                         "-fx-font-family: 'System';");
                 statusComboBox.setOnAction(e -> {
                     Terminal terminal = getTableRow().getItem();
@@ -128,8 +128,8 @@ public class ModifyTerminalStatusView {
                             toRGBCode(rowColor) + "; " +
                             "-fx-border-color: transparent; " +
                             "-fx-padding: 5px; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-font-family: 'Arial';");
+                            "-fx-font-size: 13px; " +
+                            "-fx-font-family: 'System';");
 
                     statusComboBox.setMaxWidth(Double.MAX_VALUE);
                     setGraphic(statusComboBox);
@@ -144,6 +144,7 @@ public class ModifyTerminalStatusView {
             }
         };
     }
+
     private TableCell<Terminal, String> createDeleteButtonCellFactory() {
         return new TableCell<>() {
             private final Button deleteButton = new Button("Remove Terminal");
