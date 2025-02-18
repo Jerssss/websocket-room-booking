@@ -21,18 +21,26 @@ public class StudentMainMenuController {
     private final StudentMainMenuView view;
     private final StudentMainMenuModel model;
     private final String loggedInUserName;
+    private String sessionToken;
 
     private Thread serverThread;  // Server Thread
 
-    public StudentMainMenuController(StudentMainMenuView view, StudentMainMenuModel model, String loggedInUserName) {
+    public StudentMainMenuController(StudentMainMenuView view,
+                                     StudentMainMenuModel model,
+                                     String loggedInUserName,
+                                     String sessionToken) {
         this.view = view;
         this.model = model;
         this.loggedInUserName = loggedInUserName;
+        this.sessionToken = sessionToken;
+
+        // Pass the sessionToken to the view
+        this.view.setSessionToken(sessionToken);
 
         // Display logged-in user's name
         this.view.setLoggedInUserName(loggedInUserName);
         this.view.initializeDateTime();
-
+        System.out.println("Session token in controller: " + sessionToken);
         // Handle button actions
         this.view.setActionCreateReservationButton(event -> handleCreateReservation());
         this.view.setActionViewReservationButton(event -> handleViewReservation());
