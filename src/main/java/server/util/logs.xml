@@ -203,4 +203,46 @@
         <Date>2025-02-18</Date>
         <Time>18:58:06</Time>
     </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:59:47</Time>
+    </Log>
+    <Log>
+        <UserID>Dionela Marilag</UserID>
+        <UserType>Admin</UserType>
+        <Action>Logout</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:59:54</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>20:24:43</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>20:26:57</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>20:27:25</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>20:35:19</Time>
+    </Log>
 </Logs>
