@@ -22,8 +22,14 @@ public class AddNewTerminalProcessor {
 
     private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
 
-    public static boolean processTerminalData(String terminalId, String room, String osType, String status, String selectedDay, String selectedTime) {
+    public static boolean processTerminalData(String terminalId, String room, String osType, String status, String reservationDate, String selectedTimeRange) {
         try {
+            // Split the selected time range into start_time and end_time
+            String[] timeParts = selectedTimeRange.split("-");
+            String startTime = timeParts[0].trim();
+            String endTime = timeParts[1].trim();
+
+            // Proceed with the rest of your method
             File xmlFile = new File(FILE_PATH);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setIgnoringElementContentWhitespace(true);
@@ -34,11 +40,6 @@ public class AddNewTerminalProcessor {
             Element root = doc.getDocumentElement();
 
             System.out.println("[DEBUG] Checking if terminal ID " + terminalId + " exists in room " + room);
-            // Validate if terminal ID exists in the specified room
-            if (isTerminalIdExistsInRoom(root, terminalId, room)) {
-                System.out.println("[ERROR] Terminal ID " + terminalId + " already exists in room " + room);
-                return false; // Return false if the terminal already exists
-            }
 
             // Proceed to add the terminal if validation is passed
             Element newTerminal = doc.createElement("Terminal");
@@ -60,13 +61,18 @@ public class AddNewTerminalProcessor {
             newTerminal.appendChild(statusElement);
 
             // Adding day and time
-            Element dayElement = doc.createElement("day");
-            dayElement.appendChild(doc.createTextNode(selectedDay.trim()));
-            newTerminal.appendChild(dayElement);
+            Element reservationDateElement = doc.createElement("reservation_date");
+            reservationDateElement.appendChild(doc.createTextNode(reservationDate.trim()));
+            newTerminal.appendChild(reservationDateElement);
 
-            Element timeElement = doc.createElement("time");
-            timeElement.appendChild(doc.createTextNode(selectedTime.trim()));
-            newTerminal.appendChild(timeElement);
+            // Set the split start_time and end_time
+            Element startTimeElement = doc.createElement("start_time");
+            startTimeElement.appendChild(doc.createTextNode(startTime));
+            newTerminal.appendChild(startTimeElement);
+
+            Element endTimeElement = doc.createElement("end_time");
+            endTimeElement.appendChild(doc.createTextNode(endTime));
+            newTerminal.appendChild(endTimeElement);
 
             root.appendChild(newTerminal);
 
@@ -87,23 +93,6 @@ public class AddNewTerminalProcessor {
             e.printStackTrace();
             return false;
         }
-    }
-
-    // Validate if terminal ID already exists for a given room
-    private static boolean isTerminalIdExistsInRoom(Element root, String terminalId, String room) {
-        NodeList terminalNodes = root.getElementsByTagName("Terminal");
-        for (int i = 0; i < terminalNodes.getLength(); i++) {
-            Element terminalElement = (Element) terminalNodes.item(i);
-
-            String existingTerminalId = terminalElement.getElementsByTagName("terminal_id").item(0).getTextContent();
-            String existingRoom = terminalElement.getElementsByTagName("terminal_room").item(0).getTextContent();
-
-            // If the terminal ID matches and the room matches, return true (duplicate found)
-            if (existingTerminalId.equals("PC" + terminalId.trim()) && existingRoom.equals(room.trim())) {
-                return true;
-            }
-        }
-        return false; // Return false if no duplicates found
     }
 
     private static void removeWhiteSpaces(Node node) {
@@ -138,11 +127,12 @@ public class AddNewTerminalProcessor {
                     String terminalId = getTagValue("terminal_id", element);
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOS = getTagValue("terminal_os", element);
-                    String day = getTagValue("day", element);
-                    String time = getTagValue("time", element);
+                    String reservationDate = getTagValue("reservation_date", element);
+                    String startTime = getTagValue("start_time", element);
+                    String endTime = getTagValue("end_time", element);
                     String terminalStatus = getTagValue("terminal_status", element);
 
-                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus, day, time);
+                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus, reservationDate, startTime, endTime);
                     terminals.add(terminal);
                 }
             }

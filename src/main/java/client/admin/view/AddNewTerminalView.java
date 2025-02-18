@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import server.utility.Terminal;
 
 public class AddNewTerminalView {
+    public TextField dateTextField;
     private AddNewTerminalController controller;
 
     @FXML
@@ -45,6 +46,8 @@ public class AddNewTerminalView {
     private String room;
     private String osType;
     private String status;
+    private String startTime;
+    private String endTime;
 
     // Getters for UI fields
     public TextField getTerminalNoTextField() {
@@ -54,12 +57,26 @@ public class AddNewTerminalView {
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
+    public TextField getDateTextField(){
+        return dateTextField;
+    }
 
     public Button getSearchButton() {
         return searchButton;
     }
     public String getTerminalId() {
         return terminalId;
+    }
+    public void setStartTime(String startTime){
+        this.startTime = startTime;
+    }
+    public void setEndTime(String endTime){
+    }
+    public String getStartTime() {
+        return startTime;
+    }
+    public String getEndTime() {
+        return endTime;
     }
 
     public void setRoom(String room) {
@@ -95,9 +112,11 @@ public class AddNewTerminalView {
     @FXML
     private TableColumn<Terminal, String> terminalOSColumn;
     @FXML
-    private TableColumn<Terminal, String> dayColumn;
+    private TableColumn<Terminal, String> dateColumn;
     @FXML
-    private TableColumn<Terminal, String> timeColumn;
+    private TableColumn<Terminal, String> startTimeColumn;
+    @FXML
+    private TableColumn<Terminal, String> endTimeColumn;
     @FXML
     private TableColumn<Terminal, String> statusColumn;
     @FXML
@@ -136,18 +155,11 @@ public class AddNewTerminalView {
         Platform.runLater(() -> {
             if (timeComboBox != null) {
                 ObservableList<String> timeOptions = FXCollections.observableArrayList(
-                        "09:30-17:30",
+                        "09:30-11:30",
                         "11:30-16:30",
                         "07:30-15:30"
                 );
                 timeComboBox.setItems(timeOptions);
-            }
-
-            if (dayComboBox != null) {
-                ObservableList<String> days = FXCollections.observableArrayList(
-                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-                );
-                dayComboBox.setItems(days);
             }
 
             if (terminalOSComboBox != null) {
@@ -174,13 +186,14 @@ public class AddNewTerminalView {
 
         // Ensure table columns are initialized before setting cell value factories
         if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
-                && dayColumn != null && timeColumn != null && statusColumn != null && addTerminalTableView != null) {
+                && dateColumn != null && startTimeColumn != null && endTimeColumn != null && statusColumn != null && addTerminalTableView != null) {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
             terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-            dayColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-            timeColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
+            dateColumn.setCellValueFactory(cellData -> cellData.getValue().reservationDateProperty());
+            startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+            endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
             statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
 
             // Load data from XML
@@ -197,13 +210,6 @@ public class AddNewTerminalView {
         setupRefreshButtonAction();
     }
 
-    public ComboBox<String> getDayComboBox() {
-        return dayComboBox;
-    }
-
-    public void setDayComboBox(ComboBox<String> dayComboBox) {
-        this.dayComboBox = dayComboBox;
-    }
 
     public ComboBox<String> getTimeComboBox() {
         return timeComboBox;
@@ -247,8 +253,9 @@ public class AddNewTerminalView {
                 if (terminal.getTerminalId().toLowerCase().contains(searchText) ||
                         terminal.getTerminalRoom().toLowerCase().contains(searchText) ||
                         terminal.getTerminalOs().toLowerCase().contains(searchText) ||
-                        terminal.getDate().toLowerCase().contains(searchText) ||
-                        terminal.getTime().toLowerCase().contains(searchText) ||
+                        terminal.getReservationDate().toLowerCase().contains(searchText) ||
+                        terminal.getStartTime().toLowerCase().contains(searchText) ||
+                        terminal.getEndTime().toLowerCase().contains(searchText) ||
                         terminal.getTerminalStatus().toLowerCase().contains(searchText)) {
                     filteredList.add(terminal);
                 }
