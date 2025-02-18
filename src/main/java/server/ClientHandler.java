@@ -11,6 +11,7 @@ import server.admin.ViewStudentReservationsProcessor;
 import server.utility.ApprovalReservation;
 import server.utility.Reservation;
 import server.utility.StudentReservation;
+import server.student.ViewReservationProcessor;
 
 import java.io.*;
 import java.net.Socket;
@@ -64,7 +65,9 @@ public class ClientHandler implements Runnable {
                         handleViewStudentReservations(writer);
                     }else if (clientMessage.contains("<Type>ViewReservationApprovals</Type>")) {
                         handleReservationApprovals(writer);
-                    }  else {
+                    } else if (clientMessage.contains("<Request><Type>ViewReservations</Type></Request>")) {
+                        handleViewReservations(clientMessage, writer);
+                    } else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
@@ -205,6 +208,21 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
             writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch approvals.</Message></Response>");
         }
+    }
+
+    /**
+     * Handles viewing reservations.
+     */
+    private void handleViewReservations(String clientMessage, PrintWriter writer) {
+        String sessionToken = extractField(clientMessage, "<SessionToken>", "</SessionToken>");
+        if (sessionToken == null || !SessionManager.activeSessions.containsKey(sessionToken)) {
+            writer.println("<Response><Status>ERROR</Status><Message>Invalid session token.</Message></Response>");
+            return;
+        }
+
+        String userId = SessionManager.getUserId(sessionToken);
+        List<Reservation> reservations = ViewReservationProcessor.loadReservationFromXML(sessionToken);
+        writer.println(createReservations2XMLResponse(reservations));
     }
     /**
      * Creates an XML response for approval reservations.
