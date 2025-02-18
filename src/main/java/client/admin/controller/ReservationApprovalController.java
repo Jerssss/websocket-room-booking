@@ -6,6 +6,7 @@ import client.admin.view.ReservationApprovalView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import server.utility.ApprovalReservation;
+import server.utility.Terminal;
 
 import javax.swing.*;
 import java.util.List;
@@ -32,6 +33,31 @@ public class ReservationApprovalController {
         model.saveReservationData(reservationData); // Save only the current table data
         JOptionPane.showMessageDialog(null, "Changes have been successfully saved!",
                 "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void searchTerminals(String searchText) {
+        System.out.println("[DEBUG] Searching for terminals with keyword: " + searchText);
+
+        if (searchText == null || searchText.trim().isEmpty()) {
+            view.setReservationData(reservationData);
+            System.out.println("[DEBUG] Search text is empty. Resetting to full terminal list.");
+            return;
+        }
+
+        String lowerCaseQuery = searchText.toLowerCase();
+        ObservableList<ApprovalReservation> filteredList = reservationData.stream()
+                .filter(reservation -> reservation.getReservationId().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getUserId().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getTerminalId().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getRoomNumber().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getReservationDate().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getStartTime().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getEndTime().toLowerCase().contains(lowerCaseQuery) ||
+                        reservation.getStatus().toLowerCase().contains(lowerCaseQuery))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+        view.setReservationData(filteredList);
+        System.out.println("[DEBUG] Search completed. Matching results: " + filteredList.size());
     }
 
     private void filterReservations(String searchQuery) {
