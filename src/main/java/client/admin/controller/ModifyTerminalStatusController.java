@@ -39,4 +39,5 @@ public class ModifyTerminalStatusController {
                 "Save Successful", JOptionPane.INFORMATION_MESSAGE);
     }
 
+
 }
