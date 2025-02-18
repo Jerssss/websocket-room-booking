@@ -1,5 +1,6 @@
 package client.admin.view;
 
+import client.admin.controller.AddNewTerminalController;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +29,8 @@ public class ModifyTerminalStatusView {
     private Button searchButton;
     @FXML
     private Button saveChangesButton;
+    @FXML
+    private Button refreshButton;
     @FXML
     private TextField modTerTextField;
     @FXML
@@ -72,6 +75,7 @@ public class ModifyTerminalStatusView {
 
         // Attach the buttons functionality
         setActionSearchButton(actionEvent -> controller.searchTerminals(modTerTextField.getText()));
+        setActionRefreshButton(event -> controller.loadTerminalData());
         setActionSaveChangesButton(event -> controller.saveChanges());
     }
 
@@ -80,10 +84,16 @@ public class ModifyTerminalStatusView {
         System.out.println("[DEBUG] Search triggered. Query: " + modTerTextField.getText());
     }
 
+    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
+        refreshButton.setOnAction(event);
+        System.out.println("[DEBUG] Refresh triggered");
+    }
+
     public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
         saveChangesButton.setOnAction(event);
     }
 
+    //Refreshed the table
     public void setTerminalData(ObservableList<Terminal> data) {
         terminalData.setAll(data); // Update dataset
         modTerTableView.setItems(null); // Force reset

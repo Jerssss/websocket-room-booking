@@ -37,7 +37,7 @@
                      <children>
                         <StackPane alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="76.0">
                            <children>
-                              <Button fx:id="refreshButton" mnemonicParsing="false" prefWidth="60.0" text="Refresh" />
+                              <Button fx:id="refreshButton" mnemonicParsing="false" prefWidth="60.0" text="Reset" />
                            </children>
                         </StackPane>
                      </children>
