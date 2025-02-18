@@ -60,11 +60,15 @@ public class LoginController {
             loginView.setPromptLabel("Login successful!");
             loginView.setPromptLabelVisible(true);
 
+            // Generate a session token
+            String sessionToken = SessionTokenGenerator.generateUniqueToken();
 
             // Store the session in SessionManager
+            SessionManager.createSession(sessionToken, userID);
+
             // Pass the user's NAME (not ID) to the main menu
             if ("Student".equalsIgnoreCase(userType)) {
-                redirectToStudentMainMenu(event, userName);
+                redirectToStudentMainMenu(event, userName, sessionToken);
             } else if ("Admin".equalsIgnoreCase(userType)) {
                 redirectToAdminMainMenu(event, userName);
             }
@@ -74,14 +78,14 @@ public class LoginController {
         }
     }
 
-    private void redirectToStudentMainMenu(ActionEvent event, String loggedInUserName) {
+    private void redirectToStudentMainMenu(ActionEvent event, String loggedInUserName, String sessionToken) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/client/student_main_menu.fxml"));
             Parent root = fxmlLoader.load();
 
             // Ensure that the correct controller is linked
             StudentMainMenuView studentMainMenuView = fxmlLoader.getController();
-            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel(), loggedInUserName);
+            new StudentMainMenuController(studentMainMenuView, new StudentMainMenuModel(), loggedInUserName, sessionToken);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
