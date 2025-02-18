@@ -42,7 +42,7 @@
         <CourseYear>BSIT 2</CourseYear>
     </Student>
     <Student>
-        <Student_ID>2240007</Student_ID>
+        <Student_ID>1</Student_ID>
         <Name>Test Student</Name>
         <Password>1</Password>
         <CourseYear>BSIT 1</CourseYear>

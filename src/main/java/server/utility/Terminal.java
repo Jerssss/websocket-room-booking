@@ -13,6 +13,18 @@ public class Terminal {
     private StringProperty reservationDate;
     private StringProperty startTime;
     private StringProperty endTime;
+
+
+    public Terminal(String terminalId, String terminalRoom, String terminalOS, String terminalStatus, String reservationDate, String startTime, String endTime){
+        this.terminalId = new SimpleStringProperty(terminalId);
+        this.terminalRoom = new SimpleStringProperty(terminalRoom);
+        this.terminalOs = new SimpleStringProperty(terminalOS);
+        this.terminalStatus = new SimpleStringProperty(terminalStatus);
+        this.reservationDate = new SimpleStringProperty(reservationDate);
+        this.startTime = new SimpleStringProperty(startTime);
+        this.endTime = new SimpleStringProperty(endTime);
+
+    }
     public Terminal(String terminalId, String terminalRoom, String terminalOs, String terminalStatus) {
         this.terminalId = new SimpleStringProperty(terminalId);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
@@ -112,10 +124,37 @@ public class Terminal {
     public StringProperty startTimeProperty() {
         return startTime;
     }
+    public StringProperty endTimeProperty() {
+        return startTime;
+    }
+
 
     public String getEndTime() {
         return endTime.get();
     }
 
 
+    // Getters and setters with StringProperty
+
+
+    public String getReservationDate() {
+        return reservationDate.get();
+    }
+
+    public StringProperty reservationDateProperty() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(String reservationDate) {
+        this.reservationDate.set(reservationDate);
+    }
+
+
+
+
+
+
+    public void setEndTime(String endTime) {
+        this.endTime.set(endTime);
+    }
 }
