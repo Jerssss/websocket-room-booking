@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Terminals>
     <Terminal>
-        <terminal_id>PC0</terminal_id>
-        <terminal_room>D426</terminal_room>
-        <terminal_os>Windows</terminal_os>
-        <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-16</reservation_date>
-        <start_time>07:30</start_time>
-        <end_time>15:30</end_time>
-    </Terminal>
-    <Terminal>
         <terminal_id>PC1</terminal_id>
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
-        <terminal_status>Under Maintenance</terminal_status>
+        <terminal_status>Down</terminal_status>
         <reservation_date>2025-02-17</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
@@ -22,7 +13,7 @@
         <terminal_id>PC2</terminal_id>
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
-        <terminal_status>Active</terminal_status>
+        <terminal_status>Down</terminal_status>
         <reservation_date>2025-02-18</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
@@ -31,7 +22,7 @@
         <terminal_id>PC3</terminal_id>
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
-        <terminal_status>Active</terminal_status>
+        <terminal_status>Down</terminal_status>
         <reservation_date>2025-02-18</reservation_date>
         <start_time>10:00</start_time>
         <end_time>18:00</end_time>
@@ -188,5 +179,14 @@
         <reservation_date>2025-02-21</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
+    </Terminal>
+    <Terminal>
+        <terminal_id>PC457</terminal_id>
+        <terminal_room>D526</terminal_room>
+        <terminal_os>macOS</terminal_os>
+        <terminal_status>Under Maintenance</terminal_status>
+        <reservation_date>2025-02-20</reservation_date>
+        <start_time>11:30</start_time>
+        <end_time>16:30</end_time>
     </Terminal>
 </Terminals>

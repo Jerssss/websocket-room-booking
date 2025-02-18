@@ -38,6 +38,8 @@ public class StudentMainMenuView {
     @FXML
     private BorderPane rootPane;
 
+    private Button currentlyHighlightedButton;
+
     private String sessionToken;
 
     private void loadView(String fxmlFile) {
@@ -95,12 +97,16 @@ public class StudentMainMenuView {
     }
 
     public void setActionCreateReservationButton(EventHandler<ActionEvent> event) {
-        createReservationButton.setOnAction(event1 -> loadView("/fxml/client/create_reservation_pane.fxml"));
+        createReservationButton.setOnAction(event1 -> {
+            highlightButton(createReservationButton);
+            loadView("/fxml/client/create_reservation_pane.fxml");
+        });
     }
 
     /** Event handler for View  Reservations Button */
     public void setActionViewReservationButton(EventHandler<ActionEvent> event) {
         viewReservationButton.setOnAction(event1 -> {
+            highlightButton(viewReservationButton);
             try {
                 // Load the ViewReservationView FXML
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/view_reservation_pane.fxml"));
@@ -122,6 +128,7 @@ public class StudentMainMenuView {
     /** Event handler for Modify Reservation Button */
     public void setActionModifyReservationButton(EventHandler<ActionEvent> event) {
         modifyReservationButton.setOnAction(event1 -> {
+            highlightButton(modifyReservationButton);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/modify_reservation_pane.fxml"));
                 VBox view = loader.load();
@@ -144,6 +151,23 @@ public class StudentMainMenuView {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void highlightButton(Button button) {
+        // Remove the highlight from the previously highlighted button
+        if (currentlyHighlightedButton != null) {
+            currentlyHighlightedButton.getStyleClass().remove("highlighted-button");
+        }
+
+        // Highlight the new button
+        button.getStyleClass().add("highlighted-button");
+
+        // Update the currently highlighted button
+        currentlyHighlightedButton = button;
+    }
+
+    private void removeHighlights(Button button) {
+        button.getStyleClass().remove("highlighted-button");
     }
 
     public void logOutButtonExited() {

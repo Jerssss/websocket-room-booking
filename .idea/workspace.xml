@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61187ed5-a681-424b-889d-132ae44795ac" name="Changes" comment="edited the ReservationApproval but the content is not showing">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/controller/ViewReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/controller/ViewReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/student/view/ViewReservationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/student/view/ViewReservationView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/logs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/logs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/controller/AdminMainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/admin/controller/AdminMainMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/admin/model/ModifyTerminalStatusModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/admin/model/ModifyTerminalStatusModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/student/controller/StudentMainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/student/controller/StudentMainMenuController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +102,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jonat/Desktop/Integrative Programming School Projects/PRELIMS/9444-team1_preproject/src/main/resources/fxml/client&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jonat/Downloads&quot;
   }
 }</component>
   <component name="RecentsManager">
