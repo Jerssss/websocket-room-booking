@@ -26,14 +26,14 @@ public class ReservationApprovalModel {
         }
     }
 
-    public ObservableList<ApprovalReservation> loadTerminalData() {
+    public ObservableList<ApprovalReservation> loadReservationData() {
         if (serverConnection != null) {
-            List<ApprovalReservation> terminals = ReservationApprovalProcessor.parseXML();
-            if (terminals == null) {
-                System.out.println("No terminal data received from server!");
+            List<ApprovalReservation> reservations = ReservationApprovalProcessor.parseXML();
+            if (reservations == null) {
+                System.out.println("No reservation data received from server!");
                 return FXCollections.observableArrayList();
             }
-            return FXCollections.observableArrayList(terminals);
+            return FXCollections.observableArrayList(reservations);
         }
         return FXCollections.observableArrayList();
     }
