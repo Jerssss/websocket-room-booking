@@ -10,7 +10,9 @@ public class Terminal {
     private StringProperty terminalStatus;
     private SimpleStringProperty date;
     private SimpleStringProperty time;
-
+    private StringProperty reservationDate;
+    private StringProperty startTime;
+    private StringProperty endTime;
     public Terminal(String terminalId, String terminalRoom, String terminalOs, String terminalStatus) {
         this.terminalId = new SimpleStringProperty(terminalId);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
@@ -101,4 +103,19 @@ public class Terminal {
     public String getTime() {
         return time.get();
     }
+
+
+    public String getStartTime() {
+        return startTime.get();
+    }
+
+    public StringProperty startTimeProperty() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime.get();
+    }
+
+
 }
