@@ -5,16 +5,9 @@ import client.admin.model.ReservationApprovalModel;
 import client.admin.view.ReservationApprovalView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import server.utility.ApprovalReservation;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +23,11 @@ public class ReservationApprovalController {
         this.model = new ReservationApprovalModel();
     }
 
-    public void loadTerminalData() {
-        reservationData = model.loadTerminalData();
-        view.setTerminalData(reservationData);
+    public void loadReservationData() {
+        reservationData = model.loadReservationData();
+        view.setReservationData(reservationData);
     }
+
     public void saveChanges() {
         model.saveReservationData(reservationData); // Save only the current table data
         JOptionPane.showMessageDialog(null, "Changes have been successfully saved!",
