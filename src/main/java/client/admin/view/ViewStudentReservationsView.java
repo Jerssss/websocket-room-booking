@@ -1,11 +1,13 @@
 package client.admin.view;
 
 import client.admin.controller.ViewStudentReservationsController;
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import server.admin.ViewStudentReservationsProcessor;
 import server.utility.StudentReservation;
 import java.util.List;
@@ -91,5 +93,39 @@ public class ViewStudentReservationsView {
         List<StudentReservation> reservations = ViewStudentReservationsProcessor.loadStudentReservationsFromXML();
         ObservableList<StudentReservation> observableList = FXCollections.observableArrayList(reservations);
         studResTableView.setItems(observableList);
+    }
+
+    public void searchButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), searchButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void searchButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), searchButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+
+    public void refreshButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void refreshButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
     }
 }

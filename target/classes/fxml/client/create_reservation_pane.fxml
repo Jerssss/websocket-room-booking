@@ -32,7 +32,11 @@
                             <children>
                                 <StackPane alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="163.0">
                                     <children>
-                                        <Button fx:id="redirectAddTerminalWindowButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Add a terminal" />
+                              <Button fx:id="redirectCreateReservationWindowButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#createButtonHovered" onMouseExited="#createButtonExited" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" text="Create Reservation" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Button>
                                     </children>
                                 </StackPane>
                             </children>
@@ -41,7 +45,11 @@
                             <children>
                                 <StackPane alignment="CENTER_RIGHT" prefHeight="74.0" prefWidth="61.0">
                                     <children>
-                                        <Button fx:id="refreshButton" mnemonicParsing="false" prefWidth="60.0" text="Refresh" />
+                              <Button fx:id="refreshButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#refreshButtonHovered" onMouseExited="#refreshButtonExited" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" text="Refresh" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                              </Button>
                                     </children>
                                 </StackPane>
                             </children>
@@ -50,7 +58,7 @@
                 </HBox>
             </children>
         </VBox>
-        <TableView fx:id="addTerminalTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="477.0" prefWidth="1015.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
+        <TableView fx:id="createReservationTableView" focusTraversable="false" minHeight="-Infinity" prefHeight="477.0" prefWidth="1015.0" style="-fx-font-size: 13;" stylesheets="@../../css/tablestyles.css">
             <columns>
                 <TableColumn fx:id="terminalColumn" editable="false" prefWidth="161.0" resizable="false" text="Terminal No." />
                 <TableColumn fx:id="roomNumberColumn" editable="false" prefWidth="161.0" resizable="false" text="Room No." />

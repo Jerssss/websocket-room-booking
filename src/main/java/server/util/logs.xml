@@ -21,4 +21,53 @@
         <Date>2025-02-17</Date>
         <Time>22:04:47</Time>
     </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:08:59</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:10:32</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:15:10</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:15:35</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:16:40</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:18:47</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Admin</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-18</Date>
+        <Time>18:19:24</Time>
+    </Log>
 </Logs>

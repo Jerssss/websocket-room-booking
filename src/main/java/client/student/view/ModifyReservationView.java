@@ -23,6 +23,8 @@ public class ModifyReservationView {
     @FXML
     private Button saveChangesButton;
     @FXML
+    private Button refreshButton;
+    @FXML
     private TextField searchStudResTextField;
 
     @FXML
@@ -60,6 +62,39 @@ public class ModifyReservationView {
     }
     public void saveChangesButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void searchButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), searchButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void searchButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), searchButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+
+    public void refreshButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void refreshButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
         st.setToX(0.9);
         st.setToY(0.9);
         st.setCycleCount(1);

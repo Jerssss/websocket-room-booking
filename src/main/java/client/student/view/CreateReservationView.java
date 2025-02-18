@@ -4,6 +4,7 @@ import client.admin.controller.AddNewTerminalController;
 import client.admin.controller.ModifyTerminalStatusController;
 import client.admin.view.AddNewTerminalView;
 import client.student.controller.CreateReservationController;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import server.admin.AddNewTerminalProcessor;
 import server.student.CreateReservationProcessor;
 import server.utility.Terminal;
@@ -218,5 +220,56 @@ public class CreateReservationView {
             CreateReservationView.reservationData.clear(); // Clear the current data
             CreateReservationView.reservationData.addAll(reservation);
         }
+    }
+
+    public void createButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), redirectCreateReservationWindowButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void createButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), redirectCreateReservationWindowButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+
+    public void refreshButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void refreshButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+
+    public void saveChangesButtonExited() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
+    }
+    public void saveChangesButtonHovered() {
+        ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
+        st.setToX(0.9);
+        st.setToY(0.9);
+        st.setCycleCount(1);
+        st.setAutoReverse(false);
+        st.play();
     }
 }
