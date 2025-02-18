@@ -25,6 +25,7 @@ import server.utility.Terminal;
 import java.io.IOException;
 
 public class ModifyTerminalStatusView {
+
     @FXML
     private Button searchButton;
     @FXML
@@ -41,6 +42,12 @@ public class ModifyTerminalStatusView {
     private TableColumn<Terminal, String> terminalColumn;
     @FXML
     private TableColumn<Terminal, String> terminalOSColumn;
+    @FXML
+    public TableColumn<Terminal, String> dateColumn;
+    @FXML
+    public TableColumn<Terminal, String> startTimeColumn;
+    @FXML
+    public TableColumn<Terminal, String> endTimeColumn;
     @FXML
     private TableColumn<Terminal, String> terminalStatusColumn;
     @FXML
@@ -65,6 +72,9 @@ public class ModifyTerminalStatusView {
         roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
         terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
         terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().reservationDateProperty());
+        startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+        endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
         terminalStatusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
         terminalStatusColumn.setCellFactory(createStyledStatusCellFactory());
         editColumn.setCellFactory(column -> createDeleteButtonCellFactory());
@@ -157,7 +167,7 @@ public class ModifyTerminalStatusView {
 
     private TableCell<Terminal, String> createDeleteButtonCellFactory() {
         return new TableCell<>() {
-            private final Button deleteButton = new Button("Remove Terminal");
+            private final Button deleteButton = new Button("Remove");
 
             {
                 deleteButton.setStyle("-fx-background-color: #0d3073; -fx-text-fill: white;");
