@@ -20,14 +20,23 @@ import java.util.List;
 
 public class CreateReservationProcessor {
     private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
+    private static final String RESERVATION_FILE_PATH = "src/main/java/server/util/reservation_approval.xml"; // Reservation file path
 
     public static List<Terminal> parseXML(String filePath) {
         List<Terminal> reservation = new ArrayList<>();
 
         try {
+            // Debugging statement to check if file exists
+            System.out.println("Attempting to parse XML file at: " + filePath);
+            File file = new File(filePath);
+            if (!file.exists()) {
+                System.out.println("File not found: " + filePath);
+                return reservation;
+            }
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File(filePath));
+            Document document = builder.parse(file);
 
             document.getDocumentElement().normalize();
             NodeList terminalNodes = document.getElementsByTagName("Terminal");
@@ -37,24 +46,42 @@ public class CreateReservationProcessor {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
+                    // Parsing the updated XML structure
                     String terminalId = getTagValue("terminal_id", element);
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOs = getTagValue("terminal_os", element);
-                    String terminalDate = getTagValue("day", element);
-                    String terminalTime = getTagValue("time", element);
+                    String terminalStatus = getTagValue("terminal_status", element); // New field
+                    String reservationDate = getTagValue("reservation_date", element); // Updated field
+                    String startTime = getTagValue("start_time", element); // Updated field
+                    String endTime = getTagValue("end_time", element); // Updated field
 
-                    reservation.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalDate, terminalTime));
+                    // Debugging statement to ensure correct parsing
+                    System.out.println("Parsed Terminal: ID=" + terminalId + ", Room=" + terminalRoom +
+                            ", OS=" + terminalOs + ", Status=" + terminalStatus + ", Date=" + reservationDate +
+                            ", Start Time=" + startTime + ", End Time=" + endTime);
+
+                    // Assuming the Terminal constructor matches the updated structure
+                    reservation.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus, reservationDate, startTime, endTime));
                 }
             }
         } catch (Exception e) {
+            System.out.println("Error parsing XML: " + e.getMessage());
             e.printStackTrace();
         }
         return reservation;
     }
 
-    public static boolean processReservationData(String terminalId, String room, String osType, String selectedDay, String selectedTime) {
+
+    public static boolean processReservationData(String reservationId, String userId, String terminalId,
+                                                 String roomId, String reservationDate, String startTime,
+                                                 String endTime, String status) {
         try {
-            File xmlFile = new File(FILE_PATH);
+            File xmlFile = new File(RESERVATION_FILE_PATH);
+            if (!xmlFile.exists()) {
+                System.out.println("Reservation file not found: " + RESERVATION_FILE_PATH);
+                return false;
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setIgnoringElementContentWhitespace(true);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -63,39 +90,59 @@ public class CreateReservationProcessor {
 
             Element root = doc.getDocumentElement();
 
-            // Validate if terminal ID exists in the specified room
-            if (isTerminalIdExistsInRoom(root, terminalId, room)) {
-                System.out.println("Error: Terminal ID already reserved in this room.");
+            // Debugging statement to check if terminal reservation exists for the same room/date
+            System.out.println("Checking if terminal ID " + terminalId + " is reserved for the same date/time...");
+            if (isTerminalIdExistsInRoomAndDate(root, terminalId, roomId, reservationDate, startTime, endTime)) {
+                System.out.println("Error: Terminal ID already reserved in this room for the specified date and time.");
                 return false;
             }
 
             // Proceed to add the reservation if validation is passed
             Element newReservation = doc.createElement("Reservation");
 
-            Element id = doc.createElement("terminal_id");
-            id.appendChild(doc.createTextNode("PC" + terminalId.trim()));
+            // Create and append reservation elements
+            Element id = doc.createElement("reservation_id");
+            id.appendChild(doc.createTextNode(reservationId));
             newReservation.appendChild(id);
 
-            Element roomElement = doc.createElement("terminal_room");
-            roomElement.appendChild(doc.createTextNode(room.trim()));
-            newReservation.appendChild(roomElement);
+            Element userIdElement = doc.createElement("user_id");
+            userIdElement.appendChild(doc.createTextNode(userId));
+            newReservation.appendChild(userIdElement);
 
-            Element os = doc.createElement("terminal_os");
-            os.appendChild(doc.createTextNode(osType.trim()));
-            newReservation.appendChild(os);
+            Element terminalIdElement = doc.createElement("terminal_id");
+            terminalIdElement.appendChild(doc.createTextNode(terminalId));
+            newReservation.appendChild(terminalIdElement);
 
-            Element dayElement = doc.createElement("day");
-            dayElement.appendChild(doc.createTextNode(selectedDay.trim()));
-            newReservation.appendChild(dayElement);
+            Element roomIdElement = doc.createElement("room_id");
+            roomIdElement.appendChild(doc.createTextNode(roomId));
+            newReservation.appendChild(roomIdElement);
 
-            Element timeElement = doc.createElement("time");
-            timeElement.appendChild(doc.createTextNode(selectedTime.trim()));
-            newReservation.appendChild(timeElement);
+            Element reservationDateElement = doc.createElement("reservation_date");
+            reservationDateElement.appendChild(doc.createTextNode(reservationDate));
+            newReservation.appendChild(reservationDateElement);
 
+            Element startTimeElement = doc.createElement("start_time");
+            startTimeElement.appendChild(doc.createTextNode(startTime));
+            newReservation.appendChild(startTimeElement);
+
+            Element endTimeElement = doc.createElement("end_time");
+            endTimeElement.appendChild(doc.createTextNode(endTime));
+            newReservation.appendChild(endTimeElement);
+
+            Element statusElement = doc.createElement("status");
+            statusElement.appendChild(doc.createTextNode(status));
+            newReservation.appendChild(statusElement);
+
+            // Add the new reservation to the root
             root.appendChild(newReservation);
 
+            // Debugging statement for XML update process
+            System.out.println("Adding reservation to XML...");
+
+            // Remove white spaces from the document
             removeWhiteSpaces(doc);
 
+            // Save the updated XML file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -103,46 +150,68 @@ public class CreateReservationProcessor {
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new FileOutputStream(FILE_PATH));
+            StreamResult result = new StreamResult(new FileOutputStream(RESERVATION_FILE_PATH));
             transformer.transform(source, result);
 
             System.out.println("Reservation added successfully.");
             return true;
         } catch (Exception e) {
+            System.out.println("Error processing reservation data: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
-    // Validate if terminal ID already reserved for a given room
-    private static boolean isTerminalIdExistsInRoom(Element root, String terminalId, String room) {
-        NodeList terminalNodes = root.getElementsByTagName("Reservation");
-        for (int i = 0; i < terminalNodes.getLength(); i++) {
-            Element terminalElement = (Element) terminalNodes.item(i);
+    private static boolean isTerminalIdExistsInRoomAndDate(Element root, String terminalId, String roomId,
+                                                           String reservationDate, String startTime, String endTime) {
+        NodeList reservations = root.getElementsByTagName("Reservation");
+        for (int i = 0; i < reservations.getLength(); i++) {
+            Element reservation = (Element) reservations.item(i);
+            String existingTerminalId = reservation.getElementsByTagName("terminal_id").item(0).getTextContent();
+            String existingRoomId = reservation.getElementsByTagName("room_id").item(0).getTextContent();
+            String existingReservationDate = reservation.getElementsByTagName("reservation_date").item(0).getTextContent();
+            String existingStartTime = reservation.getElementsByTagName("start_time").item(0).getTextContent();
+            String existingEndTime = reservation.getElementsByTagName("end_time").item(0).getTextContent();
 
-            String existingTerminalId = terminalElement.getElementsByTagName("terminal_id").item(0).getTextContent();
-            String existingRoom = terminalElement.getElementsByTagName("terminal_room").item(0).getTextContent();
+            // Debugging: Checking the conflicting reservation data
+            System.out.println("Existing reservation: TerminalID=" + existingTerminalId + ", Room=" + existingRoomId +
+                    ", Date=" + existingReservationDate + ", StartTime=" + existingStartTime +
+                    ", EndTime=" + existingEndTime);
 
-            // If the terminal ID matches and the room matches, return true (duplicate found)
-            if (existingTerminalId.equals("PC" + terminalId.trim()) && existingRoom.equals(room.trim())) {
-                return true;
+            if (existingTerminalId.equals(terminalId) && existingRoomId.equals(roomId) &&
+                    existingReservationDate.equals(reservationDate) &&
+                    !(existingEndTime.compareTo(startTime) <= 0 || existingStartTime.compareTo(endTime) >= 0)) {
+                return true; // Conflict found
             }
         }
-        return false; // Return false if no duplicates found
+        return false; // No conflict found
     }
 
-    private static void removeWhiteSpaces(Node node) {
-        NodeList children = node.getChildNodes();
-        for (int i = children.getLength() - 1; i >= 0; i--) {
-            Node child = children.item(i);
-            if (child.getNodeType() == Node.TEXT_NODE && child.getNodeValue().trim().isEmpty()) {
-                node.removeChild(child);
-            } else if (child.getNodeType() == Node.ELEMENT_NODE) {
-                removeWhiteSpaces(child);
+    private static void removeWhiteSpaces(Document doc) {
+        // First, clean up all text nodes (trim them)
+        NodeList nodeList = doc.getElementsByTagName("*");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.TEXT_NODE) {
+                String text = node.getNodeValue().trim();
+                node.setNodeValue(text);
+            }
+        }
+
+        // Second, remove unwanted whitespace between elements (unnecessary spaces between tags)
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String content = element.getTextContent().trim();
+                if (content.isEmpty()) {
+                    // If the element content is empty after trimming, remove it
+                    element.setTextContent("");
+                }
             }
         }
     }
-    // Helper method to extract the value of a tag
+
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag);
         if (nodeList.getLength() > 0) {
@@ -151,5 +220,4 @@ public class CreateReservationProcessor {
         }
         return null;
     }
-
 }

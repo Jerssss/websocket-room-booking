@@ -22,6 +22,13 @@ import java.util.List;
 
 public class CreateReservationView {
 
+
+    @FXML
+    private TextField startTimeTextField;
+    @FXML
+    private TextField endTimeTextField;
+    @FXML
+    private DatePicker datePicker;
     @FXML
     private VBox centerPane;
 
@@ -36,6 +43,16 @@ public class CreateReservationView {
 
     @FXML
     private TableColumn<Terminal, String> terminalOSColumn;
+
+    @FXML
+    private TableColumn <Terminal, String>statusColumn;
+    @FXML
+    private TableColumn<Terminal, String> dateColumn;
+    @FXML
+    private TableColumn<Terminal, String> startTimeColumn;
+    @FXML
+    private TableColumn <Terminal, String>endTimeColumn;
+
 
     @FXML
     private TableColumn<Terminal, String> dayColumn;
@@ -70,39 +87,30 @@ public class CreateReservationView {
     private String room;
     private String osType;
 
+    public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
+        saveChangesButton.setOnAction(handler);
+    }
+    public Button getSaveChangesButton() {
+        return saveChangesButton;
+    }
+  public static ObservableList<Terminal> reservationData = FXCollections.observableArrayList();
+    private CreateReservationController controller;
 
-    private CreateReservationController controller = new CreateReservationController(this);
-    public static ObservableList<Terminal> reservationData = FXCollections.observableArrayList();
-
-    public void setController (CreateReservationController controller) {this.controller = controller;}
-
+    public void setController(CreateReservationController controller) {
+        this.controller = controller;
+        System.out.println("[DEBUG] Controller has been set in AddNewTerminalView.");
+    }
     public void initialize() {
+
+
+        setupSaveChangesButtonAction();
+
         if (redirectCreateReservationWindowButton != null) {
             redirectCreateReservationWindowButton.setOnAction(CreateReservationController::redirectCreateReservationWindow);
         }
+
+
         Platform.runLater(() -> {
-            if (timeComboBox != null) {
-                ObservableList<String> timeOptions = FXCollections.observableArrayList(
-                        "09:30-17:30",
-                        "11:30-16:30",
-                        "07:30-15:30"
-                );
-                timeComboBox.setItems(timeOptions);
-            }
-
-            if (dayComboBox != null) {
-                ObservableList<String> days = FXCollections.observableArrayList(
-                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-                );
-                dayComboBox.setItems(days);
-            }
-
-            if (terminalOSComboBox != null) {
-                ObservableList<String> os = FXCollections.observableArrayList(
-                        "macOS", "Windows"
-                );
-                terminalOSComboBox.setItems(os);
-            }
 
             if (roomNumberComboBox != null) {
                 ObservableList<String> room = FXCollections.observableArrayList(
@@ -114,14 +122,16 @@ public class CreateReservationView {
 
         // Ensure table columns are initialized before setting cell value factories
         if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
-                && dayColumn != null && timeColumn != null && createReservationTableView != null) {
+                && statusColumn != null && dateColumn != null && startTimeColumn != null
+                && endTimeColumn != null && createReservationTableView != null) {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
             terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-            dayColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-            timeColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
-
+            statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
+            dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+            startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+            endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
             // Load data from XML
             CreateReservationController.loadDataFromXML("src/main/java/server/util/terminal.xml");
 
@@ -134,33 +144,17 @@ public class CreateReservationView {
         }
     }
 
-    public ComboBox<String> getDayComboBox() {
-        return dayComboBox;
-    }
 
-    public void setDayComboBox(ComboBox<String> dayComboBox) {
-        this.dayComboBox = dayComboBox;
-    }
 
-    public ComboBox<String> getTimeComboBox() {
-        return timeComboBox;
-    }
 
-    public void setTimeComboBox(ComboBox<String> timeComboBox) {
-        this.timeComboBox = timeComboBox;
-    }
+
     public ComboBox<String> getRoomNumberComboBox() {
         return roomNumberComboBox;
     }
     public void setRoomNumberComboBox(ComboBox<String> roomNumberComboBox) {
         this.roomNumberComboBox = roomNumberComboBox;
     }
-    public ComboBox<String> getTerminalOSComboBox() {
-        return terminalOSComboBox;
-    }
-    public void setTerminalOSComboBox(ComboBox<String> terminalOSComboBox) {
-        this.terminalOSComboBox = terminalOSComboBox;
-    }
+
 
 
     public void setTerminalData(ObservableList<Terminal> data) {
@@ -208,11 +202,13 @@ public class CreateReservationView {
     }
 
     // Setters and getters for button actions
-    public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
-   //     saveChangesButton.setOnAction(handler);
-    }
-    public Button getSaveChangesButton() {
-        return saveChangesButton;
+    private void setupSaveChangesButtonAction() {
+        if (saveChangesButton != null) {
+            saveChangesButton.setOnAction(event -> {
+                System.out.println("[DEBUG] Save changes action triggered.");
+                // Handle save action here
+            });
+        }
     }
 
     // Method to load data from the XML file
@@ -289,5 +285,29 @@ public class CreateReservationView {
         st.setCycleCount(1);
         st.setAutoReverse(false);
         st.play();
+    }
+
+    public TextField getStartTimeTextField() {
+        return startTimeTextField;
+    }
+
+    public void setStartTimeTextField(TextField startTimeTextField) {
+        this.startTimeTextField = startTimeTextField;
+    }
+
+    public TextField getEndTimeTextField() {
+        return endTimeTextField;
+    }
+
+    public void setEndTimeTextField(TextField endTimeTextField) {
+        this.endTimeTextField = endTimeTextField;
+    }
+
+    public DatePicker getDatePicker() {
+        return datePicker;
+    }
+
+    public void setDatePicker(DatePicker datePicker) {
+        this.datePicker = datePicker;
     }
 }
