@@ -96,7 +96,7 @@
                      <children>
                         <StackPane alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="370.0">
                            <children>
-                              <TextField fx:id="dateTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="108.0" promptText="Date" stylesheets="@../../css/styles.css" translateX="80.0">
+                              <TextField fx:id="dateTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="108.0" promptText="YYYY-MM-DD" stylesheets="@../../css/styles.css" translateX="80.0">
                                  <styleClass>
                                     <String fx:value="background-pane" />
                                     <String fx:value="text-field2" />
