@@ -63,6 +63,8 @@ public class ViewReservationView {
     @FXML
     public void initialize() {
         System.out.println("ViewReservationsView initialized!");
+
+        // Initialize columns with data
         reservationIDColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getReservationId()));
         terminalNumberColumn.setCellValueFactory(cellData ->
@@ -78,19 +80,37 @@ public class ViewReservationView {
         statusColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getStatus()));
 
+        // Initialize the controller with the view and model
         new ViewReservationController(this, model);
 
-        if (searchButton != null) {
-            System.out.println("Search button exists in FXML!");
-        } else {
-            System.out.println("ERROR: Search button is NULL!");
-        }
+        // Event handler for search button
+        searchButton.setOnAction(e -> searchReservations());
 
-        if (searchResTextField != null) {
-            System.out.println("Search field exists in FXML!");
-        } else {
-            System.out.println("ERROR: Search field is NULL!");
-        }
+        // Event handler for refresh button
+        refreshButton.setOnAction(e -> refreshReservations());
+    }
+
+
+    public void searchReservations() {
+        String searchText = searchResTextField.getText().toLowerCase();
+        List<Reservation> filteredReservations = model.fetchReservations().stream()
+                .filter(reservation ->
+                        reservation.getReservationId().toLowerCase().contains(searchText) ||
+                                reservation.getTerminalNumber().toLowerCase().contains(searchText) ||
+                                reservation.getRoomNumber().toLowerCase().contains(searchText) ||
+                                reservation.getDate().toLowerCase().contains(searchText) ||
+                                reservation.getStartTime().toLowerCase().contains(searchText) ||
+                                reservation.getEndTime().toLowerCase().contains(searchText) ||
+                                reservation.getStatus().toLowerCase().contains(searchText)
+                )
+                .toList();
+
+        ObservableList<Reservation> filteredData = FXCollections.observableArrayList(filteredReservations);
+        viewResTableView.setItems(filteredData);
+    }
+
+    private void refreshReservations() {
+        showReservationsInTable();
     }
 
     public void initializeWithToken() {

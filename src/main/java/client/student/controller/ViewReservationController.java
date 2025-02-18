@@ -13,19 +13,21 @@ public class ViewReservationController {
     private ViewReservationView view;
     private ViewReservationModel model;
 
-    public ViewReservationController(ViewReservationView view, ViewReservationModel model) {
-        this.view = view;
-        this.model = model;
-        initializeEventHandlers();
-    }
+        public ViewReservationController(ViewReservationView view, ViewReservationModel model) {
+            this.view = view;
+            this.model = model;
+            initializeEventHandlers();
+        }
 
-    private void initializeEventHandlers() {
-        view.getRefreshButton().setOnAction(e -> refreshReservations());
-    }
+        private void initializeEventHandlers() {
+            // Assign event handlers for refresh and search buttons
+            view.getRefreshButton().setOnAction(e -> refreshReservations());
+            view.getSearchButton().setOnAction(e -> view.searchReservations());
+        }
 
-    private void refreshReservations() {
-        List<Reservation> reservations = model.fetchReservations();
-        TableView<Reservation> tableView = view.getViewResTableView();
-        tableView.setItems(FXCollections.observableArrayList(reservations));
-    }
+        private void refreshReservations() {
+            List<Reservation> reservations = model.fetchReservations();
+            view.getViewResTableView().setItems(FXCollections.observableArrayList(reservations));
+
+        }
 }
