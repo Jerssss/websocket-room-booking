@@ -1,32 +1,37 @@
 <Admins>
     <Admin>
-        <Admin_ID>admin1</Admin_ID>
+        <Admin_ID>2250001</Admin_ID>
         <Name>Dina Matuto</Name>
         <Type>Super Admin</Type>
-        <Password>admin123</Password>
+        <Password>2250001</Password>
+        <FacultyType>Administration</FacultyType>
     </Admin>
     <Admin>
-        <Admin_ID>4321</Admin_ID>
+        <Admin_ID>2250002</Admin_ID>
         <Name>Tony Fowler</Name>
-        <Password>4321</Password>
+        <Type>Admin</Type>
+        <Password>2250002</Password>
         <FacultyType>Custodian</FacultyType>
     </Admin>
     <Admin>
-        <Admin_ID>2222222</Admin_ID>
-        <Name>jgjkg</Name>
-        <Password>12345678</Password>
-        <FacultyType>super</FacultyType>
+        <Admin_ID>2250003</Admin_ID>
+        <Name>Katkat Samcis</Name>
+        <Type>Admin</Type>
+        <Password>2250003</Password>
+        <FacultyType>Supervision</FacultyType>
+    </Admin>
+    <Admin>
+        <Admin_ID>2250004</Admin_ID>
+        <Name>Dionela Marilag</Name>
+        <Type>Admin</Type>
+        <Password>2250004</Password>
+        <FacultyType>Management</FacultyType>
     </Admin>
     <Admin>
         <Admin_ID>1</Admin_ID>
-        <Name>Dionela Marilag</Name>
+        <Name>Admin Test</Name>
+        <Type>Admin</Type>
         <Password>1</Password>
-        <FacultyType>1</FacultyType>
-    </Admin>
-    <Admin>
-        <Admin_ID>56765</Admin_ID>
-        <Name>test</Name>
-        <Password>test</Password>
-        <FacultyType>test</FacultyType>
+        <FacultyType>Support</FacultyType>
     </Admin>
 </Admins>
