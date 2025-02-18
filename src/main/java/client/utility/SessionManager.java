@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SessionManager {
     // Thread-safe map to store sessions: <SessionToken, UserID>
     public static final Map<String, String> activeSessions = new ConcurrentHashMap<>();
-    private static String sessionToken;
 
     public static void createSession(String sessionToken, String userId) {
         activeSessions.put(sessionToken, userId);
@@ -18,5 +17,10 @@ public class SessionManager {
 
     public static void invalidateSession(String sessionToken) {
         activeSessions.remove(sessionToken);
+    }
+
+    // Method to check if a session is valid
+    public static boolean isValidSession(String sessionToken) {
+        return activeSessions.containsKey(sessionToken);
     }
 }

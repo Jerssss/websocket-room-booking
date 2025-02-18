@@ -8,6 +8,7 @@ import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
 import server.admin.AddNewTerminalProcessor;
 import server.admin.ViewStudentReservationsProcessor;
+import server.student.ModifyReservationProcessor;
 import server.utility.ApprovalReservation;
 import server.utility.Reservation;
 import server.utility.StudentReservation;
@@ -67,7 +68,12 @@ public class ClientHandler implements Runnable {
                         handleReservationApprovals(writer);
                     } else if (clientMessage.contains("<Request><Type>ViewReservations</Type></Request>")) {
                         handleViewReservations(clientMessage, writer);
-                    } else {
+                    }else if (clientMessage.contains("<DeleteReservation>")) {
+                        handleDeleteReservation(clientMessage, writer);
+                    }else if (clientMessage.contains("<ModifyReservation>")) {
+                        handleModifyReservation(clientMessage, writer);
+                    }
+                    else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
@@ -286,6 +292,38 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
             return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
         }
+    }
+
+    private void handleModifyReservation(String clientMessage, PrintWriter writer) {
+        String sessionToken = extractField(clientMessage, "<SessionToken>", "</SessionToken>");
+        String reservationId = extractField(clientMessage, "<ReservationId>", "</ReservationId>");
+        String newStatus = extractField(clientMessage, "<Status>", "</Status>");
+
+        if (!SessionManager.isValidSession(sessionToken)) {
+            writer.println("<Response><Status>ERROR</Status><Message>Invalid session</Message></Response>");
+            return;
+        }
+
+        // Update the reservation in XML
+        ModifyReservationProcessor.updateReservation(new Reservation(
+                reservationId, "", "", "", "", "", "", newStatus
+        ));
+
+        writer.println("<Response><Status>SUCCESS</Status><Message>Reservation updated</Message></Response>");
+    }
+
+    private void handleDeleteReservation(String clientMessage, PrintWriter writer) {
+        String sessionToken = extractField(clientMessage, "<SessionToken>", "</SessionToken>");
+        String reservationId = extractField(clientMessage, "<ReservationId>", "</ReservationId>");
+
+        if (!SessionManager.isValidSession(sessionToken)) {
+            writer.println("<Response><Status>ERROR</Status><Message>Invalid session</Message></Response>");
+            return;
+        }
+
+        // Delete the reservation from XML
+        ModifyReservationProcessor.deleteReservation(reservationId);
+        writer.println("<Response><Status>SUCCESS</Status><Message>Reservation deleted</Message></Response>");
     }
 
     /**
