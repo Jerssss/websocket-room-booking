@@ -1,8 +1,5 @@
 package server;
 
-import client.admin.controller.ViewStudentReservationsController;
-import client.utility.ServerConnection;
-import client.utility.ServerConnectionManager;
 import client.utility.SessionManager;
 import client.utility.SessionTokenGenerator;
 import org.w3c.dom.Node;
@@ -11,20 +8,14 @@ import server.landingpage.LoginProcessor;
 import server.landingpage.SignUpProcessor;
 import server.admin.AddNewTerminalProcessor;
 import server.admin.ViewStudentReservationsProcessor;
-import server.student.CreateReservationProcessor;
-import server.student.ModifyReservationProcessor;
-import server.student.ViewReservationProcessor;
-import server.admin.ReservationApprovalProcessor;
 import server.utility.ApprovalReservation;
 import server.utility.Reservation;
 import server.utility.StudentReservation;
 
 import java.io.*;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -69,15 +60,11 @@ public class ClientHandler implements Runnable {
                         handleSignUp(clientMessage, writer);
                     } else if (clientMessage.contains("<AddTerminal>")) {
                         handleAddTerminal(clientMessage, writer);
-                    } else if (clientMessage.contains("<Request><Type>ViewReservations</Type></Request>")) {
-                        handleViewReservation(writer);
-                    } else if (clientMessage.contains("<Request><Type>CreateReservations</Type></Request>")) {
-                        handleCreateReservation(clientMessage, writer);
                     } else if (clientMessage.contains("<Request><Type>ViewStudentReservations</Type></Request>")) {
                         handleViewStudentReservations(writer);
                     }else if (clientMessage.contains("<Type>ViewReservationApprovals</Type>")) {
                         handleReservationApprovals(writer);
-                    }else {
+                    }  else {
                         writer.println("<Response><Status>ERROR</Status><Message>Invalid Request.</Message></Response>");
                     }
                 } catch (Exception e) {
@@ -205,6 +192,7 @@ public class ClientHandler implements Runnable {
     /**
      * Handles fetching user reservations.
      */
+
     private void handleReservationApprovals(PrintWriter writer) {
         try {
             System.out.println("Fetching Reservation Approvals...");
@@ -281,64 +269,6 @@ public class ClientHandler implements Runnable {
             return "<Response><Status>ERROR</Status><Message>Internal Server Error</Message></Response>";
         }
     }
-
-    /**
-     * Handles viewing reservations
-     */
-    private void handleViewReservation(PrintWriter writer) {
-        try {
-            List<Reservation> reservations = ViewReservationProcessor.loadReservationFromXML();
-            writer.println(createReservations2XMLResponse(reservations));
-        } catch (Exception e) {
-            e.printStackTrace();
-            writer.println("<Response><Status>ERROR</Status><Message>Unable to fetch reservations.</Message></Response>");
-        }
-    }
-
-    /**
-     * Handles creating reservations
-     */
-    private void handleCreateReservation(String clientMessage, PrintWriter writer) {
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new ByteArrayInputStream(clientMessage.getBytes()));
-
-            Element root = doc.getDocumentElement();
-            String terminalId = root.getElementsByTagName("TerminalID").item(0).getTextContent();
-            String room = root.getElementsByTagName("Room").item(0).getTextContent();
-            String osType = root.getElementsByTagName("OSType").item(0).getTextContent();
-
-            // Extract day and time safely
-            String day = root.getElementsByTagName("Day").getLength() > 0 ?
-                    root.getElementsByTagName("Day").item(0).getTextContent() : "N/A";
-            String time = root.getElementsByTagName("Time").getLength() > 0 ?
-                    root.getElementsByTagName("Time").item(0).getTextContent() : "N/A";
-
-            boolean success = new CreateReservationProcessor().processReservationData(terminalId, room, osType, day, time);
-            writer.println(createXMLResponse(success, success ? "Reservation added successfully." : "Failed to add reservation."));
-        } catch (Exception e) {
-            e.printStackTrace();
-            writer.println("<Response><Status>ERROR</Status><Message>Invalid XML Format</Message></Response>");
-        }
-    }
-
-  /*
-  wait lang/
-
-
-  private void handleUpdateReservation(String clientMessage, PrintWriter writer) {
-        Map<String, String> updates = parseUpdateRequest(clientMessage);
-        String reservationId = updates != null ? updates.get("ReservationID") : null;
-
-        // Remove ReservationID from updates since it's not modifiable
-        updates.remove("ReservationID");
-
-        ModifyReservationProcessor processor = new ModifyReservationProcessor(currentUser);
-        String response = processor.updateReservation(reservationId, updates);
-        writer.println(response);
-    }
-    */
 
     /**
      * Extracts a field from the XML message.
