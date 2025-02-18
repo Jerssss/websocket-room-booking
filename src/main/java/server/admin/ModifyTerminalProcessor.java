@@ -1,5 +1,7 @@
 package server.admin;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.w3c.dom.*;
 import server.utility.Terminal;
 import javax.xml.parsers.*;
@@ -9,6 +11,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModifyTerminalProcessor {
     private static final String filePath = "src/main/java/server/util/terminal.xml";
@@ -51,6 +54,26 @@ public class ModifyTerminalProcessor {
             return node.getTextContent();
         }
         return null;
+    }
+
+    public static ObservableList<Terminal> searchTerminals(ObservableList<Terminal> terminalData, String searchText) {
+
+        if (searchText == null || searchText.trim().isEmpty()) {
+            System.out.println("[DEBUG] Search text is empty. Resetting to full terminal list.");
+            return terminalData;
+        }
+
+        String lowerCaseSearchText = searchText.toLowerCase();
+        ObservableList<Terminal> filteredList = terminalData.stream()
+                .filter(terminal ->
+                        terminal.getTerminalRoom().toLowerCase().contains(lowerCaseSearchText) ||
+                                terminal.getTerminalId().toLowerCase().contains(lowerCaseSearchText) ||
+                                terminal.getTerminalOs().toLowerCase().contains(lowerCaseSearchText) ||
+                                terminal.getTerminalStatus().toLowerCase().contains(lowerCaseSearchText))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+        System.out.println("[DEBUG] Search completed. Matching results: " + filteredList.size());
+        return filteredList;
     }
 
 
