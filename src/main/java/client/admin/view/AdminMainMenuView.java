@@ -45,6 +45,8 @@ public class AdminMainMenuView {
     @FXML
     private ToggleButton serverToggleButton;
 
+    private Button currentlyHighlightedButton;
+
     /** Load a new view inside the main menu */
     private void loadView(String fxmlFile) {
         try {
@@ -95,29 +97,44 @@ public class AdminMainMenuView {
 
     /** Event handler for Add Terminal Button */
     public void setActionAddNewTerminalButton(EventHandler<ActionEvent> event) {
-        addNewTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/add_terminal_pane.fxml"));
+        addNewTerminalButton.setOnAction(event1 -> {
+            highlightButton(addNewTerminalButton); //highlight the button when clicked
+            loadView("/fxml/admin/add_terminal_pane.fxml"); //load the view
+        });
     }
 
     /** Event handler for View Student Reservations Button */
     public void setActionShowStudentReservationButton(EventHandler<ActionEvent> event) {
-        showStudentReservationButton.setOnAction(event1 -> loadView("/fxml/admin/student_reservations_pane.fxml"));
+        showStudentReservationButton.setOnAction(event1 -> {
+            highlightButton(showStudentReservationButton); //highlight the button when clicked
+            loadView("/fxml/admin/student_reservations_pane.fxml"); //load the view
+        });
     }
 
     /** Event handler for Modify Terminal Button */
     public void setActionModifyTerminalButton(EventHandler<ActionEvent> event) {
-        modifyTerminalButton.setOnAction(event1 -> loadView("/fxml/admin/modify_terminal_pane.fxml"));
+        modifyTerminalButton.setOnAction(event1 -> {
+            highlightButton(modifyTerminalButton); //highlight the button when clicked
+            loadView("/fxml/admin/modify_terminal_pane.fxml"); //load the view
+        });
     }
 
 
 
     /** Event handler for Reservation Approval Button */
     public void setActionResApprovalButton(EventHandler<ActionEvent> event) {
-        resApprovalButton.setOnAction(event1 -> loadView("/fxml/admin/reservation_approval_pane.fxml"));
+        resApprovalButton.setOnAction(event1 -> {
+            highlightButton(resApprovalButton); //highlight the button when clicked
+            loadView("/fxml/admin/reservation_approval_pane.fxml"); //load the view
+        });
     }
 
     /** Event handler for Reports Button */
     public void setActionReportsButton(EventHandler<ActionEvent> event) {
-        reportsButton.setOnAction(event1 -> loadView("/fxml/admin/reports_pane.fxml"));
+        reportsButton.setOnAction(event1 -> {
+            highlightButton(reportsButton); //highlight the button when clicked
+            loadView("/fxml/admin/reports_pane.fxml"); //load the view
+        });
     }
 
     /** Event handler for Logout Button */
@@ -154,7 +171,19 @@ public class AdminMainMenuView {
         alert.showAndWait();
     }
 
+    private void highlightButton(Button button) {
+        //remove the highlight from the previously highlighted button
 
+        if (currentlyHighlightedButton != null) {
+            currentlyHighlightedButton.getStyleClass().remove("highlighted-button");
+        }
+
+        //highlight the new button
+        button.getStyleClass().add("highlighted-button");
+
+        //updates the currently highlighted button
+        currentlyHighlightedButton = button;
+    }
     public void logOutButtonExited() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), logOutButton);
         st.setToX(1.0);
