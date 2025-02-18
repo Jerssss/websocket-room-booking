@@ -38,6 +38,8 @@ public class StudentMainMenuView {
     @FXML
     private BorderPane rootPane;
 
+    private String sessionToken;
+
     private void loadView(String fxmlFile) {
         try {
             System.out.println("Loading FXML: " + fxmlFile);
@@ -53,6 +55,10 @@ public class StudentMainMenuView {
         }
     }
 
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
+        System.out.println("DEBUG: Session token set in StudentMainMenuView: " + sessionToken);
+    }
 
     public void setActionLogoutButton(EventHandler<ActionEvent> event) {
         logOutButton.setOnAction(event);
@@ -94,7 +100,23 @@ public class StudentMainMenuView {
 
     /** Event handler for View  Reservations Button */
     public void setActionViewReservationButton(EventHandler<ActionEvent> event) {
-        viewReservationButton.setOnAction(event1 -> loadView("/fxml/client/view_reservation_pane.fxml"));
+        viewReservationButton.setOnAction(event1 -> {
+            try {
+                // Load the ViewReservationView FXML
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client/view_reservation_pane.fxml"));
+                VBox view = loader.load();
+
+                // Get the controller and set the sessionToken
+                ViewReservationView viewController = loader.getController();
+                viewController.setSessionToken(sessionToken); // Pass the token here
+
+                // Add the view to the UI
+                rootPane.setCenter(view);
+            } catch (IOException e) {
+                e.printStackTrace();
+                showError("Failed to load view: /fxml/client/view_reservation_pane.fxml");
+            }
+        });
     }
 
     /** Event handler for Modify Reservation Button */
@@ -126,4 +148,9 @@ public class StudentMainMenuView {
         st.setAutoReverse(false);
         st.play();
     }
+
+    public BorderPane getBorderPane() {
+        return this.rootPane;
+    }
+
 }
