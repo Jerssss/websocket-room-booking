@@ -38,4 +38,5 @@ public class ModifyTerminalStatusController {
         JOptionPane.showMessageDialog(null, "Changes have been successfully saved!",
                 "Save Successful", JOptionPane.INFORMATION_MESSAGE);
     }
+
 }
