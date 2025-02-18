@@ -1,6 +1,5 @@
 package client.admin.view;
 
-import client.admin.controller.AddNewTerminalController;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
