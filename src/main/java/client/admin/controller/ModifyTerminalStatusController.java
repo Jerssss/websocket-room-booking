@@ -29,6 +29,7 @@ public class ModifyTerminalStatusController {
     }
 
     public void searchTerminals(String searchText){
+        System.out.println("[DEBUG] Searching for terminals with keyword: " + searchText);
         ObservableList<Terminal> filteredList = model.searchTerminals(terminalData, searchText);
         view.setTerminalData(filteredList);
     }

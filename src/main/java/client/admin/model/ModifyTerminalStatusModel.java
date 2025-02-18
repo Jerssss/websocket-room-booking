@@ -36,21 +36,7 @@ public class ModifyTerminalStatusModel {
 
     public ObservableList<Terminal> searchTerminals(ObservableList<Terminal> terminalData, String searchText) {
 
-        if (searchText == null || searchText.trim().isEmpty()) {
-            System.out.println("[DEBUG] Search text is empty. Resetting to full terminal list.");
-            return terminalData;
-        }
-
-        String lowerCaseSearchText = searchText.toLowerCase();
-        ObservableList<Terminal> filteredList = terminalData.stream()
-                .filter(terminal ->
-                        terminal.getTerminalRoom().toLowerCase().contains(lowerCaseSearchText) ||
-                                terminal.getTerminalId().toLowerCase().contains(lowerCaseSearchText) ||
-                                terminal.getTerminalOs().toLowerCase().contains(lowerCaseSearchText) ||
-                                terminal.getTerminalStatus().toLowerCase().contains(lowerCaseSearchText))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        System.out.println("[DEBUG] Search completed. Matching results: " + filteredList.size());
+        ObservableList<Terminal> filteredList = ModifyTerminalProcessor.searchTerminals(terminalData, searchText);
         return filteredList;
     }
 
