@@ -36,26 +36,6 @@ public class ReservationApprovalView {
 
     private final ObservableList<ApprovalReservation> reservationData = FXCollections.observableArrayList();
 
-    public TableView<ApprovalReservation> getApproveResTableView() {
-        return approveResTableView;
-    }
-
-    public void setActionSearchButton(EventHandler<ActionEvent> event) {
-        searchButton.setOnAction(event);
-    }
-
-    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
-        refreshButton.setOnAction(event);
-    }
-
-    public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
-        saveChangesButton.setOnAction(event);
-    }
-
-    public TextField getSearchStudResTextField() {
-        return searchStudResTextField;
-    }
-
     @FXML
     public void initialize() {
         System.out.println("Initializing ReservationApprovalView...");
@@ -74,8 +54,29 @@ public class ReservationApprovalView {
             controller.loadReservationData();
         }
 
+        setActionSearchButton(event -> controller.searchTerminals(searchStudResTextField.getText()));
+        setActionRefreshButton(event -> controller.loadReservationData());
         setActionSaveChangesButton(event -> controller.saveChanges());
 
+    }
+    public TableView<ApprovalReservation> getApproveResTableView() {
+        return approveResTableView;
+    }
+
+    public void setActionSearchButton(EventHandler<ActionEvent> event) {
+        searchButton.setOnAction(event);
+    }
+
+    public void setActionRefreshButton(EventHandler<ActionEvent> event) {
+        refreshButton.setOnAction(event);
+    }
+
+    public void setActionSaveChangesButton(EventHandler<ActionEvent> event) {
+        saveChangesButton.setOnAction(event);
+    }
+
+    public TextField getSearchStudResTextField() {
+        return searchStudResTextField;
     }
 
     public void setReservationData(ObservableList<ApprovalReservation> data) {
