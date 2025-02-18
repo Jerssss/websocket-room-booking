@@ -71,19 +71,19 @@ public class ReservationApprovalView {
         approveResTableView.setItems(reservationData);
 
         if (controller != null) {
-            controller.loadTerminalData();
+            controller.loadReservationData();
         }
 
         setActionSaveChangesButton(event -> controller.saveChanges());
 
     }
 
-    public void setTerminalData(ObservableList<ApprovalReservation> data) {
+    public void setReservationData(ObservableList<ApprovalReservation> data) {
         reservationData.setAll(data); // Update dataset
         approveResTableView.setItems(null); // Force reset
         approveResTableView.setItems(reservationData); // Reload table data
         approveResTableView.refresh(); // Force UI refresh
-        System.out.println("[DEBUG] Terminal data updated. New table size: " + reservationData.size());
+        System.out.println("[DEBUG] Reservation data updated. New table size: " + reservationData.size());
     }
 
     private Callback<TableColumn<ApprovalReservation, String>, TableCell<ApprovalReservation, String>> createStyledStatusCellFactory() {
