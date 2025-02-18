@@ -35,55 +35,84 @@ public class AddNewTerminalController {
     }
 
     private void handleSaveChange(ActionEvent event) {
-        // Get selected values from combo boxes
+        // Get user inputs
         String terminalId = view.getTerminalNoTextField().getText().trim();
         String room = view.getRoomNumberComboBox().getSelectionModel().getSelectedItem();
         String osType = view.getTerminalOSComboBox().getSelectionModel().getSelectedItem();
         String status = view.getStatusComboBox().getSelectionModel().getSelectedItem();
-        String selectedDay = view.getDayComboBox().getSelectionModel().getSelectedItem();
-        String selectedTime = view.getTimeComboBox().getSelectionModel().getSelectedItem();
+        String selectedTimeRange = view.getTimeComboBox().getSelectionModel().getSelectedItem();
+        String reservationDate = view.getDateTextField().getText().trim();
 
+        // Load existing data
         loadDataFromXML("src/main/java/server/util/terminal.xml");
 
         // Validate inputs
-        if (terminalId.isEmpty() || room == null || osType == null || status == null ||
-                selectedDay == null || selectedTime == null) {
-            JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including day and time.");
-            closeWindow(); // Close window even if there's an error
+        if (terminalId.isEmpty() || room == null || osType == null || status == null || selectedTimeRange == null || reservationDate.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including time and date.");
+            closeWindow();
             return;
         }
 
-        // Validate Terminal ID - must be numeric
+        // Ensure Terminal ID is numeric
         if (!terminalId.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "Error: Terminal ID must be a number.");
-            closeWindow(); // Close window even if there's an error
+            closeWindow();
             return;
         }
 
-        // Create model object
-        view.setTerminalId(terminalId);
-        view.setRoom(room);
-        view.setOsType(osType);
-        view.setStatus(status);
+        // Ensure reservation date follows the correct format YYYY-MM-DD
+        if (!reservationDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(null, "Error: Reservation date must be in the format YYYY-MM-DD (e.g., 2025-02-19).");
+            closeWindow();
+            return;
+        }
 
-        // Process the data with day & time included
+        // Split time into start and end
+        String[] times = selectedTimeRange.split("-");
+        if (times.length != 2) {
+            JOptionPane.showMessageDialog(null, "Error: Invalid time format.");
+            closeWindow();
+            return;
+        }
+        String startTime = times[0].trim();
+        String endTime = times[1].trim();
+
+        // **Check for duplicate time slot in the same room and date**
+        for (Terminal terminal : AddNewTerminalView.terminalResults) {
+            if (terminal.getTerminalRoom().equals(room) &&
+                    terminal.getReservationDate().equals(reservationDate) &&
+                    terminal.getStartTime().equals(startTime) &&
+                    terminal.getEndTime().equals(endTime)) {
+                JOptionPane.showMessageDialog(null, "Error: This time slot is already taken for this room!");
+                closeWindow();
+                return; // Prevent submission
+            }
+        }
+
+        // **Check for duplicate Terminal ID**
+        for (Terminal terminal : AddNewTerminalView.terminalResults) {
+            if (terminal.getTerminalId().equals(terminalId)) {
+                JOptionPane.showMessageDialog(null, "Error: Terminal ID already exists!");
+                closeWindow();
+                return; // Prevent submission
+            }
+        }
+
+        // **Save the new terminal entry**
         boolean success = AddNewTerminalProcessor.processTerminalData(
-                view.getTerminalId(),
-                view.getRoom(),
-                view.getOsType(),
-                view.getStatus(),
-                selectedDay,
-                selectedTime
+                terminalId, room, osType, status, reservationDate, selectedTimeRange
         );
 
         if (success) {
-            JOptionPane.showMessageDialog(null, "Success! Terminal has been added!");
+            JOptionPane.showMessageDialog(null, "Success! Terminal has been added.");
         } else {
-            JOptionPane.showMessageDialog(null, "Error: Terminal ID already exists.");
-            JOptionPane.showMessageDialog(null, "Error: Failed to create terminal. Try again");
+            JOptionPane.showMessageDialog(null, "Error: Failed to create terminal.");
         }
+
         closeWindow();
     }
+
+
 
     private void closeWindow() {
         Stage stage = (Stage) view.getSaveChangesButton().getScene().getWindow();
