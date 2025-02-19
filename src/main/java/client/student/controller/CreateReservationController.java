@@ -2,13 +2,11 @@ package client.student.controller;
 
 import client.student.model.CreateReservationModel;
 import client.student.view.CreateReservationView;
-
 import client.utility.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,6 +20,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -35,6 +34,7 @@ public class CreateReservationController {
         this.view = view;
         this.model = new CreateReservationModel();
         this.view.setSaveChangesButtonAction(this::handleSaveChange);
+        System.out.println("[DEBUG] CreateReservationController initialized.");
     }
 
     private void closeWindow() {
@@ -43,85 +43,142 @@ public class CreateReservationController {
     }
 
     private void handleSaveChange(ActionEvent event) {
-        // Get selected values from combo boxes
-        String sessionToken = getSessionToken(); // Get the session token
+        System.out.println("[DEBUG] Entering handleSaveChange.");
 
+        // Get session token and input values from view
+        String sessionToken = getSessionToken();
         String reservationId = getNextReservationId();
         String userId = SessionManager.getUserId(sessionToken);
-        String terminalId = view.getTerminalNoTextField().getText().trim();
+
+        // Process terminal ID:
+        String terminalIdRaw = view.getTerminalNoTextField().getText().trim();
+        String terminalId;
+        if (terminalIdRaw.matches("\\d+")) {
+            // If user typed just digits (e.g., "5"), prepend "PC"
+            terminalId = "PC" + terminalIdRaw;
+        } else if (terminalIdRaw.matches("(?i)^pc\\d+$")) {
+            // If input already matches "PC" followed by digits (case-insensitive), use it as is
+            terminalId = terminalIdRaw;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: Terminal ID format must match PC# (e.g. PC5).");
+            return;
+        }
+
+
+
         String room = view.getRoomNumberComboBox().getSelectionModel().getSelectedItem();
-        String reservationDate = view.getDatePicker().getValue().toString();
+        LocalDate selectedDate = view.getDatePicker().getValue();
+        String reservationDate = selectedDate != null ? selectedDate.toString() : "";
         String startTime = view.getStartTimeTextField().getText().trim();
         String endTime = view.getEndTimeTextField().getText().trim();
         String status = "Pending";
 
+        System.out.println("[DEBUG] Inputs: terminalId=" + terminalId + ", room=" + room +
+                ", reservationDate=" + reservationDate + ", startTime=" + startTime +
+                ", endTime=" + endTime);
+
         // Validate session token
         if (sessionToken == null || sessionToken.isEmpty()) {
+            System.out.println("[DEBUG] Invalid session token.");
             JOptionPane.showMessageDialog(null, "Session expired. Please log in again.");
-            return; // Prevent further actions if session is invalid
+            return;
+        }
+// Validate that the terminal is active
+        if (!isTerminalActive(terminalId)) {
+            System.out.println("[DEBUG] Terminal " + terminalId + " is not active.");
+            JOptionPane.showMessageDialog(null, "Error: Terminal is not active. Reservations can only be made to active terminals.");
+            return;
         }
 
-        // Validate inputs
-        if (terminalId.isEmpty() || room == null || reservationDate == null) {
+// NEW: Validate that the terminal actually belongs to the selected room
+        if (!doesTerminalMatchRoom(terminalId, room)) {
+            System.out.println("[DEBUG] Terminal " + terminalId + " does not exist in room " + room);
+            JOptionPane.showMessageDialog(null,
+                    "Error: The terminal " + terminalId + " does not exist in room " + room + "!");
+            return;
+        }
+
+// Validate Start Time and End Time and that the reservation does not exceed 2 hours (120 minutes)
+// ...
+
+        // Validate basic inputs
+        if (terminalId.isEmpty() || room == null || selectedDate == null
+                || startTime.isEmpty() || endTime.isEmpty()) {
+            System.out.println("[DEBUG] One or more required fields are empty.");
             JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including day and time.");
-            closeWindow(); // Close window even if there's an error
             return;
         }
 
-        // Validate Terminal ID - must be numeric
-        if (!terminalId.matches("\\d+")) {
-            JOptionPane.showMessageDialog(null, "Error: Terminal ID must be a number.");
-            closeWindow(); // Close window even if there's an error
-            return;
-        }
-
-        // Validate Start Time and End Time format (XX:XX military time)
+        // Validate time format (military time XX:XX)
         if (!startTime.matches("\\d{2}:\\d{2}") || !endTime.matches("\\d{2}:\\d{2}")) {
+            System.out.println("[DEBUG] Time format error: startTime=" + startTime + ", endTime=" + endTime);
             JOptionPane.showMessageDialog(null, "Error: Start time and end time must be in the format XX:XX (military time).");
-            closeWindow();
             return;
         }
 
-        // Validate that the start and end times are within a valid range
+        // Validate that reservation date is at least 1 day in advance and within 1 month
+        LocalDate today = LocalDate.now();
+        if (!selectedDate.isAfter(today)) {
+            System.out.println("[DEBUG] Reservation date " + selectedDate + " is not at least one day in advance.");
+            JOptionPane.showMessageDialog(null, "Error: Reservations must be made at least 1 day in advance and cannot be in the past.");
+            return;
+        }
+        if (selectedDate.isAfter(today.plusMonths(1))) {
+            System.out.println("[DEBUG] Reservation date " + selectedDate + " exceeds the maximum allowed one month in advance.");
+            JOptionPane.showMessageDialog(null, "Error: Reservations can be made at a maximum of 1 month in advance.");
+            return;
+        }
+
+        // Validate that the terminal is active
+        if (!isTerminalActive(terminalId)) {
+            System.out.println("[DEBUG] Terminal " + terminalId + " is not active.");
+            JOptionPane.showMessageDialog(null, "Error: Terminal is not active. Reservations can only be made to active terminals.");
+            return;
+        }
+
+        // Validate Start Time and End Time and that the reservation does not exceed 2 hours (120 minutes)
         try {
             LocalTime start = LocalTime.parse(startTime);
             LocalTime end = LocalTime.parse(endTime);
 
-            // Check that end time is after start time
             if (end.isBefore(start)) {
+                System.out.println("[DEBUG] End time " + endTime + " is before start time " + startTime + ".");
                 JOptionPane.showMessageDialog(null, "Error: End time cannot be before start time.");
-                closeWindow();
                 return;
             }
 
-            // Calculate the duration of the reservation
-            long duration = java.time.Duration.between(start, end).toHours();
-
-            // Validate if duration exceeds 2 hours
-            if (duration > 2) {
+            long durationMinutes = java.time.Duration.between(start, end).toMinutes();
+            if (durationMinutes > 120) {
+                System.out.println("[DEBUG] Reservation duration (" + durationMinutes + " minutes) exceeds maximum allowed 120 minutes.");
                 JOptionPane.showMessageDialog(null, "Error: Reservation time cannot exceed 2 hours.");
-                closeWindow();
                 return;
             }
-
         } catch (DateTimeParseException e) {
+            System.out.println("[DEBUG] Exception parsing times: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Error: Invalid time format.");
-            closeWindow();
             return;
         }
 
-        // Check if the user already has a pending reservation
-        if (hasPendingReservation(userId)) {
-            JOptionPane.showMessageDialog(null, "Error: You already have a pending reservation. Please finalize it first.");
-            closeWindow();
+        // Check if the user already has a reservation (any "active" status) -> only 1 reservation at a time
+        if (hasActiveReservation(userId)) {
+            System.out.println("[DEBUG] User " + userId + " already has a reservation (pending/approved).");
+            JOptionPane.showMessageDialog(null, "Error: You already have an active reservation. Please cancel or complete it first.");
             return;
         }
 
-        // Get the next reservation ID by parsing the reservation_approval.xml
+        // Validate that the selected time slot does not overlap with existing reservations for this terminal
+        if (CreateReservationProcessor.isReservationOverlapping(terminalId, room, reservationDate, startTime, endTime)) {
+            System.out.println("[DEBUG] Overlapping reservation found for terminal " + terminalId);
+            JOptionPane.showMessageDialog(null, "Error: The selected terminal is already reserved for this time slot.");
+            return;
+        }
+
+        // Set terminal details in the view (if needed)
         view.setTerminalId(terminalId);
         view.setRoom(room);
 
-        // Process the reservation data with the reservation details
+        // Process the reservation data with debugging info
+        System.out.println("[DEBUG] Calling CreateReservationProcessor.processReservationData with reservationId=" + reservationId);
         boolean success = CreateReservationProcessor.processReservationData(
                 reservationId,
                 userId,
@@ -130,139 +187,169 @@ public class CreateReservationController {
                 reservationDate,
                 startTime,
                 endTime,
-                "Pending" // Assuming the initial status is "Pending"
+                status
         );
 
-        // Handle the result of reservation processing
         if (success) {
+            System.out.println("[DEBUG] Reservation processed successfully.");
             JOptionPane.showMessageDialog(null, "Success! Reservation has been added!");
         } else {
+            System.out.println("[DEBUG] Reservation processing failed.");
             JOptionPane.showMessageDialog(null, "Error: Failed to create reservation. Try again.");
         }
 
-        closeWindow(); // Always close the window at the end
+        closeWindow();
+        System.out.println("[DEBUG] Exiting handleSaveChange.");
     }
 
-    // Method to check if the user has a pending reservation
-    private boolean hasPendingReservation(String userId) {
-        // Assuming you have a method to fetch reservations from the XML or database
+    /**
+     * Checks if the user already has an active reservation (e.g., "Pending" or "Approved").
+     * Adjust statuses as needed if your workflow differs.
+     */
+    private boolean hasActiveReservation(String userId) {
+        System.out.println("[DEBUG] Checking for any active reservation for user: " + userId);
         try {
-            File xmlFile = new File("server/util/reservation_approval.xml");
-
+            File xmlFile = new File("src/main/java/server/util/reservation_approval.xml");
             if (!xmlFile.exists()) {
-                return false; // If the XML file doesn't exist, assume no reservations
+                System.out.println("[DEBUG] Reservation XML file does not exist; assuming no reservations.");
+                return false;
             }
-
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
             NodeList reservationList = doc.getElementsByTagName("Reservation");
-
             for (int i = 0; i < reservationList.getLength(); i++) {
                 Node reservationNode = reservationList.item(i);
                 if (reservationNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element reservationElement = (Element) reservationNode;
-
                     String currentUserId = reservationElement.getElementsByTagName("user_id").item(0).getTextContent().trim();
-                    String status = reservationElement.getElementsByTagName("status").item(0).getTextContent().trim();
+                    String resStatus = reservationElement.getElementsByTagName("status").item(0).getTextContent().trim();
 
-                    // Check if the user has a pending reservation
-                    if (currentUserId.equals(userId) && "Pending".equals(status)) {
-                        return true; // User has a pending reservation
+                    // If the user has a reservation that's still "Pending" or "Approved," treat it as active
+                    if (currentUserId.equals(userId)
+                            && (resStatus.equalsIgnoreCase("Pending")
+                            || resStatus.equalsIgnoreCase("Approved"))) {
+                        System.out.println("[DEBUG] Found an active reservation for user: " + userId + " status: " + resStatus);
+                        return true;
                     }
                 }
             }
-
         } catch (Exception e) {
+            System.out.println("[DEBUG] Exception in hasActiveReservation: " + e.getMessage());
             e.printStackTrace();
         }
-        return false; // No pending reservations for the user
+        return false;
     }
 
+    // Retrieve session token
     private String getSessionToken() {
-        return SessionManager.getActiveSessionToken();
+        String token = SessionManager.getActiveSessionToken();
+        System.out.println("[DEBUG] Retrieved session token: " + token);
+        return token;
     }
 
+    // Generate next reservation ID from XML
     private String getNextReservationId() {
+        System.out.println("[DEBUG] Generating next reservation ID.");
         try {
-            File xmlFile = new File("server/util/reservation_approval.xml");
-
+            File xmlFile = new File("src/main/java/server/util/reservation_approval.xml");
             if (!xmlFile.exists()) {
-                System.out.println("XML file does not exist. Starting from ID 1.");
-                return "1"; // Start from 1 if the file does not exist
+                System.out.println("[DEBUG] Reservation XML file does not exist. Starting from ID 1.");
+                return "1";
             }
-
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
             NodeList reservationList = doc.getElementsByTagName("Reservation");
-
             if (reservationList.getLength() == 0) {
-                System.out.println("No reservations found. Starting from ID 1.");
-                return "1"; // No reservations yet
+                System.out.println("[DEBUG] No reservations found. Starting from ID 1.");
+                return "1";
             }
 
             int maxId = 0;
-            System.out.println("Existing Reservation IDs:");
-
             for (int i = 0; i < reservationList.getLength(); i++) {
                 Node reservationNode = reservationList.item(i);
                 if (reservationNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element reservationElement = (Element) reservationNode;
                     Node idNode = reservationElement.getElementsByTagName("reservation_id").item(0);
-
                     if (idNode != null) {
                         String idStr = idNode.getTextContent().trim();
                         try {
                             int id = Integer.parseInt(idStr);
-                            System.out.println("Found ID: " + id);
-                            maxId = Math.max(maxId, id); // Track the highest reservation ID
+                            maxId = Math.max(maxId, id);
                         } catch (NumberFormatException e) {
-                            System.err.println("Invalid reservation ID found: " + idStr);
+                            System.err.println("[DEBUG] Invalid reservation ID found: " + idStr);
                         }
                     } else {
-                        System.err.println("Missing <reservation_id> for a reservation.");
+                        System.err.println("[DEBUG] Missing <reservation_id> for a reservation.");
                     }
                 }
             }
-
-            // Return the next reservation ID by incrementing the highest found ID
-            System.out.println("Next reservation ID: " + (maxId + 1));
+            System.out.println("[DEBUG] Next reservation ID: " + (maxId + 1));
             return String.valueOf(maxId + 1);
-
         } catch (Exception e) {
+            System.out.println("[DEBUG] Exception in getNextReservationId: " + e.getMessage());
             e.printStackTrace();
-            return "Error"; // Ensure a string is always returned
+            return "Error";
         }
     }
+    /**
+     * Checks if the given terminal ID actually belongs to the given room number
+     * in the terminal.xml file.
+     */
+    private boolean doesTerminalMatchRoom(String terminalId, String room) {
+        System.out.println("[DEBUG] Checking if terminal " + terminalId + " belongs to room " + room);
+        List<Terminal> terminals = CreateReservationProcessor.parseXML("src/main/java/server/util/terminal.xml");
+        for (Terminal terminal : terminals) {
+            if (terminal.getTerminalId().equals(terminalId)) {
+                // Compare the room in XML with the user-selected room
+                if (terminal.getTerminalRoom().equals(room)) {
+                    return true; // Found a matching terminal-room combo
+                }
+            }
+        }
+        return false; // No match found
+    }
 
-
-
-
+    // Check if the given terminal is active by parsing the terminal.xml file
+    private boolean isTerminalActive(String terminalId) {
+        System.out.println("[DEBUG] Checking if terminal " + terminalId + " is active.");
+        List<Terminal> terminals = CreateReservationProcessor.parseXML("src/main/java/server/util/terminal.xml");
+        for (Terminal terminal : terminals) {
+            // Assuming Terminal has getTerminalId() and getTerminalStatus() methods.
+            if (terminal.getTerminalId().equals(terminalId)) {
+                System.out.println("[DEBUG] Terminal " + terminalId + " status: " + terminal.getTerminalStatus());
+                return "Active".equalsIgnoreCase(terminal.getTerminalStatus());
+            }
+        }
+        System.out.println("[DEBUG] Terminal " + terminalId + " not found or not active.");
+        return false;
+    }
 
     public static void redirectCreateReservationWindow(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(CreateReservationController.class.getResource("/fxml/client/add_reservation_window.fxml"));
             Parent root = loader.load();
             CreateReservationView view = loader.getController();
-            CreateReservationController controller = new CreateReservationController(view);
+            new CreateReservationController(view);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading Create Reservation GUI: " + e.getMessage());
+            System.out.println("[DEBUG] Error loading Create Reservation GUI: " + e.getMessage());
         }
     }
 
     public static void loadDataFromXML(String filePath) {
+        System.out.println("[DEBUG] Loading terminal data from XML: " + filePath);
         List<Terminal> reservation = CreateReservationProcessor.parseXML(filePath);
         if (reservation != null) {
-            CreateReservationView.reservationData.clear(); // Clear the current data
+            CreateReservationView.reservationData.clear();
             CreateReservationView.reservationData.addAll(reservation);
         }
     }
@@ -272,4 +359,3 @@ public class CreateReservationController {
         loadDataFromXML(filePath);
     }
 }
-

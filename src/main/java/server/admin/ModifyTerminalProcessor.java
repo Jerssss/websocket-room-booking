@@ -36,12 +36,11 @@ public class ModifyTerminalProcessor {
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOs = getTagValue("terminal_os", element);
                     String terminalStatus = getTagValue("terminal_status", element);
-                    String date = getTagValue("reservation_date", element);
                     String startTime = getTagValue("start_time", element);
                     String endTime = getTagValue("end_time", element);
 
 
-                    terminals.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus, date, startTime, endTime));
+                    terminals.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus, startTime, endTime));
                 }
             }
         } catch (Exception e) {
@@ -74,7 +73,6 @@ public class ModifyTerminalProcessor {
                                 terminal.getTerminalId().toLowerCase().contains(lowerCaseSearchText) ||
                                 terminal.getTerminalOs().toLowerCase().contains(lowerCaseSearchText) ||
                                 terminal.getTerminalStatus().toLowerCase().contains(lowerCaseSearchText) ||
-                                terminal.getReservationDate().toLowerCase().contains(lowerCaseSearchText) ||
                                 terminal.getStartTime().toLowerCase().contains(lowerCaseSearchText) ||
                                 terminal.getEndTime().toLowerCase().contains(lowerCaseSearchText))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
@@ -100,7 +98,6 @@ public class ModifyTerminalProcessor {
                 appendChildWithText(document, terminalElement, "terminal_room", terminal.getTerminalRoom());
                 appendChildWithText(document, terminalElement, "terminal_os", terminal.getTerminalOs());
                 appendChildWithText(document, terminalElement, "terminal_status", terminal.getTerminalStatus());
-                appendChildWithText(document, terminalElement, "reservation_date", terminal.getReservationDate());
                 appendChildWithText(document, terminalElement, "start_time", terminal.getStartTime());
                 appendChildWithText(document, terminalElement, "end_time", terminal.getEndTime());
             }

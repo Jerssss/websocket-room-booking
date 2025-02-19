@@ -191,8 +191,7 @@ public class AddNewTerminalView {
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
             terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-            dateColumn.setCellValueFactory(cellData -> cellData.getValue().reservationDateProperty());
-            startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+          startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
             endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
             statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
 
@@ -253,8 +252,7 @@ public class AddNewTerminalView {
                 if (terminal.getTerminalId().toLowerCase().contains(searchText) ||
                         terminal.getTerminalRoom().toLowerCase().contains(searchText) ||
                         terminal.getTerminalOs().toLowerCase().contains(searchText) ||
-                        terminal.getReservationDate().toLowerCase().contains(searchText) ||
-                        terminal.getStartTime().toLowerCase().contains(searchText) ||
+                      terminal.getStartTime().toLowerCase().contains(searchText) ||
                         terminal.getEndTime().toLowerCase().contains(searchText) ||
                         terminal.getTerminalStatus().toLowerCase().contains(searchText)) {
                     filteredList.add(terminal);

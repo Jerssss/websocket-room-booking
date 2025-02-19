@@ -72,7 +72,6 @@ public class AddNewTerminalController {
         // **Check for duplicate time slot in the same room and date**
         for (Terminal terminal : AddNewTerminalView.terminalResults) {
             if (terminal.getTerminalRoom().equals(room) &&
-                    terminal.getReservationDate().equals(reservationDate) &&
                     terminal.getStartTime().equals(startTime) &&
                     terminal.getEndTime().equals(endTime)) {
                 JOptionPane.showMessageDialog(null, "Error: This time slot is already taken for this room!");

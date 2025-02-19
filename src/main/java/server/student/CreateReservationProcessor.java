@@ -20,65 +20,68 @@ import java.util.List;
 
 public class CreateReservationProcessor {
     private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
-    private static final String RESERVATION_FILE_PATH = "src/main/java/server/util/reservation_approval.xml"; // Reservation file path
+    private static final String RESERVATION_FILE_PATH = "src/main/java/server/util/reservation_approval.xml";
 
     public static List<Terminal> parseXML(String filePath) {
+        System.out.println("[DEBUG] Parsing XML file at: " + filePath);
         List<Terminal> reservation = new ArrayList<>();
 
         try {
-            // Debugging statement to check if file exists
-            System.out.println("Attempting to parse XML file at: " + filePath);
             File file = new File(filePath);
             if (!file.exists()) {
-                System.out.println("File not found: " + filePath);
+                System.out.println("[DEBUG] File not found: " + filePath);
                 return reservation;
             }
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(file);
-
             document.getDocumentElement().normalize();
-            NodeList terminalNodes = document.getElementsByTagName("Terminal");
 
+            NodeList terminalNodes = document.getElementsByTagName("Terminal");
             for (int i = 0; i < terminalNodes.getLength(); i++) {
                 Node node = terminalNodes.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    // Parsing the updated XML structure
                     String terminalId = getTagValue("terminal_id", element);
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOs = getTagValue("terminal_os", element);
-                    String terminalStatus = getTagValue("terminal_status", element); // New field
-                    String reservationDate = getTagValue("reservation_date", element); // Updated field
-                    String startTime = getTagValue("start_time", element); // Updated field
-                    String endTime = getTagValue("end_time", element); // Updated field
+                    String terminalStatus = getTagValue("terminal_status", element);
+                    String startTime = getTagValue("start_time", element);
+                    String endTime = getTagValue("end_time", element);
 
-                    // Debugging statement to ensure correct parsing
-                    System.out.println("Parsed Terminal: ID=" + terminalId + ", Room=" + terminalRoom +
-                            ", OS=" + terminalOs + ", Status=" + terminalStatus + ", Date=" + reservationDate +
-                            ", Start Time=" + startTime + ", End Time=" + endTime);
-
-                    // Assuming the Terminal constructor matches the updated structure
-                    reservation.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus, reservationDate, startTime, endTime));
+                    // Only add terminal if its status is "Active"
+                    if (terminalStatus != null && terminalStatus.equalsIgnoreCase("Active")) {
+                        System.out.println("[DEBUG] Parsed Active Terminal: ID=" + terminalId + ", Room=" + terminalRoom +
+                                ", OS=" + terminalOs + ", Status=" + terminalStatus +
+                                ", Start Time=" + startTime + ", End Time=" + endTime);
+                        reservation.add(new Terminal(terminalId, terminalRoom, terminalOs, terminalStatus, startTime, endTime));
+                    } else {
+                        System.out.println("[DEBUG] Skipping Terminal ID=" + terminalId + " because status is not Active.");
+                    }
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error parsing XML: " + e.getMessage());
+            System.out.println("[DEBUG] Error parsing XML: " + e.getMessage());
             e.printStackTrace();
         }
         return reservation;
     }
 
-
     public static boolean processReservationData(String reservationId, String userId, String terminalId,
                                                  String roomId, String reservationDate, String startTime,
                                                  String endTime, String status) {
+        System.out.println("[DEBUG] Starting processReservationData for reservationId=" + reservationId);
+
+        // 1) Force terminalId to have "PC" prefix before saving to XML
+        terminalId = ensurePCPrefix(terminalId);
+        System.out.println("[DEBUG] Final terminalId used in XML: " + terminalId);
+
         try {
             File xmlFile = new File(RESERVATION_FILE_PATH);
             if (!xmlFile.exists()) {
-                System.out.println("Reservation file not found: " + RESERVATION_FILE_PATH);
+                System.out.println("[DEBUG] Reservation file not found: " + RESERVATION_FILE_PATH);
                 return false;
             }
 
@@ -90,17 +93,15 @@ public class CreateReservationProcessor {
 
             Element root = doc.getDocumentElement();
 
-            // Debugging statement to check if terminal reservation exists for the same room/date
-            System.out.println("Checking if terminal ID " + terminalId + " is reserved for the same date/time...");
+            System.out.println("[DEBUG] Checking for terminal reservation conflict for terminalId " + terminalId);
             if (isTerminalIdExistsInRoomAndDate(root, terminalId, roomId, reservationDate, startTime, endTime)) {
-                System.out.println("Error: Terminal ID already reserved in this room for the specified date and time.");
+                System.out.println("[DEBUG] Conflict found: Terminal ID " + terminalId + " already reserved for this room and date/time.");
                 return false;
             }
 
-            // Proceed to add the reservation if validation is passed
+            // 2) Create the new <Reservation> element
             Element newReservation = doc.createElement("Reservation");
 
-            // Create and append reservation elements
             Element id = doc.createElement("reservation_id");
             id.appendChild(doc.createTextNode(reservationId));
             newReservation.appendChild(id);
@@ -133,16 +134,12 @@ public class CreateReservationProcessor {
             statusElement.appendChild(doc.createTextNode(status));
             newReservation.appendChild(statusElement);
 
-            // Add the new reservation to the root
+            // 3) Append to the root and write out to XML
             root.appendChild(newReservation);
+            System.out.println("[DEBUG] Reservation appended to XML.");
 
-            // Debugging statement for XML update process
-            System.out.println("Adding reservation to XML...");
-
-            // Remove white spaces from the document
             removeWhiteSpaces(doc);
 
-            // Save the updated XML file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -153,10 +150,51 @@ public class CreateReservationProcessor {
             StreamResult result = new StreamResult(new FileOutputStream(RESERVATION_FILE_PATH));
             transformer.transform(source, result);
 
-            System.out.println("Reservation added successfully.");
+            System.out.println("[DEBUG] Reservation added successfully to XML.");
             return true;
         } catch (Exception e) {
-            System.out.println("Error processing reservation data: " + e.getMessage());
+            System.out.println("[DEBUG] Error processing reservation data: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // This method ensures the terminal ID is always in the form "PC###".
+    private static String ensurePCPrefix(String rawId) {
+        if (rawId == null || rawId.trim().isEmpty()) {
+            // Fallback: if it's null or empty, just return "PC1" or something
+            return "PC1";
+        }
+        String trimmed = rawId.trim();
+        // If the user typed just digits (e.g., "5"), prepend "PC"
+        if (trimmed.matches("\\d+")) {
+            return "PC" + trimmed;
+        }
+        // If it already starts with PC (case-insensitive), keep it
+        else if (trimmed.matches("(?i)^pc\\d+$")) {
+            return trimmed;
+        }
+        // Otherwise, just prepend "PC" to whatever they typed
+        return "PC" + trimmed;
+    }
+
+    // Method to check for overlapping reservations
+    public static boolean isReservationOverlapping(String terminalId, String roomId, String reservationDate, String startTime, String endTime) {
+        System.out.println("[DEBUG] Checking for overlapping reservations in " + RESERVATION_FILE_PATH);
+        try {
+            File xmlFile = new File(RESERVATION_FILE_PATH);
+            if (!xmlFile.exists()) {
+                System.out.println("[DEBUG] Reservation file does not exist. No overlaps.");
+                return false;
+            }
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            Element root = doc.getDocumentElement();
+            return isTerminalIdExistsInRoomAndDate(root, ensurePCPrefix(terminalId), roomId, reservationDate, startTime, endTime);
+        } catch (Exception e) {
+            System.out.println("[DEBUG] Exception while checking for overlapping reservations: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -173,22 +211,21 @@ public class CreateReservationProcessor {
             String existingStartTime = reservation.getElementsByTagName("start_time").item(0).getTextContent();
             String existingEndTime = reservation.getElementsByTagName("end_time").item(0).getTextContent();
 
-            // Debugging: Checking the conflicting reservation data
-            System.out.println("Existing reservation: TerminalID=" + existingTerminalId + ", Room=" + existingRoomId +
-                    ", Date=" + existingReservationDate + ", StartTime=" + existingStartTime +
-                    ", EndTime=" + existingEndTime);
+            System.out.println("[DEBUG] Checking existing reservation: TerminalID=" + existingTerminalId +
+                    ", Room=" + existingRoomId + ", Date=" + existingReservationDate +
+                    ", StartTime=" + existingStartTime + ", EndTime=" + existingEndTime);
 
+            // Check for overlapping times in the same room and same terminal
             if (existingTerminalId.equals(terminalId) && existingRoomId.equals(roomId) &&
                     existingReservationDate.equals(reservationDate) &&
                     !(existingEndTime.compareTo(startTime) <= 0 || existingStartTime.compareTo(endTime) >= 0)) {
-                return true; // Conflict found
+                return true;
             }
         }
-        return false; // No conflict found
+        return false;
     }
 
     private static void removeWhiteSpaces(Document doc) {
-        // First, clean up all text nodes (trim them)
         NodeList nodeList = doc.getElementsByTagName("*");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -197,15 +234,12 @@ public class CreateReservationProcessor {
                 node.setNodeValue(text);
             }
         }
-
-        // Second, remove unwanted whitespace between elements (unnecessary spaces between tags)
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 String content = element.getTextContent().trim();
                 if (content.isEmpty()) {
-                    // If the element content is empty after trimming, remove it
                     element.setTextContent("");
                 }
             }

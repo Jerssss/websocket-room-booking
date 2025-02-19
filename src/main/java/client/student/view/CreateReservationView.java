@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javafx.util.converter.DefaultStringConverter;
 import server.admin.AddNewTerminalProcessor;
 import server.student.CreateReservationProcessor;
 import server.utility.Terminal;
@@ -21,7 +22,6 @@ import server.utility.Terminal;
 import java.util.List;
 
 public class CreateReservationView {
-
 
     @FXML
     private TextField startTimeTextField;
@@ -45,14 +45,13 @@ public class CreateReservationView {
     private TableColumn<Terminal, String> terminalOSColumn;
 
     @FXML
-    private TableColumn <Terminal, String>statusColumn;
+    private TableColumn<Terminal, String> statusColumn;
     @FXML
     private TableColumn<Terminal, String> dateColumn;
     @FXML
     private TableColumn<Terminal, String> startTimeColumn;
     @FXML
-    private TableColumn <Terminal, String>endTimeColumn;
-
+    private TableColumn<Terminal, String> endTimeColumn;
 
     @FXML
     private TableColumn<Terminal, String> dayColumn;
@@ -87,21 +86,47 @@ public class CreateReservationView {
     private String room;
     private String osType;
 
-    public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
-        saveChangesButton.setOnAction(handler);
-    }
-    public Button getSaveChangesButton() {
-        return saveChangesButton;
-    }
-  public static ObservableList<Terminal> reservationData = FXCollections.observableArrayList();
+    public static ObservableList<Terminal> reservationData = FXCollections.observableArrayList();
     private CreateReservationController controller;
 
     public void setController(CreateReservationController controller) {
         this.controller = controller;
         System.out.println("[DEBUG] Controller has been set in AddNewTerminalView.");
     }
-    public void initialize() {
 
+    public void initialize() {
+        // -------------------------------------------------------
+        // 1) Restrict Terminal No. to digits only
+        // -------------------------------------------------------
+        if (terminalNoTextField != null) {
+            terminalNoTextField.setTextFormatter(new TextFormatter<>(change -> {
+                if (change.getControlNewText().matches("\\d*")) {
+                    return change; // accept only digits
+                }
+                return null; // reject non-digit
+            }));
+        }
+
+        // -------------------------------------------------------
+        // 2) Restrict Start Time and End Time to digits + colon
+        // -------------------------------------------------------
+        if (startTimeTextField != null) {
+            startTimeTextField.setTextFormatter(new TextFormatter<>(change -> {
+                if (change.getControlNewText().matches("[0-9:]*")) {
+                    return change; // accept digits and colon
+                }
+                return null; // reject otherwise
+            }));
+        }
+
+        if (endTimeTextField != null) {
+            endTimeTextField.setTextFormatter(new TextFormatter<>(change -> {
+                if (change.getControlNewText().matches("[0-9:]*")) {
+                    return change; // accept digits and colon
+                }
+                return null; // reject otherwise
+            }));
+        }
 
         setupSaveChangesButtonAction();
 
@@ -109,9 +134,7 @@ public class CreateReservationView {
             redirectCreateReservationWindowButton.setOnAction(CreateReservationController::redirectCreateReservationWindow);
         }
 
-
         Platform.runLater(() -> {
-
             if (roomNumberComboBox != null) {
                 ObservableList<String> room = FXCollections.observableArrayList(
                         "D524", "D526", "D426"
@@ -128,10 +151,9 @@ public class CreateReservationView {
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
             terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-            statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
-            dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-            startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+            statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
             endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
+
             // Load data from XML
             CreateReservationController.loadDataFromXML("src/main/java/server/util/terminal.xml");
 
@@ -144,18 +166,21 @@ public class CreateReservationView {
         }
     }
 
+    public void setSaveChangesButtonAction(EventHandler<ActionEvent> handler) {
+        saveChangesButton.setOnAction(handler);
+    }
 
-
-
+    public Button getSaveChangesButton() {
+        return saveChangesButton;
+    }
 
     public ComboBox<String> getRoomNumberComboBox() {
         return roomNumberComboBox;
     }
+
     public void setRoomNumberComboBox(ComboBox<String> roomNumberComboBox) {
         this.roomNumberComboBox = roomNumberComboBox;
     }
-
-
 
     public void setTerminalData(ObservableList<Terminal> data) {
         reservationData.setAll(data); // Update dataset
@@ -228,6 +253,7 @@ public class CreateReservationView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void createButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), redirectCreateReservationWindowButton);
         st.setToX(0.9);
@@ -245,6 +271,7 @@ public class CreateReservationView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void refreshButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
         st.setToX(0.9);
@@ -262,6 +289,7 @@ public class CreateReservationView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void saveChangesButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), saveChangesButton);
         st.setToX(0.9);
@@ -270,6 +298,7 @@ public class CreateReservationView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void searchButtonExited() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), searchButton);
         st.setToX(1.0);
@@ -278,6 +307,7 @@ public class CreateReservationView {
         st.setAutoReverse(false);
         st.play();
     }
+
     public void searchButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), searchButton);
         st.setToX(0.9);

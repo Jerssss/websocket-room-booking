@@ -8,53 +8,21 @@ public class Terminal {
     private StringProperty terminalRoom;
     private StringProperty terminalOs;
     private StringProperty terminalStatus;
-    private SimpleStringProperty date;
-    private SimpleStringProperty time;
-    private StringProperty reservationDate;
     private StringProperty startTime;
     private StringProperty endTime;
 
-
-    public Terminal(String terminalId, String terminalRoom, String terminalOS, String terminalStatus, String reservationDate, String startTime, String endTime){
+    public Terminal(String terminalId, String terminalRoom, String terminalOS, String terminalStatus, String startTime, String endTime) {
         this.terminalId = new SimpleStringProperty(terminalId);
         this.terminalRoom = new SimpleStringProperty(terminalRoom);
         this.terminalOs = new SimpleStringProperty(terminalOS);
         this.terminalStatus = new SimpleStringProperty(terminalStatus);
-        this.reservationDate = new SimpleStringProperty(reservationDate);
         this.startTime = new SimpleStringProperty(startTime);
         this.endTime = new SimpleStringProperty(endTime);
-
-    }
-    public Terminal(String terminalId, String terminalRoom, String terminalOs, String terminalStatus) {
-        this.terminalId = new SimpleStringProperty(terminalId);
-        this.terminalRoom = new SimpleStringProperty(terminalRoom);
-        this.terminalOs = new SimpleStringProperty(terminalOs);
-        this.terminalStatus = new SimpleStringProperty(terminalStatus);
-    }
-    public Terminal(String terminalId, String terminalRoom, String terminalOs, String date, String time) {
-        this.terminalId = new SimpleStringProperty(terminalId);
-        this.terminalRoom = new SimpleStringProperty(terminalRoom);
-        this.terminalOs = new SimpleStringProperty(terminalOs);
-        this.date = new SimpleStringProperty(date);
-        this.time = new SimpleStringProperty(time);
-    }
-
-    public Terminal(String terminalId, String terminalRoom, String terminalOS, String terminalStatus, String date, String time) {
-        this.terminalId = new SimpleStringProperty(terminalId);
-        this.terminalRoom = new SimpleStringProperty(terminalRoom);
-        this.terminalOs = new SimpleStringProperty(terminalOS);
-        this.terminalStatus = new SimpleStringProperty(terminalStatus);
-        this.date = new SimpleStringProperty(date);
-        this.time = new SimpleStringProperty(time);
     }
 
     // Getters and setters with StringProperty
     public String getTerminalId() {
         return terminalId.get();
-    }
-
-    public void setTerminalId(String terminalId) {
-        this.terminalId.set(terminalId);
     }
 
     public StringProperty terminalIdProperty() {
@@ -65,20 +33,12 @@ public class Terminal {
         return terminalRoom.get();
     }
 
-    public void setTerminalRoom(String terminalRoom) {
-        this.terminalRoom.set(terminalRoom);
-    }
-
     public StringProperty terminalRoomProperty() {
         return terminalRoom;
     }
 
     public String getTerminalOs() {
         return terminalOs.get();
-    }
-
-    public void setTerminalOs(String terminalOs) {
-        this.terminalOs.set(terminalOs);
     }
 
     public StringProperty terminalOsProperty() {
@@ -89,33 +49,13 @@ public class Terminal {
         return terminalStatus.get();
     }
 
-    public void setTerminalStatus(String terminalStatus) {
-        this.terminalStatus.set(terminalStatus);
-    }
-
     public StringProperty terminalStatusProperty() {
         return terminalStatus;
     }
-    public void setDate(String date) {
-        this.date.set(date);
-    }
-    public StringProperty dateProperty() {
-        return date;
-    }
-    public void setTime(String time) {
-        this.time.set(time);
-    }
-    public StringProperty timeProperty() {
-        return time;
-    }
 
-    public String getDate() {
-        return date.get();
+    public void setTerminalStatus(String terminalStatus) {
+        this.terminalStatus.set(terminalStatus);
     }
-    public String getTime() {
-        return time.get();
-    }
-
 
     public String getStartTime() {
         return startTime.get();
@@ -124,37 +64,11 @@ public class Terminal {
     public StringProperty startTimeProperty() {
         return startTime;
     }
-    public StringProperty endTimeProperty() {
-        return startTime;
-    }
-
-
     public String getEndTime() {
         return endTime.get();
     }
 
-
-    // Getters and setters with StringProperty
-
-
-    public String getReservationDate() {
-        return reservationDate.get();
-    }
-
-    public StringProperty reservationDateProperty() {
-        return reservationDate;
-    }
-
-    public void setReservationDate(String reservationDate) {
-        this.reservationDate.set(reservationDate);
-    }
-
-
-
-
-
-
-    public void setEndTime(String endTime) {
-        this.endTime.set(endTime);
+    public StringProperty endTimeProperty() {
+        return endTime;
     }
 }
