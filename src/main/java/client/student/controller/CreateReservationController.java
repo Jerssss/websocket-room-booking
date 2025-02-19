@@ -159,13 +159,6 @@ public class CreateReservationController {
             return;
         }
 
-        // Check if the user already has a reservation (any "active" status) -> only 1 reservation at a time
-        if (hasActiveReservation(userId)) {
-            System.out.println("[DEBUG] User " + userId + " already has a reservation (pending/approved).");
-            JOptionPane.showMessageDialog(null, "Error: You already have an active reservation. Please cancel or complete it first.");
-            return;
-        }
-
         // Validate that the selected time slot does not overlap with existing reservations for this terminal
         if (CreateReservationProcessor.isReservationOverlapping(terminalId, room, reservationDate, startTime, endTime)) {
             System.out.println("[DEBUG] Overlapping reservation found for terminal " + terminalId);
@@ -206,42 +199,6 @@ public class CreateReservationController {
      * Checks if the user already has an active reservation (e.g., "Pending" or "Approved").
      * Adjust statuses as needed if your workflow differs.
      */
-    private boolean hasActiveReservation(String userId) {
-        System.out.println("[DEBUG] Checking for any active reservation for user: " + userId);
-        try {
-            File xmlFile = new File("src/main/java/server/util/reservation_approval.xml");
-            if (!xmlFile.exists()) {
-                System.out.println("[DEBUG] Reservation XML file does not exist; assuming no reservations.");
-                return false;
-            }
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
-            doc.getDocumentElement().normalize();
-
-            NodeList reservationList = doc.getElementsByTagName("Reservation");
-            for (int i = 0; i < reservationList.getLength(); i++) {
-                Node reservationNode = reservationList.item(i);
-                if (reservationNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element reservationElement = (Element) reservationNode;
-                    String currentUserId = reservationElement.getElementsByTagName("user_id").item(0).getTextContent().trim();
-                    String resStatus = reservationElement.getElementsByTagName("status").item(0).getTextContent().trim();
-
-                    // If the user has a reservation that's still "Pending" or "Approved," treat it as active
-                    if (currentUserId.equals(userId)
-                            && (resStatus.equalsIgnoreCase("Pending")
-                            || resStatus.equalsIgnoreCase("Approved"))) {
-                        System.out.println("[DEBUG] Found an active reservation for user: " + userId + " status: " + resStatus);
-                        return true;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("[DEBUG] Exception in hasActiveReservation: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     // Retrieve session token
     private String getSessionToken() {
