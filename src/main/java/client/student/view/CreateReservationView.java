@@ -46,8 +46,7 @@ public class CreateReservationView {
 
     @FXML
     private TableColumn<Terminal, String> statusColumn;
-    @FXML
-    private TableColumn<Terminal, String> dateColumn;
+
     @FXML
     private TableColumn<Terminal, String> startTimeColumn;
     @FXML
@@ -93,6 +92,7 @@ public class CreateReservationView {
         this.controller = controller;
         System.out.println("[DEBUG] Controller has been set in AddNewTerminalView.");
     }
+
 
     public void initialize() {
         // -------------------------------------------------------
@@ -145,7 +145,7 @@ public class CreateReservationView {
 
         // Ensure table columns are initialized before setting cell value factories
         if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
-                && statusColumn != null && dateColumn != null && startTimeColumn != null
+                && statusColumn  != null && startTimeColumn != null
                 && endTimeColumn != null && createReservationTableView != null) {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
@@ -190,6 +190,7 @@ public class CreateReservationView {
         System.out.println("[DEBUG] Terminal data updated. New table size: " + reservationData.size());
     }
 
+    public Button getSearchButton() {return searchButton;}
     // Getters for the components
     public VBox getCenterPane() {
         return centerPane;
