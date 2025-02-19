@@ -71,7 +71,7 @@ public class ModifyTerminalStatusView {
         roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
         terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
         terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-      startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+        startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
         endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
         terminalStatusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
         terminalStatusColumn.setCellFactory(createStyledStatusCellFactory());

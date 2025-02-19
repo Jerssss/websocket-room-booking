@@ -5,7 +5,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Down</terminal_status>
-        <reservation_date>2025-02-18</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -14,7 +13,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Down</terminal_status>
-        <reservation_date>2025-02-18</reservation_date>
         <start_time>10:00</start_time>
         <end_time>18:00</end_time>
     </Terminal>
@@ -23,7 +21,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Down</terminal_status>
-        <reservation_date>2025-02-19</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
     </Terminal>
@@ -32,7 +29,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-20</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -41,7 +37,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-21</reservation_date>
         <start_time>10:00</start_time>
         <end_time>18:00</end_time>
     </Terminal>
@@ -50,7 +45,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Under Maintenance</terminal_status>
-        <reservation_date>2025-02-22</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
     </Terminal>
@@ -59,7 +53,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-16</reservation_date>
         <start_time>07:30</start_time>
         <end_time>15:30</end_time>
     </Terminal>
@@ -68,7 +61,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Under Maintenance</terminal_status>
-        <reservation_date>2025-02-17</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
     </Terminal>
@@ -77,7 +69,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-18</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -86,7 +77,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-19</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
     </Terminal>
@@ -95,7 +85,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Under Maintenance</terminal_status>
-        <reservation_date>2025-02-20</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -104,7 +93,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-21</reservation_date>
         <start_time>10:00</start_time>
         <end_time>18:00</end_time>
     </Terminal>
@@ -113,7 +101,6 @@
         <terminal_room>D426</terminal_room>
         <terminal_os>Windows</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-22</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -122,7 +109,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Under Maintenance</terminal_status>
-        <reservation_date>2025-02-16</reservation_date>
         <start_time>07:30</start_time>
         <end_time>15:30</end_time>
     </Terminal>
@@ -131,7 +117,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-17</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
     </Terminal>
@@ -140,7 +125,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-18</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -149,7 +133,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Down</terminal_status>
-        <reservation_date>2025-02-19</reservation_date>
         <start_time>10:00</start_time>
         <end_time>18:00</end_time>
     </Terminal>
@@ -158,7 +141,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Active</terminal_status>
-        <reservation_date>2025-02-20</reservation_date>
         <start_time>09:00</start_time>
         <end_time>17:00</end_time>
     </Terminal>
@@ -167,7 +149,6 @@
         <terminal_room>D524</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Under Maintenance</terminal_status>
-        <reservation_date>2025-02-21</reservation_date>
         <start_time>08:00</start_time>
         <end_time>16:00</end_time>
     </Terminal>
@@ -176,16 +157,14 @@
         <terminal_room>D526</terminal_room>
         <terminal_os>macOS</terminal_os>
         <terminal_status>Under Maintenance</terminal_status>
-        <reservation_date>2025-02-20</reservation_date>
         <start_time>11:30</start_time>
         <end_time>16:30</end_time>
     </Terminal>
     <Terminal>
-        <terminal_id>PC123123</terminal_id>
-        <terminal_room>D526</terminal_room>
-        <terminal_os>Windows</terminal_os>
-        <terminal_status>Down</terminal_status>
-        <reservation_date>2020-20-20</reservation_date>
+        <terminal_id>PC4123</terminal_id>
+        <terminal_room>D524</terminal_room>
+        <terminal_os>macOS</terminal_os>
+        <terminal_status>Active</terminal_status>
         <start_time>09:30</start_time>
         <end_time>11:30</end_time>
     </Terminal>

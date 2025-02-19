@@ -33,8 +33,6 @@ public class AddNewTerminalView {
     @FXML
     private TextField terminalNoTextField;
     @FXML
-    private ComboBox<String> dayComboBox;
-    @FXML
     private ComboBox<String> timeComboBox;
     @FXML
     private ComboBox<String> terminalOSComboBox;
@@ -112,8 +110,6 @@ public class AddNewTerminalView {
     @FXML
     private TableColumn<Terminal, String> terminalOSColumn;
     @FXML
-    private TableColumn<Terminal, String> dateColumn;
-    @FXML
     private TableColumn<Terminal, String> startTimeColumn;
     @FXML
     private TableColumn<Terminal, String> endTimeColumn;
@@ -185,13 +181,13 @@ public class AddNewTerminalView {
         });
 
         // Ensure table columns are initialized before setting cell value factories
-        if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null
-                && dateColumn != null && startTimeColumn != null && endTimeColumn != null && statusColumn != null && addTerminalTableView != null) {
+        if (terminalColumn != null && roomNumberColumn != null && terminalOSColumn != null &&
+                startTimeColumn != null && endTimeColumn != null && statusColumn != null && addTerminalTableView != null) {
 
             terminalColumn.setCellValueFactory(cellData -> cellData.getValue().terminalIdProperty());
             roomNumberColumn.setCellValueFactory(cellData -> cellData.getValue().terminalRoomProperty());
             terminalOSColumn.setCellValueFactory(cellData -> cellData.getValue().terminalOsProperty());
-          startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
+            startTimeColumn.setCellValueFactory(cellData -> cellData.getValue().startTimeProperty());
             endTimeColumn.setCellValueFactory(cellData -> cellData.getValue().endTimeProperty());
             statusColumn.setCellValueFactory(cellData -> cellData.getValue().terminalStatusProperty());
 
@@ -252,7 +248,7 @@ public class AddNewTerminalView {
                 if (terminal.getTerminalId().toLowerCase().contains(searchText) ||
                         terminal.getTerminalRoom().toLowerCase().contains(searchText) ||
                         terminal.getTerminalOs().toLowerCase().contains(searchText) ||
-                      terminal.getStartTime().toLowerCase().contains(searchText) ||
+                        terminal.getStartTime().toLowerCase().contains(searchText) ||
                         terminal.getEndTime().toLowerCase().contains(searchText) ||
                         terminal.getTerminalStatus().toLowerCase().contains(searchText)) {
                     filteredList.add(terminal);

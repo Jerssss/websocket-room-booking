@@ -171,13 +171,10 @@ public class ClientHandler implements Runnable {
             String osType = root.getElementsByTagName("OSType").item(0).getTextContent();
             String status = root.getElementsByTagName("Status").item(0).getTextContent();
 
-            // Extract day and time safely
-            String day = root.getElementsByTagName("Day").getLength() > 0 ?
-                    root.getElementsByTagName("Day").item(0).getTextContent() : "N/A";
             String time = root.getElementsByTagName("Time").getLength() > 0 ?
                     root.getElementsByTagName("Time").item(0).getTextContent() : "N/A";
 
-            boolean success = new AddNewTerminalProcessor().processTerminalData(terminalId, room, osType, day, time, status);
+            boolean success = new AddNewTerminalProcessor().processTerminalData(terminalId, room, osType, time, status);
             writer.println(createXMLResponse(success, success ? "Terminal added successfully." : "Failed to add terminal."));
         } catch (Exception e) {
             e.printStackTrace();

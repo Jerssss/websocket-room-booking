@@ -33,13 +33,12 @@ public class AddNewTerminalController {
         String osType = view.getTerminalOSComboBox().getSelectionModel().getSelectedItem();
         String status = view.getStatusComboBox().getSelectionModel().getSelectedItem();
         String selectedTimeRange = view.getTimeComboBox().getSelectionModel().getSelectedItem();
-        String reservationDate = view.getDateTextField().getText().trim();
 
         // Load existing data
         loadDataFromXML("src/main/java/server/util/terminal.xml");
 
         // Validate inputs
-        if (terminalId.isEmpty() || room == null || osType == null || status == null || selectedTimeRange == null || reservationDate.isEmpty()) {
+        if (terminalId.isEmpty() || room == null || osType == null || status == null || selectedTimeRange == null) {
             JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including time and date.");
             closeWindow();
             return;
@@ -52,12 +51,6 @@ public class AddNewTerminalController {
             return;
         }
 
-        // Ensure reservation date follows the correct format YYYY-MM-DD
-        if (!reservationDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            JOptionPane.showMessageDialog(null, "Error: Reservation date must be in the format YYYY-MM-DD (e.g., 2025-02-19).");
-            closeWindow();
-            return;
-        }
 
         // Split time into start and end
         String[] times = selectedTimeRange.split("-");
@@ -68,17 +61,6 @@ public class AddNewTerminalController {
         }
         String startTime = times[0].trim();
         String endTime = times[1].trim();
-
-        // **Check for duplicate time slot in the same room and date**
-        for (Terminal terminal : AddNewTerminalView.terminalResults) {
-            if (terminal.getTerminalRoom().equals(room) &&
-                    terminal.getStartTime().equals(startTime) &&
-                    terminal.getEndTime().equals(endTime)) {
-                JOptionPane.showMessageDialog(null, "Error: This time slot is already taken for this room!");
-                closeWindow();
-                return; // Prevent submission
-            }
-        }
 
         // **Check for duplicate Terminal ID**
         for (Terminal terminal : AddNewTerminalView.terminalResults) {
@@ -91,7 +73,7 @@ public class AddNewTerminalController {
 
         // **Save the new terminal entry**
         boolean success = AddNewTerminalProcessor.processTerminalData(
-                terminalId, room, osType, status, reservationDate, selectedTimeRange
+                terminalId, room, osType, status, selectedTimeRange
         );
 
         if (success) {

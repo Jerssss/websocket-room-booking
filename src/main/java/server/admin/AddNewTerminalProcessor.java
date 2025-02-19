@@ -22,7 +22,7 @@ public class AddNewTerminalProcessor {
 
     private static final String FILE_PATH = "src/main/java/server/util/terminal.xml";
 
-    public static boolean processTerminalData(String terminalId, String room, String osType, String status, String reservationDate, String selectedTimeRange) {
+    public static boolean processTerminalData(String terminalId, String room, String osType, String status, String selectedTimeRange) {
         try {
             // Split the selected time range into start_time and end_time
             String[] timeParts = selectedTimeRange.split("-");
@@ -59,11 +59,6 @@ public class AddNewTerminalProcessor {
             Element statusElement = doc.createElement("terminal_status");
             statusElement.appendChild(doc.createTextNode(status.trim()));
             newTerminal.appendChild(statusElement);
-
-            // Adding day and time
-            Element reservationDateElement = doc.createElement("reservation_date");
-            reservationDateElement.appendChild(doc.createTextNode(reservationDate.trim()));
-            newTerminal.appendChild(reservationDateElement);
 
             // Set the split start_time and end_time
             Element startTimeElement = doc.createElement("start_time");
@@ -127,12 +122,11 @@ public class AddNewTerminalProcessor {
                     String terminalId = getTagValue("terminal_id", element);
                     String terminalRoom = getTagValue("terminal_room", element);
                     String terminalOS = getTagValue("terminal_os", element);
-                    String reservationDate = getTagValue("reservation_date", element);
                     String startTime = getTagValue("start_time", element);
                     String endTime = getTagValue("end_time", element);
                     String terminalStatus = getTagValue("terminal_status", element);
 
-                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus , startTime, endTime);
+                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus, startTime, endTime);
                     terminals.add(terminal);
                 }
             }
