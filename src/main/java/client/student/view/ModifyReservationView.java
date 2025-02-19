@@ -24,8 +24,6 @@ public class ModifyReservationView {
     private String sessionToken;
     private ModifyReservationController controller;
     @FXML
-    private VBox centerPane;
-    @FXML
     private Button searchButton;
     @FXML
     private Button saveChangesButton;
@@ -53,20 +51,6 @@ public class ModifyReservationView {
     @FXML
     private TableColumn<Reservation, String> editColumn;
 
-    @FXML
-    private Label reservedDateLabel;
-    @FXML
-    private Label reservedTimeLabel;
-    @FXML
-    private Label reservationRoomNoLabel;
-    @FXML
-    private Label reservationTerminalNoLabel;
-    @FXML
-    private Button sendRequestButton;
-    @FXML
-    private Button deleteReservationButton;
-
-    private Stage confirmationStage;
     private ObservableList<Reservation> reservationData = FXCollections.observableArrayList();
 
     public void setSessionToken(String sessionToken) {
@@ -75,13 +59,6 @@ public class ModifyReservationView {
             controller = new ModifyReservationController(this, sessionToken);
         }
         controller.loadReservationData(); // Load data after token is set
-    }
-
-    private void initializeController() {
-        if (sessionToken != null) {
-            controller = new ModifyReservationController(this, sessionToken);
-            controller.loadReservationData(); // Load data after controller is ready
-        }
     }
 
     @FXML
@@ -197,23 +174,24 @@ public class ModifyReservationView {
             BorderPane confirmationPane = loader.load();
 
             ModifyReservationDialogController dialogController = loader.getController();
-            dialogController.setReservationDetails(reservation); // Pass the reservation object
+            dialogController.setReservationDetails(reservation);
+            dialogController.setExistingReservations(controller.getCurrentReservations());
 
             Stage dialogStage = new Stage();
-            dialogController.setDialogStage(dialogStage);
+            dialogController.setDialogStage(dialogStage); // Must be called before showing
+
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setScene(new Scene(confirmationPane));
-
             dialogStage.showAndWait();
 
             if (dialogController.isDeleteConfirmed()) {
                 controller.removeReservation(reservation);
                 JOptionPane.showMessageDialog(null, "Reservation cancelled successfully!");
-            } else {
-                // Update the reservation in the main controller
-                controller.updateReservation(reservation); // Call the update method
+            } else if (dialogController.isChangesMade()) {
+                controller.updateReservation(reservation);
                 JOptionPane.showMessageDialog(null, "Reservation status updated to Pending!");
             }
+            // No action if closed without changes
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -267,33 +245,6 @@ public class ModifyReservationView {
 
     public void refreshButtonHovered() {
         ScaleTransition st = new ScaleTransition(Duration.millis(200), refreshButton);
-        st.setToX(0.9);
-        st.setToY(0.9);
-        st.setCycleCount(1);
-        st.setAutoReverse(false);
-        st.play();
-    }
-
-    public void deleteButtonHovered() {
-        ScaleTransition st = new ScaleTransition(Duration.millis(200), deleteReservationButton);
-        st.setToX(0.9);
-        st.setToY(0.9);
-        st.setCycleCount(1);
-        st.setAutoReverse(false);
-        st.play();
-    }
-
-    public void sendRequestButtonExited() {
-        ScaleTransition st = new ScaleTransition(Duration.millis(200), sendRequestButton);
-        st.setToX(1.0);
-        st.setToY(1.0);
-        st.setCycleCount(1);
-        st.setAutoReverse(false);
-        st.play();
-    }
-
-    public void sendRequestButtonHovered() {
-        ScaleTransition st = new ScaleTransition(Duration.millis(200), sendRequestButton);
         st.setToX(0.9);
         st.setToY(0.9);
         st.setCycleCount(1);

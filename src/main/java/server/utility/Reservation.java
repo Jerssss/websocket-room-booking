@@ -6,12 +6,12 @@ import javafx.beans.property.StringProperty;
 public class Reservation {
     private SimpleStringProperty reservationId;
     private SimpleStringProperty userId;
-    private final SimpleStringProperty terminalNumber;
-    private final SimpleStringProperty roomNumber;
-    private final SimpleStringProperty date;
+    private  SimpleStringProperty terminalNumber;
+    private  SimpleStringProperty roomNumber;
+    private  SimpleStringProperty date;
     private SimpleStringProperty startTime;
     private SimpleStringProperty endTime;
-    private final SimpleStringProperty status;
+    private  SimpleStringProperty status;
     private SimpleStringProperty edit;
 
     // Constructor
@@ -38,6 +38,29 @@ public class Reservation {
         this.startTime = new SimpleStringProperty(startTime);
         this.endTime = new SimpleStringProperty(endTime);
         this.status = new SimpleStringProperty(status);
+    }
+
+    public Reservation(Reservation other) {
+        this.reservationId = new SimpleStringProperty(other.getReservationId());
+        this.userId = new SimpleStringProperty(other.getUserId());
+        this.terminalNumber = new SimpleStringProperty(other.getTerminalNumber());
+        this.roomNumber = new SimpleStringProperty(other.getRoomNumber());
+        this.date = new SimpleStringProperty(other.getDate());
+        this.startTime = new SimpleStringProperty(other.getStartTime());
+        this.endTime = new SimpleStringProperty(other.getEndTime());
+        this.status = new SimpleStringProperty(other.getStatus());
+    }
+
+    public Reservation(String reservationId, String userId) {
+        this.reservationId = new SimpleStringProperty(reservationId);
+        this.userId = new SimpleStringProperty(userId);
+        // Initialize all other properties with empty values
+        this.terminalNumber = new SimpleStringProperty("");
+        this.roomNumber = new SimpleStringProperty("");
+        this.date = new SimpleStringProperty("");
+        this.startTime = new SimpleStringProperty("");
+        this.endTime = new SimpleStringProperty("");
+        this.status = new SimpleStringProperty("");
     }
 
     // String Properties
@@ -88,7 +111,11 @@ public class Reservation {
 
     public String getTerminalNumber() {return terminalNumber.get();}
 
+    public void setTerminalNumber(String terminalNumber) {this.terminalNumber.set(terminalNumber);}
+
     public String getRoomNumber() {return roomNumber.get();}
+
+    public void setRoomNumber(String roomNumber) {this.roomNumber.set(roomNumber);}
 
     public String getDate() {return date.get();}
 

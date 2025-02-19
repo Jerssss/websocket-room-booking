@@ -78,11 +78,11 @@ public class ModifyReservationProcessor {
     // Helper method to extract the value of a tag
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag);
-        if (nodeList.getLength() > 0) {
-            Node node = nodeList.item(0);
-            return node.getTextContent();
+        if (nodeList.getLength() > 0 && nodeList.item(0) != null) {
+            String value = nodeList.item(0).getTextContent();
+            return value != null ? value.trim() : ""; // Handle nulls and whitespace
         }
-        return null;
+        return ""; // Return empty string instead of null
     }
 
 

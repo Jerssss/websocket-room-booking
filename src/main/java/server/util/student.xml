@@ -47,4 +47,10 @@
         <Password>1</Password>
         <CourseYear>BSIT 1</CourseYear>
     </Student>
+    <Student>
+        <Student_ID>2240028</Student_ID>
+        <Name>oilioil</Name>
+        <Password>hatdog</Password>
+        <CourseYear>3</CourseYear>
+    </Student>
 </Students>
