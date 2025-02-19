@@ -145,7 +145,8 @@ public class ModifyReservationView {
                         alert.showAndWait().ifPresent(response -> {
                             if (response == ButtonType.YES) {
                                 // Proceed with cancellation
-                                showConfirmationPane(reservation);
+                                controller.removeReservation(reservation);
+                                JOptionPane.showMessageDialog(null, "Reservation cancelled successfully!");
                             }
                         });
                     }

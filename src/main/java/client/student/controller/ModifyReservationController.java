@@ -46,7 +46,6 @@ public class ModifyReservationController {
     public void removeReservation(Reservation reservation) {
         reservationData.remove(reservation);
         view.setReservationData(reservationData);
-        model.saveReservationData(reservationData);
         System.out.println("Reservation removed.");
     }
 
