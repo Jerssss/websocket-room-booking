@@ -64,18 +64,16 @@ public class CreateReservationController {
             return;
         }
 
-
-
         String room = view.getRoomNumberComboBox().getSelectionModel().getSelectedItem();
         LocalDate selectedDate = view.getDatePicker().getValue();
-        String reservationDate = selectedDate != null ? selectedDate.toString() : "";
-        String startTime = view.getStartTimeTextField().getText().trim();
-        String endTime = view.getEndTimeTextField().getText().trim();
+        String reservationDate = (selectedDate != null) ? selectedDate.toString() : "";
+        String startTimeInput = view.getStartTimeTextField().getText().trim();
+        String endTimeInput = view.getEndTimeTextField().getText().trim();
         String status = "Pending";
 
         System.out.println("[DEBUG] Inputs: terminalId=" + terminalId + ", room=" + room +
-                ", reservationDate=" + reservationDate + ", startTime=" + startTime +
-                ", endTime=" + endTime);
+                ", reservationDate=" + reservationDate + ", startTime=" + startTimeInput +
+                ", endTime=" + endTimeInput);
 
         // Validate session token
         if (sessionToken == null || sessionToken.isEmpty()) {
@@ -83,14 +81,15 @@ public class CreateReservationController {
             JOptionPane.showMessageDialog(null, "Session expired. Please log in again.");
             return;
         }
-// Validate that the terminal is active
+
+        // Validate that the terminal is active
         if (!isTerminalActive(terminalId)) {
             System.out.println("[DEBUG] Terminal " + terminalId + " is not active.");
             JOptionPane.showMessageDialog(null, "Error: Terminal is not active. Reservations can only be made to active terminals.");
             return;
         }
 
-// NEW: Validate that the terminal actually belongs to the selected room
+        // Validate that the terminal actually belongs to the selected room
         if (!doesTerminalMatchRoom(terminalId, room)) {
             System.out.println("[DEBUG] Terminal " + terminalId + " does not exist in room " + room);
             JOptionPane.showMessageDialog(null,
@@ -98,21 +97,18 @@ public class CreateReservationController {
             return;
         }
 
-// Validate Start Time and End Time and that the reservation does not exceed 2 hours (120 minutes)
-// ...
-
         // Validate basic inputs
         if (terminalId.isEmpty() || room == null || selectedDate == null
-                || startTime.isEmpty() || endTime.isEmpty()) {
+                || startTimeInput.isEmpty() || endTimeInput.isEmpty()) {
             System.out.println("[DEBUG] One or more required fields are empty.");
             JOptionPane.showMessageDialog(null, "Error: All fields must be filled, including day and time.");
             return;
         }
 
         // Validate time format (military time XX:XX)
-        if (!startTime.matches("\\d{2}:\\d{2}") || !endTime.matches("\\d{2}:\\d{2}")) {
-            System.out.println("[DEBUG] Time format error: startTime=" + startTime + ", endTime=" + endTime);
-            JOptionPane.showMessageDialog(null, "Error: Start time and end time must be in the format XX:XX (military time).");
+        if (!startTimeInput.matches("\\d{2}:\\d{2}") || !endTimeInput.matches("\\d{2}:\\d{2}")) {
+            System.out.println("[DEBUG] Time format error: startTime=" + startTimeInput + ", endTime=" + endTimeInput);
+            JOptionPane.showMessageDialog(null, "Error: Start time and end time must be in the format XX:XX (24-hour).");
             return;
         }
 
@@ -129,48 +125,62 @@ public class CreateReservationController {
             return;
         }
 
-        // Validate that the terminal is active
-        if (!isTerminalActive(terminalId)) {
-            System.out.println("[DEBUG] Terminal " + terminalId + " is not active.");
-            JOptionPane.showMessageDialog(null, "Error: Terminal is not active. Reservations can only be made to active terminals.");
-            return;
-        }
-
-        // Validate Start Time and End Time and that the reservation does not exceed 2 hours (120 minutes)
+        // Parse user-entered times
+        LocalTime start, end;
         try {
-            LocalTime start = LocalTime.parse(startTime);
-            LocalTime end = LocalTime.parse(endTime);
-
-            if (end.isBefore(start)) {
-                System.out.println("[DEBUG] End time " + endTime + " is before start time " + startTime + ".");
-                JOptionPane.showMessageDialog(null, "Error: End time cannot be before start time.");
-                return;
-            }
-
-            long durationMinutes = java.time.Duration.between(start, end).toMinutes();
-            if (durationMinutes > 120) {
-                System.out.println("[DEBUG] Reservation duration (" + durationMinutes + " minutes) exceeds maximum allowed 120 minutes.");
-                JOptionPane.showMessageDialog(null, "Error: Reservation time cannot exceed 2 hours.");
-                return;
-            }
+            start = LocalTime.parse(startTimeInput);
+            end = LocalTime.parse(endTimeInput);
         } catch (DateTimeParseException e) {
             System.out.println("[DEBUG] Exception parsing times: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Error: Invalid time format.");
             return;
         }
 
-        // Validate that the selected time slot does not overlap with existing reservations for this terminal
-        if (CreateReservationProcessor.isReservationOverlapping(terminalId, room, reservationDate, startTime, endTime)) {
+        // Validate time range (end must be after start, not exceeding 2 hours)
+        if (end.isBefore(start)) {
+            System.out.println("[DEBUG] End time " + endTimeInput + " is before start time " + startTimeInput + ".");
+            JOptionPane.showMessageDialog(null, "Error: End time cannot be before start time.");
+            return;
+        }
+        long durationMinutes = java.time.Duration.between(start, end).toMinutes();
+        if (durationMinutes > 120) {
+            System.out.println("[DEBUG] Reservation duration (" + durationMinutes + " minutes) exceeds max allowed 120 minutes.");
+            JOptionPane.showMessageDialog(null, "Error: Reservation time cannot exceed 2 hours.");
+            return;
+        }
+
+        // ===== NEW: Validate that user’s times are within the terminal’s operating hours =====
+        Terminal terminalObj = getTerminalById(terminalId);
+        if (terminalObj == null) {
+            JOptionPane.showMessageDialog(null, "Error: Could not find terminal data for " + terminalId);
+            return;
+        }
+
+        try {
+            LocalTime terminalOpen = LocalTime.parse(terminalObj.getStartTime());
+            LocalTime terminalClose = LocalTime.parse(terminalObj.getEndTime());
+            // Check if user times are within operating hours
+            if (start.isBefore(terminalOpen) || end.isAfter(terminalClose)) {
+                JOptionPane.showMessageDialog(null,
+                        "Error: Reservation must be within the terminal’s operating hours (" +
+                                terminalOpen + " - " + terminalClose + ").");
+                return;
+            }
+        } catch (DateTimeParseException e) {
+            // If for some reason the terminal's start/end times aren't valid, log it
+            System.out.println("[DEBUG] Terminal operating hours invalid: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: Terminal's operating hours are invalid in XML. Contact admin.");
+            return;
+        }
+
+        // Validate overlapping with existing reservations
+        if (CreateReservationProcessor.isReservationOverlapping(terminalId, room, reservationDate, startTimeInput, endTimeInput)) {
             System.out.println("[DEBUG] Overlapping reservation found for terminal " + terminalId);
             JOptionPane.showMessageDialog(null, "Error: The selected terminal is already reserved for this time slot.");
             return;
         }
 
-        // Set terminal details in the view (if needed)
-        view.setTerminalId(terminalId);
-        view.setRoom(room);
-
-        // Process the reservation data with debugging info
+        // Process the reservation data
         System.out.println("[DEBUG] Calling CreateReservationProcessor.processReservationData with reservationId=" + reservationId);
         boolean success = CreateReservationProcessor.processReservationData(
                 reservationId,
@@ -178,8 +188,8 @@ public class CreateReservationController {
                 terminalId,
                 room,
                 reservationDate,
-                startTime,
-                endTime,
+                startTimeInput,
+                endTimeInput,
                 status
         );
 
@@ -195,10 +205,20 @@ public class CreateReservationController {
         System.out.println("[DEBUG] Exiting handleSaveChange.");
     }
 
+    // ========================= HELPER METHODS ========================= //
+
     /**
-     * Checks if the user already has an active reservation (e.g., "Pending" or "Approved").
-     * Adjust statuses as needed if your workflow differs.
+     * Returns the Terminal object for a given terminalId by parsing terminal.xml.
      */
+    private Terminal getTerminalById(String terminalId) {
+        List<Terminal> terminals = CreateReservationProcessor.parseXML("src/main/java/server/util/terminal.xml");
+        for (Terminal t : terminals) {
+            if (t.getTerminalId().equalsIgnoreCase(terminalId)) {
+                return t;
+            }
+        }
+        return null; // Not found
+    }
 
     // Retrieve session token
     private String getSessionToken() {
@@ -254,6 +274,7 @@ public class CreateReservationController {
             return "Error";
         }
     }
+
     /**
      * Checks if the given terminal ID actually belongs to the given room number
      * in the terminal.xml file.
