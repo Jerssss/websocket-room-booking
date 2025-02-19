@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61187ed5-a681-424b-889d-132ae44795ac" name="Changes" comment="edited the ReservationApproval but the content is not showing">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/logs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/logs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/reservation_approval.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/reservation_approval.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/terminal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/util/terminal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/client/modify_reservation_window.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/client/modify_reservation_window.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

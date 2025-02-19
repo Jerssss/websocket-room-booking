@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="569.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="client.student.view.ModifyReservationDialogController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="619.0" styleClass="background-pane" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.student.view.ModifyReservationDialogController">
    <top>
       <VBox prefHeight="44.0" prefWidth="870.0" BorderPane.alignment="CENTER">
          <children>
@@ -129,53 +135,67 @@
                   </Label>
                </children>
             </HBox>
-            <VBox alignment="CENTER" prefHeight="230.0" prefWidth="385.0">
+            <VBox alignment="CENTER" prefHeight="266.0" prefWidth="386.0">
                <children>
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="210.0" prefWidth="322.0" style="-fx-background-color: white;">
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="262.0" prefWidth="322.0" style="-fx-background-color: white;">
                      <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="153.0" prefWidth="445.0">
+                        <VBox alignment="CENTER_LEFT" prefHeight="224.0" prefWidth="322.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="243.0">
+                              <HBox prefHeight="34.0" prefWidth="312.0">
                                  <children>
-                                    <Label text="Date: " textFill="#0d3073">
+                                    <StackPane alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="312.0">
+                                       <children>
+                                          <Label text="Date:" textFill="#0d3073">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <DatePicker fx:id="datePicker" prefHeight="29.0" prefWidth="165.0" promptText="Pick a date" showWeekNumbers="true" styleClass="background-pane" stylesheets="@../../css/styles.css" translateX="75.0" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="312.0">
+                                 <children>
+                                    <Label text="Start Time: " textFill="#0d3073">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="newDateTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="84.0" prefWidth="165.0" promptText="Date" stylesheets="@../../css/styles.css">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
+                                    <TextField fx:id="startTimeTextField" maxHeight="-Infinity" prefHeight="89.0" prefWidth="165.0" promptText="HH:MM" stylesheets="@../../css/styles.css">
                                        <styleClass>
                                           <String fx:value="background-pane" />
                                           <String fx:value="text-field-padded" />
+                                          <String fx:value="text-field2" />
                                        </styleClass></TextField>
-                                    <Label fx:id="invalidDatePromptLabel" textFill="#ab1313">
+                                    <Label fx:id="invalidTimePromptLabel" textFill="#ab1313">
                                        <font>
                                           <Font name="System Italic" size="11.0" />
                                        </font>
-                                       <HBox.margin>
-                                          <Insets left="5.0" />
-                                       </HBox.margin>
                                     </Label>
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="312.0">
+                              <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="58.0" prefHeight="29.0" prefWidth="312.0">
                                  <children>
-                                    <Label text="Time: " textFill="#0d3073">
+                                    <Label text="End Time: " textFill="#0d3073">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="newTimeTextField" maxHeight="-Infinity" prefHeight="89.0" prefWidth="165.0" promptText="Time" stylesheets="@../../css/styles.css">
+                                    <TextField fx:id="endTimeTextField" maxHeight="-Infinity" prefHeight="89.0" prefWidth="165.0" promptText="HH:MM" stylesheets="@../../css/styles.css" translateX="7.0">
                                        <styleClass>
                                           <String fx:value="background-pane" />
                                           <String fx:value="text-field-padded" />
-                                       </styleClass></TextField>
-                                    <Label fx:id="invalidTimePromptLabel" textFill="#ab1313">
+                                          <String fx:value="text-field2" />
+                                       </styleClass>
+                                    </TextField>
+                                    <Label fx:id="invalidTimePromptLabel1" textFill="#ab1313">
                                        <font>
                                           <Font name="System Italic" size="11.0" />
                                        </font>
@@ -192,11 +212,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="newRoomTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="165.0" promptText="Room Number" stylesheets="@../../css/styles.css">
-                                       <styleClass>
-                                          <String fx:value="background-pane" />
-                                          <String fx:value="text-field-padded" />
-                                       </styleClass></TextField>
+                                    <ComboBox fx:id="roomNumberComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Room No." translateX="1.0" />
                                     <Label fx:id="invalidRoomPromptLabel" textFill="#ab1313">
                                        <font>
                                           <Font name="System Italic" size="11.0" />
@@ -207,17 +223,18 @@
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="243.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="312.0">
                                  <children>
                                     <Label fx:id="newTerminalTextField" text="Terminal No: " textFill="#0d3073">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="165.0" promptText="Terminal Number" stylesheets="@../../css/styles.css">
+                                    <TextField fx:id="terminalNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="165.0" promptText="e.g. 1" stylesheets="@../../css/styles.css">
                                        <styleClass>
                                           <String fx:value="background-pane" />
                                           <String fx:value="text-field-padded" />
+                                          <String fx:value="text-field2" />
                                        </styleClass></TextField>
                                     <Label fx:id="invalidTerminalPromptLabel" textFill="#ab1313">
                                        <font>
@@ -231,29 +248,11 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="539.0" spacing="15.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="322.0" spacing="15.0">
                            <children>
-                              <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="34.0" prefWidth="121.0">
+                              <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="20.0" prefWidth="122.0">
                                  <children>
-                                    <Button fx:id="deleteReservationButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false"
-                                            onAction="#handleDelete"
-                                            prefHeight="23.0" prefWidth="121.0" style="-fx-border-color: #0d3073; -fx-background-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;"
-                                            text="Delete Reservation" textFill="#0d3073">
-                                       <font>
-                                          <Font name="System Bold" size="11.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </HBox>
-                              <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="34.0" prefWidth="96.0">
-                                 <children>
-                                    <Button fx:id="sendRequestButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false"
-                                            onAction="#handleSendRequest"
-                                            prefHeight="18.0" prefWidth="96.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;"
-                                            text="Send Request" textFill="WHITE">
+                                    <Button fx:id="sendRequestButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSendRequest" prefHeight="18.0" prefWidth="96.0" style="-fx-background-color: #0d3073; -fx-border-color: #ffffff; -fx-border-radius: 30px; -fx-background-radius: 30px;" text="Send Request" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
