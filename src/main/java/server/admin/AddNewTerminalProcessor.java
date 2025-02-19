@@ -132,7 +132,7 @@ public class AddNewTerminalProcessor {
                     String endTime = getTagValue("end_time", element);
                     String terminalStatus = getTagValue("terminal_status", element);
 
-                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus, startTime, endTime);
+                    Terminal terminal = new Terminal(terminalId, terminalRoom, terminalOS, terminalStatus , startTime, endTime);
                     terminals.add(terminal);
                 }
             }
