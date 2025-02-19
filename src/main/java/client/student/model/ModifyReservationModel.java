@@ -43,21 +43,26 @@ public class ModifyReservationModel {
     }
 
     public void saveReservationData(ObservableList<Reservation> userReservations) {
+        List<Reservation> currentReservations = ModifyReservationProcessor.parseXML();
         String currentUserId = SessionManager.getUserId(sessionToken);
 
-        // Get fresh data from XML
-        List<Reservation> currentReservations = ModifyReservationProcessor.parseXML();
+        // 1. Remove only the user's reservations that are in the updated list
+        List<String> updatedIds = userReservations.stream()
+                .map(Reservation::getReservationId)
+                .toList();
 
-        // Remove old user reservations
-        currentReservations.removeIf(res -> res.getUserId().equals(currentUserId));
+        currentReservations.removeIf(res ->
+                res.getUserId().equals(currentUserId) &&
+                        updatedIds.contains(res.getReservationId())
+        );
 
-        // Add updated reservations
+        // 2. Add the updated reservations
         currentReservations.addAll(userReservations);
 
-        // Save merged list
+        // 3. Save the merged list
         ModifyReservationProcessor.saveToXML(currentReservations);
 
-        // Update cache
+        // 4. Update cache
         allReservations = currentReservations;
     }
 }

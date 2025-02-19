@@ -40,4 +40,34 @@
         <end_time>12:30</end_time>
         <status>Pending</status>
     </Reservation>
+    <Reservation>
+        <reservation_id>71</reservation_id>
+        <user_id>1</user_id>
+        <terminal_id>70</terminal_id>
+        <room_id>D524</room_id>
+        <reservation_date>2025-02-19</reservation_date>
+        <start_time>12:00</start_time>
+        <end_time>12:30</end_time>
+        <status>Pending</status>
+    </Reservation>
+    <Reservation>
+        <reservation_id>72</reservation_id>
+        <user_id>1</user_id>
+        <terminal_id>70</terminal_id>
+        <room_id>D524</room_id>
+        <reservation_date>2025-02-20</reservation_date>
+        <start_time>12:00</start_time>
+        <end_time>12:30</end_time>
+        <status>Pending</status>
+    </Reservation>
+    <Reservation>
+        <reservation_id>73</reservation_id>
+        <user_id>1</user_id>
+        <terminal_id>70</terminal_id>
+        <room_id>D524</room_id>
+        <reservation_date>2025-02-21</reservation_date>
+        <start_time>12:00</start_time>
+        <end_time>12:30</end_time>
+        <status>Pending</status>
+    </Reservation>
 </Reservations>

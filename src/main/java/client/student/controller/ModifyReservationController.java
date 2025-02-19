@@ -4,6 +4,7 @@ import client.student.model.ModifyReservationModel;
 import client.student.view.ModifyReservationView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import server.student.ModifyReservationProcessor;
 import server.utility.Reservation;
 
 import javax.swing.*;
@@ -44,11 +45,15 @@ public class ModifyReservationController {
         view.setReservationData(reservationData);
     }
 
-    public List<Reservation> getCurrentReservations() {
-        return new ArrayList<>(reservationData);
+    public List<Reservation> getAllReservations() {
+        return model.getAllReservations();
     }
 
     public void removeReservation(Reservation reservation) {
+        // Directly remove from XML without affecting other users
+        ModifyReservationProcessor.deleteReservation(reservation.getReservationId());
+
+        // Update local list
         reservationData.remove(reservation);
         view.setReservationData(reservationData);
     }
