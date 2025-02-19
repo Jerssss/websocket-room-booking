@@ -18,7 +18,9 @@ import server.utility.Reservation;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class ModifyReservationView {
     private String sessionToken;
@@ -94,7 +96,7 @@ public class ModifyReservationView {
 
     public void setReservationData(ObservableList<Reservation> data) {
         reservationData.setAll(data);
-        modResTableView.setItems(reservationData); // Remove the null reset
+        modResTableView.setItems(reservationData);
         modResTableView.refresh();
         System.out.println("Reservation data updated. New table size: " + reservationData.size());
     }
@@ -103,13 +105,23 @@ public class ModifyReservationView {
         return column -> new TableCell<>() {
             private final Button cancelButton = new Button("Cancel");
 
-            // Initialize the button once per cell
             {
                 cancelButton.setStyle("-fx-background-color: #0d3073; -fx-text-fill: white;");
                 cancelButton.setOnAction(event -> {
                     Reservation reservation = getTableView().getItems().get(getIndex());
                     if (reservation != null) {
-                        // Show confirmation dialog
+                        // Check 24-hour rule
+                        LocalDate resDate = LocalDate.parse(reservation.getDate());
+                        LocalTime resTime = LocalTime.parse(reservation.getStartTime());
+                        LocalDateTime resDateTime = LocalDateTime.of(resDate, resTime);
+                        LocalDateTime now = LocalDateTime.now();
+
+                        if (now.isAfter(resDateTime.minusHours(24))) {
+                            JOptionPane.showMessageDialog(null, "Cannot cancel reservation within 24 hours of start time.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
+                            return; // Exit without showing the confirmation dialog
+                        }
+
+                        // Proceed with confirmation dialog
                         Alert alert = new Alert(
                                 Alert.AlertType.CONFIRMATION,
                                 "Are you sure you want to cancel this reservation?",
@@ -121,7 +133,6 @@ public class ModifyReservationView {
 
                         alert.showAndWait().ifPresent(response -> {
                             if (response == ButtonType.YES) {
-                                // Proceed with cancellation
                                 controller.removeReservation(reservation);
                                 JOptionPane.showMessageDialog(null, "Reservation cancelled successfully!");
                             }
@@ -175,11 +186,12 @@ public class ModifyReservationView {
 
             ModifyReservationDialogController dialogController = loader.getController();
             dialogController.setReservationDetails(reservation);
-            dialogController.setExistingReservations(controller.getCurrentReservations());
+
+            // Get reservations through the controller
+            dialogController.setExistingReservations(controller.getAllReservations());
 
             Stage dialogStage = new Stage();
-            dialogController.setDialogStage(dialogStage); // Must be called before showing
-
+            dialogController.setDialogStage(dialogStage);
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setScene(new Scene(confirmationPane));
             dialogStage.showAndWait();
@@ -191,8 +203,6 @@ public class ModifyReservationView {
                 controller.updateReservation(reservation);
                 JOptionPane.showMessageDialog(null, "Reservation status updated to Pending!");
             }
-            // No action if closed without changes
-
         } catch (IOException e) {
             e.printStackTrace();
         }

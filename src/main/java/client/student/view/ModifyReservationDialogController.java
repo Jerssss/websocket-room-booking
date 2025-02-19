@@ -1,20 +1,16 @@
 package client.student.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import server.utility.Reservation;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -39,20 +35,31 @@ public class ModifyReservationDialogController {
 
     @FXML
     public void initialize() {
+        setupDateRestrictions();
+        setupTerminalValidation();
         roomNumberComboBox.getItems().addAll("D524", "D526", "D426");
-        setupInputValidations();
     }
 
-    private void setupInputValidations() {
-        // Terminal number - numbers only
-        Pattern terminalPattern = Pattern.compile("\\d*");
-        UnaryOperator<TextFormatter.Change> terminalFilter = change -> {
-            if (terminalPattern.matcher(change.getControlNewText()).matches()) {
+    private void setupDateRestrictions() {
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+                setDisable(empty || date.isBefore(today) || date.isAfter(today.plusMonths(1)));
+            }
+        });
+    }
+
+    private void setupTerminalValidation() {
+        Pattern numberPattern = Pattern.compile("\\d*");
+        TextFormatter<String> formatter = new TextFormatter<>(change -> {
+            if (numberPattern.matcher(change.getControlNewText()).matches()) {
                 return change;
             }
             return null;
-        };
-        terminalNumberTextField.setTextFormatter(new TextFormatter<>(terminalFilter));
+        });
+        terminalNumberTextField.setTextFormatter(formatter);
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -87,17 +94,27 @@ public class ModifyReservationDialogController {
     @FXML
     private void handleSendRequest() {
         List<String> errors = new ArrayList<>();
+        LocalDate today = LocalDate.now();
         boolean clearTimeFields = false;
         boolean clearDateField = false;
 
-        // Validate date
+        // Date validations
         LocalDate selectedDate = datePicker.getValue();
         if (selectedDate == null) {
             errors.add("Invalid date format (use yyyy-mm-dd)");
             clearDateField = true;
+        } else {
+            if (selectedDate.isBefore(today)) {
+                errors.add("Cannot reserve in the past");
+                clearDateField = true;
+            }
+            if (selectedDate.isAfter(today.plusMonths(1))) {
+                errors.add("Maximum reservation window is 1 month");
+                clearDateField = true;
+            }
         }
 
-        // Validate times
+        // Time validations
         LocalTime startTime = parseTime(startTimeTextField.getText(), errors, "start time");
         LocalTime endTime = parseTime(endTimeTextField.getText(), errors, "end time");
 
@@ -113,30 +130,42 @@ public class ModifyReservationDialogController {
             }
         }
 
-        // Validate terminal number
+        // Terminal number validation
         if (!terminalNumberTextField.getText().matches("\\d+")) {
             errors.add("Terminal number must be a number");
             terminalNumberTextField.clear();
         }
 
-        // Check for overlaps
+        // Overlap validation
         if (selectedDate != null && startTime != null && endTime != null) {
-            if (hasTimeOverlap(selectedDate, startTime, endTime)) {
-                errors.add("This reservation overlaps with an existing reservation");
+            if (hasTerminalOverlap(selectedDate, startTime, endTime)) {
+                errors.add("This terminal is already reserved during selected time");
                 clearTimeFields = true;
             }
         }
 
+        // Check 24-hour rule for modification
+        LocalDate originalDate = LocalDate.parse(originalReservation.getDate());
+        LocalTime originalStartTime = LocalTime.parse(originalReservation.getStartTime());
+        LocalDateTime originalDateTime = LocalDateTime.of(originalDate, originalStartTime);
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.isAfter(originalDateTime.minusHours(24))) {
+            errors.add("Cannot modify reservation within 24 hours of the original start time");
+        }
+
+        // Handle errors
         if (!errors.isEmpty()) {
             if (clearDateField) datePicker.setValue(null);
             if (clearTimeFields) {
                 startTimeTextField.clear();
                 endTimeTextField.clear();
             }
-            showErrors(errors);
+            showErrorDialog(errors);
             return;
         }
 
+        // Proceed if valid
         if (hasChanges()) {
             updateReservation();
             changesMade = true;
@@ -153,10 +182,11 @@ public class ModifyReservationDialogController {
         }
     }
 
-    private boolean hasTimeOverlap(LocalDate date, LocalTime newStart, LocalTime newEnd) {
+    private boolean hasTerminalOverlap(LocalDate date, LocalTime newStart, LocalTime newEnd) {
         return existingReservations.stream()
                 .filter(res -> res.getRoomNumber().equals(roomNumberComboBox.getValue()))
-                .filter(res -> res.getReservationId().equals(modifiedReservation.getReservationId()))
+                .filter(res -> res.getTerminalNumber().equals(terminalNumberTextField.getText()))
+                .filter(res -> !res.getReservationId().equals(modifiedReservation.getReservationId()))
                 .filter(res -> LocalDate.parse(res.getDate()).equals(date))
                 .anyMatch(res -> {
                     LocalTime existingStart = LocalTime.parse(res.getStartTime());
@@ -165,7 +195,7 @@ public class ModifyReservationDialogController {
                 });
     }
 
-    private void showErrors(List<String> errors) {
+    private void showErrorDialog(List<String> errors) {
         StringBuilder message = new StringBuilder("Validation errors:\n");
         for (String error : errors) {
             message.append("• ").append(error).append("\n");
@@ -191,7 +221,11 @@ public class ModifyReservationDialogController {
         modifiedReservation.setEndTime(endTimeTextField.getText());
         modifiedReservation.setRoomNumber(roomNumberComboBox.getValue());
         modifiedReservation.setTerminalNumber(terminalNumberTextField.getText());
-        modifiedReservation.setStatus("Pending");
+
+        // Only set to Pending if it's a new modification
+        if (!"Pending".equals(modifiedReservation.getStatus())) {
+            modifiedReservation.setStatus("Pending");
+        }
     }
 
     public boolean isDeleteConfirmed() {

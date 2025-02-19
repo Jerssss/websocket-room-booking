@@ -68,10 +68,6 @@ public class Reservation {
         return reservationId;
     }
 
-    public StringProperty userIdProperty() {
-        return userId;
-    }
-
     public StringProperty terminalNumberProperty() {
         return terminalNumber;
     }
@@ -90,14 +86,6 @@ public class Reservation {
 
     public StringProperty endTimeProperty() {
         return endTime;
-    }
-
-    public StringProperty statusProperty() {
-        return status;
-    }
-
-    public StringProperty editProperty() {
-        return edit;
     }
 
     // Getters and Setters
