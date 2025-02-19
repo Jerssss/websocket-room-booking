@@ -30,4 +30,14 @@
         <end_time>12:30</end_time>
         <status>Pending</status>
     </Reservation>
+    <Reservation>
+        <reservation_id>70</reservation_id>
+        <user_id>3</user_id>
+        <terminal_id>10</terminal_id>
+        <room_id>D524</room_id>
+        <reservation_date>2025-02-18</reservation_date>
+        <start_time>12:00</start_time>
+        <end_time>12:30</end_time>
+        <status>Pending</status>
+    </Reservation>
 </Reservations>

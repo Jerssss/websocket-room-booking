@@ -7,12 +7,11 @@ import javafx.stage.Stage;
 import server.utility.Reservation;
 
 public class ModifyReservationDialogController {
+    @FXML private Label startTimeLabel;
+    @FXML private Label endTimeLabel;
     @FXML private Label reservedDateLabel;
-    @FXML private Label reservedTimeLabel;
     @FXML private Label reservationRoomNoLabel;
     @FXML private Label reservationTerminalNoLabel;
-    @FXML private Button deleteReservationButton;
-    @FXML private Button sendRequestButton;
 
     private Stage dialogStage;
     private boolean deleteConfirmed = false;
@@ -22,7 +21,8 @@ public class ModifyReservationDialogController {
     public void setReservationDetails(Reservation reservation) {
         this.reservation = reservation; // Store the reference
         reservedDateLabel.setText(reservation.getDate());
-        reservedTimeLabel.setText(reservation.getStartTime());
+        startTimeLabel.setText(reservation.getStartTime());
+        endTimeLabel.setText(reservation.getEndTime());
         reservationRoomNoLabel.setText(reservation.getRoomNumber());
         reservationTerminalNoLabel.setText(reservation.getTerminalNumber());
     }

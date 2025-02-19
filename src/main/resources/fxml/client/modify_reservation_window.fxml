@@ -69,12 +69,26 @@
                   </HBox>
                   <HBox prefHeight="21.0" prefWidth="243.0">
                      <children>
-                        <Label text="Time reserved: " textFill="#0d3073">
+                        <Label text="Start Time: " textFill="#0d3073">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="reservedTimeLabel" text="00:00" textFill="#0d3073">
+                        <Label fx:id="startTimeLabel" text="00:00" textFill="#0d3073">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="21.0" prefWidth="243.0">
+                     <children>
+                        <Label text="End Time: " textFill="#0d3073">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endTimeLabel" text="00:00" textFill="#0d3073">
                            <font>
                               <Font size="14.0" />
                            </font>

@@ -15,6 +15,7 @@ import server.utility.Reservation;
 public class ModifyReservationModel {
     private ServerConnection serverConnection;
     private String sessionToken;
+    private List<Reservation> allReservations;  // Track ALL reservations
 
     public ModifyReservationModel(String sessionToken) {
         this.sessionToken = sessionToken;
@@ -26,9 +27,11 @@ public class ModifyReservationModel {
     }
 
     public ObservableList<Reservation> loadReservationData() {
-        List<Reservation> allReservations = ModifyReservationProcessor.parseXML();
+        // Load ALL reservations once and keep reference
+        allReservations = ModifyReservationProcessor.parseXML();
         String currentUserId = SessionManager.getUserId(sessionToken);
 
+        // Filter only current user's reservations
         List<Reservation> userReservations = allReservations.stream()
                 .filter(res -> res.getUserId().equals(currentUserId))
                 .collect(Collectors.toList());
@@ -37,7 +40,6 @@ public class ModifyReservationModel {
     }
 
     public ObservableList<Reservation> searchReservations(String searchText) {
-        List<Reservation> allReservations = ModifyReservationProcessor.parseXML();
         String currentUserId = SessionManager.getUserId(sessionToken);
 
         return allReservations.stream()
@@ -46,10 +48,17 @@ public class ModifyReservationModel {
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
-    public void saveReservationData(ObservableList<Reservation> reservationData) {
-        if (serverConnection != null) {
-            ModifyReservationProcessor.saveToXML(reservationData);
-        }
+    public void saveReservationData(ObservableList<Reservation> userReservations) {
+        String currentUserId = SessionManager.getUserId(sessionToken);
+
+        // Remove all existing reservations for current user
+        allReservations.removeIf(res -> res.getUserId().equals(currentUserId));
+
+        // Add updated user reservations
+        allReservations.addAll(userReservations);
+
+        // Save the merged list (all users)
+        ModifyReservationProcessor.saveToXML(allReservations);
     }
 
     private boolean matchesSearch(Reservation res, String searchText) {

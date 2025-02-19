@@ -308,4 +308,60 @@
         <Date>2025-02-19</Date>
         <Time>01:51:12</Time>
     </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:05:38</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:19:33</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:28:45</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:41:34</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:43:19</Time>
+    </Log>
+    <Log>
+        <UserID>Test Student</UserID>
+        <UserType>Student</UserType>
+        <Action>Logout</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:43:45</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:43:56</Time>
+    </Log>
+    <Log>
+        <UserID>1</UserID>
+        <UserType>Student</UserType>
+        <Action>Login</Action>
+        <Date>2025-02-19</Date>
+        <Time>18:47:53</Time>
+    </Log>
 </Logs>
